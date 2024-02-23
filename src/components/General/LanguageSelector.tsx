@@ -11,13 +11,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const LanguageDropdown = () => {
+const LanguageSelector = () => {
   const [language, setLanguage] = useLocalStorage("CabgenLanguage", "pt-BR");
   const languages = [
     {
       flag: (
         <Image
-          className="w-4 h-4"
+          className="w-5 h-4"
           src="/br.png"
           alt="Brazil flag"
           width={5000}
@@ -30,7 +30,7 @@ const LanguageDropdown = () => {
     {
       flag: (
         <Image
-          className="w-4 h-4"
+          className="w-5 h-4"
           src="/us.png"
           alt="USA flag"
           width={5000}
@@ -43,7 +43,7 @@ const LanguageDropdown = () => {
     {
       flag: (
         <Image
-          className="w-4 h-4"
+          className="w-5 h-4"
           src="/es.png"
           alt="Spain flag"
           width={5000}
@@ -56,7 +56,7 @@ const LanguageDropdown = () => {
   ];
   return (
     <Select onValueChange={(e) => setLanguage(e)} value={language}>
-      <SelectTrigger className="w-[135px]">
+      <SelectTrigger className="w-[138px] text-black">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -73,4 +73,4 @@ const LanguageDropdown = () => {
   );
 };
 
-export default LanguageDropdown;
+export default LanguageSelector;
