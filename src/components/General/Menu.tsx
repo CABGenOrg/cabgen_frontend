@@ -30,7 +30,7 @@ const Menu = () => {
     { name: "Home", link: "/", icon: <HomeIcon /> },
     { name: "Network", link: "/network", icon: <NetworkIcon /> },
     { name: "Dashboard", link: "/dashboard", icon: <DashboardIcon /> },
-    // { name: "About", link: "/about", icon: <AboutIcon /> },
+    { name: "About", link: "/about", icon: <AboutIcon /> },
     { name: "Contact", link: "/contact", icon: <ContactIcon /> },
     { name: "Login", link: "/login", icon: <LoginIcon /> },
   ];

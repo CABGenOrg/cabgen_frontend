@@ -18,7 +18,7 @@ const LanguageSelector = () => {
       flag: (
         <Image
           className="w-5 h-4"
-          src="/br.png"
+          src="/Menu/br.png"
           alt="Brazil flag"
           width={5000}
           height={2500}
@@ -31,7 +31,7 @@ const LanguageSelector = () => {
       flag: (
         <Image
           className="w-5 h-4"
-          src="/us.png"
+          src="/Menu/us.png"
           alt="USA flag"
           width={5000}
           height={2500}
@@ -44,7 +44,7 @@ const LanguageSelector = () => {
       flag: (
         <Image
           className="w-5 h-4"
-          src="/es.png"
+          src="/Menu/es.png"
           alt="Spain flag"
           width={5000}
           height={2500}
@@ -56,7 +56,7 @@ const LanguageSelector = () => {
   ];
   return (
     <Select onValueChange={(e) => setLanguage(e)} value={language}>
-      <SelectTrigger className="w-[138px] text-black">
+      <SelectTrigger className="w-[138px] text-black focus-visible:ring-transparent">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
