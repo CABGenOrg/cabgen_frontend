@@ -31,11 +31,11 @@ const BoxInfo = () => {
   ];
 
   return (
-    <div className="grid lg:grid-cols-2 sm:grid-cols-1 grid-cols-2 lg:gap-3 gap-2">
+    <div className="grid lg:grid-cols-2 sm:grid-cols-1 grid-cols-2 content-around lg:gap-3 gap-2">
       {data.map(({ image, count, description }, idx) => (
         <div
           key={idx}
-          className="flex flex-col justify-center items-center bg-slate-400 rounded-xl sm:h-48 sm:w-48 h-42 w-42"
+          className="flex flex-col justify-center items-center bg-slate-400 rounded-xl sm:h-48 sm:w-52 h-42"
         >
           <Image
             src={image}
@@ -45,7 +45,7 @@ const BoxInfo = () => {
             className="sm:h-1/2 w-auto h-2/5"
           />
 
-          <div className="text-center text-md mt-3 px-1">
+          <div className="text-center md:text-base text-lg mt-3 px-1">
             <span>{count} </span>
             <span>{description}</span>
           </div>

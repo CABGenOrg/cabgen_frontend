@@ -80,7 +80,7 @@ const Menu = () => {
         <div className="flex w-full items-center justify-between">
           <Link href="/">
             <Image
-              src="/fiocruz_logo.png"
+              src="/Menu/fiocruz_logo.png"
               alt="FioCruz logo"
               width={5000}
               height={2500}
