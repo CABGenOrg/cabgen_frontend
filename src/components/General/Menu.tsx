@@ -36,7 +36,7 @@ const Menu = () => {
   ];
 
   return (
-    <nav className="sticky w-full h-24 bg-cabgen-400 text-white p-2">
+    <nav className="sticky top-0 z-50 shadow-md w-full h-24 bg-cabgen-400 text-white p-2">
       <div className="h-full w-full flex flex-row justify-between items-center px-4 2xl:px-16">
         {/* Logo */}
         <Link href="/">
