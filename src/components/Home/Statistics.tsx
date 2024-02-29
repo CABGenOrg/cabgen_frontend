@@ -4,7 +4,6 @@ import BoxInfo from "./BoxInfo";
 import Link from "next/link";
 import {
   section_btn,
-  section_image,
   section_spacing,
   section_subtitle,
   section_text,
@@ -37,7 +36,7 @@ const Statistics = () => {
             <button className={section_btn}>Começar</button>
           </Link>
         </div>
-        <div className="flex justify-center items-center mt-4">
+        <div className="flex justify-center items-center">
           <BoxInfo />
         </div>
       </div>

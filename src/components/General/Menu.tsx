@@ -41,7 +41,7 @@ const Menu = () => {
         {/* Logo */}
         <Link href="/">
           <Image
-            src="/fiocruz_logo.png"
+            src="/Menu/fiocruz_logo.png"
             alt="FioCruz logo"
             width={5000}
             height={2500}
