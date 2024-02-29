@@ -1,0 +1,18 @@
+import React from "react";
+import Section from "../General/Section";
+
+const Banner = () => {
+  return (
+    <Section id="home-banner">
+      <div className="bg-[url('/Home/source.png')] bg-center bg-cover w-screen xl:h-96 md:h-80 h-52">
+        <div className="h-full flex items-center">
+          <h1 className="font-bold lg:text-6xl md:text-5xl sm:text-3xl text-2xl xl:mx-48 md:mx-24 sm:mx-9 mx-7 bg-white/50 p-2 rounded-lg">
+            CABGen: Clinical Applied <br /> Bacterial Genomics
+          </h1>
+        </div>
+      </div>
+    </Section>
+  );
+};
+
+export default Banner;

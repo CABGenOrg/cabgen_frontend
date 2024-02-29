@@ -10,7 +10,7 @@ const Section = ({ id, gray, children }: SectionParams) => {
   return (
     <section
       id={id}
-      className={`container[max-width: 100%] w-screen h-screen flex items-center justify-center ${
+      className={`container[max-width: 100%] w-screen flex flex-col items-center justify-center ${
         gray ? "bg-gray-100" : "bg-white"
       }`}
     >
