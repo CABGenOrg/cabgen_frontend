@@ -12,7 +12,7 @@ import {
 
 const GenomicSurveillance = () => {
   return (
-    <Section id="cagben-description" gray>
+    <Section id="genomic-surveillance" gray>
       <div
         className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}
       >
