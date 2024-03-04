@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import NetworkDescription from "@/components/Network/NetworkDescription";
 
 const Network = () => {
   return (
-    <div>Network</div>
-  )
-}
+    <>
+      <NetworkDescription />
+    </>
+  );
+};
 
-export default Network
+export default Network;

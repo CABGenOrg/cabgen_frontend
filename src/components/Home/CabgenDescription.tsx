@@ -3,7 +3,7 @@ import Section from "../General/Section";
 import Link from "next/link";
 import Image from "next/image";
 import {
-    section_btn,
+  section_btn,
   section_image,
   section_spacing,
   section_subtitle,
@@ -26,9 +26,12 @@ const CabgenDescription = () => {
         </div>
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-start">
-            <h2 className={section_title}>CABGen:</h2>
-            <h2 className={section_subtitle}>
-              Explore, Descubra, Compreenda!
+            <h2>
+              <span className={section_title}>CABGen:</span>
+              <br />
+              <span className={section_subtitle}>
+                Explore, Descubra, Compreenda!
+              </span>
             </h2>
             <p className={section_text}>
               Plataforma digital que integra ferramentas para análise de dados
@@ -42,9 +45,7 @@ const CabgenDescription = () => {
             passHref={true}
             target="_blank"
           >
-            <button className={section_btn}>
-              Artigo
-            </button>
+            <button className={section_btn}>Artigo</button>
           </Link>
         </div>
       </div>

@@ -16,9 +16,12 @@ const Statistics = () => {
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-start">
-            <h2 className={section_subtitle}>CABGen em números:</h2>
-            <h2 className={`uppercase ${section_title}`}>
-              Estatística e Impacto
+            <h2>
+              <span className={section_subtitle}>CABGen em números:</span>
+              <br />
+              <span className={`uppercase ${section_title}`}>
+                Estatística e Impacto
+              </span>
             </h2>
             <p className={section_text}>
               Desde o seu lançamento, o CABGen tem atraído interesse crescente,

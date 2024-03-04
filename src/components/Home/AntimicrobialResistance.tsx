@@ -17,9 +17,10 @@ const AntimicrobialResistance = () => {
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-start">
-            <h2 className={`uppercase ${section_subtitle}`}>O que é</h2>
-            <h2 className={`uppercase ${section_title}`}>
-              Resistência Antimicrobiana
+            <h2>
+              <span className={`uppercase ${section_subtitle}`}>O que é</span>
+              <br />
+              <span className={`uppercase ${section_title}`}>Resistência Antimicrobiana</span>
             </h2>
             <p className={section_text}>
               A resistência antimicrobiana (RAM) representa uma ameaça global à
