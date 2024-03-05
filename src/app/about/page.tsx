@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import CabgenMission from "@/components/About/CabgenMission";
 
 const About = () => {
   return (
-    <div>About</div>
-  )
-}
+    <>
+      <CabgenMission />
+    </>
+  );
+};
 
-export default About
+export default About;
