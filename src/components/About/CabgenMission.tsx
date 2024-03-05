@@ -35,13 +35,15 @@ const CabgenMission = () => {
               estimativa de cobertura, identificação de espécies e detecção de
               mutações. Essas ferramentas simplificam e aprimoram a análise e
               interpretação de dados biológicos, fornecendo insights valiosos
-              para aplicações clínicas. Ademais, o sistema está em constante
-              evolução para atender às demandas crescentes, com planos para a
-              instalação de um novo servidor que permitirá até 60 análises em
-              paralelo, além de um armazenamento robusto capaz de suportar até
-              120 mil amostras. A segurança do CABGen é garantida tanto pelo
-              firewall da rede do Programa de Computação Científica (PROCC)
-              quanto pelas rigorosas políticas de segurança da FioCruz.
+              para aplicações clínicas.
+              <br />
+              Ademais, o sistema está em constante evolução para atender às
+              demandas crescentes, com planos para a instalação de um novo
+              servidor que permitirá até 60 análises em paralelo, além de um
+              armazenamento robusto capaz de suportar até 120 mil amostras. A
+              segurança do CABGen é garantida tanto pelo firewall da rede do
+              Programa de Computação Científica (PROCC) quanto pelas rigorosas
+              políticas de segurança da FioCruz.
             </p>
           </div>
           <Link
