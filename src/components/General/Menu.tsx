@@ -74,7 +74,7 @@ const Menu = () => {
         className={
           menuOpen
             ? "fixed left-0 top-0 h-auto md:hidden w-screen bg-cabgen-200 px-10 py-5 ease-in duration-200"
-            : "fixed left-0 top-[-100%] w-screenpx-10 py-5 ease-out duration-200"
+            : "fixed left-0 top-[-105%] w-screenpx-10 py-5 ease-out duration-200"
         }
       >
         <div className="flex w-full items-center justify-between">

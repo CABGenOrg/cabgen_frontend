@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Section from "@/components/General/Section";
+import LoginForm from "@/components/Login/LoginForm";
 
 const Login = () => {
   return (
-    <div>Login</div>
-  )
-}
+    <Section id="login">
+      <LoginForm />
+    </Section>
+  );
+};
 
-export default Login
+export default Login;
