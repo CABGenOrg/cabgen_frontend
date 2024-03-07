@@ -30,7 +30,7 @@ const Footer = () => {
             </Link>
           ))}
         </div>
-        <div className="flex flex-col items-start font-light sm:text-base text-sm">
+        <div className="flex flex-col items-start font-light text-sm">
           {address.map(({ info }, idx) => (
             <div key={idx}>{info}</div>
           ))}
