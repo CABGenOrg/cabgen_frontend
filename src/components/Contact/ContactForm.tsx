@@ -39,7 +39,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="isolate bg-slate-200 rounded-xl m-5 px-6 py-4 sm:py-6 lg:px-8 lg:w-[50%] md:w-[75%]">
+    <div className="bg-slate-200 rounded-xl m-5 px-6 py-4 sm:py-6 lg:px-8 lg:w-[50%] md:w-[75%]">
       <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
         Contato
       </h2>

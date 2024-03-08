@@ -52,12 +52,12 @@ const LoginForm = () => {
         ></Image>
       </div>
       <div
-        className={`isolate bg-slate-200 rounded-e-xl py-6 sm:px-8 px-4 ${base_height} ${form_width}`}
+        className={`flex flex-col justify-center items-center bg-slate-200 rounded-e-xl py-6 sm:px-8 px-4 ${base_height} ${form_width}`}
       >
         <h2 className="font-bold tracking-tight text-gray-900 text-4xl text-center">
           Login
         </h2>
-        <form className="mx-auto mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mx-2 mt-10 w-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 gap-x-6 gap-y-4">
             <div>
               <label htmlFor="email" className={label_class}>
