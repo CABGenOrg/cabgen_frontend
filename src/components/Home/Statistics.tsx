@@ -26,7 +26,7 @@ const Statistics = () => {
             <p className={section_text}>
               Desde o seu lançamento, o CABGen tem atraído interesse crescente,
               com um número relevante de genomas submetidos, abordando uma
-              variedade de espécies bacterianas. Diveros genes de resistência
+              variedade de espécies bacterianas. Diversos genes de resistência
               adquirida já foram identificados. O CABGen já recebeu
               contribuições de diferentes países, refletindo sua natureza
               colaborativa e global. Essas estatísticas preliminares destacam o

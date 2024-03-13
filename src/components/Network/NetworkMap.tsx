@@ -5,7 +5,7 @@ import { section_spacing, section_subtitle } from "@/styles/tailwind_classes";
 
 const NetworkMap = () => {
   return (
-    <Section id="network-map" gray>
+    <Section id="network-map">
       <div
         className={`flex flex-col justify-center items-center ${section_spacing}`}
       >

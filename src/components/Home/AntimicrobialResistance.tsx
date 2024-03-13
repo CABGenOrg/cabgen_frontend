@@ -20,20 +20,22 @@ const AntimicrobialResistance = () => {
             <h2>
               <span className={`uppercase ${section_subtitle}`}>O que é</span>
               <br />
-              <span className={`uppercase ${section_title}`}>Resistência Antimicrobiana</span>
+              <span className={`uppercase ${section_title}`}>
+                Resistência Antimicrobiana
+              </span>
             </h2>
             <p className={section_text}>
               A resistência antimicrobiana (RAM) representa uma ameaça global à
               eficácia dos tratamentos para infecções causadas por
               microrganismos como vírus, bactérias, fungos e parasitas. Essa
               resistência surge quando esses microrganismos sofrem mutações ou
-              recebem novos genes que os tornam resistentes à esses
-              medicamentos. Patógenos bacterianos prevalentes em hospitais
-              apresentam taxas alarmantes de resistência, prolongando as
-              infecções e aumentando o risco de propagação. Esse cenário exige
-              ação conjunta de todos os setores da sociedade e do governo, pois
-              a RAM não reconhece fronteiras e afeta não apenas a saúde humana,
-              mas também a saúde animal, a produtividade agrícola e a segurança
+              adquirem novos genes que os tornam resistentes ào tratamento.
+              Patógenos bacterianos prevalentes em hospitais apresentam taxas
+              preocupantes de resistência, prolongando as infecções, aumentando
+              o risco de propagação e os custos hospitalares. Esse cenário exige
+              ação conjunta de todos os setores da sociedade e do governo. A RAM
+              não reconhece fronteiras e afeta não apenas a saúde humana, mas
+              também a saúde animal, a produtividade agrícola e a segurança
               alimentar.
             </p>
           </div>

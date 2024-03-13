@@ -10,7 +10,7 @@ const Banner = () => {
           <h1
             className={`font-bold lg:text-6xl md:text-5xl sm:text-3xl text-2xl ${section_spacing} bg-white/50 p-2 rounded-lg`}
           >
-            CABGen: Clinical Applied <br /> Bacterial Genomics
+            CABGen: Genômica Bacteriana  <br /> Aplicada à Clínica
           </h1>
         </div>
       </div>

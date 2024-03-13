@@ -8,7 +8,7 @@ const Financiers = () => {
     {
       name: "Ministério da Saúde logo",
       logo: "/Home/min_saude.png",
-      size: "sm:h-1/2 sm:w-1/2 h-3/4 w-3/4",
+      size: "sm:h-1/3 sm:w-1/3 h-2/4 w-2/4",
     },
     {
       name: "CNPQ logo",
@@ -16,9 +16,9 @@ const Financiers = () => {
       size: "sm:h-1/4 sm:w-1/4 h-1/2 w-1/2",
     },
     {
-      name: "CDC logo",
-      logo: "/Home/cdc.png",
-      size: "sm:h-1/5 sm:w-1/5 h-1/3 w-1/3",
+      name: "Fiocruz logo",
+      logo: "/Home/fiocruz.png",
+      size: "sm:h-auto sm:w-1/12 h-auto w-2/12",
     },
   ];
 
