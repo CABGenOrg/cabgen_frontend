@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import OptimizedImage from "../General/OptimizedImage";
 import Section from "../General/Section";
 import { section_spacing, section_subtitle } from "@/styles/tailwind_classes";
 
@@ -10,11 +10,9 @@ const NetworkMap = () => {
         className={`flex flex-col justify-center items-center ${section_spacing}`}
       >
         <h2 className={`${section_subtitle} my-2`}>Integrantes Atuais</h2>
-        <Image
+        <OptimizedImage
           src="/Network/mapa_cabgen.png"
           alt="LACENs map"
-          width={5000}
-          height={5000}
           className="w-fit h-auto rounded-xl"
         />
       </div>

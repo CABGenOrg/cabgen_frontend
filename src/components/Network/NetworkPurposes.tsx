@@ -2,7 +2,7 @@ import React from "react";
 import Section from "../General/Section";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import Link from "next/link";
-import { section_btn, section_spacing } from "@/styles/tailwind_classes";
+import { section_spacing } from "@/styles/tailwind_classes";
 
 interface CardInfo {
   text: string;

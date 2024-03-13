@@ -1,7 +1,7 @@
 import React from "react";
 import Section from "../General/Section";
 import { section_spacing, section_title } from "@/styles/tailwind_classes";
-import Image from "next/image";
+import OptimizedImage from "../General/OptimizedImage";
 
 const Financiers = () => {
   const logos = [
@@ -30,12 +30,10 @@ const Financiers = () => {
         <h2 className={section_title}>Financiadores</h2>
         <div className="flex sm:flex-row flex-col justify-center items-center sm:gap-5 gap-3 sm:m-3 m-1.5">
           {logos.map(({ name, logo, size }, idx) => (
-            <Image
+            <OptimizedImage
               key={idx}
               src={logo}
               alt={name}
-              width={5000}
-              height={5000}
               className={size}
             />
           ))}

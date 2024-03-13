@@ -1,7 +1,7 @@
 import React from "react";
 import Section from "../General/Section";
 import Link from "next/link";
-import Image from "next/image";
+import OptimizedImage from "../General/OptimizedImage";
 import {
   section_btn,
   section_spacing,
@@ -57,11 +57,9 @@ const AntimicrobialResistance = () => {
           </div>
         </div>
         <div className="flex justify-center items-center">
-          <Image
+          <OptimizedImage
             src={"/Home/TeriExplicando2.png"}
             alt="bad bacteria"
-            width={5000}
-            height={5000}
             className={section_image}
           />
         </div>

@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { section_btn } from "@/styles/tailwind_classes";
 import Link from "next/link";
-import Image from "next/image";
+import OptimizedImage from "../General/OptimizedImage";
 
 const RegisterFormSchema = z
   .object({
@@ -74,13 +74,11 @@ const RegisterForm = () => {
   return (
     <div className="flex flex-row justify-center items-center my-3 md:mx-auto mx-2 lg:w-[60%] md:w-[70%]">
       <div className={`${base_height} ${image_width}`}>
-        <Image
+        <OptimizedImage
           src="/Contact/dna-helix-attacked-by-bacteria.jpg"
           alt="bacteria attacking DNA"
-          width={500}
-          height={500}
           className="object-cover w-full h-full rounded-s-xl"
-        ></Image>
+        />
       </div>
       <div
         className={`flex flex-col justify-center items-center bg-slate-200 rounded-e-xl py-3 sm:px-8 px-4 ${base_height} ${form_width}`}

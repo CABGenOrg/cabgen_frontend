@@ -8,7 +8,7 @@ import {
   section_text,
   section_title,
 } from "@/styles/tailwind_classes";
-import Image from "next/image";
+import OptimizedImage from "../General/OptimizedImage";
 import Link from "next/link";
 
 const NetworkDescription = () => {
@@ -45,22 +45,18 @@ const NetworkDescription = () => {
           </div>
         </div>
         <div className="flex justify-center items-center">
-          <Image
+          <OptimizedImage
             src={"/Network/studying_dna_freepik.jpg"}
             alt="scientist looking DNA"
-            width={5000}
-            height={5000}
             className={`${section_image} rounded-lg`}
           />
         </div>
       </div>
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex justify-center items-center">
-          <Image
+          <OptimizedImage
             src={"/Network/scientist_magnifier_freepik.jpg"}
             alt="scientist looking and thinking"
-            width={5000}
-            height={5000}
             className={`${section_image} rounded-lg`}
           />
         </div>
@@ -106,11 +102,9 @@ const NetworkDescription = () => {
           </div>
         </div>
         <div className="flex justify-center items-center">
-          <Image
+          <OptimizedImage
             src={"/Network/scientists_freepik.jpg"}
             alt="scientists studying"
-            width={5000}
-            height={5000}
             className={`${section_image} rounded-lg`}
           />
         </div>

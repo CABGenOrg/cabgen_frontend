@@ -1,7 +1,7 @@
 import React from "react";
 import Section from "../General/Section";
 import Link from "next/link";
-import Image from "next/image";
+import OptimizedImage from "../General/OptimizedImage";
 import {
   section_btn,
   section_image,
@@ -16,11 +16,9 @@ const CabgenDescription = () => {
     <Section id="cagben-description" gray>
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex justify-center items-center">
-          <Image
+          <OptimizedImage
             src={"/Home/bacteria_pool.png"}
             alt="bacteria pool"
-            width={5000}
-            height={5000}
             className={section_image}
           />
         </div>

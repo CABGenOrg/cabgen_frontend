@@ -7,7 +7,7 @@ import {
   section_text,
   section_title,
 } from "@/styles/tailwind_classes";
-import Image from "next/image";
+import OptimizedImage from "../General/OptimizedImage";
 import Link from "next/link";
 
 const CabgenMission = () => {
@@ -57,11 +57,9 @@ const CabgenMission = () => {
           </Link>
         </div>
         <div className="flex justify-center items-center">
-          <Image
+          <OptimizedImage
             src={"/About/science_pixabay.png"}
             alt="scientist on top of books next to a DNA molecule and a microscope"
-            width={5000}
-            height={5000}
             className="h-auto w-11/12 mt-3"
           />
         </div>

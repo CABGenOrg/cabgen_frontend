@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { section_btn } from "@/styles/tailwind_classes";
 import Link from "next/link";
-import Image from "next/image";
+import OptimizedImage from "../General/OptimizedImage";
 
 const LoginFormSchema = z.object({
   email: z
@@ -43,13 +43,11 @@ const LoginForm = () => {
   return (
     <div className="flex flex-row justify-center items-center xl:-my-24 lg:-my-16 md:-my-12 -my-20 h-screen mx-auto">
       <div className={`${base_height} ${image_width}`}>
-        <Image
+        <OptimizedImage
           src="/Contact/dna-helix-attacked-by-bacteria.jpg"
           alt="bacteria attacking DNA"
-          width={500}
-          height={500}
           className="object-cover w-full h-full rounded-s-xl"
-        ></Image>
+        />
       </div>
       <div
         className={`flex flex-col justify-center items-center bg-slate-200 rounded-e-xl py-6 sm:px-8 px-4 ${base_height} ${form_width}`}

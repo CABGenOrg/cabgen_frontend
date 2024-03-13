@@ -5,7 +5,7 @@ import {
   section_subtitle,
   section_title,
 } from "@/styles/tailwind_classes";
-import Image from "next/image";
+import OptimizedImage from "../General/OptimizedImage";
 
 const CabgenPipeline = () => {
   return (
@@ -17,11 +17,9 @@ const CabgenPipeline = () => {
           </span>
           <span className={section_title}>CABGen</span>
         </h2>
-        <Image
+        <OptimizedImage
           src="/About/cabgen_pipeline.png"
           alt="cabgen pipeline"
-          width={5000}
-          height={5000}
           className="w-auto h-auto"
         />
       </div>

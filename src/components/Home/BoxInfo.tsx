@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import OptimizedImage from "../General/OptimizedImage";
 
 const BoxInfo = () => {
   const genomes = 100;
@@ -37,11 +37,9 @@ const BoxInfo = () => {
           key={idx}
           className="flex flex-col justify-center items-center bg-slate-400 rounded-xl sm:h-48 sm:w-52 h-42"
         >
-          <Image
+          <OptimizedImage
             src={image}
             alt={description}
-            width={5000}
-            height={5000}
             className="sm:h-1/2 w-auto h-2/5"
           />
 
