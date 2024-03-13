@@ -42,18 +42,6 @@ const Team = () => {
       link: "https://lattes.cnpq.br/7903354651687538",
     },
     {
-      name: "Robson de Souza Leão",
-      role: "Responsável pelo gerenciamento das atividades laboratoriais, execução e interpretação de resultados fenotípicos e moleculares em Cocos Gram positivos.",
-      photo: "/About/robson.png",
-      link: "http://lattes.cnpq.br/5369029097197832",
-    },
-    {
-      name: "Elizabeth de Andrade Marques",
-      role: "Responsável pelo manejo das amostras de cocos Gram-positivos recebidas e análise final dos resultados.",
-      photo: "/About/elizabeth.png",
-      link: "https://lattes.cnpq.br/5959485578597640",
-    },
-    {
       name: "Nicolas da Matta Freire Araujo",
       role: "Responsável pelo desenvolvimento da nova versão do front-end do CABGen.",
       photo: "/About/nicolas.png",

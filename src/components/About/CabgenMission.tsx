@@ -29,11 +29,13 @@ const CabgenMission = () => {
             <p className={section_text}>
               O CABGen surge como uma solução para os desafios enfrentados
               diante do aumento exponencial de dados gerados pelo sequenciamento
-              genômico. Em resposta à urgência em combater a resistência
-              antimicrobiana e preencher a lacuna entre a geração e análise de
-              dados genômicos, o CABGen oferece funcionalidades essenciais, como
-              estimativa de cobertura, identificação de espécies e detecção de
-              mutações. Essas ferramentas simplificam e aprimoram a análise e
+              genômico de bactérias resistentes aos antimicrobianos (RAM). Em
+              resposta à urgência em combater a RAM e preencher a lacuna entre a
+              geração e análise de dados genômicos, o CABGen oferece
+              funcionalidades essenciais, como identificação de espécie,
+              detecção de genes e mutações relacionadas à resistências,
+              atribuição de um perfil clonal e a verificação da existência de
+              plasmídeos. Essas ferramentas simplificam e aprimoram a análise e
               interpretação de dados biológicos, fornecendo insights valiosos
               para aplicações clínicas.
               <br />
@@ -60,7 +62,7 @@ const CabgenMission = () => {
             alt="scientist on top of books next to a DNA molecule and a microscope"
             width={5000}
             height={5000}
-            className="lg:h-[70%] h-auto w-11/12 mt-3"
+            className="h-auto w-11/12 mt-3"
           />
         </div>
       </div>

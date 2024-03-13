@@ -58,7 +58,7 @@ const AntimicrobialResistance = () => {
         </div>
         <div className="flex justify-center items-center">
           <Image
-            src={"/Home/bacteria_group.png"}
+            src={"/Home/TeriExplicando2.png"}
             alt="bad bacteria"
             width={5000}
             height={5000}
