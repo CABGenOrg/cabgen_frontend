@@ -1,7 +1,7 @@
 import React from "react";
 import Section from "../General/Section";
 import TeamCard from "./TeamCard";
-import { section_spacing } from "@/styles/tailwind_classes";
+import { section_spacing, section_title } from "@/styles/tailwind_classes";
 
 const Team = () => {
   const members = [
@@ -51,7 +51,9 @@ const Team = () => {
   return (
     <Section id="cabgen team">
       <div className={section_spacing}>
-        <h2 className="text-center mb-3 md:text-3xl text-2xl font-bold">
+        <h2
+          className={`${section_title} text-center 2xl:mb-7 mb-4 2xl:mt-4 mt-1`}
+        >
           Conheça nossos profissionais
         </h2>
         <div className="grid md:grid-cols-2 grid-cols-1 sm:gap-2 gap-1">

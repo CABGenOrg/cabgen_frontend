@@ -17,9 +17,9 @@ const OptimizedImage = ({ src, alt, width, height, className }: ImageProps) => {
       alt={alt}
       width={width ? width : 2500}
       height={height ? height : 2500}
-      quality={70}
+      quality={65}
       className={
-        className ? `${className} transition-all blur duration-[2s]` : ""
+        className ? `${className} transition-all blur duration-300` : ""
       }
       onLoad={(image) => image.currentTarget.classList.remove("blur")}
       priority

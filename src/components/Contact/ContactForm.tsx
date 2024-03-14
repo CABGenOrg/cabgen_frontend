@@ -4,7 +4,12 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { section_btn } from "@/styles/tailwind_classes";
+import {
+  section_btn,
+  input_class,
+  label_class,
+  form_title,
+} from "@/styles/tailwind_classes";
 
 const ContactFormSchema = z.object({
   name: z.string().min(1, "O nome é obrigatório."),
@@ -18,10 +23,6 @@ const ContactFormSchema = z.object({
 });
 
 type FormData = z.infer<typeof ContactFormSchema>;
-
-const input_class =
-  "block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 shadow-sm";
-const label_class = "block text-base font-semibold leading-6 text-gray-900";
 
 const ContactForm = () => {
   const {
@@ -40,9 +41,7 @@ const ContactForm = () => {
 
   return (
     <div className="bg-slate-200 rounded-xl m-5 px-6 py-4 sm:py-6 lg:px-8 lg:w-[50%] md:w-[75%]">
-      <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
-        Contato
-      </h2>
+      <h2 className={form_title}>Contato</h2>
       <p className="mt-2 text-lg leading-8 text-gray-600 text-center font-light">
         Por favor, deixe sua mensagem, dúvida ou sugestão.
       </p>

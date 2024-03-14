@@ -1,7 +1,7 @@
 import React from "react";
 import OptimizedImage from "../General/OptimizedImage";
 import Section from "../General/Section";
-import { section_spacing, section_subtitle } from "@/styles/tailwind_classes";
+import { section_spacing, section_title } from "@/styles/tailwind_classes";
 
 const NetworkMap = () => {
   return (
@@ -9,7 +9,9 @@ const NetworkMap = () => {
       <div
         className={`flex flex-col justify-center items-center ${section_spacing}`}
       >
-        <h2 className={`${section_subtitle} my-2`}>Integrantes Atuais</h2>
+        <h2 className={`${section_title} text-center mb-7 mt-4`}>
+          Integrantes Atuais
+        </h2>
         <OptimizedImage
           src="/Network/mapa_cabgen.png"
           alt="LACENs map"

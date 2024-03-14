@@ -22,11 +22,13 @@ const TeamCard = ({ name, role, photo, link }: Member) => {
           target="_blank"
           className="lg:text-start md:text-center text-start"
         >
-          <div className="font-semibold sm:text-xl text-lg mb-3 hover:text-black/50">
+          <div className="font-semibold sm:text-xl 2xl:text-4xl text-lg mb-3 hover:text-black/50">
             {name}
           </div>
         </Link>
-        <div className="font-light text-base text-slate-900">{role}</div>
+        <div className="font-light 2xl:text-2xl text-base text-slate-900">
+          {role}
+        </div>
       </div>
     </div>
   );

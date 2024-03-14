@@ -1,17 +1,15 @@
 import React from "react";
 import Section from "@/components/General/Section";
 import ContactForm from "@/components/Contact/ContactForm";
+import { form_spacing } from "@/styles/tailwind_classes";
 
 const Contact = () => {
   return (
-    <Section id="contact">
-      <div
-        className="w-full flex flex-col justify-center items-center bg-center bg-cover bg-no-repeat"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(256, 256, 256, 0.3), rgba(256, 256, 256, 0.3)), url(/Contact/dna-helix-attacked-by-bacteria.jpg)",
-        }}
-      >
+    <Section
+      id="contact"
+      background="/Contact/dna-helix-attacked-by-bacteria.jpg"
+    >
+      <div className={form_spacing}>
         <ContactForm />
       </div>
     </Section>

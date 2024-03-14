@@ -4,7 +4,7 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { section_btn } from "@/styles/tailwind_classes";
+import { section_btn, input_class, label_class, form_title } from "@/styles/tailwind_classes";
 import Link from "next/link";
 import OptimizedImage from "../General/OptimizedImage";
 
@@ -49,11 +49,8 @@ const RegisterFormSchema = z
 
 type FormData = z.infer<typeof RegisterFormSchema>;
 
-const input_class =
-  "block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 shadow-sm";
-const label_class = "block text-base font-semibold leading-6 text-gray-900";
 const base_height = "sm:h-[650px] h-[1050px]";
-const form_width = "sm:w-full w-full";
+const form_width = "w-full";
 const image_width = "sm:w-[30%] w-[15%]";
 
 const RegisterForm = () => {
@@ -83,7 +80,7 @@ const RegisterForm = () => {
       <div
         className={`flex flex-col justify-center items-center bg-slate-200 rounded-e-xl py-3 sm:px-8 px-4 ${base_height} ${form_width}`}
       >
-        <h2 className="font-bold tracking-tight text-gray-900 text-4xl text-center">
+        <h2 className={form_title}>
           Cadastro
         </h2>
         <form className="mx-2 mt-10 w-full" onSubmit={handleSubmit(onSubmit)}>

@@ -6,6 +6,7 @@ import {
   section_subtitle,
   section_text,
   section_title,
+  section_image,
 } from "@/styles/tailwind_classes";
 import OptimizedImage from "../General/OptimizedImage";
 import Link from "next/link";
@@ -60,7 +61,7 @@ const CabgenMission = () => {
           <OptimizedImage
             src={"/About/science_pixabay.png"}
             alt="scientist on top of books next to a DNA molecule and a microscope"
-            className="h-auto w-11/12 mt-3"
+            className={`${section_image} h-[90%]`}
           />
         </div>
       </div>

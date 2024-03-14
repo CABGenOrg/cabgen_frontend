@@ -1,7 +1,7 @@
 import React from "react";
 import Section from "@/components/General/Section";
 import Map from "@/components/Dashboard/Map";
-import { section_spacing } from "@/styles/tailwind_classes";
+import { section_spacing, section_title } from "@/styles/tailwind_classes";
 
 const Dashboard = () => {
   return (
@@ -9,7 +9,7 @@ const Dashboard = () => {
       <div
         className={`flex flex-col justify-center items-center ${section_spacing}`}
       >
-        <h1 className="text-center font-bold md:text-4xl sm:text-3xl text-2xl mb-3">
+        <h1 className={`${section_title} text-center mb-7 mt-4`}>
           Dados da Rede Genômica
         </h1>
         <Map />
