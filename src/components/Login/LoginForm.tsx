@@ -12,6 +12,8 @@ import {
 } from "@/styles/tailwind_classes";
 import Link from "next/link";
 import OptimizedImage from "../General/OptimizedImage";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const LoginFormSchema = z.object({
   email: z
@@ -37,9 +39,11 @@ const LoginForm = () => {
     resolver: zodResolver(LoginFormSchema),
   });
 
+  const router = useRouter();
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
     console.log(data);
     reset();
+    router.push("/account");
   };
 
   return (
