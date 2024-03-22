@@ -2,7 +2,7 @@ export const section_title = "font-bold 2xl:text-6xl md:text-4xl text-3xl";
 export const section_subtitle = "font-light 2xl:text-5xl md:text-3xl text-2xl";
 export const section_text = "my-5 2xl:text-4xl md:text-xl text-md";
 export const section_image =
-  "2xl:h-[80%] 2xl:w-[75%] lg:h-[75%] lg:w-[70%] md:h-[70%] md:w-[65%]";
+  "2xl:h-[80%] 2xl:w-[80%] lg:h-[75%] lg:w-[75%] md:h-[70%] md:w-[70%]";
 export const section_spacing =
   "xl:mx-48 lg:mx-32 md:mx-16 sm:mx-9 mx-7 md:py-3 py-5 sm:gap-2 gap-5";
 export const section_btn =

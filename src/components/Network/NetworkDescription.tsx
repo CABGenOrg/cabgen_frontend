@@ -53,10 +53,10 @@ const NetworkDescription = () => {
         </div>
       </div>
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center sm:order-first order-last">
           <OptimizedImage
-            src={"/Network/scientist_magnifier_freepik.jpg"}
-            alt="scientist looking and thinking"
+            src={"/Network/curso_rede.jpeg"}
+            alt="person pipetting into a plate"
             className={`${section_image} rounded-lg`}
           />
         </div>
@@ -103,8 +103,8 @@ const NetworkDescription = () => {
         </div>
         <div className="flex justify-center items-center">
           <OptimizedImage
-            src={"/Network/scientists_freepik.jpg"}
-            alt="scientists studying"
+            src={"/Network/capacitacao_rede.jpeg"}
+            alt="people in a room"
             className={`${section_image} rounded-lg`}
           />
         </div>

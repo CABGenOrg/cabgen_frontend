@@ -20,7 +20,7 @@ const TeamCard = ({ name, role, photo, link }: Member) => {
           href={link}
           passHref={true}
           target="_blank"
-          className="lg:text-start md:text-center text-start"
+          className="lg:text-start text-center"
         >
           <div className="font-semibold sm:text-xl 2xl:text-4xl text-lg mb-3 hover:text-black/50">
             {name}

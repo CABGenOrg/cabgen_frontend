@@ -13,10 +13,8 @@ import {
 const GenomicSurveillance = () => {
   return (
     <Section id="genomic-surveillance" gray>
-      <div
-        className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}
-      >
-        <div className="flex justify-center items-center">
+      <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
+        <div className="flex justify-center items-center sm:order-first order-last">
           <OptimizedImage
             src={"/Home/connections.png"}
             alt="bacteria pool"
