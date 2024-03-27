@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { section_btn, input_class, label_class, form_title } from "@/styles/tailwind_classes";
-import Link from "next/link";
+import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
 
 const RegisterFormSchema = z
@@ -212,12 +212,12 @@ const RegisterForm = () => {
           <div className="text-center mt-3">
             <p>
               Já possui conta?{" "}
-              <Link
+              <CustomLink
                 href="/login"
                 className="text-blue-500 hover:text-blue-700"
               >
                 Faça login.
-              </Link>
+              </CustomLink>
             </p>
           </div>
         </form>

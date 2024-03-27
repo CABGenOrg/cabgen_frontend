@@ -10,9 +10,8 @@ import {
   label_class,
   form_title,
 } from "@/styles/tailwind_classes";
-import Link from "next/link";
+import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
 const LoginFormSchema = z.object({
@@ -98,12 +97,12 @@ const LoginForm = () => {
           <div className="text-center mt-3">
             <p>
               Não possui conta?{" "}
-              <Link
+              <CustomLink
                 href="/register"
                 className="text-blue-500 hover:text-blue-700"
               >
                 Cadastre-se.
-              </Link>
+              </CustomLink>
             </p>
           </div>
         </form>

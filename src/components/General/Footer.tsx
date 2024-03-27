@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import CustomLink from "./CustomLink";
 import { section_spacing } from "@/styles/tailwind_classes";
 
 const Footer = () => {
@@ -21,13 +21,13 @@ const Footer = () => {
       <div className={`grid grid-cols-2 ${section_spacing}`}>
         <div className="flex flex-col items-center font-light 2xl:text-xl sm:text-base text-sm">
           {links.map(({ name, url }, idx) => (
-            <Link
+            <CustomLink
               className="hover:text-black pointer-events-none"
               href={url}
               key={idx}
             >
               {name}
-            </Link>
+            </CustomLink>
           ))}
         </div>
         <div className="flex flex-col items-start font-light 2xl:text-lg text-sm">

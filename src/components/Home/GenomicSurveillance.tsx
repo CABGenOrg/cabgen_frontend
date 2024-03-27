@@ -1,6 +1,6 @@
 import React from "react";
 import Section from "../General/Section";
-import Link from "next/link";
+import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
 import {
   section_btn,
@@ -36,9 +36,9 @@ const GenomicSurveillance = () => {
               disseminação desses microrganismos.
             </p>
           </div>
-          <Link href="/network">
+          <CustomLink href="/network">
             <button className={section_btn}>Saiba mais</button>
-          </Link>
+          </CustomLink>
         </div>
       </div>
     </Section>

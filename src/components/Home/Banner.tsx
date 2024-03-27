@@ -1,8 +1,14 @@
 import React from "react";
 import Section from "../General/Section";
 import { section_spacing } from "@/styles/tailwind_classes";
+import { getTranslateServer } from "@/lib/getTranslateServer";
+import { Locale } from "@/i18n/i18n.config";
 
-const Banner = () => {
+const Banner = ({ lang }: { lang: Locale }) => {
+  const {
+    dictionary: { Home },
+  } = getTranslateServer(lang);
+
   return (
     <Section
       id="home-banner"
@@ -13,7 +19,7 @@ const Banner = () => {
         <h1
           className={`font-semibold lg:text-6xl md:text-5xl sm:text-3xl xs:text-2xl text-xl ${section_spacing} bg-white/50 sm:py-2 py-0 sm:px-3 px-0 rounded-lg`}
         >
-          CABGen: Genômica Bacteriana Aplicada à Clínica
+          {Home.Banner.bannerTitle}
         </h1>
       </div>
     </Section>

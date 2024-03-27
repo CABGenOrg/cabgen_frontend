@@ -9,10 +9,10 @@ const About = () => {
   return (
     <>
       <CabgenMission />
-      <CabgenPipeline/>
-      <CabgenResults/>
-      <Team/>
-      <AboutContact/>
+      <CabgenPipeline />
+      <CabgenResults />
+      <Team />
+      <AboutContact />
     </>
   );
 };

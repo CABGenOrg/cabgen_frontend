@@ -1,8 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { useLocalStorage } from "usehooks-ts";
 import {
   Select,
   SelectContent,
@@ -10,9 +9,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { usePathname, useParams, useRouter } from "next/navigation";
+import { Locale, i18n } from "@/i18n/i18n.config";
 
 const LanguageSelector = () => {
-  const [language, setLanguage] = useLocalStorage("CabgenLanguage", "pt-BR");
+  const { lang } = useParams();
+  const router = useRouter();
+  const pathName = usePathname();
+  const [language, setLanguage] = useState(lang);
+
+  const redirectedPathName = (locale: string) => {
+    if (!pathName) return "/";
+
+    const segments = pathName.split("/");
+    segments[1] = locale;
+    return segments.join("/");
+  };
+
+  const changeLanguageURL = (newLanguage: Locale) => {
+    const url = redirectedPathName(newLanguage);
+    setLanguage(newLanguage);
+    router.replace(url);
+  };
+
   const languages = [
     {
       flag: (
@@ -25,7 +44,7 @@ const LanguageSelector = () => {
         />
       ),
       name: "Português",
-      value: "pt-BR",
+      value: "pt",
     },
     {
       flag: (
@@ -38,7 +57,7 @@ const LanguageSelector = () => {
         />
       ),
       name: "English",
-      value: "en-US",
+      value: "en",
     },
     {
       flag: (
@@ -54,8 +73,12 @@ const LanguageSelector = () => {
       value: "es",
     },
   ];
+
   return (
-    <Select onValueChange={(e) => setLanguage(e)} value={language}>
+    <Select
+      onValueChange={changeLanguageURL}
+      value={Array.isArray(language) ? language[0] : language}
+    >
       <SelectTrigger className="w-[138px] text-black focus-visible:ring-transparent">
         <SelectValue />
       </SelectTrigger>

@@ -9,7 +9,7 @@ import {
   section_title,
 } from "@/styles/tailwind_classes";
 import OptimizedImage from "../General/OptimizedImage";
-import Link from "next/link";
+import CustomLink from "../General/CustomLink";
 
 const NetworkDescription = () => {
   return (
@@ -93,12 +93,12 @@ const NetworkDescription = () => {
             </p>
           </div>
           <div className="flex flex-row justify-center items-center gap-10">
-            <Link href="/contact">
+            <CustomLink href="/contact">
               <button className={section_btn}>Contato</button>
-            </Link>
-            <Link href="/dashboard">
+            </CustomLink>
+            <CustomLink href="/dashboard">
               <button className={section_btn}>Dashboard</button>
-            </Link>
+            </CustomLink>
           </div>
         </div>
         <div className="flex justify-center items-center">

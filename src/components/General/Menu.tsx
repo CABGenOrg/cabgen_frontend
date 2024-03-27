@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import CustomLink from "./CustomLink";
 import Image from "next/image";
 import {
   HomeIcon,
@@ -19,8 +19,13 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useDispatch } from "react-redux";
+import { updateLanguage } from "@/redux/slices/languageSlice";
 
-const Menu = () => {
+const Menu = ({ lang }: { lang: string }) => {
+  const dispatch = useDispatch();
+  dispatch(updateLanguage(lang));
+
   const [menuOpen, setMenuOpen] = useState(false);
   const handleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -39,7 +44,7 @@ const Menu = () => {
     <nav className="sticky top-0 z-50 shadow-md w-full h-24 bg-cabgen-300 text-white p-2">
       <div className="h-full w-full flex flex-row justify-between items-center px-4 2xl:px-16">
         {/* Logo */}
-        <Link href="/">
+        <CustomLink href="/">
           <Image
             src="/Menu/fiocruz_logo.png"
             alt="FioCruz logo"
@@ -47,16 +52,16 @@ const Menu = () => {
             height={2500}
             className="w-auto h-20 cursor-pointer"
           />
-        </Link>
+        </CustomLink>
         {/* Menu */}
         <ul className="hidden md:flex md:flex-row md:justify-center md:items-center md:gap-5">
           {items.map(({ link, name, icon }, idx) => (
             <TooltipProvider key={idx}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href={link}>
+                  <CustomLink href={link} lang={lang}>
                     <li className="fill-white hover:fill-cabgen-600">{icon}</li>
-                  </Link>
+                  </CustomLink>
                 </TooltipTrigger>
                 <TooltipContent>{name}</TooltipContent>
               </Tooltip>
@@ -78,7 +83,7 @@ const Menu = () => {
         }
       >
         <div className="flex w-full items-center justify-between">
-          <Link href="/">
+          <CustomLink href="/">
             <Image
               src="/Menu/fiocruz_logo.png"
               alt="FioCruz logo"
@@ -86,7 +91,7 @@ const Menu = () => {
               height={2500}
               className="w-auto h-[80%] cursor-pointer"
             />
-          </Link>
+          </CustomLink>
           <div onClick={handleMenu} className="cursor-pointer">
             <XIcon className="w-9 h-9 text-cabgen-900" />
           </div>
@@ -94,14 +99,14 @@ const Menu = () => {
         <div className="flex-col py-4">
           <ul>
             {items.map(({ link, name, icon }, idx) => (
-              <Link href={link} key={idx}>
+              <CustomLink href={link} key={idx}>
                 <li
                   onClick={() => setMenuOpen(false)}
                   className="flex flex-row justify-start items-center gap-3 fill-cabgen-900 text-cabgen-900 hover:text-cabgen-600 hover:fill-cabgen-600 h-20 py-4 cursor-pointer"
                 >
                   {icon} {name}
                 </li>
-              </Link>
+              </CustomLink>
             ))}
             <LanguageSelector />
           </ul>
