@@ -1,9 +1,7 @@
-const { REACT_APP_ENV, REACT_APP_DEV_API_URL, REACT_APP_PROD_API_URL } =
-  process.env;
 export const baseUrl: string | undefined =
-  REACT_APP_ENV === "dev"
-    ? `${REACT_APP_DEV_API_URL}`
-    : `${REACT_APP_PROD_API_URL}`;
+  process.env.APP_ENV === "dev"
+    ? process.env.APP_DEV_API_URL
+    : process.env.APP_PROD_API_URL;
 
 export const requestConfig = (url: string, method: string, data: any) => {
   let config;
@@ -16,6 +14,12 @@ export const requestConfig = (url: string, method: string, data: any) => {
     config = {
       url,
       method,
+    };
+  } else if (url.includes("/login") || url.includes("/register")) {
+    config = {
+      url,
+      method,
+      body: data,
     };
   } else {
     config = {

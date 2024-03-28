@@ -18,7 +18,7 @@ const baseQuery = fetchBaseQuery({
 
 export type CustomError = {
   status: number;
-  data: { errors: string[] };
+  data: { errors: any; message: string; mensaje: string };
 };
 
 // const baseQueryWithReauth: BaseQueryFn<

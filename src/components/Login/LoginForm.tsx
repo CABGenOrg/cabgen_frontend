@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +13,9 @@ import {
 import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
 import { useRouter } from "next/navigation";
+import { useLoginMutation } from "@/redux/services/authService";
+import { serialize } from "object-to-formdata";
+import Loading from "../General/Loading";
 
 const LoginFormSchema = z.object({
   email: z
@@ -38,12 +41,20 @@ const LoginForm = () => {
     resolver: zodResolver(LoginFormSchema),
   });
 
+  const [login, { isLoading, error, isSuccess }] = useLoginMutation();
   const router = useRouter();
-  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    console.log(data);
-    reset();
-    router.push("/account");
+
+  const onSubmit: SubmitHandler<FormData> = async (loginData: FormData) => {
+    const formData = serialize(loginData);
+    await login(formData);
   };
+
+  useEffect(() => {
+    if (isSuccess && !error) {
+      reset();
+      router.replace("https://aureus.procc.fiocruz.br/sgbmi/");
+    }
+  }, [isSuccess, error, reset, router]);
 
   return (
     <div className="flex flex-row justify-center items-center my-3 md:mx-auto mx-2 lg:w-[60%] md:w-[70%]">
@@ -90,9 +101,12 @@ const LoginForm = () => {
             </div>
           </div>
           <div className="flex justify-center items-center mt-4">
-            <button className={section_btn} type="submit">
-              Continuar
-            </button>
+            {!isLoading && (
+              <button className={section_btn} type="submit">
+                Continuar
+              </button>
+            )}
+            {isLoading && <Loading />}
           </div>
           <div className="text-center mt-3">
             <p>
@@ -104,6 +118,11 @@ const LoginForm = () => {
                 Cadastre-se.
               </CustomLink>
             </p>
+            {error && (
+              <div className="bg-red-400 text-center py-2 mt-3 rounded-md">
+                {String(error)}
+              </div>
+            )}
           </div>
         </form>
       </div>
