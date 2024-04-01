@@ -89,25 +89,26 @@ const Menu = ({ lang }: { lang: string }) => {
               alt="FioCruz logo"
               width={5000}
               height={2500}
-              className="w-auto h-[80%] cursor-pointer"
+              className="w-auto h-[75%] cursor-pointer"
             />
           </CustomLink>
           <div onClick={handleMenu} className="cursor-pointer">
             <XIcon className="w-9 h-9 text-cabgen-900" />
           </div>
         </div>
-        <div className="flex-col py-4">
+        <div className="flex-col py-3">
           <ul>
             {items.map(({ link, name, icon }, idx) => (
               <CustomLink href={link} key={idx}>
                 <li
                   onClick={() => setMenuOpen(false)}
-                  className="flex flex-row justify-start items-center gap-3 fill-cabgen-900 text-cabgen-900 hover:text-cabgen-600 hover:fill-cabgen-600 h-20 py-4 cursor-pointer"
+                  className="flex flex-row justify-start items-center gap-2 fill-cabgen-900 text-cabgen-900 hover:text-cabgen-600 hover:fill-cabgen-600 h-16 py-2 cursor-pointer"
                 >
                   {icon} {name}
                 </li>
               </CustomLink>
             ))}
+            <br />
             <LanguageSelector />
           </ul>
         </div>

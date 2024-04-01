@@ -8,17 +8,17 @@ const Financiers = () => {
     {
       name: "Ministério da Saúde logo",
       logo: "/Home/min_saude.png",
-      size: "h-[80%] w-[80%]",
+      size: "2xl:h-[35%] 2xl:w-[35%]  h-[80%] w-[80%]",
     },
     {
       name: "CNPQ logo",
       logo: "/Home/cnpq.png",
-      size: "h-[35%] w-[35%]",
+      size: "2xl:h-[25%] 2xl:w-[25%] h-[35%] w-[35%]",
     },
     {
       name: "Fiocruz logo",
       logo: "/Home/fiocruz.png",
-      size: "h-[20%] w-[20%]",
+      size: "2xl:h-[10%] 2xl:w-[10%] h-[20%] w-[20%]",
     },
   ];
 
