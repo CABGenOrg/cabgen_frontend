@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { usePathname, useParams, useRouter } from "next/navigation";
-import { Locale, i18n } from "@/i18n/i18n.config";
+import { Locale } from "@/i18n/i18n.config";
 
 const LanguageSelector = () => {
   const { lang } = useParams();

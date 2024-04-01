@@ -1,26 +1,57 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { section_btn, input_class, label_class, form_title } from "@/styles/tailwind_classes";
+import {
+  section_btn,
+  input_class,
+  label_class,
+  form_title,
+} from "@/styles/tailwind_classes";
 import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
+import { useSelector } from "react-redux";
+import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Form,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormControl,
+  FormField,
+} from "../ui/form";
+import { countryOptions, getCountries } from "@/lib/getCountries";
+import { useRegisterMutation } from "@/redux/services/authService";
+import { serialize } from "object-to-formdata";
+import Loading from "../General/Loading";
+import { useRouter } from "next/navigation";
 
 const RegisterFormSchema = z
   .object({
-    name: z.string().min(1, "O nome é obrigatório."),
-    country: z.string().min(1, "O país é obrigatório."),
-    institution: z.string().min(1, "A instituição é obrigatória."),
-    role: z.string().min(1, "O cargo é obrigatório."),
+    name: z.string().min(3, "O nome é obrigatório."),
+    country: z.string().refine((value) => countryOptions.includes(value), {
+      message: "O país é obrigatório.",
+    }),
+    username: z.string().min(3, "O nome de usuário é obrigatório."),
+    interest: z.string(),
+    institution: z.string(),
+    role: z.string(),
     email: z
       .string()
       .min(1, "O e-mail é obrigatório")
       .email("Insira um e-mail válido."),
     confirmEmail: z
       .string()
-      .min(1, "Confirme seu e-mail.")
+      .min(5, "Confirme seu e-mail.")
       .email("Insira um e-mail válido."),
     password: z
       .string()
@@ -49,180 +80,315 @@ const RegisterFormSchema = z
 
 type FormData = z.infer<typeof RegisterFormSchema>;
 
-const base_height = "sm:h-[650px] h-[1050px]";
+const base_height = "sm:h-[750px] h-[1250px]";
 const form_width = "w-full";
 const image_width = "sm:w-[30%] w-[15%]";
 
 const RegisterForm = () => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    reset,
-  } = useForm<FormData>({
+  const form = useForm<FormData>({
     resolver: zodResolver(RegisterFormSchema),
+    defaultValues: {
+      name: "",
+      country: "",
+      username: "",
+      interest: "",
+      institution: "",
+      role: "",
+      email: "",
+      confirmEmail: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    console.log(data);
-    reset();
+  const language = useSelector(selectCurrentLanguage);
+  const countries = getCountries(language);
+  const router = useRouter();
+
+  const [register, { isLoading, error, isSuccess }] = useRegisterMutation();
+
+  const onSubmit: SubmitHandler<FormData> = async (registerData: FormData) => {
+    const parsedRegisterData = {
+      nome: registerData.name,
+      codigoPais: registerData.country,
+      usuario: registerData.username,
+      interesse: registerData.interest,
+      instituicao: registerData.institution,
+      posicao: registerData.role,
+      email: registerData.email,
+      confirmEmail: registerData.confirmEmail,
+      senha: registerData.password,
+      confirmPassword: registerData.confirmPassword,
+    };
+    const formData = serialize(parsedRegisterData);
+    await register(formData);
   };
 
+  useEffect(() => {
+    if (isSuccess && !error) {
+      form.reset();
+      router.push("/login");
+    }
+  }, [isSuccess, error, form, router]);
+
   return (
-    <div className="flex flex-row justify-center items-center my-3 md:mx-auto mx-2 lg:w-[60%] md:w-[70%]">
-      <div className={`${base_height} ${image_width}`}>
-        <OptimizedImage
-          src="/Contact/dna-helix-attacked-by-bacteria.jpg"
-          alt="bacteria attacking DNA"
-          className="object-cover w-full h-full rounded-s-xl"
-        />
+    <>
+      <div className="flex flex-row justify-center items-center my-3 md:mx-auto mx-2 lg:w-[60%] md:w-[70%]">
+        <div className={`${base_height} ${image_width}`}>
+          <OptimizedImage
+            src="/Contact/dna-helix-attacked-by-bacteria.jpg"
+            alt="bacteria attacking DNA"
+            className="object-cover w-full h-full rounded-s-xl"
+          />
+        </div>
+        <div
+          className={`flex flex-col justify-center items-center bg-slate-200 rounded-e-xl py-3 sm:px-8 px-4 ${base_height} ${form_width}`}
+        >
+          <h2 className={form_title}>Cadastro</h2>
+          <Form {...form}>
+            <form
+              className="mx-2 mt-2 w-full"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
+              <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className={label_class}>Nome</FormLabel>
+                        <FormControl>
+                          <input
+                            type="text"
+                            className={input_class}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="country"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className={label_class}>País</FormLabel>
+                        <Select onValueChange={field.onChange}>
+                          <FormControl>
+                            <SelectTrigger className="text-black focus-visible:ring-transparent 2xl:text-xl sm:text-sm">
+                              <SelectValue
+                                placeholder="Selecione um País"
+                                className={input_class}
+                              />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className={input_class}>
+                            {countries.map(({ code, country }) => (
+                              <SelectItem key={code} value={code}>
+                                {country}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className={label_class}>
+                          Nome de Usuário
+                        </FormLabel>
+                        <FormControl>
+                          <input
+                            type="text"
+                            className={input_class}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="interest"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className={label_class}>Interesse</FormLabel>
+                        <FormControl>
+                          <input
+                            type="text"
+                            className={input_class}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="institution"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className={label_class}>
+                          Instituição
+                        </FormLabel>
+                        <FormControl>
+                          <input
+                            type="text"
+                            className={input_class}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="role"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className={label_class}>Cargo</FormLabel>
+                        <FormControl>
+                          <input
+                            type="text"
+                            className={input_class}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className={label_class}>E-mail</FormLabel>
+                        <FormControl>
+                          <input
+                            type="email"
+                            className={input_class}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmEmail"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className={label_class}>
+                          Confirme o E-mail
+                        </FormLabel>
+                        <FormControl>
+                          <input
+                            type="text"
+                            className={input_class}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className={label_class}>Senha</FormLabel>
+                        <FormControl>
+                          <input
+                            type="password"
+                            className={input_class}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className={label_class}>
+                          Confirme a senha
+                        </FormLabel>
+                        <FormControl>
+                          <input
+                            type="password"
+                            className={input_class}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    );
+                  }}
+                />
+              </div>
+              <div className="flex justify-center items-center mt-6">
+                {!isLoading && (
+                  <button className={section_btn} type="submit">
+                    Continuar
+                  </button>
+                )}
+                {isLoading && <Loading />}
+              </div>
+              <div className="text-center mt-3">
+                <p>
+                  Já possui conta?{" "}
+                  <CustomLink
+                    href="/login"
+                    className="text-blue-500 hover:text-blue-700"
+                  >
+                    Faça login.
+                  </CustomLink>
+                </p>
+                {error && (
+                  <div className="bg-red-400 text-center py-2 mt-3 rounded-md">
+                    {String(error)}
+                  </div>
+                )}
+              </div>
+            </form>
+          </Form>
+        </div>
       </div>
-      <div
-        className={`flex flex-col justify-center items-center bg-slate-200 rounded-e-xl py-3 sm:px-8 px-4 ${base_height} ${form_width}`}
-      >
-        <h2 className={form_title}>
-          Cadastro
-        </h2>
-        <form className="mx-2 mt-10 w-full" onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
-            <div>
-              <label htmlFor="name" className={label_class}>
-                Nome
-              </label>
-              <input
-                type="text"
-                id="name"
-                {...register("name")}
-                className={input_class}
-              />
-              {errors.name && (
-                <span className="text-red-600">{errors.name.message}</span>
-              )}
-            </div>
-            <div>
-              <label htmlFor="country" className={label_class}>
-                País
-              </label>
-              <input
-                type="text"
-                id="country"
-                {...register("country")}
-                className={input_class}
-              />
-              {errors.country && (
-                <span className="text-red-600">{errors.country.message}</span>
-              )}
-            </div>
-            <div>
-              <label htmlFor="institution" className={label_class}>
-                Instituição
-              </label>
-              <input
-                type="text"
-                id="institution"
-                {...register("institution")}
-                className={input_class}
-              />
-              {errors.institution && (
-                <span className="text-red-600">
-                  {errors.institution.message}
-                </span>
-              )}
-            </div>
-            <div>
-              <label htmlFor="role" className={label_class}>
-                Cargo
-              </label>
-              <input
-                type="text"
-                id="role"
-                {...register("role")}
-                className={input_class}
-              />
-              {errors.role && (
-                <span className="text-red-600">{errors.role.message}</span>
-              )}
-            </div>
-            <div>
-              <label htmlFor="email" className={label_class}>
-                E-mail
-              </label>
-              <input
-                id="email"
-                type="email"
-                {...register("email")}
-                className={input_class}
-              />
-              {errors.email && (
-                <span className="text-red-600">{errors.email.message}</span>
-              )}
-            </div>
-            <div>
-              <label htmlFor="confirmEmail" className={label_class}>
-                Confirme o e-mail
-              </label>
-              <input
-                id="confirmEmail"
-                type="email"
-                {...register("confirmEmail")}
-                className={input_class}
-              />
-              {errors.confirmEmail && (
-                <span className="text-red-600">
-                  {errors.confirmEmail.message}
-                </span>
-              )}
-            </div>
-            <div>
-              <label htmlFor="password" className={label_class}>
-                Senha
-              </label>
-              <input
-                id="password"
-                type="password"
-                {...register("password")}
-                className={input_class}
-              />
-              {errors.password && (
-                <span className="text-red-600">{errors.password.message}</span>
-              )}
-            </div>
-            <div>
-              <label htmlFor="confirmPassword" className={label_class}>
-                Confirme a senha
-              </label>
-              <input
-                id="confirmPassword"
-                type="password"
-                {...register("confirmPassword")}
-                className={input_class}
-              />
-              {errors.confirmPassword && (
-                <span className="text-red-600">
-                  {errors.confirmPassword.message}
-                </span>
-              )}
-            </div>
-          </div>
-          <div className="flex justify-center items-center mt-6">
-            <button className={section_btn} type="submit">
-              Continuar
-            </button>
-          </div>
-          <div className="text-center mt-3">
-            <p>
-              Já possui conta?{" "}
-              <CustomLink
-                href="/login"
-                className="text-blue-500 hover:text-blue-700"
-              >
-                Faça login.
-              </CustomLink>
-            </p>
-          </div>
-        </form>
-      </div>
-    </div>
+    </>
   );
 };
 
