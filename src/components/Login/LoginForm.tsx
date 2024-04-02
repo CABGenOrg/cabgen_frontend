@@ -18,10 +18,7 @@ import { serialize } from "object-to-formdata";
 import Loading from "../General/Loading";
 
 const LoginFormSchema = z.object({
-  email: z
-    .string()
-    .min(1, "O e-mail é obrigatório")
-    .email("Insira um e-mail válido."),
+  username: z.string().min(1, "O usuário é obrigatório"),
   password: z.string().min(1, "A senha é obrigatória."),
 });
 
@@ -45,7 +42,11 @@ const LoginForm = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormData> = async (loginData: FormData) => {
-    const formData = serialize(loginData);
+    const parsedLoginData = {
+      usuario: loginData.username,
+      senha: loginData.password,
+    };
+    const formData = serialize(parsedLoginData);
     await login(formData);
   };
 
@@ -72,17 +73,16 @@ const LoginForm = () => {
         <form className="mx-2 mt-10 w-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 gap-x-6 gap-y-4">
             <div>
-              <label htmlFor="email" className={label_class}>
-                E-mail
+              <label htmlFor="username" className={label_class}>
+                Nome de Usuário
               </label>
               <input
-                id="email"
-                type="email"
-                {...register("email")}
+                id="username"
+                {...register("username")}
                 className={input_class}
               />
-              {errors.email && (
-                <span className="text-red-600">{errors.email.message}</span>
+              {errors.username && (
+                <span className="text-red-600">{errors.username.message}</span>
               )}
             </div>
             <div>
