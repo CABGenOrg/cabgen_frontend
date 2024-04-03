@@ -8,17 +8,17 @@ const Financiers = () => {
     {
       name: "Ministério da Saúde logo",
       logo: "/Home/min_saude.png",
-      size: "2xl:h-[35%] 2xl:w-[35%]  h-[80%] w-[80%]",
+      size: "w-3/4",
     },
     {
       name: "CNPQ logo",
       logo: "/Home/cnpq.png",
-      size: "2xl:h-[25%] 2xl:w-[25%] h-[35%] w-[35%]",
+      size: "w-2/5",
     },
     {
       name: "Fiocruz logo",
       logo: "/Home/fiocruz.png",
-      size: "2xl:h-[10%] 2xl:w-[10%] h-[20%] w-[20%]",
+      size: "w-1/5",
     },
   ];
 
@@ -28,7 +28,7 @@ const Financiers = () => {
         className={`flex flex-col justify-center items-center ${section_spacing}`}
       >
         <h2 className={section_title}>Financiadores</h2>
-        <div className="flex sm:flex-row flex-col justify-center items-center sm:gap-5 gap-3 sm:m-3 m-1.5">
+        <div className="flex md:flex-row flex-col justify-center items-center md:gap-3 gap-2 md:m-3 m-1.5">
           {logos.map(({ name, logo, size }, idx) => (
             <OptimizedImage key={idx} src={logo} alt={name} className={size} />
           ))}

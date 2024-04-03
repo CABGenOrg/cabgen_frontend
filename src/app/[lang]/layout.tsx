@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "CABGen",
   description:
     "A Web Application for the Bioinformatic Analysis of Bacterial Genomes",
+  icons: {
+    icon: "cabgen.ico",
+  },
 };
 
 export const generateStaticParams = async () => {

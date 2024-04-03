@@ -46,8 +46,8 @@ const NetworkDescription = () => {
         </div>
         <div className="flex justify-center items-center">
           <OptimizedImage
-            src={"/Network/studying_dna_freepik.jpg"}
-            alt="scientist looking DNA"
+            src={"/Network/rede_dark_symbol.png"}
+            alt="genomic network symbol"
             className={`${section_image} rounded-lg`}
           />
         </div>

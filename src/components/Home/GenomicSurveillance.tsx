@@ -16,8 +16,8 @@ const GenomicSurveillance = () => {
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex justify-center items-center sm:order-first order-last">
           <OptimizedImage
-            src={"/Home/connections.png"}
-            alt="bacteria pool"
+            src={"/Home/rede_simbolo.png"}
+            alt="genomic network symbol"
             className={section_image}
           />
         </div>

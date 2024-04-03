@@ -17,8 +17,8 @@ const CabgenDescription = () => {
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex justify-center items-center sm:order-first order-last">
           <OptimizedImage
-            src={"/Home/bacteria_pool.png"}
-            alt="bacteria pool"
+            src={"/Home/CABGen_Simbolo.png"}
+            alt="cabgen simbolo"
             className={section_image}
           />
         </div>
