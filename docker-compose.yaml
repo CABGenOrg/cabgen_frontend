@@ -11,4 +11,4 @@ services:
       - nextjs
     restart: unless-stopped
     ports:
-      - 443:443
+      - 10443:443
