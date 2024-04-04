@@ -47,7 +47,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 shadow-md w-full h-24 bg-cabgen-100 text-white p-2">
+    <nav className="sticky top-0 z-50 shadow-md w-full h-24 bg-cabgen-400 text-white p-2">
       <div className="h-full w-full flex flex-row justify-between items-center px-4 2xl:px-16">
         {/* Logo */}
         <CustomLink href="/">
@@ -69,7 +69,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
                     <CustomLink
                       href={link}
                       lang={lang}
-                      className="fill-white hover:fill-cabgen-600"
+                      className="fill-white hover:fill-cabgen-300"
                     >
                       {icon}
                     </CustomLink>
@@ -90,7 +90,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
       <div
         className={
           menuOpen
-            ? "fixed left-0 top-0 h-auto md:hidden w-full bg-cabgen-200 px-10 py-5 ease-in duration-200"
+            ? "fixed left-0 top-0 h-auto md:hidden w-full bg-cabgen-400 px-10 py-5 ease-in duration-200"
             : "fixed left-0 top-[-1500%] w-screenpx-10 py-5 ease-out duration-200"
         }
       >
@@ -114,7 +114,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
               <CustomLink href={link} key={idx}>
                 <li
                   onClick={() => setMenuOpen(false)}
-                  className="flex flex-row justify-start items-center gap-2 fill-cabgen-900 text-cabgen-900 hover:text-cabgen-600 hover:fill-cabgen-600 h-16 py-2 cursor-pointer"
+                  className="flex flex-row justify-start items-center gap-2 fill-white text-white hover:text-cabgen-300 hover:fill-cabgen-300 h-16 py-2 cursor-pointer"
                 >
                   {icon} {name}
                 </li>
