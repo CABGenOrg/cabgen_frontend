@@ -34,6 +34,7 @@ import { useRegisterMutation } from "@/redux/services/authService";
 import { serialize } from "object-to-formdata";
 import Loading from "../General/Loading";
 import { useRouter } from "next/navigation";
+import Message from "../General/Message";
 
 const RegisterFormSchema = z
   .object({
@@ -80,7 +81,7 @@ const RegisterFormSchema = z
 
 type FormData = z.infer<typeof RegisterFormSchema>;
 
-const base_height = "sm:h-[750px] h-[1250px]";
+const base_height = "2xl:h-[850px] sm:h-[750px] h-[1250px]";
 const form_width = "w-full";
 const image_width = "sm:w-[30%] w-[15%]";
 
@@ -378,11 +379,7 @@ const RegisterForm = () => {
                     Faça login.
                   </CustomLink>
                 </p>
-                {error && (
-                  <div className="bg-red-400 text-center py-2 mt-3 rounded-md">
-                    {String(error)}
-                  </div>
-                )}
+                {error && <Message msg={String(error)} type="error" />}
               </div>
             </form>
           </Form>

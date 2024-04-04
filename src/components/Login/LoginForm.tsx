@@ -16,6 +16,15 @@ import { useRouter } from "next/navigation";
 import { useLoginMutation } from "@/redux/services/authService";
 import { serialize } from "object-to-formdata";
 import Loading from "../General/Loading";
+import {
+  Form,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormControl,
+  FormField,
+} from "../ui/form";
+import Message from "../General/Message";
 
 const LoginFormSchema = z.object({
   username: z.string().min(1, "O usuário é obrigatório"),
@@ -29,13 +38,12 @@ const form_width = "w-[50%]";
 const image_width = "sm:w-[40%] w-[25%]";
 
 const LoginForm = () => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    reset,
-  } = useForm<FormData>({
+  const form = useForm<FormData>({
     resolver: zodResolver(LoginFormSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
   });
 
   const [login, { isLoading, error, isSuccess }] = useLoginMutation();
@@ -52,10 +60,10 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isSuccess && !error) {
-      reset();
+      form.reset();
       router.replace("https://aureus.procc.fiocruz.br/sgbmi/");
     }
-  }, [isSuccess, error, reset, router]);
+  }, [isSuccess, error, form, router]);
 
   return (
     <div className="flex flex-row justify-center items-center my-3 md:mx-auto mx-2 lg:w-[60%] md:w-[70%]">
@@ -70,61 +78,71 @@ const LoginForm = () => {
         className={`flex flex-col justify-center items-center bg-slate-200 rounded-e-xl py-6 sm:px-8 px-4 ${base_height} ${form_width}`}
       >
         <h2 className={form_title}>Login</h2>
-        <form className="mx-2 mt-10 w-full" onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-1 gap-x-6 gap-y-4">
-            <div>
-              <label htmlFor="username" className={label_class}>
-                Nome de Usuário
-              </label>
-              <input
-                id="username"
-                {...register("username")}
-                className={input_class}
+        <Form {...form}>
+          <form
+            className="mx-2 mt-8 w-full"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <div className="grid grid-cols-1 gap-x-6 gap-y-4">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>
+                        Nome de Usuário
+                      </FormLabel>
+                      <FormControl>
+                        <input type="text" className={input_class} {...field} />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
               />
-              {errors.username && (
-                <span className="text-red-600">{errors.username.message}</span>
-              )}
-            </div>
-            <div>
-              <label htmlFor="password" className={label_class}>
-                Senha
-              </label>
-              <input
-                id="password"
-                type="password"
-                {...register("password")}
-                className={input_class}
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>Senha</FormLabel>
+                      <FormControl>
+                        <input
+                          type="password"
+                          className={input_class}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
               />
-              {errors.password && (
-                <span className="text-red-600">{errors.password.message}</span>
-              )}
             </div>
-          </div>
-          <div className="flex justify-center items-center mt-4">
-            {!isLoading && (
-              <button className={section_btn} type="submit">
-                Continuar
-              </button>
-            )}
-            {isLoading && <Loading />}
-          </div>
-          <div className="text-center mt-3">
-            <p>
-              Não possui conta?{" "}
-              <CustomLink
-                href="/register"
-                className="text-blue-500 hover:text-blue-700"
-              >
-                Cadastre-se.
-              </CustomLink>
-            </p>
-            {error && (
-              <div className="bg-red-400 text-center py-2 mt-3 rounded-md">
-                {String(error)}
-              </div>
-            )}
-          </div>
-        </form>
+            <div className="flex justify-center items-center mt-4">
+              {!isLoading && (
+                <button className={section_btn} type="submit">
+                  Continuar
+                </button>
+              )}
+              {isLoading && <Loading />}
+            </div>
+            <div className="text-center mt-3">
+              <p>
+                Não possui conta?{" "}
+                <CustomLink
+                  href="/register"
+                  className="text-blue-500 hover:text-blue-700"
+                >
+                  Cadastre-se.
+                </CustomLink>
+              </p>
+              {error && <Message msg={String(error)} type="error" />}
+            </div>
+          </form>
+        </Form>
       </div>
     </div>
   );
