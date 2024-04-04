@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  section_btn,
   section_spacing,
   section_subtitle,
   section_text,

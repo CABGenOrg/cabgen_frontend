@@ -6,9 +6,7 @@ import {
   section_btn,
   section_image,
   section_spacing,
-  section_subtitle,
   section_text,
-  section_title,
 } from "@/styles/tailwind_classes";
 
 const CabgenDescription = () => {
@@ -17,20 +15,13 @@ const CabgenDescription = () => {
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex justify-center items-center sm:order-first order-last">
           <OptimizedImage
-            src={"/Home/bacteria_pool.png"}
-            alt="bacteria pool"
+            src={"/Home/signature_cabgen_dark.png"}
+            alt="cagben signature"
             className={section_image}
           />
         </div>
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-start">
-            <div>
-              <OptimizedImage
-                src={"/Home/signature_cabgen_dark.png"}
-                alt="cagben signature"
-                className={section_image}
-              />
-            </div>
             <p className={section_text}>
               Plataforma digital que integra ferramentas para análise de dados
               de sequenciamento genômico de bactérias, capaz de organizar,

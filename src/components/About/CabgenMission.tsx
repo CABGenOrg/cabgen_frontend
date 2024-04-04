@@ -59,9 +59,9 @@ const CabgenMission = () => {
         </div>
         <div className="flex justify-center items-center">
           <OptimizedImage
-            src={"/About/science_pixabay.png"}
-            alt="scientist on top of books next to a DNA molecule and a microscope"
-            className={`${section_image} h-[90%]`}
+            src={"/About/CABGen_Simbolo.png"}
+            alt="CABGen logo"
+            className="rotate-90 lg:w-auto lg:h-auto w-4/5 h-4/5"
           />
         </div>
       </div>
