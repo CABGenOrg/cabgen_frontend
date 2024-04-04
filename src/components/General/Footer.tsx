@@ -17,9 +17,9 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-cabgen-300 text-white">
+    <footer className="bg-cabgen-100 text-white">
       <div className={`grid grid-cols-2 ${section_spacing}`}>
-        <div className="flex flex-col items-center font-light 2xl:text-xl sm:text-base text-sm">
+        <div className="flex flex-col items-center font-light 2xl:text-2xl sm:text-xl text-base">
           {links.map(({ name, url }, idx) => (
             <CustomLink
               className="hover:text-black pointer-events-none"
@@ -30,13 +30,13 @@ const Footer = () => {
             </CustomLink>
           ))}
         </div>
-        <div className="flex flex-col items-start font-light 2xl:text-lg text-sm">
+        <div className="flex flex-col items-start font-light 2xl:text-xl text-base">
           {address.map(({ info }, idx) => (
             <div key={idx}>{info}</div>
           ))}
         </div>
       </div>
-      <div className="bg-cabgen-800 text-opacity-70 text-white text-center 2xl:text-xl sm:text-base text-sm px-1.5 py-3">
+      <div className="bg-cabgen-200 text-opacity-70 text-white text-center 2xl:text-xl sm:text-base text-sm px-1.5 py-3">
         Copyright ©2024 All rights reserved | PROCC - FIOCRUZ
       </div>
     </footer>

@@ -21,10 +21,16 @@ import {
 } from "@/components/ui/tooltip";
 import { useDispatch } from "react-redux";
 import { updateLanguage } from "@/redux/slices/languageSlice";
+import { getTranslateClient } from "@/lib/getTranslateClient";
+import { Locale } from "@/i18n/i18n.config";
 
-const Menu = ({ lang }: { lang: string }) => {
+const Menu = ({ lang }: { lang: Locale }) => {
   const dispatch = useDispatch();
   dispatch(updateLanguage(lang));
+
+  const {
+    dictionary: { Menu: Navbar },
+  } = getTranslateClient(lang);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const handleMenu = () => {
@@ -32,16 +38,16 @@ const Menu = ({ lang }: { lang: string }) => {
   };
 
   const items = [
-    { name: "Home", link: "/", icon: <HomeIcon /> },
-    { name: "Network", link: "/network", icon: <NetworkIcon /> },
-    { name: "Dashboard", link: "/dashboard", icon: <DashboardIcon /> },
-    { name: "About", link: "/about", icon: <AboutIcon /> },
-    { name: "Contact", link: "/contact", icon: <ContactIcon /> },
-    { name: "Login", link: "/login", icon: <LoginIcon /> },
+    { name: Navbar.home, link: "/", icon: <HomeIcon /> },
+    { name: Navbar.network, link: "/network", icon: <NetworkIcon /> },
+    { name: Navbar.dashboard, link: "/dashboard", icon: <DashboardIcon /> },
+    { name: Navbar.about, link: "/about", icon: <AboutIcon /> },
+    { name: Navbar.contact, link: "/contact", icon: <ContactIcon /> },
+    { name: Navbar.login, link: "/login", icon: <LoginIcon /> },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 shadow-md w-full h-24 bg-cabgen-300 text-white p-2">
+    <nav className="sticky top-0 z-50 shadow-md w-full h-24 bg-cabgen-100 text-white p-2">
       <div className="h-full w-full flex flex-row justify-between items-center px-4 2xl:px-16">
         {/* Logo */}
         <CustomLink href="/">
@@ -59,9 +65,15 @@ const Menu = ({ lang }: { lang: string }) => {
             <TooltipProvider key={idx}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <CustomLink href={link} lang={lang}>
-                    <li className="fill-white hover:fill-cabgen-600">{icon}</li>
-                  </CustomLink>
+                  <li>
+                    <CustomLink
+                      href={link}
+                      lang={lang}
+                      className="fill-white hover:fill-cabgen-600"
+                    >
+                      {icon}
+                    </CustomLink>
+                  </li>
                 </TooltipTrigger>
                 <TooltipContent>{name}</TooltipContent>
               </Tooltip>

@@ -17,21 +17,13 @@ const NetworkDescription = () => {
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-start">
-            <h2>
-              <span className={`${section_subtitle} uppercase`}>
-                Rede Nacional de
-              </span>
-              <br />
-              <span className={`${section_subtitle} uppercase`}>
-                Vigilância Genômica de
-              </span>
-              <br />
-              <span className={`${section_title} uppercase`}>
-                Bactérias Multirresistentes
-                <br />
-                no Brasil
-              </span>
-            </h2>
+            <div>
+              <OptimizedImage
+                src={"/Network/logo_rede_dark.png"}
+                alt="network dark logo"
+                className=""
+              />
+            </div>
             <p className={section_text}>
               A rede reúne especialistas em resistência antimicrobiana (RAM) e
               bioinformática de diferentes unidades da Fiocruz, LACEN e
@@ -46,8 +38,8 @@ const NetworkDescription = () => {
         </div>
         <div className="flex justify-center items-center">
           <OptimizedImage
-            src={"/Network/rede_dark_symbol.png"}
-            alt="genomic network symbol"
+            src={"/Network/studying_dna_freepik.jpg"}
+            alt="scientist studying DNA"
             className={`${section_image} rounded-lg`}
           />
         </div>

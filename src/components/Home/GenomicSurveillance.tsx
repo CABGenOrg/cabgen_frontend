@@ -26,7 +26,7 @@ const GenomicSurveillance = () => {
             <h2 className={`${section_subtitle} uppercase`}>
               REDE NACIONAL DE VIGILÂNCIA GENÔMICA DE{" "}
               <span className="font-bold">
-                BACTÉRIAS MULTIRRESISTENTES DO BRASIL
+                BACTÉRIAS MULTIRRESISTENTES NO BRASIL
               </span>
             </h2>
             <p className={section_text}>
