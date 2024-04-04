@@ -81,10 +81,6 @@ const RegisterFormSchema = z
 
 type FormData = z.infer<typeof RegisterFormSchema>;
 
-const base_height = "2xl:h-[850px] sm:h-[750px] h-[1250px]";
-const form_width = "w-full";
-const image_width = "sm:w-[30%] w-[15%]";
-
 const RegisterForm = () => {
   const form = useForm<FormData>({
     resolver: zodResolver(RegisterFormSchema),
@@ -133,259 +129,229 @@ const RegisterForm = () => {
   }, [isSuccess, error, form, router]);
 
   return (
-    <>
-      <div className="flex flex-row justify-center items-center my-3 md:mx-auto mx-2 lg:w-[60%] md:w-[70%]">
-        <div className={`${base_height} ${image_width}`}>
+    <div className="mx-5 py-5 px-3 2xl:w-[45%] lg:w-[60%] md:w-[75%] bg-slate-200 rounded-lg">
+      <div className="flex flex-col justify-center items-center py-6 sm:px-8 px-4">
+        <div className="flex flex-row justify-center items-center">
           <OptimizedImage
-            src="/Contact/dna-helix-attacked-by-bacteria.jpg"
-            alt="bacteria attacking DNA"
-            className="object-cover w-full h-full rounded-s-xl"
+            src="/Home/signature_cabgen_dark.png"
+            alt="Cabgen logo"
+            className="object-cover sm:w-5/12 w-2/3"
           />
         </div>
-        <div
-          className={`flex flex-col justify-center items-center bg-slate-200 rounded-e-xl py-3 sm:px-8 px-4 ${base_height} ${form_width}`}
-        >
-          <h2 className={form_title}>Cadastro</h2>
-          <Form {...form}>
-            <form
-              className="mx-2 mt-2 w-full"
-              onSubmit={form.handleSubmit(onSubmit)}
-            >
-              <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel className={label_class}>Nome</FormLabel>
+        <h2 className={`${form_title} my-5`}>Cadastro</h2>
+        <Form {...form}>
+          <form
+            className="mx-2 mt-2 w-full"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>Nome</FormLabel>
+                      <FormControl>
+                        <input type="text" className={input_class} {...field} />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="country"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>País</FormLabel>
+                      <Select onValueChange={field.onChange}>
                         <FormControl>
-                          <input
-                            type="text"
-                            className={input_class}
-                            {...field}
-                          />
+                          <SelectTrigger className="text-black focus-visible:ring-transparent 2xl:text-xl sm:text-sm">
+                            <SelectValue
+                              placeholder="Selecione um País"
+                              className={input_class}
+                            />
+                          </SelectTrigger>
                         </FormControl>
-                        <FormMessage className="text-red-600" />
-                      </FormItem>
-                    );
-                  }}
-                />
-                <FormField
-                  control={form.control}
-                  name="country"
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel className={label_class}>País</FormLabel>
-                        <Select onValueChange={field.onChange}>
-                          <FormControl>
-                            <SelectTrigger className="text-black focus-visible:ring-transparent 2xl:text-xl sm:text-sm">
-                              <SelectValue
-                                placeholder="Selecione um País"
-                                className={input_class}
-                              />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className={input_class}>
-                            {countries.map(({ code, country }) => (
-                              <SelectItem key={code} value={code}>
-                                {country}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage className="text-red-600" />
-                      </FormItem>
-                    );
-                  }}
-                />
-                <FormField
-                  control={form.control}
-                  name="username"
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel className={label_class}>
-                          Nome de Usuário
-                        </FormLabel>
-                        <FormControl>
-                          <input
-                            type="text"
-                            className={input_class}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-600" />
-                      </FormItem>
-                    );
-                  }}
-                />
-                <FormField
-                  control={form.control}
-                  name="interest"
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel className={label_class}>Interesse</FormLabel>
-                        <FormControl>
-                          <input
-                            type="text"
-                            className={input_class}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-600" />
-                      </FormItem>
-                    );
-                  }}
-                />
-                <FormField
-                  control={form.control}
-                  name="institution"
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel className={label_class}>
-                          Instituição
-                        </FormLabel>
-                        <FormControl>
-                          <input
-                            type="text"
-                            className={input_class}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-600" />
-                      </FormItem>
-                    );
-                  }}
-                />
-                <FormField
-                  control={form.control}
-                  name="role"
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel className={label_class}>Cargo</FormLabel>
-                        <FormControl>
-                          <input
-                            type="text"
-                            className={input_class}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-600" />
-                      </FormItem>
-                    );
-                  }}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel className={label_class}>E-mail</FormLabel>
-                        <FormControl>
-                          <input
-                            type="email"
-                            className={input_class}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-600" />
-                      </FormItem>
-                    );
-                  }}
-                />
-                <FormField
-                  control={form.control}
-                  name="confirmEmail"
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel className={label_class}>
-                          Confirme o E-mail
-                        </FormLabel>
-                        <FormControl>
-                          <input
-                            type="text"
-                            className={input_class}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-600" />
-                      </FormItem>
-                    );
-                  }}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel className={label_class}>Senha</FormLabel>
-                        <FormControl>
-                          <input
-                            type="password"
-                            className={input_class}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-600" />
-                      </FormItem>
-                    );
-                  }}
-                />
-                <FormField
-                  control={form.control}
-                  name="confirmPassword"
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel className={label_class}>
-                          Confirme a senha
-                        </FormLabel>
-                        <FormControl>
-                          <input
-                            type="password"
-                            className={input_class}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-600" />
-                      </FormItem>
-                    );
-                  }}
-                />
-              </div>
-              <div className="flex justify-center items-center mt-6">
-                {!isLoading && (
-                  <button className={section_btn} type="submit">
-                    Continuar
-                  </button>
-                )}
-                {isLoading && <Loading />}
-              </div>
-              <div className="text-center mt-3">
-                <p>
-                  Já possui conta?{" "}
-                  <CustomLink
-                    href="/login"
-                    className="text-blue-500 hover:text-blue-700"
-                  >
-                    Faça login.
-                  </CustomLink>
-                </p>
-                {error && <Message msg={String(error)} type="error" />}
-              </div>
-            </form>
-          </Form>
-        </div>
+                        <SelectContent className={input_class}>
+                          {countries.map(({ code, country }) => (
+                            <SelectItem key={code} value={code}>
+                              {country}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>
+                        Nome de Usuário
+                      </FormLabel>
+                      <FormControl>
+                        <input type="text" className={input_class} {...field} />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="interest"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>Interesse</FormLabel>
+                      <FormControl>
+                        <input type="text" className={input_class} {...field} />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="institution"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>Instituição</FormLabel>
+                      <FormControl>
+                        <input type="text" className={input_class} {...field} />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>Cargo</FormLabel>
+                      <FormControl>
+                        <input type="text" className={input_class} {...field} />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>E-mail</FormLabel>
+                      <FormControl>
+                        <input
+                          type="email"
+                          className={input_class}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="confirmEmail"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>
+                        Confirme o E-mail
+                      </FormLabel>
+                      <FormControl>
+                        <input type="text" className={input_class} {...field} />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>Senha</FormLabel>
+                      <FormControl>
+                        <input
+                          type="password"
+                          className={input_class}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>
+                        Confirme a senha
+                      </FormLabel>
+                      <FormControl>
+                        <input
+                          type="password"
+                          className={input_class}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+            </div>
+            <div className="flex justify-center items-center mt-6">
+              {!isLoading && (
+                <button className={section_btn} type="submit">
+                  Continuar
+                </button>
+              )}
+              {isLoading && <Loading />}
+            </div>
+            <div className="text-center 2xl:text-xl mt-3">
+              <p>
+                Já possui conta?{" "}
+                <CustomLink
+                  href="/login"
+                  className="text-blue-500 hover:text-blue-700"
+                >
+                  Faça login.
+                </CustomLink>
+              </p>
+              {error && <Message msg={String(error)} type="error" />}
+            </div>
+          </form>
+        </Form>
       </div>
-    </>
+    </div>
   );
 };
 
