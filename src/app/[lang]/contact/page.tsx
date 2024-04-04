@@ -5,10 +5,7 @@ import { form_spacing } from "@/styles/tailwind_classes";
 
 const Contact = () => {
   return (
-    <Section
-      id="contact"
-      background="/Contact/dna-helix-attacked-by-bacteria.jpg"
-    >
+    <Section id="contact">
       <div className={form_spacing}>
         <ContactForm />
       </div>
