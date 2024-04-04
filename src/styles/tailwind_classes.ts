@@ -7,7 +7,7 @@ export const section_spacing =
 export const section_btn =
   "bg-cabgen-200 hover:bg-cabgen-100 rounded-lg 2xl:py-4 py-2 2xl:px-8 px-6 2xl:text-3xl text-xl text-white";
 export const form_spacing =
-  "w-full my-3 mx-auto lg:min-h-[calc(100vh-125px)] flex justify-center items-center";
+  "w-full my-3 mx-auto lg:min-h-[calc(100vh-125px)] flex flex-col justify-center items-center";
 export const form_title =
   "font-semibold 2xl:text-6xl md:text-4xl text-3xl text-center tracking-tight text-gray-800";
 export const input_class =

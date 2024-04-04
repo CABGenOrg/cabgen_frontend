@@ -33,10 +33,6 @@ const LoginFormSchema = z.object({
 
 type FormData = z.infer<typeof LoginFormSchema>;
 
-const base_height = "2xl:h-[650px] h-[450px]";
-const form_width = "w-[50%]";
-const image_width = "sm:w-[40%] w-[25%]";
-
 const LoginForm = () => {
   const form = useForm<FormData>({
     resolver: zodResolver(LoginFormSchema),
@@ -66,21 +62,19 @@ const LoginForm = () => {
   }, [isSuccess, error, form, router]);
 
   return (
-    <div className="flex flex-row justify-center items-center my-3 md:mx-auto mx-2 lg:w-[60%] md:w-[70%]">
-      <div className={`${base_height} ${image_width}`}>
-        <OptimizedImage
-          src="/Contact/dna-helix-attacked-by-bacteria.jpg"
-          alt="bacteria attacking DNA"
-          className="object-cover w-full h-full rounded-s-xl"
-        />
-      </div>
-      <div
-        className={`flex flex-col justify-center items-center bg-slate-200 rounded-e-xl py-6 sm:px-8 px-4 ${base_height} ${form_width}`}
-      >
-        <h2 className={form_title}>Login</h2>
+    <div className="mx-5 py-10 px-5 2xl:w-[45%] lg:w-[40%] md:w-[65%] bg-slate-200 rounded-lg">
+      <div className="flex flex-col justify-center items-center py-6 sm:px-8 px-4">
+        <div className="flex flex-row justify-center items-center">
+          <OptimizedImage
+            src="/Home/signature_cabgen_dark.png"
+            alt="Cabgen logo"
+            className="object-cover sm:w-6/12 w-2/3"
+          />
+        </div>
+        <h2 className={`${form_title} my-5`}>Login</h2>
         <Form {...form}>
           <form
-            className="mx-2 mt-8 w-full"
+            className="mx-2 w-full"
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <div className="grid grid-cols-1 gap-x-6 gap-y-4">
@@ -129,7 +123,7 @@ const LoginForm = () => {
               )}
               {isLoading && <Loading />}
             </div>
-            <div className="text-center mt-3">
+            <div className="text-center 2xl:text-xl mt-3">
               <p>
                 Não possui conta?{" "}
                 <CustomLink
