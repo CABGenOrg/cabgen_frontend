@@ -20,7 +20,7 @@ const CabgenDescription = () => {
             className={section_image}
           />
         </div>
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center sm:order-first order-last">
           <div className="flex flex-col justify-center items-start">
             <p className={section_text}>
               Plataforma digital que integra ferramentas para análise de dados

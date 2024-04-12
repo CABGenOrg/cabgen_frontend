@@ -52,16 +52,15 @@ const ContactForm = () => {
 
   return (
     <div className="mx-5 py-6 px-3 2xl:w-[45%] lg:w-[55%] md:w-[70%] bg-slate-200 rounded-lg">
-      <div className="flex flex-col justify-center items-center py-6 sm:px-8 px-4">
+      <div className="flex flex-col justify-center items-center py-6 sm:px-8 px-2">
         <div className="flex flex-row justify-center items-center">
           <OptimizedImage
             src="/Home/signature_cabgen_dark.png"
             alt="Cabgen logo"
-            className="object-cover sm:w-5/12 w-2/3"
+            className="object-cover sm:w-6/12 w-2/3 mb-5"
           />
         </div>
         <div className="my-3">
-          <h2 className={form_title}>Contato</h2>
           <p className="mt-2 text-lg leading-8 text-gray-600 text-center font-light">
             Por favor, deixe sua mensagem, dúvida ou sugestão.
           </p>

@@ -62,16 +62,15 @@ const LoginForm = () => {
   }, [isSuccess, error, form, router]);
 
   return (
-    <div className="mx-5 py-10 px-5 2xl:w-[45%] lg:w-[40%] md:w-[65%] bg-slate-200 rounded-lg">
-      <div className="flex flex-col justify-center items-center py-6 sm:px-8 px-4">
+    <div className="mx-5 py-10 px-5 2xl:w-[35%] lg:w-[40%] md:w-[65%] bg-slate-200 rounded-lg">
+      <div className="flex flex-col justify-center items-center py-6 sm:px-8 px-2">
         <div className="flex flex-row justify-center items-center">
           <OptimizedImage
             src="/Home/signature_cabgen_dark.png"
             alt="Cabgen logo"
-            className="object-cover sm:w-6/12 w-2/3"
+            className="object-cover sm:w-6/12 w-2/3 mb-5"
           />
         </div>
-        <h2 className={`${form_title} my-5`}>Login</h2>
         <Form {...form}>
           <form
             className="mx-2 w-full"

@@ -35,15 +35,15 @@ const BoxInfo = () => {
       {data.map(({ image, count, description }, idx) => (
         <div
           key={idx}
-          className="flex flex-col justify-center items-center bg-slate-400 rounded-xl sm:h-48 sm:w-52 h-42"
+          className="flex flex-col justify-center items-center bg-slate-400 2xl:p-2 p-1.5 rounded-xl 2xl:h-64 2xl:w-64 sm:h-48 sm:w-52 h-42"
         >
           <OptimizedImage
             src={image}
             alt={description}
-            className="sm:h-1/2 w-auto h-2/5"
+            className="2xl:h-3/5 sm:h-1/2 h-2/5 object-contain"
           />
 
-          <div className="text-center md:text-base text-lg mt-3 px-1">
+          <div className="text-center 2xl:text-xl md:text-lg text-lg mt-2 px-1">
             <span>{count} </span>
             <span>{description}</span>
           </div>

@@ -25,7 +25,7 @@ const AboutContact = () => {
         </div>
         <div className="flex justify-center items-center">
           <CustomLink href="/contact">
-            <button className="bg-cabgen-200 hover:bg-cabgen-100 rounded-lg 2xl:py-4 py-2 2xl:px-14 sm:px-12 px-8 2xl:text-4xl sm:text-2xl text-lg text-white">
+            <button className="bg-cabgen-200 hover:bg-cabgen-100 rounded-lg 2xl:py-3 py-2 2xl:px-13 sm:px-12 px-8 2xl:text-3xl sm:text-2xl text-lg text-white">
               Contato
             </button>
           </CustomLink>

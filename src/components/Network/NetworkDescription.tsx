@@ -19,7 +19,7 @@ const NetworkDescription = () => {
           <OptimizedImage
             src={"/Network/logo_rede_dark.png"}
             alt="network dark logo"
-            className={section_image}
+            className="object-cover sm:w-5/6 w-auto"
           />
         </div>
         <div className="flex flex-col justify-center items-center">
