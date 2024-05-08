@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   description:
     "A Web Application for the Bioinformatic Analysis of Bacterial Genomes",
   icons: {
-    icon: "cabgen.ico",
+    icon: "/images/cabgen.ico",
   },
 };
 
