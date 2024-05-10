@@ -8,8 +8,14 @@ import {
   section_spacing,
   section_text,
 } from "@/styles/tailwind_classes";
+import { Locale } from "@/i18n/i18n.config";
+import { getTranslateServer } from "@/lib/getTranslateServer";
 
-const CabgenDescription = () => {
+const CabgenDescription = ({ lang }: { lang: Locale }) => {
+  const {
+    dictionary: { Home },
+  } = getTranslateServer(lang);
+
   return (
     <Section id="cagben-description" gray>
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
@@ -22,19 +28,14 @@ const CabgenDescription = () => {
         </div>
         <div className="flex flex-col justify-center items-center sm:order-first order-last">
           <div className="flex flex-col justify-center items-start">
-            <p className={section_text}>
-              Plataforma digital que integra ferramentas para análise de dados
-              de sequenciamento genômico de bactérias, capaz de organizar,
-              armazenar e disponibilizar os resultados obtidos através de formas
-              eficientes de visualização.
-            </p>
+            <p className={section_text}>{Home.CabgenDescription.description}</p>
           </div>
           <Link
             href="https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2022.893474/full"
             passHref={true}
             target="_blank"
           >
-            <button className={section_btn}>Artigo</button>
+            <button className={section_btn}>{Home.CabgenDescription.articleBtn}</button>
           </Link>
         </div>
       </div>

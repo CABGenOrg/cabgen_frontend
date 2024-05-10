@@ -1,12 +1,18 @@
 import React from "react";
 import CustomLink from "./CustomLink";
 import { section_spacing } from "@/styles/tailwind_classes";
+import { getTranslateServer } from "@/lib/getTranslateServer";
+import { Locale } from "@/i18n/i18n.config";
 
-const Footer = () => {
+const Footer = ({ lang }: { lang: Locale }) => {
+  const {
+    dictionary: { Footer },
+  } = getTranslateServer(lang);
+
   const links = [
-    { name: "FAQ", url: "/faq" },
-    { name: "Termos de Uso", url: "/terms-of-use" },
-    { name: "Créditos das Imagens", url: "/image-credits" },
+    { name: Footer.faqLink, url: "/faq" },
+    { name: Footer.termLink, url: "/terms-of-use" },
+    { name: Footer.imageCredits, url: "/image-credits" },
   ];
 
   const address = [

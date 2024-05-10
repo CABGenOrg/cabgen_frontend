@@ -9,8 +9,14 @@ import {
   section_subtitle,
   section_text,
 } from "@/styles/tailwind_classes";
+import { Locale } from "@/i18n/i18n.config";
+import { getTranslateServer } from "@/lib/getTranslateServer";
 
-const GenomicSurveillance = () => {
+const GenomicSurveillance = ({ lang }: { lang: Locale }) => {
+  const {
+    dictionary: { Home },
+  } = getTranslateServer(lang);
+
   return (
     <Section id="genomic-surveillance" gray>
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
@@ -24,20 +30,17 @@ const GenomicSurveillance = () => {
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-start">
             <h2 className={`${section_subtitle} uppercase`}>
-              REDE NACIONAL DE VIGILÂNCIA GENÔMICA DE{" "}
+              {Home.GenomicSurveillance.sectionTitle}{" "}
               <span className="font-bold">
-                BACTÉRIAS MULTIRRESISTENTES NO BRASIL
+                {Home.GenomicSurveillance.sectionSubtitle}
               </span>
             </h2>
             <p className={section_text}>
-              Rede que integra laboratórios brasileiros para realização de
-              sequenciamento genômico de bactérias produtoras de carbapenemases
-              para obtenção de informações relevantes para o controle da
-              disseminação desses microrganismos.
+              {Home.GenomicSurveillance.sectionDescription}
             </p>
           </div>
           <CustomLink href="/network">
-            <button className={section_btn}>Saiba mais</button>
+            <button className={section_btn}>{Home.GenomicSurveillance.learMoreBtn}</button>
           </CustomLink>
         </div>
       </div>

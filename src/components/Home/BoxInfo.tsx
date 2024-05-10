@@ -1,5 +1,10 @@
+"use client";
+
 import React from "react";
 import OptimizedImage from "../General/OptimizedImage";
+import { getTranslateClient } from "@/lib/getTranslateClient";
+import { useSelector } from "react-redux";
+import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
 
 const BoxInfo = () => {
   const genomes = 100;
@@ -7,26 +12,31 @@ const BoxInfo = () => {
   const resistanceGenes = 75;
   const countries = 10;
 
+  const lang = useSelector(selectCurrentLanguage);
+  const {
+    dictionary: { Home },
+  } = getTranslateClient(lang);
+
   const data = [
     {
       image: "/Home/dna_freepik.png",
       count: genomes,
-      description: "genomas submetidos",
+      description: Home.BoxInfo.genomesInfo,
     },
     {
       image: "/Home/bacteria_freepik.png",
       count: species,
-      description: "espécies analisadas",
+      description: Home.BoxInfo.speciesInfo,
     },
     {
       image: "/Home/mutation_freepik.png",
       count: resistanceGenes,
-      description: "genes de resistência detectados",
+      description: Home.BoxInfo.genesInfo,
     },
     {
       image: "/Home/earth_freepik.png",
       count: countries,
-      description: "países submissores",
+      description: Home.BoxInfo.countriesInfo,
     },
   ];
 

@@ -11,11 +11,11 @@ const Home = ({ params: { lang } }: { params: { lang: Locale } }) => {
   return (
     <>
       <Banner lang={lang} />
-      <CabgenDescription />
-      <Statistics />
-      <GenomicSurveillance />
-      <AntimicrobialResistance />
-      <Financiers />
+      <CabgenDescription lang={lang} />
+      <Statistics lang={lang} />
+      <GenomicSurveillance lang={lang} />
+      <AntimicrobialResistance lang={lang} />
+      <Financiers lang={lang}/>
     </>
   );
 };

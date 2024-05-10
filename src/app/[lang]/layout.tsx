@@ -74,7 +74,7 @@ const RootLayout = ({
           <main className="min-h-[calc(100vh-200px)] flex flex-col justify-center items-cente m-auto p-auto">
             {children}
           </main>
-          <Footer />
+          <Footer lang={params.lang} />
         </body>
       </html>
     </StoreProvider>
