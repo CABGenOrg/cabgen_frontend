@@ -67,6 +67,9 @@ const en = {
       sectionTitle: "Current Members",
     },
   },
+  Dashboard: {
+    sectionTitle: "Genomic Network Data",
+  },
   Footer: {
     faqLink: "FAQ",
     termLink: "Terms of Use",

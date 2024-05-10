@@ -67,6 +67,9 @@ const es = {
       sectionTitle: "Miembros Actuales",
     },
   },
+  Dashboard: {
+    sectionTitle: "Datos de la Red Genómica",
+  },
   Footer: {
     faqLink: "FAQ",
     termLink: "Terminos de Uso",

@@ -54,15 +54,21 @@ const pt = {
         "A rede reúne especialistas em resistência antimicrobiana (RAM) e bioinformática de diferentes unidades da Fiocruz, LACEN e CGLAB-MS, tendo como foco principal a estruturação, capacitação, análise e interpretação de dados de sequenciamento total de genomas de bactérias multirresistentes. Essa iniciativa permitirá a compreensão mais profunda sobre o cenário da RAM no Brasil, com a intenção de garantir agilidade para futuras ações no controle da disseminação desses microrganismos.",
       secondParagraph:
         "Cada laboratório participante da rede realiza o sequenciamento de forma independente, e as análises dos dados gerados são padronizadas e automatizadas através do CABGen. As informações geradas pelos integrantes da rede estão disponíveis de forma visual e interativa no CABGen, permitindo a comunicação dos resultados para a comunidade científica e profissionais da saúde.",
-      thirdParagraphFirstPart: "O foco inicial da rede é o estudo das espécies de bacilos gram-negativos multirresistentes",
-      thirdParagraphSecondPart: "Pseudomonas aeruginosa, Acinetobacter baumannni e Klebsiella pneumoniae",
-      thirdParagraphThirdPart: ", produtores de carbapenemases. Essas amostras são incluídas na Coleção de Culturas de Bactérias de Origem Hospitalar (CCBH/IOC - WDCM 947), para preservação das culturas bacterianas. Além disso, os dados genômicos ficam protegidos em um servidor próprio hospedado na Fiocruz/RJ, em uma sala cofre certificada segundo a NBR 15247. A rede está aberta para formalização de novos parceiros. Caso tenho interesse entrar em contato.",
+      thirdParagraphFirstPart:
+        "O foco inicial da rede é o estudo das espécies de bacilos gram-negativos multirresistentes",
+      thirdParagraphSecondPart:
+        "Pseudomonas aeruginosa, Acinetobacter baumannni e Klebsiella pneumoniae",
+      thirdParagraphThirdPart:
+        ", produtores de carbapenemases. Essas amostras são incluídas na Coleção de Culturas de Bactérias de Origem Hospitalar (CCBH/IOC - WDCM 947), para preservação das culturas bacterianas. Além disso, os dados genômicos ficam protegidos em um servidor próprio hospedado na Fiocruz/RJ, em uma sala cofre certificada segundo a NBR 15247. A rede está aberta para formalização de novos parceiros. Caso tenho interesse entrar em contato.",
       contactBtn: "Contato",
       dashboardBtn: "Dashboard",
     },
     Map: {
-      sectionTitle: "Integrantes Atuais"
-    }
+      sectionTitle: "Integrantes Atuais",
+    },
+  },
+  Dashboard: {
+    sectionTitle: "Dados da Rede Genômica",
   },
   Footer: {
     faqLink: "FAQ",

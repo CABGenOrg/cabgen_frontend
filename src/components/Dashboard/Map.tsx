@@ -4,8 +4,12 @@ import "leaflet/dist/leaflet.css";
 import React from "react";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import brazilMapData from "@/mapInfo/brazilGeoJson";
+import { useSelector } from "react-redux";
+import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
 
 const Map = () => {
+  const lang = useSelector(selectCurrentLanguage);
+
   return (
     <div className="flex flex-row justify-center items-center p-2">
       <MapContainer
@@ -13,10 +17,8 @@ const Map = () => {
         center={[-14.2400732, -54.1805017]}
         zoom={5}
       >
-        <TileLayer
-          url="http://a.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png"
-        />
-        
+        <TileLayer url="http://a.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png" />
+
         <GeoJSON
           style={{ color: "black", fillOpacity: 0.5, weight: 0.5 }}
           // @ts-expect-error
