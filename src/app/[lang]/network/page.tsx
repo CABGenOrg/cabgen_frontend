@@ -1,12 +1,13 @@
 import React from "react";
 import NetworkDescription from "@/components/Network/NetworkDescription";
 import NetworkMap from "@/components/Network/NetworkMap";
+import { Locale } from "@/i18n/i18n.config";
 
-const Network = () => {
+const Network = ({ params: { lang } }: { params: { lang: Locale } }) => {
   return (
     <>
-      <NetworkDescription />
-      <NetworkMap />
+      <NetworkDescription lang={lang}/>
+      <NetworkMap lang={lang}/>
     </>
   );
 };
