@@ -13,7 +13,7 @@ const Map = () => {
   return (
     <div className="flex flex-row justify-center items-center p-2">
       <MapContainer
-        className="h-[100vh] w-[50vw] sticky"
+        className="h-[100vh] 2xl:w-[55vw] xl:w-[65vw] w-[90vw] sticky"
         center={[-14.2400732, -54.1805017]}
         zoom={5}
       >
