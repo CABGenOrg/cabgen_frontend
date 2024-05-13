@@ -6,12 +6,17 @@ import {
   section_subtitle,
   section_text,
   section_title,
-  section_image,
 } from "@/styles/tailwind_classes";
 import OptimizedImage from "../General/OptimizedImage";
 import Link from "next/link";
+import { Locale } from "@/i18n/i18n.config";
+import { getTranslateServer } from "@/lib/getTranslateServer";
 
-const CabgenMission = () => {
+const CabgenMission = ({ lang }: { lang: Locale }) => {
+  const {
+    dictionary: { About },
+  } = getTranslateServer(lang);
+
   return (
     <Section id="cabgen-mission" gray>
       <div className={`grid lg:grid-cols-2 grid-cols-1 ${section_spacing}`}>
@@ -19,34 +24,18 @@ const CabgenMission = () => {
           <div className="flex flex-col justify-center items-start">
             <h2>
               <span className={`${section_subtitle} uppercase`}>
-                Entenda o{" "}
+                {About.CabgenMission.sectionTitle}
               </span>
               <span className={section_subtitle}>CABGen:</span>
               <br />
               <span className={`${section_title} uppercase`}>
-                Missão e Propósito
+                {About.CabgenMission.sectionSubtitle}
               </span>
             </h2>
             <p className={section_text}>
-              O CABGen surge como uma solução para os desafios enfrentados
-              diante do aumento exponencial de dados gerados pelo sequenciamento
-              genômico de bactérias resistentes aos antimicrobianos (RAM). Em
-              resposta à urgência em combater a RAM e preencher a lacuna entre a
-              geração e análise de dados genômicos, o CABGen oferece
-              funcionalidades essenciais, como identificação de espécie,
-              detecção de genes e mutações relacionadas à resistências,
-              atribuição de um perfil clonal e a verificação da existência de
-              plasmídeos. Essas ferramentas simplificam e aprimoram a análise e
-              interpretação de dados biológicos, fornecendo insights valiosos
-              para aplicações clínicas.
+              {About.CabgenMission.sectionDescriptionFirstParagraph}
               <br />
-              Ademais, o sistema está em constante evolução para atender às
-              demandas crescentes, com planos para a instalação de um novo
-              servidor que permitirá até 60 análises em paralelo, além de um
-              armazenamento robusto capaz de suportar até 120 mil amostras. A
-              segurança do CABGen é garantida tanto pelo firewall da rede do
-              Programa de Computação Científica (PROCC) quanto pelas rigorosas
-              políticas de segurança da FioCruz.
+              {About.CabgenMission.sectionDescriptionSecondParagraph}
             </p>
           </div>
           <Link
@@ -54,7 +43,9 @@ const CabgenMission = () => {
             passHref={true}
             target="_blank"
           >
-            <button className={section_btn}>Artigo</button>
+            <button className={section_btn}>
+              {About.CabgenMission.articleBtn}
+            </button>
           </Link>
         </div>
         <div className="flex justify-center items-center">

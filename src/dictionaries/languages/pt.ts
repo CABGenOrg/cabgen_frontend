@@ -70,6 +70,38 @@ const pt = {
   Dashboard: {
     sectionTitle: "Dados da Rede Genômica",
   },
+  About: {
+    CabgenMission: {
+      sectionTitle: "Entenda o ",
+      sectionSubtitle: "Missão e Propósito",
+      sectionDescriptionFirstParagraph:
+        "O CABGen surge como uma solução para os desafios enfrentados diante do aumento exponencial de dados gerados pelo sequenciamento genômico de bactérias resistentes aos antimicrobianos (RAM). Em resposta à urgência em combater a RAM e preencher a lacuna entre a geração e análise de dados genômicos, o CABGen oferece funcionalidades essenciais, como identificação de espécie, detecção de genes e mutações relacionadas à resistências, atribuição de um perfil clonal e a verificação da existência de plasmídeos. Essas ferramentas simplificam e aprimoram a análise e interpretação de dados biológicos, fornecendo insights valiosos para aplicações clínicas.",
+      sectionDescriptionSecondParagraph:
+        "Ademais, o sistema está em constante evolução para atender às demandas crescentes, com planos para a instalação de um novo servidor que permitirá até 60 análises em paralelo, além de um armazenamento robusto capaz de suportar até 120 mil amostras. A segurança do CABGen é garantida tanto pelo firewall da rede do Programa de Computação Científica (PROCC) quanto pelas rigorosas políticas de segurança da FioCruz.",
+      articleBtn: "Artigo",
+    },
+    CabgenPipeline: {
+      sectionTitle: "Por dentro do ",
+    },
+    CabgenResults: {
+      sectionTitle: "Resultados do ",
+    },
+    Team: {
+      sectionTitle: "Conheça nossos profissionais",
+      roleAnaPaula: "Responsável por coordenar o projeto, analisar os resultados fenotípicos, moleculares e de sequenciamento e enviar os resultados para o sistema Gerenciamento de Ambiente de Laboratório (GAL).",
+      roleFabricio: "Responsável por gerenciar a utilização do servidor da Fiocruz para montagem de genomas e desenvolvimento do banco de dados para disponibilização de genomas.",
+      roleFelicita: "Doutoranda do Programa de Biologia Computacional e Sistemas do Doutorado em Ciências da Saúde Cooperação internacional entre a Fundação Oswaldo Cruz e o Focem-Mercosul - Paraguai.",
+      roleMelise: "Responsável pela análise dos resultados obtidos no sequenciamento de todo o genoma.",
+      roleRodolpho: "Pesquisador da UERJ.",
+      roleClaudio: "Responsável pelo gerenciamento das atividades laboratoriais do LAPIH e liofilização e armazenamento de amostras bacterianas.",
+      roleNicolas: "Responsável pelo desenvolvimento da nova versão do front-end do CABGen."
+    },
+    AboutContact: {
+      sectionTitle: "Deseja saber mais? Fale conosco!",
+      sectionDescription: "Se surgir alguma dúvida, estamos aqui para ajudar. Visite nossa página de contato para aprender a usar a nossa ferramenta. Preencha o formulário ou entre em contato por e-mail.",
+      contactBtn: "Contato"
+    },
+  },
   Footer: {
     faqLink: "FAQ",
     termLink: "Termos de Uso",

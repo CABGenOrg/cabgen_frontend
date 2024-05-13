@@ -70,6 +70,45 @@ const es = {
   Dashboard: {
     sectionTitle: "Datos de la Red Genómica",
   },
+  About: {
+    CabgenMission: {
+      sectionTitle: "Comprende ",
+      sectionSubtitle: "Misión y Propósito",
+      sectionDescriptionFirstParagraph:
+        "CABGen surge como una solución a los desafíos enfrentados con el aumento exponencial de datos generados por la secuenciación genómica de bacterias resistentes a los antimicrobianos (RAM). En respuesta a la urgencia de combatir la RAM y cerrar la brecha entre la generación y el análisis de datos genómicos, CABGen ofrece funcionalidades esenciales como identificación de especies, detección de genes y mutaciones relacionadas con la resistencia, asignación de un perfil clonal y verificación de la existencia de plásmidos. Estas herramientas simplifican y mejoran el análisis e interpretación de datos biológicos, proporcionando conocimientos valiosos para aplicaciones clínicas.",
+      sectionDescriptionSecondParagraph:
+        "Además, el sistema está en constante evolución para satisfacer las crecientes demandas, con planes para la instalación de un nuevo servidor que permitirá hasta 60 análisis en paralelo, así como un almacenamiento robusto capaz de soportar hasta 120,000 muestras. La seguridad de CABGen está garantizada tanto por el firewall de la red del Programa de Computación Científica (PROCC) como por las rigurosas políticas de seguridad de Fiocruz.",
+      articleBtn: "Artículo",
+    },
+    CabgenPipeline: {
+      sectionTitle: "Dentro del ",
+    },
+    CabgenResults: {
+      sectionTitle: "Resultados de ",
+    },
+    Team: {
+      sectionTitle: "Conozca a nuestros profesionales",
+      roleAnaPaula:
+        "Responsable de coordinar el proyecto, analizar los resultados fenotípicos, moleculares y de secuenciación y enviar los resultados al Sistema de Gestión del Entorno de Laboratorio (GAL).",
+      roleFabricio:
+        "Responsable de gestionar el uso del servidor de Fiocruz para el ensamblaje de genomas y el desarrollo de la base de datos para la disponibilidad de genomas.",
+      roleFelicita:
+        "Estudiante de doctorado en el Programa de Biología Computacional y Sistemas del Doctorado en Ciencias de la Salud Cooperación internacional entre la Fundação Oswaldo Cruz y el Focem-Mercosur - Paraguay.",
+      roleMelise:
+        "Responsable de analizar los resultados obtenidos en el secuenciación de genomas completos.",
+      roleRodolpho: "Investigador en UERJ.",
+      roleClaudio:
+        "Responsable de gestionar las actividades de laboratorio de LAPIH y la liofilización y almacenamiento de muestras bacterianas.",
+      roleNicolas:
+        "Responsable del desarrollo de la nueva versión del front-end de CABGen.",
+    },
+    AboutContact: {
+      sectionTitle: "¿Quieres saber más? ¡Contáctanos!",
+      sectionDescription:
+        "Si tienes alguna pregunta, estamos aquí para ayudarte. Visita nuestra página de contacto para aprender a usar nuestra herramienta. Completa el formulario o contáctanos por correo electrónico.",
+      contactBtn: "Contacto",
+    },
+  },
   Footer: {
     faqLink: "FAQ",
     termLink: "Terminos de Uso",
