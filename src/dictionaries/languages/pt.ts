@@ -124,6 +124,15 @@ const pt = {
     messageFieldValidation: "A mensagem é obrigatória.",
     sendBtn: "Enviar",
   },
+  Login: {
+    usernameField: "Nome de Usuário",
+    usernameFieldValidation: "O nome de usuário é obrigatório.",
+    passwordField: "Senha",
+    passwordFieldValidation: "A senha é obrigatória.",
+    loginBtn: "Continuar",
+    formFooter1: "Não possui conta? ",
+    formFooter2: "Cadastre-se."
+  },
   Footer: {
     faqLink: "FAQ",
     termLink: "Termos de Uso",

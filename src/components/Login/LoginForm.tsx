@@ -25,15 +25,23 @@ import {
   FormField,
 } from "../ui/form";
 import Message from "../General/Message";
-
-const LoginFormSchema = z.object({
-  username: z.string().min(1, "O usuário é obrigatório."),
-  password: z.string().min(1, "A senha é obrigatória."),
-});
-
-type FormData = z.infer<typeof LoginFormSchema>;
+import { useSelector } from "react-redux";
+import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
+import { getTranslateClient } from "@/lib/getTranslateClient";
 
 const LoginForm = () => {
+  const lang = useSelector(selectCurrentLanguage);
+  const {
+    dictionary: { Login },
+  } = getTranslateClient(lang);
+
+  const LoginFormSchema = z.object({
+    username: z.string().min(1, Login.usernameFieldValidation),
+    password: z.string().min(1, Login.passwordFieldValidation),
+  });
+
+  type FormData = z.infer<typeof LoginFormSchema>;
+
   const form = useForm<FormData>({
     resolver: zodResolver(LoginFormSchema),
     defaultValues: {
@@ -72,10 +80,7 @@ const LoginForm = () => {
           />
         </div>
         <Form {...form}>
-          <form
-            className="mx-2 w-full"
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
+          <form className="mx-2 w-full" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid grid-cols-1 gap-x-6 gap-y-4">
               <FormField
                 control={form.control}
@@ -84,7 +89,7 @@ const LoginForm = () => {
                   return (
                     <FormItem>
                       <FormLabel className={label_class}>
-                        Nome de Usuário
+                        {Login.usernameField}
                       </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
@@ -100,7 +105,9 @@ const LoginForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>Senha</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Login.passwordField}
+                      </FormLabel>
                       <FormControl>
                         <input
                           type="password"
@@ -117,19 +124,19 @@ const LoginForm = () => {
             <div className="flex justify-center items-center mt-4">
               {!isLoading && (
                 <button className={section_btn} type="submit">
-                  Continuar
+                  {Login.loginBtn}
                 </button>
               )}
               {isLoading && <Loading />}
             </div>
             <div className="text-center 2xl:text-xl mt-3">
               <p>
-                Não possui conta?{" "}
+                {Login.formFooter1}
                 <CustomLink
                   href="/register"
                   className="text-blue-500 hover:text-blue-700"
                 >
-                  Cadastre-se.
+                  {Login.formFooter2}
                 </CustomLink>
               </p>
               {error && <Message msg={String(error)} type="error" />}

@@ -88,19 +88,26 @@ const en = {
     },
     Team: {
       sectionTitle: "Meet our Professionals",
-      roleAnaPaula: "Responsible for coordinating the project, analyzing phenotypic, molecular, and sequencing results, and sending the results to the Laboratory Environment Management System (GAL).",
-      roleFabricio: "Responsible for managing the use of the Fiocruz server for genome assembly and database development for genome availability.",
-      roleFelicita: "Ph.D. student in the Computational Biology and Systems Program of the Doctorate in Health Sciences International cooperation between Fundação Oswaldo Cruz and Focem-Mercosur - Paraguay.",
-      roleMelise: "Responsible for analyzing the results obtained in whole genome sequencing.",
+      roleAnaPaula:
+        "Responsible for coordinating the project, analyzing phenotypic, molecular, and sequencing results, and sending the results to the Laboratory Environment Management System (GAL).",
+      roleFabricio:
+        "Responsible for managing the use of the Fiocruz server for genome assembly and database development for genome availability.",
+      roleFelicita:
+        "Ph.D. student in the Computational Biology and Systems Program of the Doctorate in Health Sciences International cooperation between Fundação Oswaldo Cruz and Focem-Mercosur - Paraguay.",
+      roleMelise:
+        "Responsible for analyzing the results obtained in whole genome sequencing.",
       roleRodolpho: "Researcher at UERJ.",
-      roleClaudio: "Responsible for managing the laboratory activities of LAPIH and lyophilization and storage of bacterial samples.",
-      roleNicolas: "Responsible for the development of the new version of CABGen's front-end."
+      roleClaudio:
+        "Responsible for managing the laboratory activities of LAPIH and lyophilization and storage of bacterial samples.",
+      roleNicolas:
+        "Responsible for the development of the new version of CABGen's front-end.",
     },
     AboutContact: {
       sectionTitle: "Want to know more? Contact us!",
-      sectionDescription: "If you have any questions, we're here to help. Visit our contact page to learn how to use our tool. Fill out the form or contact us via email.",
-      contactBtn: "Contact"
-    }
+      sectionDescription:
+        "If you have any questions, we're here to help. Visit our contact page to learn how to use our tool. Fill out the form or contact us via email.",
+      contactBtn: "Contact",
+    },
   },
   Contact: {
     formSubtitle: "Please leave your message, question, or suggestion.",
@@ -115,7 +122,16 @@ const en = {
     subjectFieldValidation: "Subject is required.",
     messageField: "Message",
     messageFieldValidation: "Message is required.",
-    sendBtn: "Send"
+    sendBtn: "Send",
+  },
+  Login: {
+    usernameField: "Username",
+    usernameFieldValidation: "Username is required.",
+    passwordField: "Password",
+    passwordFieldValidation: "Password is required.",
+    loginBtn: "Continue",
+    formFooter1: "Don't have an account? ",
+    formFooter2: "Sign up.",
   },
   Footer: {
     faqLink: "FAQ",
