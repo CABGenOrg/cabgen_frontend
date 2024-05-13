@@ -102,6 +102,21 @@ const en = {
       contactBtn: "Contact"
     }
   },
+  Contact: {
+    formSubtitle: "Please leave your message, question, or suggestion.",
+    nameField: "Name",
+    nameFieldValidation: "Name is required.",
+    emailField: "Email",
+    emailFieldValidationNull: "Email is required.",
+    emailFieldValidationValid: "Please enter a valid email.",
+    institutionField: "Institution",
+    institutionFieldValidation: "Institution is required.",
+    subjectField: "Subject",
+    subjectFieldValidation: "Subject is required.",
+    messageField: "Message",
+    messageFieldValidation: "Message is required.",
+    sendBtn: "Send"
+  },
   Footer: {
     faqLink: "FAQ",
     termLink: "Terms of Use",

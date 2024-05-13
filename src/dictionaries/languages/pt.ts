@@ -88,19 +88,41 @@ const pt = {
     },
     Team: {
       sectionTitle: "Conheça nossos profissionais",
-      roleAnaPaula: "Responsável por coordenar o projeto, analisar os resultados fenotípicos, moleculares e de sequenciamento e enviar os resultados para o sistema Gerenciamento de Ambiente de Laboratório (GAL).",
-      roleFabricio: "Responsável por gerenciar a utilização do servidor da Fiocruz para montagem de genomas e desenvolvimento do banco de dados para disponibilização de genomas.",
-      roleFelicita: "Doutoranda do Programa de Biologia Computacional e Sistemas do Doutorado em Ciências da Saúde Cooperação internacional entre a Fundação Oswaldo Cruz e o Focem-Mercosul - Paraguai.",
-      roleMelise: "Responsável pela análise dos resultados obtidos no sequenciamento de todo o genoma.",
+      roleAnaPaula:
+        "Responsável por coordenar o projeto, analisar os resultados fenotípicos, moleculares e de sequenciamento e enviar os resultados para o sistema Gerenciamento de Ambiente de Laboratório (GAL).",
+      roleFabricio:
+        "Responsável por gerenciar a utilização do servidor da Fiocruz para montagem de genomas e desenvolvimento do banco de dados para disponibilização de genomas.",
+      roleFelicita:
+        "Doutoranda do Programa de Biologia Computacional e Sistemas do Doutorado em Ciências da Saúde Cooperação internacional entre a Fundação Oswaldo Cruz e o Focem-Mercosul - Paraguai.",
+      roleMelise:
+        "Responsável pela análise dos resultados obtidos no sequenciamento de todo o genoma.",
       roleRodolpho: "Pesquisador da UERJ.",
-      roleClaudio: "Responsável pelo gerenciamento das atividades laboratoriais do LAPIH e liofilização e armazenamento de amostras bacterianas.",
-      roleNicolas: "Responsável pelo desenvolvimento da nova versão do front-end do CABGen."
+      roleClaudio:
+        "Responsável pelo gerenciamento das atividades laboratoriais do LAPIH e liofilização e armazenamento de amostras bacterianas.",
+      roleNicolas:
+        "Responsável pelo desenvolvimento da nova versão do front-end do CABGen.",
     },
     AboutContact: {
       sectionTitle: "Deseja saber mais? Fale conosco!",
-      sectionDescription: "Se surgir alguma dúvida, estamos aqui para ajudar. Visite nossa página de contato para aprender a usar a nossa ferramenta. Preencha o formulário ou entre em contato por e-mail.",
-      contactBtn: "Contato"
+      sectionDescription:
+        "Se surgir alguma dúvida, estamos aqui para ajudar. Visite nossa página de contato para aprender a usar a nossa ferramenta. Preencha o formulário ou entre em contato por e-mail.",
+      contactBtn: "Contato",
     },
+  },
+  Contact: {
+    formSubtitle: "Por favor, deixe sua mensagem, dúvida ou sugestão.",
+    nameField: "Nome",
+    nameFieldValidation: "O nome é obrigatório.",
+    emailField: "E-mail",
+    emailFieldValidationNull: "O e-mail é obrigatório",
+    emailFieldValidationValid: "Insira um e-mail válido.",
+    institutionField: "Instituição",
+    institutionFieldValidation: "A instituição é obrigatória.",
+    subjectField: "Assunto",
+    subjectFieldValidation: "O assunto é obrigatório.",
+    messageField: "Mensagem",
+    messageFieldValidation: "A mensagem é obrigatória.",
+    sendBtn: "Enviar",
   },
   Footer: {
     faqLink: "FAQ",

@@ -8,7 +8,6 @@ import {
   section_btn,
   input_class,
   label_class,
-  form_title,
 } from "@/styles/tailwind_classes";
 import {
   Form,
@@ -19,21 +18,29 @@ import {
   FormField,
 } from "../ui/form";
 import OptimizedImage from "../General/OptimizedImage";
-
-const ContactFormSchema = z.object({
-  name: z.string().min(1, "O nome é obrigatório."),
-  email: z
-    .string()
-    .min(1, "O e-mail é obrigatório")
-    .email("Insira um e-mail válido."),
-  institution: z.string().min(1, "A instituição é obrigatória."),
-  subject: z.string().min(1, "O assunto é obrigatório."),
-  message: z.string().min(1, "A mensagem é obrigatória."),
-});
-
-type FormData = z.infer<typeof ContactFormSchema>;
+import { useSelector } from "react-redux";
+import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
+import { getTranslateClient } from "@/lib/getTranslateClient";
 
 const ContactForm = () => {
+  const lang = useSelector(selectCurrentLanguage);
+  const {
+    dictionary: { Contact },
+  } = getTranslateClient(lang);
+
+  const ContactFormSchema = z.object({
+    name: z.string().min(1, Contact.nameFieldValidation),
+    email: z
+      .string()
+      .min(1, Contact.emailFieldValidationNull)
+      .email(Contact.emailFieldValidationValid),
+    institution: z.string().min(1, Contact.institutionFieldValidation),
+    subject: z.string().min(1, Contact.subjectFieldValidation),
+    message: z.string().min(1, Contact.messageFieldValidation),
+  });
+
+  type FormData = z.infer<typeof ContactFormSchema>;
+
   const form = useForm<FormData>({
     resolver: zodResolver(ContactFormSchema),
     defaultValues: {
@@ -62,7 +69,7 @@ const ContactForm = () => {
         </div>
         <div className="my-3">
           <p className="mt-2 text-lg leading-8 text-gray-600 text-center font-light">
-            Por favor, deixe sua mensagem, dúvida ou sugestão.
+            {Contact.formSubtitle}
           </p>
         </div>
         <Form {...form}>
@@ -77,7 +84,9 @@ const ContactForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>Nome</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Contact.nameField}
+                      </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
                       </FormControl>
@@ -92,7 +101,9 @@ const ContactForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>E-mail</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Contact.emailField}
+                      </FormLabel>
                       <FormControl>
                         <input
                           type="email"
@@ -111,7 +122,9 @@ const ContactForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>Instituição</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Contact.institutionField}
+                      </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
                       </FormControl>
@@ -126,7 +139,9 @@ const ContactForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>Assunto</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Contact.subjectField}
+                      </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
                       </FormControl>
@@ -142,7 +157,9 @@ const ContactForm = () => {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel className={label_class}>Mensagem</FormLabel>
+                    <FormLabel className={label_class}>
+                      {Contact.messageField}
+                    </FormLabel>
                     <FormControl>
                       <textarea rows={7} className={input_class} {...field} />
                     </FormControl>
@@ -153,7 +170,7 @@ const ContactForm = () => {
             />
             <div className="flex justify-center items-center mt-4">
               <button className={section_btn} type="submit">
-                Enviar
+                {Contact.sendBtn}
               </button>
             </div>
           </form>

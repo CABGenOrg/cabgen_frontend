@@ -109,6 +109,22 @@ const es = {
       contactBtn: "Contacto",
     },
   },
+  Contact: {
+    formSubtitle: "Por favor, deja tu mensaje, pregunta o sugerencia.",
+    nameField: "Nombre",
+    nameFieldValidation: "El nombre es obligatorio.",
+    emailField: "Correo electrónico",
+    emailFieldValidationNull: "El correo electrónico es obligatorio.",
+    emailFieldValidationValid:
+      "Por favor, introduce un correo electrónico válido.",
+    institutionField: "Institución",
+    institutionFieldValidation: "La institución es obligatoria.",
+    subjectField: "Asunto",
+    subjectFieldValidation: "El asunto es obligatorio.",
+    messageField: "Mensaje",
+    messageFieldValidation: "El mensaje es obligatorio.",
+    sendBtn: "Enviar",
+  },
   Footer: {
     faqLink: "FAQ",
     termLink: "Terminos de Uso",
