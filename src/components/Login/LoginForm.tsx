@@ -8,7 +8,6 @@ import {
   section_btn,
   input_class,
   label_class,
-  form_title,
 } from "@/styles/tailwind_classes";
 import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";

@@ -8,7 +8,6 @@ import {
   section_btn,
   input_class,
   label_class,
-  form_title,
 } from "@/styles/tailwind_classes";
 import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
@@ -35,53 +34,61 @@ import { serialize } from "object-to-formdata";
 import Loading from "../General/Loading";
 import { useRouter } from "next/navigation";
 import Message from "../General/Message";
-
-const RegisterFormSchema = z
-  .object({
-    name: z.string().min(3, "O nome é obrigatório."),
-    country: z.string().refine((value) => countryOptions.includes(value), {
-      message: "O país é obrigatório.",
-    }),
-    username: z.string().min(3, "O nome de usuário é obrigatório."),
-    interest: z.string(),
-    institution: z.string(),
-    role: z.string(),
-    email: z
-      .string()
-      .min(1, "O e-mail é obrigatório")
-      .email("Insira um e-mail válido."),
-    confirmEmail: z
-      .string()
-      .min(5, "Confirme seu e-mail.")
-      .email("Insira um e-mail válido."),
-    password: z
-      .string()
-      .min(1, "A senha é obrigatória.")
-      .min(8, "A senha precisa de pelo menos 8 caracteres."),
-    confirmPassword: z.string().min(1, "Confirme sua senha."),
-  })
-  .superRefine(({ email, confirmEmail }, ctx) => {
-    if (email !== confirmEmail) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["confirmEmail"],
-        message: "Os e-mails não são iguais.",
-      });
-    }
-  })
-  .superRefine(({ password, confirmPassword }, ctx) => {
-    if (password !== confirmPassword) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["confirmPassword"],
-        message: "As senhas não são iguais.",
-      });
-    }
-  });
-
-type FormData = z.infer<typeof RegisterFormSchema>;
+import { getTranslateClient } from "@/lib/getTranslateClient";
 
 const RegisterForm = () => {
+  const lang = useSelector(selectCurrentLanguage);
+  const {
+    dictionary: { Register },
+  } = getTranslateClient(lang);
+
+  const RegisterFormSchema = z
+    .object({
+      name: z.string().min(3, Register.nameFieldValidation),
+      country: z.string().refine((value) => countryOptions.includes(value), {
+        message: Register.countryFieldValidation,
+      }),
+      username: z.string().min(3, Register.usernameFieldValidation),
+      interest: z.string(),
+      institution: z.string(),
+      role: z.string(),
+      email: z
+        .string()
+        .min(1, Register.emailFieldValidationNull)
+        .email(Register.emailFieldValidationValid),
+      confirmEmail: z
+        .string()
+        .min(5, Register.confirmEmailFieldValidationNull)
+        .email(Register.confirmEmailFieldValidationValid),
+      password: z
+        .string()
+        .min(1, Register.passwordFieldValidationNull)
+        .min(8, Register.passwordFieldValidationMinimum),
+      confirmPassword: z
+        .string()
+        .min(1, Register.confirmPasswordFieldValidation),
+    })
+    .superRefine(({ email, confirmEmail }, ctx) => {
+      if (email !== confirmEmail) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["confirmEmail"],
+          message: Register.bothEmailFieldsValidation,
+        });
+      }
+    })
+    .superRefine(({ password, confirmPassword }, ctx) => {
+      if (password !== confirmPassword) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["confirmPassword"],
+          message: Register.bothPasswordFieldsValidation,
+        });
+      }
+    });
+
+  type FormData = z.infer<typeof RegisterFormSchema>;
+
   const form = useForm<FormData>({
     resolver: zodResolver(RegisterFormSchema),
     defaultValues: {
@@ -150,7 +157,9 @@ const RegisterForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>Nome</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Register.nameField}
+                      </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
                       </FormControl>
@@ -165,12 +174,14 @@ const RegisterForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>País</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Register.countryField}
+                      </FormLabel>
                       <Select onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger className="text-black focus-visible:ring-transparent 2xl:text-xl sm:text-sm">
                             <SelectValue
-                              placeholder="Selecione um País"
+                              placeholder={Register.countryFieldLabel}
                               className={input_class}
                             />
                           </SelectTrigger>
@@ -195,7 +206,7 @@ const RegisterForm = () => {
                   return (
                     <FormItem>
                       <FormLabel className={label_class}>
-                        Nome de Usuário
+                        {Register.usernameField}
                       </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
@@ -211,7 +222,9 @@ const RegisterForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>Interesse</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Register.interestField}
+                      </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
                       </FormControl>
@@ -226,7 +239,9 @@ const RegisterForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>Instituição</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Register.institutionField}
+                      </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
                       </FormControl>
@@ -241,7 +256,9 @@ const RegisterForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>Cargo</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Register.roleField}
+                      </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
                       </FormControl>
@@ -256,7 +273,9 @@ const RegisterForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>E-mail</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Register.emailField}
+                      </FormLabel>
                       <FormControl>
                         <input
                           type="email"
@@ -276,7 +295,7 @@ const RegisterForm = () => {
                   return (
                     <FormItem>
                       <FormLabel className={label_class}>
-                        Confirme o E-mail
+                        {Register.confirmEmailField}
                       </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
@@ -292,7 +311,9 @@ const RegisterForm = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className={label_class}>Senha</FormLabel>
+                      <FormLabel className={label_class}>
+                        {Register.passwordField}
+                      </FormLabel>
                       <FormControl>
                         <input
                           type="password"
@@ -312,7 +333,7 @@ const RegisterForm = () => {
                   return (
                     <FormItem>
                       <FormLabel className={label_class}>
-                        Confirme a senha
+                        {Register.confirmPasswordField}
                       </FormLabel>
                       <FormControl>
                         <input
@@ -330,19 +351,19 @@ const RegisterForm = () => {
             <div className="flex justify-center items-center mt-6">
               {!isLoading && (
                 <button className={section_btn} type="submit">
-                  Continuar
+                  {Register.registerBtn}
                 </button>
               )}
               {isLoading && <Loading />}
             </div>
             <div className="text-center 2xl:text-xl mt-3">
               <p>
-                Já possui conta?{" "}
+                {Register.formFooter1}
                 <CustomLink
                   href="/login"
                   className="text-blue-500 hover:text-blue-700"
                 >
-                  Faça login.
+                  {Register.formFooter2}
                 </CustomLink>
               </p>
               {error && <Message msg={String(error)} type="error" />}

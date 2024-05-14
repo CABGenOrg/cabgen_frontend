@@ -134,6 +134,39 @@ const es = {
     formFooter1: "¿No tienes una cuenta? ",
     formFooter2: "Regístrate.",
   },
+  Register: {
+    nameField: "Nombre",
+    nameFieldValidation: "El nombre es obligatorio.",
+    countryField: "País",
+    countryFieldLabel: "Seleccione un País",
+    countryFieldValidation: "El país es obligatorio.",
+    usernameField: "Nombre de Usuario",
+    usernameFieldValidation: "El nombre de usuario es obligatorio.",
+    interestField: "Interés",
+    institutionField: "Institución",
+    roleField: "Cargo",
+    emailField: "Correo Electrónico",
+    emailFieldValidationNull: "El correo electrónico es obligatorio",
+    emailFieldValidationValid:
+      "Por favor, introduce un correo electrónico válido.",
+    confirmEmailField: "Confirmar Correo Electrónico",
+    confirmEmailFieldValidationNull:
+      "La confirmación de correo electrónico es obligatoria.",
+    confirmEmailFieldValidationValid:
+      "Por favor, introduce un correo electrónico válido.",
+    passwordField: "Contraseña",
+    passwordFieldValidationNull: "La contraseña es obligatoria.",
+    passwordFieldValidationMinimum:
+      "La contraseña necesita al menos 8 caracteres.",
+    confirmPasswordField: "Confirmar Contraseña",
+    confirmPasswordFieldValidation:
+      "La confirmación de contraseña es obligatoria.",
+    bothEmailFieldsValidation: "Los correos electrónicos no coinciden.",
+    bothPasswordFieldsValidation: "Las contraseñas no coinciden.",
+    registerBtn: "Continuar",
+    formFooter1: "¿Ya tienes una cuenta? ",
+    formFooter2: "Iniciar sesión.",
+  },
   Footer: {
     faqLink: "FAQ",
     termLink: "Terminos de Uso",
