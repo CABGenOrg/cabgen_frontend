@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Section from "@/components/General/Section";
 import dynamic from "next/dynamic";
 import { section_spacing, section_title } from "@/styles/tailwind_classes";
@@ -23,7 +23,18 @@ const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
         <h1 className={`${section_title} text-center mb-7 mt-4`}>
           {Dashboard.sectionTitle}
         </h1>
-        <Map />
+        <Suspense fallback={<Loading />}>
+          <iframe
+            src="https://microreact.org/project/j693cr8kTnbrm6wmEcDddD-rede030525"
+            width="100%"
+            height="100%"
+            className="w-[95vw] h-[180vh] border-none p-0 m-0"
+            title="Genomic Network Data on Microreact"
+            loading="lazy"
+            allowFullScreen
+          ></iframe>
+        </Suspense>
+        {/* <Map /> */}
       </div>
     </Section>
   );
