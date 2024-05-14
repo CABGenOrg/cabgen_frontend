@@ -43,6 +43,7 @@ const es = {
         "La resistencia antimicrobiana (RAM) representa una amenaza global para la eficacia de los tratamientos para infecciones causadas por microorganismos como virus, bacterias, hongos y parásitos. Esta resistencia surge cuando estos microorganismos sufren mutaciones o adquieren nuevos genes que los hacen resistentes al tratamiento. Los patógenos bacterianos prevalentes en hospitales tienen tasas alarmantes de resistencia, prolongando las infecciones, aumentando el riesgo de propagación y los costos hospitalarios. Este escenario requiere acción conjunta de todos los sectores de la sociedad y del gobierno. La RAM no reconoce fronteras y afecta no solo la salud humana, sino también la salud animal, la productividad agrícola y la seguridad alimentaria.",
       omsBtn: "OMS",
       nationalPlanBtn: "Plan Nacional",
+      confessionsOfABacteriaBtn: "Serie Didáctica",
     },
     Financiers: {
       sectionTitle: "Financiadores",

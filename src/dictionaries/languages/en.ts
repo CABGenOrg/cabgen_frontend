@@ -43,6 +43,7 @@ const en = {
         "Antimicrobial resistance (AMR) represents a global threat to the effectiveness of treatments for infections caused by microorganisms such as viruses, bacteria, fungi, and parasites. This resistance arises when these microorganisms undergo mutations or acquire new genes that make them resistant to treatment. Prevalent bacterial pathogens in hospitals have alarming rates of resistance, prolonging infections, increasing the risk of spread, and hospital costs. This scenario requires joint action from all sectors of society and government. AMR knows no borders and affects not only human health but also animal health, agricultural productivity, and food security.",
       omsBtn: "WHO",
       nationalPlanBtn: "National Plan",
+      confessionsOfABacteriaBtn: "Educational Series",
     },
     Financiers: {
       sectionTitle: "Funding",

@@ -36,7 +36,11 @@ const AntimicrobialResistance = ({ lang }: { lang: Locale }) => {
               {Home.AntimicrobialResistance.sectionDescription}
             </p>
           </div>
-          <div className="flex flex-row justify-center items-center gap-10">
+          <div
+            className={`flex flex-row justify-center items-center ${
+              lang === "en" ? "gap-6" : "gap-10"
+            }`}
+          >
             <Link
               href="https://www.who.int/news-room/fact-sheets/detail/antimicrobial-resistance"
               passHref={true}
@@ -53,6 +57,15 @@ const AntimicrobialResistance = ({ lang }: { lang: Locale }) => {
             >
               <button className={section_btn}>
                 {Home.AntimicrobialResistance.nationalPlanBtn}
+              </button>
+            </Link>
+            <Link
+              href="https://www.youtube.com/@ConfissoesdeumaBacteria"
+              passHref={true}
+              target="_blank"
+            >
+              <button className={section_btn}>
+                {Home.AntimicrobialResistance.confessionsOfABacteriaBtn}
               </button>
             </Link>
           </div>
