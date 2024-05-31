@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import Section from "@/components/General/Section";
 import dynamic from "next/dynamic";
 import { section_spacing, section_title } from "@/styles/tailwind_classes";
@@ -23,7 +23,6 @@ const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
         <h1 className={`${section_title} text-center mb-7 mt-4`}>
           {Dashboard.sectionTitle}
         </h1>
-        <Suspense fallback={<Loading />}>
           <iframe
             src="https://microreact.org/project/j693cr8kTnbrm6wmEcDddD-rede030525"
             width="100%"
@@ -33,7 +32,6 @@ const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
             loading="lazy"
             allowFullScreen
           ></iframe>
-        </Suspense>
         {/* <Map /> */}
       </div>
     </Section>
