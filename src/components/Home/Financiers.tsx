@@ -14,17 +14,22 @@ const Financiers = ({ lang }: { lang: Locale }) => {
     {
       name: "Ministério da Saúde logo",
       logo: "/Home/min_saude.png",
-      size: "w-3/4",
+      size: "md:w-[40%] w-[65%]",
     },
     {
       name: "CNPQ logo",
       logo: "/Home/cnpq.png",
-      size: "w-2/5",
+      size: "md:w-[30%] w-[65%]",
     },
     {
       name: "Fiocruz logo",
       logo: "/Home/fiocruz.png",
-      size: "w-1/5",
+      size: "md:w-[10%] w-[25%]",
+    },
+    {
+      name: "Inova Fiocruz logo",
+      logo: "/Home/inova_fiocruz.png",
+      size: "md:w-[30%] w-[65%]",
     },
   ];
 
@@ -33,8 +38,10 @@ const Financiers = ({ lang }: { lang: Locale }) => {
       <div
         className={`flex flex-col justify-center items-center ${section_spacing}`}
       >
-        <h2 className={section_title}>{Home.Financiers.sectionTitle}</h2>
-        <div className="flex md:flex-row flex-col justify-center items-center md:gap-3 gap-2 md:m-3 m-1.5">
+        <h2 className={`${section_title} pb-3`}>
+          {Home.Financiers.sectionTitle}
+        </h2>
+        <div className="flex flex-wrap justify-evenly items-center md:gap-3 gap-10">
           {logos.map(({ name, logo, size }, idx) => (
             <OptimizedImage key={idx} src={logo} alt={name} className={size} />
           ))}
