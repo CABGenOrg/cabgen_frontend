@@ -5,6 +5,7 @@ import Menu from "@/components/General/Menu";
 import Footer from "@/components/General/Footer";
 import StoreProvider from "@/redux/store/StoreProvider";
 import { Locale, i18n } from "@/i18n/i18n.config";
+import Layout from "@/components/General/Layout";
 
 const futura = localFont({
   src: [
@@ -72,7 +73,7 @@ const RootLayout = ({
         <body className={futura.className}>
           <Menu lang={params.lang} />
           <main className="min-h-[calc(100vh-200px)] flex flex-col justify-center items-cente m-auto p-auto">
-            {children}
+            <Layout>{children}</Layout>
           </main>
           <Footer lang={params.lang} />
         </body>
