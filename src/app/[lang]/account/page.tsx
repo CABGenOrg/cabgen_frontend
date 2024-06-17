@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { Sidebar, SidebarItem } from "@/components/Account/Sidebar";
 import {
   User2,
@@ -12,7 +12,7 @@ import {
 
 interface SidebarLink {
   linkName: string;
-  icon: ReactNode;
+  icon: React.ReactNode;
   link: string;
   active: boolean;
 }
@@ -62,7 +62,7 @@ const sidebarLinks: SidebarLink[] = [
   },
 ];
 
-const Account = ({ accountComponent }: { accountComponent: ReactNode }) => {
+const Account = ({ accountComponent }: any) => {
   return (
     <div className="flex flex-row items-center">
       <Sidebar>
