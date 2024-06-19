@@ -7,10 +7,10 @@ import { useSelector } from "react-redux";
 import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
 
 const BoxInfo = () => {
-  const genomes = 100;
+  const genomes = 810;
   const species = 30;
   const resistanceGenes = 75;
-  const countries = 10;
+  const countries = 5;
 
   const lang = useSelector(selectCurrentLanguage);
   const {

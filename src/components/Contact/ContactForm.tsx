@@ -68,7 +68,7 @@ const ContactForm = () => {
           />
         </div>
         <div className="my-3">
-          <p className="mt-2 text-lg leading-8 text-gray-600 text-center font-light">
+          <p className="mt-2 text-lg leading-8 text-gray-600 text-center font-light tracking-wider">
             {Contact.formSubtitle}
           </p>
         </div>

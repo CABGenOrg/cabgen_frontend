@@ -13,4 +13,4 @@ export const form_title =
 export const input_class =
   "block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm placeholder:text-gray-400 2xl:text-xl sm:text-base sm:leading-6 shadow-sm";
 export const label_class =
-  "block 2xl:text-2xl text-xl font-semibold leading-6 text-gray-900";
+  "block 2xl:text-2xl text-xl font-light tracking-wider leading-6 text-gray-900";

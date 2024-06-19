@@ -57,6 +57,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
             width={5000}
             height={2500}
             className="w-auto h-20 cursor-pointer"
+            priority={true}
           />
         </CustomLink>
         {/* Menu */}

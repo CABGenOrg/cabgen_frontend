@@ -136,7 +136,7 @@ const RegisterForm = () => {
   }, [isSuccess, error, form, router]);
 
   return (
-    <div className="mx-5 py-5 px-3 2xl:w-[45%] lg:w-[60%] md:w-[75%] bg-slate-200 rounded-lg">
+    <div className="mx-5 py-5 px-3 2xl:w-[40%] lg:w-[60%] md:w-[75%] bg-slate-200 rounded-lg">
       <div className="flex flex-col justify-center items-center py-6 sm:px-8 px-2">
         <div className="flex flex-row justify-center items-center">
           <OptimizedImage
