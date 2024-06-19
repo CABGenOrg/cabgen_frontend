@@ -1,8 +1,16 @@
 "use client";
 
 import { ChevronLast, ChevronFirst } from "lucide-react";
-import { useContext, createContext, useState, ReactNode, FC } from "react";
+import {
+  useContext,
+  createContext,
+  useState,
+  ReactNode,
+  FC,
+  useEffect,
+} from "react";
 import CustomLink from "../General/CustomLink";
+import useScreenSize from "@/hooks/useScreenSize";
 
 interface SidebarContextProps {
   expanded: boolean;
@@ -18,17 +26,26 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ children, className = "" }) => {
-  const [expanded, setExpanded] = useState(true);
+  const { width } = useScreenSize();
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    if (width && width < 768) {
+      setExpanded(false);
+    }
+  }, [width]);
 
   return (
     <aside className={className}>
       <div className="p-4 pb-2 flex justify-end items-center">
-        <button
-          onClick={() => setExpanded((curr) => !curr)}
-          className="p-1.5 rounded-lg text-white bg-cabgen-200 hover:bg-cabgen-100"
-        >
-          {expanded ? <ChevronFirst /> : <ChevronLast />}
-        </button>
+        {width && width >= 768 && (
+          <button
+            onClick={() => setExpanded((curr) => !curr)}
+            className="p-1.5 rounded-lg text-white bg-cabgen-200 hover:bg-cabgen-100"
+          >
+            {expanded ? <ChevronFirst /> : <ChevronLast />}
+          </button>
+        )}
       </div>
 
       <SidebarContext.Provider value={{ expanded }}>
