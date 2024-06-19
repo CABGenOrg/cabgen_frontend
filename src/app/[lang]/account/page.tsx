@@ -64,8 +64,8 @@ const sidebarLinks: SidebarLink[] = [
 
 const Account = ({ accountComponent }: any) => {
   return (
-    <div className="flex flex-row items-center">
-      <Sidebar>
+    <div className="flex min-h-screen">
+      <Sidebar className="sticky top-24 h-[calc(100vh-theme(spacing.24))] bg-cabgen-400">
         {sidebarLinks.map(({ linkName, icon, link, active }) => (
           <SidebarItem
             key={linkName}
@@ -76,9 +76,7 @@ const Account = ({ accountComponent }: any) => {
           />
         ))}
       </Sidebar>
-      <div className="flex justify-center items-center m-auto">
-        {accountComponent}
-      </div>
+      <div className="w-full flex flex-row justify-around py-5 gap-5">{accountComponent}</div>
     </div>
   );
 };

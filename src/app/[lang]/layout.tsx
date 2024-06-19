@@ -72,7 +72,7 @@ const RootLayout = ({
       <html lang={params.lang}>
         <body className={futura.className}>
           <Menu lang={params.lang} />
-          <main className="min-h-[calc(100vh-200px)] flex flex-col justify-center items-cente m-auto p-auto">
+          <main className="min-h-[calc(100vh-200px)]">
             <Layout>{children}</Layout>
           </main>
           <Footer lang={params.lang} />

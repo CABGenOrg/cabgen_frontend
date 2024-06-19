@@ -14,27 +14,26 @@ const SidebarContext = createContext<SidebarContextProps | undefined>(
 
 interface SidebarProps {
   children: ReactNode;
+  className?: string;
 }
 
-const Sidebar: FC<SidebarProps> = ({ children }) => {
+const Sidebar: FC<SidebarProps> = ({ children, className = "" }) => {
   const [expanded, setExpanded] = useState(true);
 
   return (
-    <aside className="h-screen">
-      <nav className="h-full flex flex-col bg-cabgen-400 border-r shadow-sm">
-        <div className="p-4 pb-2 flex justify-end items-center">
-          <button
-            onClick={() => setExpanded((curr) => !curr)}
-            className="p-1.5 rounded-lg text-white bg-cabgen-200 hover:bg-cabgen-100"
-          >
-            {expanded ? <ChevronFirst /> : <ChevronLast />}
-          </button>
-        </div>
+    <aside className={className}>
+      <div className="p-4 pb-2 flex justify-end items-center">
+        <button
+          onClick={() => setExpanded((curr) => !curr)}
+          className="p-1.5 rounded-lg text-white bg-cabgen-200 hover:bg-cabgen-100"
+        >
+          {expanded ? <ChevronFirst /> : <ChevronLast />}
+        </button>
+      </div>
 
-        <SidebarContext.Provider value={{ expanded }}>
-          <ul className="flex-1 px-3">{children}</ul>
-        </SidebarContext.Provider>
-      </nav>
+      <SidebarContext.Provider value={{ expanded }}>
+        <ul className="flex-1 px-3">{children}</ul>
+      </SidebarContext.Provider>
     </aside>
   );
 };

@@ -32,7 +32,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     if (accountComponent) {
       setComponent(accountComponent.component);
     }
-    console.log(accountComponent);
   }, [pathname, findAccountComponent]);
 
   return (
