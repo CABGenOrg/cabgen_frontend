@@ -59,7 +59,7 @@ interface SidebarItemProps {
   icon: ReactNode;
   text: string;
   href: string;
-  active?: boolean;
+  disabled?: boolean;
   alert?: boolean;
 }
 
@@ -67,7 +67,7 @@ const SidebarItem: FC<SidebarItemProps> = ({
   icon,
   text,
   href,
-  active = false,
+  disabled = false,
   alert = false,
 }) => {
   const context = useContext(SidebarContext);
@@ -77,13 +77,13 @@ const SidebarItem: FC<SidebarItemProps> = ({
   const { expanded } = context;
 
   return (
-    <CustomLink href={href} active={active}>
+    <CustomLink href={href} disabled={disabled}>
       <li
         className={`
         relative flex items-center py-2 px-3 my-1
         font-medium rounded-md cursor-pointer
         transition-colors group
-        ${active ? "hover:bg-cabgen-300 text-white" : "text-white"}
+        ${disabled ? "hover:bg-cabgen-300 text-white" : "text-white"}
       `}
       >
         {icon}

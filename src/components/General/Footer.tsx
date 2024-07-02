@@ -28,9 +28,10 @@ const Footer = ({ lang }: { lang: Locale }) => {
         <div className="flex flex-col items-center font-light 2xl:text-2xl sm:text-xl text-base">
           {links.map(({ name, url }, idx) => (
             <CustomLink
-              className="hover:text-black pointer-events-none"
+              className="hover:text-black"
               href={url}
               key={idx}
+              disabled
             >
               {name}
             </CustomLink>

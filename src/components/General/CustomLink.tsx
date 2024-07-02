@@ -6,21 +6,29 @@ import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
 interface CustomLinkProps {
   href: string;
   lang?: string;
-  active?: boolean;
+  disabled?: boolean;
+  className?: string;
   children: React.ReactNode;
   [key: string]: any;
 }
 
-const CustomLink = ({ href, lang, active, ...props }: CustomLinkProps) => {
+const CustomLink = ({
+  href,
+  lang,
+  disabled,
+  children,
+  className = "",
+}: CustomLinkProps) => {
   const language = useSelector(selectCurrentLanguage);
   const path = lang ? `/${lang}${href}` : `/${language}${href}`;
 
   return (
     <Link
       href={path}
-      className={active ? "" : "pointer-events-none"}
-      {...props}
-    />
+      className={disabled ? `${className} pointer-events-none` : className}
+    >
+      {children}
+    </Link>
   );
 };
 
