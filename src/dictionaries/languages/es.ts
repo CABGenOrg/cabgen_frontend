@@ -168,6 +168,11 @@ const es = {
     formFooter1: "¿Ya tienes una cuenta? ",
     formFooter2: "Iniciar sesión.",
   },
+  Maintenance: {
+    sectionTitle: "Mantenimiento en Progreso",
+    sectionDescription:
+      "Estamos dedicados a mejorar nuestra plataforma para ofrecerle una experiencia aún mejor. Pedimos disculpas por cualquier inconveniente y agradecemos su comprensión. Pronto estaremos de regreso. Mientras tanto, gracias por su paciencia y continúe visitándonos!",
+  },
   Footer: {
     faqLink: "FAQ",
     termLink: "Terminos de Uso",

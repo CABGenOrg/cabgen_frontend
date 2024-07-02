@@ -162,6 +162,10 @@ const en = {
     formFooter1: "Already have an account? ",
     formFooter2: "Log in.",
   },
+  Maintenance: {
+    sectionTitle: "Maintenance in Progress",
+    sectionDescription: "We are dedicated to improving our platform to provide you with an even better experience. We apologize for any inconvenience and appreciate your understanding. We will be back soon. In the meantime, thank you for your patience and please continue visiting us!",
+  },
   Footer: {
     faqLink: "FAQ",
     termLink: "Terms of Use",
