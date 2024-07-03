@@ -7,7 +7,7 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       const user = action.payload;
-      Cookies.set("cabgenAuthCookie", user, { maxAge: 60 * 60 * 24 });
+      Cookies.set("cabgenAuthCookie", JSON.stringify(user), { expires: 7 });
       state.user = user;
     },
     logout: (state) => {
