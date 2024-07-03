@@ -14,7 +14,7 @@ const Maintenance = ({ params: { lang } }: { params: { lang: Locale } }) => {
   return (
     <Section id="maintenance">
       <div className={form_spacing}>
-        <div className="flex flex-col items-center justify-center flex-grow text-center my-5 py-10 mx-5">
+        <div className="flex flex-col items-center justify-center my-5 py-10 mx-5">
           <OptimizedImage
             src="/Home/horizontal_signature_cabgen_dark.png"
             alt="Cabgen logo"
@@ -29,7 +29,7 @@ const Maintenance = ({ params: { lang } }: { params: { lang: Locale } }) => {
               {Maintenance.sectionTitle}
             </h2>
           </div>
-          <p className="xl:text-2xl lg:text-xl text-base text-left xl:w-[40%] lg:w-[45%] md:w-[55%] sm:w-[60%] mx-3 w-auto">
+          <p className="bg-slate-50 p-5 rounded-lg xl:text-2xl md:text-xl text-base text-justify xl:w-[55%] lg:w-[65%] md:w-[75%] sm:w-[85%] mx-3 w-auto">
             {Maintenance.sectionDescription}
           </p>
         </div>

@@ -41,7 +41,7 @@ const BoxInfo = () => {
   ];
 
   return (
-    <div className="grid lg:grid-cols-2 sm:grid-cols-1 grid-cols-2 content-around lg:gap-3 gap-2">
+    <div className="grid lg:grid-cols-2 sm:grid-cols-1 grid-cols-2 content-around lg:gap-4 tablet:gap-x-12 gap-2">
       {data.map(({ image, count, description }, idx) => (
         <div
           key={idx}

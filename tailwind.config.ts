@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        tablet: { raw: "(min-height: 1366px)" },
+      },
       colors: {
         cabgen: {
           "0": "#1CEA96",
@@ -78,7 +81,7 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "spin-slow": "spin 5s linear infinite"
+        "spin-slow": "spin 5s linear infinite",
       },
     },
   },

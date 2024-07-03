@@ -37,9 +37,7 @@ const AntimicrobialResistance = ({ lang }: { lang: Locale }) => {
             </p>
           </div>
           <div
-            className={`flex flex-row justify-center items-center ${
-              lang === "en" ? "gap-6" : "gap-10"
-            }`}
+            className={`flex md:flex-row flex-col justify-center items-center md:gap-x-2 gap-y-2`}
           >
             <Link
               href="https://www.who.int/news-room/fact-sheets/detail/antimicrobial-resistance"
