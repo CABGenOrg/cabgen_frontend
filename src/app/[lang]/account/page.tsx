@@ -14,7 +14,7 @@ interface SidebarLink {
   linkName: string;
   icon: React.ReactNode;
   link: string;
-  active: boolean;
+  disabled: boolean;
 }
 
 const sidebarLinks: SidebarLink[] = [
@@ -22,43 +22,43 @@ const sidebarLinks: SidebarLink[] = [
     linkName: "Visão Geral",
     link: "/account",
     icon: <PanelBottom size={24} />,
-    active: true,
+    disabled: true,
   },
   {
     linkName: "Sequências",
     link: "/account/sequences",
     icon: <DnaIcon size={24} />,
-    active: true,
+    disabled: true,
   },
   {
     linkName: "Analisar",
     link: "/account/analysis",
     icon: <LucideSearch size={24} />,
-    active: true,
+    disabled: true,
   },
   {
     linkName: "Minha Conta",
     link: "/account/my-account",
     icon: <User2 size={24} />,
-    active: true,
+    disabled: true,
   },
   {
     linkName: "Segurança",
     link: "/account/security",
     icon: <LockIcon size={24} />,
-    active: true,
+    disabled: true,
   },
   {
     linkName: "Configurações",
     link: "/account/settings",
     icon: <Settings size={24} />,
-    active: false,
+    disabled: false,
   },
   {
     linkName: "Tutorial",
     link: "/tutorial",
     icon: <FileQuestion size={24} />,
-    active: false,
+    disabled: false,
   },
 ];
 
@@ -66,13 +66,13 @@ const Account = ({ accountComponent }: any) => {
   return (
     <div className="flex min-h-screen">
       <Sidebar className="sticky top-24 h-[calc(100vh-theme(spacing.24))] bg-cabgen-400">
-        {sidebarLinks.map(({ linkName, icon, link, active }) => (
+        {sidebarLinks.map(({ linkName, icon, link, disabled }) => (
           <SidebarItem
             key={linkName}
             icon={icon}
             text={linkName}
             href={link}
-            active={active}
+            disabled={disabled}
           />
         ))}
       </Sidebar>

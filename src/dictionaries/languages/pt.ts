@@ -163,6 +163,11 @@ const pt = {
     formFooter1: "Já possui conta? ",
     formFooter2: "Faça login.",
   },
+  Maintenance: {
+    sectionTitle: "Manutenção em andamento",
+    sectionDescription:
+      "Estamos dedicados a aprimorar nossa plataforma para oferecer uma experiência ainda melhor a você. Pedimos desculpas por qualquer inconveniente e agradecemos sua compreensão. Em breve estaremos de volta. Até lá, obrigado pela paciência e continue nos visitando!",
+  },
   Footer: {
     faqLink: "FAQ",
     termLink: "Termos de Uso",
