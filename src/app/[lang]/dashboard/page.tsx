@@ -24,7 +24,7 @@ const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
           {Dashboard.sectionTitle}
         </h1>
           <iframe
-            src="https://microreact.org/project/kHbdNMU63nBeiLEFPWuAMM-rede260724"
+            src="https://microreact.org/project/aAWXQmM9eFLnLJFNqRtczZ-rede310724"
             width="100%"
             height="100%"
             className="w-[95vw] h-[180vh] border-none p-0 m-0"
