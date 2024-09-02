@@ -8,6 +8,10 @@ const pt = {
     login: "Login",
   },
   Home: {
+    WarningBanner: {
+      title:
+        "Este site agora é apenas para fins de desenvolvimento. Visite nosso novo site em",
+    },
     Banner: {
       bannerTitle: "CABGen: Genômica Bacteriana Aplicada à Clínica",
     },

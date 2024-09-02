@@ -8,6 +8,10 @@ const en = {
     login: "Login",
   },
   Home: {
+    WarningBanner: {
+      title:
+        "This site is now for development purposes only. Visit our new website at",
+    },
     Banner: {
       bannerTitle: "CABGen: Bacterial Genomics Applied to Clinical Practice",
     },
@@ -164,7 +168,8 @@ const en = {
   },
   Maintenance: {
     sectionTitle: "Maintenance in Progress",
-    sectionDescription: "We are dedicated to improving our platform to provide you with an even better experience. We apologize for any inconvenience and appreciate your understanding. We will be back soon. In the meantime, thank you for your patience and please continue visiting us!",
+    sectionDescription:
+      "We are dedicated to improving our platform to provide you with an even better experience. We apologize for any inconvenience and appreciate your understanding. We will be back soon. In the meantime, thank you for your patience and please continue visiting us!",
   },
   Footer: {
     faqLink: "FAQ",
