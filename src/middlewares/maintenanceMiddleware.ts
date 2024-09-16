@@ -6,7 +6,7 @@ import {
   NextResponse,
 } from "next/server";
 
-const forbiddenURLsRegex = /\/(account|login)/i;
+const forbiddenURLsRegex = /\/(account|login|register)/i;
 const maintenanceRegex = /\/maintenance/i;
 const isInMaintenance = process.env.BACKEND_MAINTENANCE === "true";
 
