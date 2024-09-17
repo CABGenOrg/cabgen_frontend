@@ -28,7 +28,7 @@ import { useSelector } from "react-redux";
 import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
-const URL = `${process.env.WEBSITE_URL}/sgbmi/` || ""
+const URL = process.env.WEBSITE_URL || ""
 
 const LoginForm = () => {
   const lang = useSelector(selectCurrentLanguage);
