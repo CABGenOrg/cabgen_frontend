@@ -28,6 +28,8 @@ import { useSelector } from "react-redux";
 import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
+const URL = `${process.env.WEBSITE_URL}/sgbmi/` || ""
+
 const LoginForm = () => {
   const lang = useSelector(selectCurrentLanguage);
   const {
@@ -64,7 +66,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (isSuccess && !error) {
       form.reset();
-      router.replace("https://aureus.procc.fiocruz.br/sgbmi/");
+      router.replace(URL);
     }
   }, [isSuccess, error, form, router]);
 
