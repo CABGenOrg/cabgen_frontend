@@ -11,7 +11,9 @@ const blockedURLsRegex = new RegExp(blockedURLs.split(',').join('|'), "i");
 
 const blockedURLsMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
-    const loginURL = new URL("/login", request.url);
+    const lang = request.nextUrl.pathname.split('/')[1];
+
+    const loginURL = new URL(`/${lang}/login`, request.url);
 
     const responseRedirect = (url: URL) => NextResponse.redirect(url);
 
