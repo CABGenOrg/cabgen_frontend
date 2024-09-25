@@ -5,15 +5,14 @@ import {
   NextRequest,
   NextResponse,
 } from "next/server";
+import { buildURLWithLanguage } from "@/utils/handleURLs";
 
 const blockedURLs = process.env.BLOCKED_URLS || "";
-const blockedURLsRegex = new RegExp(blockedURLs.split(',').join('|'), "i");
+const blockedURLsRegex = new RegExp(blockedURLs.split(",").join("|"), "i");
 
 const blockedURLsMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
-    const lang = request.nextUrl.pathname.split('/')[1];
-
-    const loginURL = new URL(`/${lang}/login`, request.url);
+    const loginURL = buildURLWithLanguage(request, "/");
 
     const responseRedirect = (url: URL) => NextResponse.redirect(url);
 

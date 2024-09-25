@@ -1,4 +1,5 @@
 import { MiddlewareFactory } from "./chain";
+import { buildURLWithLanguage } from "@/utils/handleURLs";
 import {
   NextFetchEvent,
   NextMiddleware,
@@ -12,8 +13,8 @@ const isInMaintenance = process.env.BACKEND_MAINTENANCE === "true";
 
 const maintenanceMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
-    const homeURL = new URL("/", request.url);
-    const maintenanceURL = new URL("/maintenance", request.url);
+    const homeURL = buildURLWithLanguage(request, "/home");
+    const maintenanceURL = buildURLWithLanguage(request, "/maintenance");
 
     const responseRedirect = (url: URL) => NextResponse.redirect(url);
 
