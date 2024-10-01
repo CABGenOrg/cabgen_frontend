@@ -74,6 +74,8 @@ const es = {
   },
   Dashboard: {
     sectionTitle: "Datos de la Red Genómica",
+    microreactWarning:
+      "Para acceder al Dashboard, desactiva la opción 'Impedir Seguimiento entre Sitios' en Configuración > Privacidad.",
   },
   About: {
     CabgenMission: {

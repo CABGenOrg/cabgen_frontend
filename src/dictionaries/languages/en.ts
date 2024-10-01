@@ -74,6 +74,8 @@ const en = {
   },
   Dashboard: {
     sectionTitle: "Genomic Network Data",
+    microreactWarning:
+      "To access the Dashboard, disable the 'Prevent Cross-Site Tracking' option in Settings > Privacy.",
   },
   About: {
     CabgenMission: {
