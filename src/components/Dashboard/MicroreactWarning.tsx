@@ -30,8 +30,10 @@ const MicroreactWarning = () => {
       if (!lastShown || Date.now() - parseInt(lastShown, 10) > TIME_INTERVAL) {
         toast({
           description: Dashboard.microreactWarning,
-          duration: 600000, 
+          duration: 180000,
           action: <ToastAction altText="Ok">Ok</ToastAction>,
+          className:
+            "top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4",
         });
 
         localStorage.setItem(
