@@ -56,7 +56,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
             alt="FioCruz logo"
             width={5000}
             height={2500}
-            className="w-auto h-20 cursor-pointer"
+            className="w-auto lg:h-16 h-14 cursor-pointer"
             priority={true}
           />
         </CustomLink>
