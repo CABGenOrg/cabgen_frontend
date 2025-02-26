@@ -74,6 +74,8 @@ const pt = {
   },
   Dashboard: {
     sectionTitle: "Dados da Rede Genômica",
+    microreactWarning:
+      "Para acessar o Dashboard, desative a opção 'Impedir Rastreamento entre Sites' em Ajustes > Privacidade.",
   },
   About: {
     CabgenMission: {

@@ -6,6 +6,7 @@ import Footer from "@/components/General/Footer";
 import StoreProvider from "@/redux/store/StoreProvider";
 import { Locale, i18n } from "@/i18n/i18n.config";
 import Layout from "@/components/General/Layout";
+import { Toaster } from "@/components/ui/toaster";
 
 const futura = localFont({
   src: [
@@ -76,6 +77,7 @@ const RootLayout = ({
             <Layout>{children}</Layout>
           </main>
           <Footer lang={params.lang} />
+          <Toaster />
         </body>
       </html>
     </StoreProvider>
