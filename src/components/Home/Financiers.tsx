@@ -24,7 +24,7 @@ const Financiers = ({ lang }: { lang: Locale }) => {
     {
       name: "Fiocruz logo",
       logo: "/Home/fiocruz.png",
-      size: "md:w-[10%] w-[25%]",
+      size: "md:w-[30%] w-[65%]",
     },
     {
       name: "Inova Fiocruz logo",
