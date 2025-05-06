@@ -28,6 +28,7 @@
     "next": "^14.2.14",
     "object-to-formdata": "^4.5.1",
     "react": "^18",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18",
     "react-hook-form": "^7.51.2",
     "react-leaflet": "^4.2.1",
