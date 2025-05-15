@@ -76,6 +76,11 @@ const es = {
     sectionTitle: "Datos de la Red Genómica",
     microreactWarning:
       "Para acceder al Dashboard, desactiva la opción 'Impedir Seguimiento entre Sitios' en Configuración > Privacidad.",
+    barChart: {
+      title: "Distribución de Carbapenemasas por Especie",
+      xlabel: "Carbapenemasa",
+      ylabel: "Número de Registros",
+    },
   },
   About: {
     CabgenMission: {

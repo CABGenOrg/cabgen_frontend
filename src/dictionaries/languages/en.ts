@@ -76,6 +76,11 @@ const en = {
     sectionTitle: "Genomic Network Data",
     microreactWarning:
       "To access the Dashboard, disable the 'Prevent Cross-Site Tracking' option in Settings > Privacy.",
+    barChart: {
+      title: "Carbapenemase Distribution by Species",
+      xlabel: "Carbapenemase",
+      ylabel: "Number of Entries",
+    },
   },
   About: {
     CabgenMission: {

@@ -6,8 +6,10 @@ import Loading from "@/components/General/Loading";
 import { getTranslateServer } from "@/lib/getTranslateServer";
 import { Locale } from "@/i18n/i18n.config";
 import MicroreactWarning from "@/components/Dashboard/MicroreactWarning";
+import jsonData from "../../../../data/dashboard.json";
+import { JSONData } from "@/types/dashboard";
 
-const microreactURL = process.env.MICROREACT_URL || "";
+// const microreactURL = process.env.MICROREACT_URL || "";
 
 const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
   const {
@@ -19,6 +21,15 @@ const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
     loading: () => <Loading />,
   });
 
+  const dashboardData: JSONData = jsonData;
+  const DashboardBarChart = dynamic(
+    () => import("@/components/Dashboard/DashboardBarChart"),
+    {
+      ssr: false,
+      loading: () => <Loading />,
+    }
+  );
+
   return (
     <Section id="dashboard">
       <div
@@ -28,7 +39,7 @@ const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
           {Dashboard.sectionTitle}
         </h1>
         <MicroreactWarning />
-        <iframe
+        {/* <iframe
           src={microreactURL}
           width="100%"
           height="100%"
@@ -36,8 +47,9 @@ const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
           title="Genomic Network Data on Microreact"
           loading="lazy"
           allowFullScreen
-        ></iframe>
+        ></iframe> */}
         {/* <Map /> */}
+        <DashboardBarChart data={dashboardData.data} lang={lang} />
       </div>
     </Section>
   );

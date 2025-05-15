@@ -76,6 +76,11 @@ const pt = {
     sectionTitle: "Dados da Rede Genômica",
     microreactWarning:
       "Para acessar o Dashboard, desative a opção 'Impedir Rastreamento entre Sites' em Ajustes > Privacidade.",
+    barChart: {
+      title: "Distribuição de Carbapenemases por Espécie",
+      xlabel: "Carbapenemase",
+      ylabel: "Número de Entradas",
+    },
   },
   About: {
     CabgenMission: {
