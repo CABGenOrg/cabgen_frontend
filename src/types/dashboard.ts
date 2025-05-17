@@ -1,8 +1,14 @@
+import { Locale } from "@/i18n/i18n.config";
+
 export interface JSONData {
   last_update: string;
   data: DashboardData[];
 }
 
+export interface DashboardDataProps {
+  data: DashboardData[];
+  lang: Locale;
+}
 export interface DashboardData {
   id: number;
   species: string;
@@ -19,4 +25,15 @@ export interface DashboardData {
   sample: string;
   latitude: number;
   longitude: number;
+}
+
+export interface SpeciesData {
+  [species: string]: number;
+}
+
+export interface MarkerWithHoverProps {
+  position: [number, number];
+  icon: L.DivIcon;
+  data: SpeciesData;
+  state: string;
 }

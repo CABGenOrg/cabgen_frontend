@@ -5,11 +5,8 @@ import { section_spacing, section_title } from "@/styles/tailwind_classes";
 import Loading from "@/components/General/Loading";
 import { getTranslateServer } from "@/lib/getTranslateServer";
 import { Locale } from "@/i18n/i18n.config";
-import MicroreactWarning from "@/components/Dashboard/MicroreactWarning";
 import jsonData from "../../../../data/dashboard.json";
 import { JSONData } from "@/types/dashboard";
-
-// const microreactURL = process.env.MICROREACT_URL || "";
 
 const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
   const {
@@ -35,20 +32,13 @@ const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
       <div
         className={`flex flex-col justify-center items-center ${section_spacing}`}
       >
-        <h1 className={`${section_title} text-center mb-7 mt-4`}>
+        <h1 className={`${section_title} text-center mt-4`}>
           {Dashboard.sectionTitle}
         </h1>
-        <MicroreactWarning />
-        {/* <iframe
-          src={microreactURL}
-          width="100%"
-          height="100%"
-          className="w-[95vw] h-[180vh] border-none p-0 m-0"
-          title="Genomic Network Data on Microreact"
-          loading="lazy"
-          allowFullScreen
-        ></iframe> */}
-        {/* <Map /> */}
+        <h4 className="text-gray-400 text-center md:text-base text-xs mb-7 mt-2 text-opacity-30">
+          Última atualização em {dashboardData.last_update}
+        </h4>
+        <Map data={dashboardData.data} lang={lang} />
         <DashboardBarChart data={dashboardData.data} lang={lang} />
       </div>
     </Section>

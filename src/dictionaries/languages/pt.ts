@@ -81,6 +81,9 @@ const pt = {
       xlabel: "Carbapenemase",
       ylabel: "Número de Entradas",
     },
+    map: {
+      title: "Distribuição de Cepas Resistentes no Brasil",
+    }
   },
   About: {
     CabgenMission: {

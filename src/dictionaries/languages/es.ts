@@ -81,6 +81,9 @@ const es = {
       xlabel: "Carbapenemasa",
       ylabel: "Número de Registros",
     },
+    map: {
+      title: "Distribución de Cepas Resistentes en Brasil",
+    },
   },
   About: {
     CabgenMission: {

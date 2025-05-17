@@ -81,6 +81,9 @@ const en = {
       xlabel: "Carbapenemase",
       ylabel: "Number of Entries",
     },
+    map: {
+      title: "Distribution of Resistant Strains in Brazil",
+    },
   },
   About: {
     CabgenMission: {

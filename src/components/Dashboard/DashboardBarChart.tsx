@@ -11,18 +11,12 @@ import {
   Label,
   ResponsiveContainer,
 } from "recharts";
-import { DashboardData } from "@/types/dashboard";
+import { DashboardDataProps } from "@/types/dashboard";
 import { getRoundedMax, getColorForSpecies } from "@/utils/handleGraph";
-import { Locale } from "@/i18n/i18n.config";
-import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
 import { getTranslateClient } from "@/lib/getTranslateClient";
+import { map_graph_title } from "@/styles/tailwind_classes";
 
-interface BarChartProps {
-  data: DashboardData[];
-  lang: Locale;
-}
-
-const DashboardBarChart: React.FC<BarChartProps> = ({ lang, data }) => {
+const DashboardBarChart: React.FC<DashboardDataProps> = ({ lang, data }) => {
   const {
     dictionary: { Dashboard },
   } = getTranslateClient(lang);
@@ -78,9 +72,7 @@ const DashboardBarChart: React.FC<BarChartProps> = ({ lang, data }) => {
 
   return (
     <div className="w-full overflow-x-auto">
-      <h2 className="text-xl font-semibold text-center mb-4">
-        {Dashboard.barChart.title}
-      </h2>
+      <h2 className={map_graph_title}>{Dashboard.barChart.title}</h2>
       <div className="mx-auto w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[60vw]">
         <ResponsiveContainer width="100%" height={chartHeight}>
           <BarChart

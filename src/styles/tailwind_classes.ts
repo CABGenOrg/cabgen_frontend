@@ -1,6 +1,7 @@
 export const section_title = "font-bold 2xl:text-6xl md:text-5xl text-4xl";
 export const section_subtitle = "font-light 2xl:text-5xl md:text-4xl text-3xl";
 export const section_text = "my-5 2xl:text-4xl md:text-2xl text-xl";
+export const map_graph_title = "font-bold text-center my-4 2xl:text-5xl md:text-4xl text-3xl";
 export const section_image = "object-cover w-5/6";
 export const section_spacing =
   "xl:mx-48 lg:mx-32 md:mx-16 sm:mx-10 mx-7 md:py-3 py-5 sm:gap-2 gap-5";
