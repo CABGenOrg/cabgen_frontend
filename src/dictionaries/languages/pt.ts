@@ -74,16 +74,42 @@ const pt = {
   },
   Dashboard: {
     sectionTitle: "Dados da Rede Genômica",
+    lastUpdateWarning: "Última atualização em",
     microreactWarning:
       "Para acessar o Dashboard, desative a opção 'Impedir Rastreamento entre Sites' em Ajustes > Privacidade.",
-    barChart: {
-      title: "Distribuição de Carbapenemases por Espécie",
+    carbapenemaseBarChart: {
+      title: "Distribuição de Carbapenemases por Espécie (Top 30)",
       xlabel: "Carbapenemase",
+      ylabel: "Número de Entradas",
+    },
+    aminoglycosidesBarChart: {
+      title: "Distribuição de Aminoglicosídeos por Espécie (Top 30)",
+      xlabel: "Aminoglicosídeo",
+      ylabel: "Número de Entradas",
+    },
+    quinolonesBarChart: {
+      title: "Distribuição de Quinolonas por Espécie (Top 30)",
+      xlabel: "Quinolona",
+      ylabel: "Número de Entradas",
+    },
+    sulfonamidesBarChart: {
+      title: "Distribuição de Sulfonamidas por Espécie (Top 30)",
+      xlabel: "Sulfonamida",
+      ylabel: "Número de Entradas",
+    },
+    polymyxinBarChart: {
+      title: "Distribuição de Polimixinas por Espécie (Top 30)",
+      xlabel: "Polimixina",
+      ylabel: "Número de Entradas",
+    },
+    resistanceBarChart: {
+      title: "Distribuição Anual de Resistência Antimicrobiana",
+      xlabel: "Classes de Antimicrobianos",
       ylabel: "Número de Entradas",
     },
     map: {
       title: "Distribuição de Cepas Resistentes no Brasil",
-    }
+    },
   },
   About: {
     CabgenMission: {

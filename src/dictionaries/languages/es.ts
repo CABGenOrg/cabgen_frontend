@@ -74,11 +74,37 @@ const es = {
   },
   Dashboard: {
     sectionTitle: "Datos de la Red Genómica",
+    lastUpdateWarning: "Última actualización el",
     microreactWarning:
       "Para acceder al Dashboard, desactiva la opción 'Impedir Seguimiento entre Sitios' en Configuración > Privacidad.",
-    barChart: {
-      title: "Distribución de Carbapenemasas por Especie",
+    carbapenemaseBarChart: {
+      title: "Distribución de Carbapenemasas por Especie (Top 30)",
       xlabel: "Carbapenemasa",
+      ylabel: "Número de Registros",
+    },
+    aminoglycosidesBarChart: {
+      title: "Distribución de Aminoglucósidos por Especie (Top 30)",
+      xlabel: "Aminoglucósido",
+      ylabel: "Número de Registros",
+    },
+    quinolonesBarChart: {
+      title: "Distribución de Quinolonas por Especie (Top 30)",
+      xlabel: "Quinolona",
+      ylabel: "Número de Registros",
+    },
+    sulfonamidesBarChart: {
+      title: "Distribución de Sulfonamidas por Especie (Top 30)",
+      xlabel: "Sulfonamida",
+      ylabel: "Número de Registros",
+    },
+    polymyxinBarChart: {
+      title: "Distribución de Polimixinas por Especie (Top 30)",
+      xlabel: "Polimixina",
+      ylabel: "Número de Registros",
+    },
+    resistanceBarChart: {
+      title: "Distribución Anual de Resistencia Antimicrobiana",
+      xlabel: "Clases de Antimicrobianos",
       ylabel: "Número de Registros",
     },
     map: {

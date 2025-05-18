@@ -1,20 +1,35 @@
-import L from "leaflet";
-import { SpeciesData } from "@/types/dashboard";
-
 const colors = [
-  "#8884d8",
-  "#82ca9d",
-  "#ffc658",
-  "#ff7f50",
-  "#8dd1e1",
-  "#a4de6c",
-  "#d0ed57",
-  "#d98880",
-  "#c94c4c",
-  "#5DADE2",
-  "#AF7AC5",
-  "#45B39D",
+  "#1f77b4",
+  "#ff7f0e",
+  "#2ca02c",
+  "#d62728",
+  "#9467bd",
+  "#8c564b",
+  "#e377c2",
+  "#7f7f7f",
+  "#bcbd22",
+  "#17becf",
+  "#aec7e8",
+  "#ffbb78",
+  "#98df8a",
+  "#ff9896",
+  "#c5b0d5",
+  "#c49c94",
+  "#393b79",
+  "#637939",
+  "#8c6d31",
+  "#843c39",
+  "#7b4173",
+  "#3182bd",
+  "#e6550d",
+  "#31a354",
+  "#756bb1",
+  "#d6616b",
+  "#ce6dbd",
 ];
+
+const assignedColors = new Map<string, string>();
+const usedColorIndexes = new Set<number>();
 
 // Simple hash function to turn a string into a number
 const stringToHash = (str: string): number => {
@@ -25,10 +40,36 @@ const stringToHash = (str: string): number => {
   return Math.abs(hash);
 };
 
-// Deterministic color assignment based on species name
+const hslColorFromHash = (hash: number): string => {
+  const hue = hash % 360;
+  const saturation = 65 + (hash % 15); // 65–80%
+  const lightness = 45 + (hash % 10); // 45–55%
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+};
+
+// Deterministic color assignment based on name
 export const getColorForSpecies = (species: string): string => {
+  if (assignedColors.has(species)) return assignedColors.get(species)!;
+
   const hash = stringToHash(species);
-  return colors[hash % colors.length];
+  let index = hash % colors.length;
+
+  let attempts = 0;
+  while (usedColorIndexes.has(index) && attempts < colors.length) {
+    index = (index + 1) % colors.length;
+    attempts++;
+  }
+
+  let color: string;
+  if (attempts < colors.length) {
+    color = colors[index];
+    usedColorIndexes.add(index);
+  } else {
+    color = hslColorFromHash(hash);
+  }
+
+  assignedColors.set(species, color);
+  return color;
 };
 
 // Returns the next rounded multiple for the Y-axis (e.g., round 242 to 250)
@@ -37,71 +78,123 @@ export const getRoundedMax = (value: number) => {
   return Math.ceil(value / multiple) * multiple;
 };
 
-export const PieChartIcon = ({ data }: { data: SpeciesData }) => {
-  const total = Object.values(data).reduce((sum, count) => sum + count, 0);
-  const speciesCount = Object.keys(data).length;
-  let startAngle = 0;
-  const radius = 15 + Math.sqrt(total) * 1.5;
+type Item = Record<string, any>;
 
-  if (speciesCount === 1) {
-    const species = Object.keys(data)[0];
-    const fill = getColorForSpecies(species);
+interface GroupAndCountParams {
+  data: Array<Record<string, any>>;
+  groupByKey: string;
+  countKeys: string[];
+  skipValues?: any[];
+  sortByTotal?: boolean;
+  limit?: number;
+}
 
-    const svgString = `
-      <svg width="${radius * 2}" height="${radius * 2}" viewBox="0 0 ${
-      radius * 2
-    } ${radius * 2}" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="${radius}" cy="${radius}" r="${radius}" fill="${fill}" stroke="#fff" stroke-width="0.5" />
-      </svg>
-    `;
+export const groupAndCountCategories = ({
+  data,
+  groupByKey,
+  countKeys,
+  skipValues = ["Not found", "", null],
+  sortByTotal = false,
+  limit,
+}: GroupAndCountParams) => {
+  const grouped: Record<string, Record<string, number>> = {};
 
-    return L.divIcon({
-      html: svgString,
-      className: "pie-chart-icon",
-      iconSize: [radius * 2, radius * 2],
-      iconAnchor: [radius, radius],
+  data.forEach((item) => {
+    let groupVal = item[groupByKey];
+
+    // Normalize and skip invalid group keys
+    if (typeof groupVal === "string") groupVal = groupVal.trim();
+    if (groupVal === undefined || skipValues.includes(groupVal)) return;
+
+    if (!grouped[groupVal]) {
+      grouped[groupVal] = {};
+    }
+
+    countKeys.forEach((key) => {
+      let val = item[key];
+
+      // Normalize and skip invalid count values
+      if (typeof val === "string") val = val.trim();
+      if (val === undefined || skipValues.includes(val)) return;
+
+      if (!grouped[groupVal][val]) {
+        grouped[groupVal][val] = 0;
+      }
+
+      grouped[groupVal][val] += 1;
     });
+  });
+
+  const allValues = Array.from(
+    new Set(Object.values(grouped).flatMap((counts) => Object.keys(counts)))
+  );
+
+  let result = Object.entries(grouped).map(([group, counts]) => {
+    const entry: Record<string, any> = { [groupByKey]: group };
+    let total = 0;
+
+    allValues.forEach((val) => {
+      const count = counts[val] || 0;
+      entry[val] = count;
+      total += count;
+    });
+
+    if (sortByTotal) {
+      entry.total = total;
+    }
+
+    return entry;
+  });
+
+  if (sortByTotal) {
+    result.sort((a, b) => (b.total || 0) - (a.total || 0));
   }
 
-  // Sort the species by quantity
-  const sortedEntries = Object.entries(data).sort((a, b) => b[1] - a[1]);
+  if (limit !== undefined) {
+    result = result.slice(0, limit);
+  }
 
-  const svgString = `
-    <svg width="${radius * 2}" height="${radius * 2}" viewBox="0 0 ${
-    radius * 2
-  } ${radius * 2}" xmlns="http://www.w3.org/2000/svg">
-      ${sortedEntries
-        .map(([species, count]) => {
-          const angle = (count / total) * 360;
-          const endAngle = startAngle + angle;
+  return result;
+};
 
-          const x1 = radius + radius * Math.cos((Math.PI / 180) * startAngle);
-          const y1 = radius + radius * Math.sin((Math.PI / 180) * startAngle);
-          const x2 = radius + radius * Math.cos((Math.PI / 180) * endAngle);
-          const y2 = radius + radius * Math.sin((Math.PI / 180) * endAngle);
+interface GroupAndCountPresenceParams {
+  data: Array<Record<string, any>>;
+  groupByKey: string;
+  countKeys: string[];
+  skipValues?: any[];
+  limit?: number;
+}
 
-          const largeArcFlag = angle > 180 ? 1 : 0;
+export const groupAndCountPresence = ({
+  data,
+  groupByKey,
+  countKeys,
+  skipValues = ["Not found", "", null, "Ausente"],
+}: GroupAndCountPresenceParams) => {
+  const grouped: Record<string, Record<string, number>> = {};
 
-          const pathData = [
-            `M ${radius} ${radius}`,
-            `L ${x1} ${y1}`,
-            `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`,
-            "Z",
-          ].join(" ");
+  data.forEach((item) => {
+    let groupVal = item[groupByKey];
 
-          const fill = getColorForSpecies(species);
-          startAngle = endAngle;
+    if (typeof groupVal === "string") groupVal = groupVal.trim();
+    if (groupVal === undefined || skipValues.includes(groupVal)) return;
 
-          return `<path d="${pathData}" fill="${fill}" stroke="#fff" stroke-width="0.5" />`;
-        })
-        .join("")}
-    </svg>
-  `;
+    if (!grouped[groupVal]) {
+      grouped[groupVal] = Object.fromEntries(countKeys.map((key) => [key, 0]));
+    }
 
-  return L.divIcon({
-    html: svgString,
-    className: "pie-chart-icon",
-    iconSize: [radius * 2, radius * 2],
-    iconAnchor: [radius, radius],
+    countKeys.forEach((key) => {
+      let val = item[key];
+
+      if (typeof val === "string") val = val.trim();
+      if (val === undefined || skipValues.includes(val)) return;
+
+      grouped[groupVal][key] += 1;
+    });
   });
+
+  return Object.entries(grouped).map(([group, counts]) => ({
+    [groupByKey]: group,
+    ...counts,
+  }));
 };

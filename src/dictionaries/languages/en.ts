@@ -74,11 +74,37 @@ const en = {
   },
   Dashboard: {
     sectionTitle: "Genomic Network Data",
+    lastUpdateWarning: "Last updated on",
     microreactWarning:
       "To access the Dashboard, disable the 'Prevent Cross-Site Tracking' option in Settings > Privacy.",
-    barChart: {
-      title: "Carbapenemase Distribution by Species",
+    carbapenemaseBarChart: {
+      title: "Carbapenemase Distribution by Species (Top 30)",
       xlabel: "Carbapenemase",
+      ylabel: "Number of Entries",
+    },
+    aminoglycosidesBarChart: {
+      title: "Aminoglycoside Distribution by Species (Top 30)",
+      xlabel: "Aminoglycoside",
+      ylabel: "Number of Entries",
+    },
+    quinolonesBarChart: {
+      title: "Quinolone Distribution by Species (Top 30)",
+      xlabel: "Quinolone",
+      ylabel: "Number of Entries",
+    },
+    sulfonamidesBarChart: {
+      title: "Sulfonamide Distribution by Species (Top 30)",
+      xlabel: "Sulfonamide",
+      ylabel: "Number of Entries",
+    },
+    polymyxinBarChart: {
+      title: "Polymyxin Distribution by Species (Top 30)",
+      xlabel: "Polymyxin",
+      ylabel: "Number of Entries",
+    },
+    resistanceBarChart: {
+      title: "Annual Distribution of Antimicrobial Resistance",
+      xlabel: "Antimicrobial Classes",
       ylabel: "Number of Entries",
     },
     map: {

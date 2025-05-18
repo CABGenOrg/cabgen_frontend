@@ -37,3 +37,19 @@ export interface MarkerWithHoverProps {
   data: SpeciesData;
   state: string;
 }
+
+export interface BarChartData {
+  [key: string]: string | number | any;
+}
+
+export interface StackedBarChartProps {
+  title: string;
+  data: BarChartData[];
+  xDataKey: string;
+  yLabel?: string;
+  xLabel?: string;
+  keys: string[];
+  getColor: (key: string) => string;
+  showLegend?: boolean;
+  rotateTicks?: boolean;
+}
