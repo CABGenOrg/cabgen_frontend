@@ -102,8 +102,8 @@ const es = {
       xlabel: "Polimixina",
       ylabel: "Número de Registros",
     },
-    resistanceBarChart: {
-      title: "Distribución Anual de Resistencia Antimicrobiana",
+    resistanceMultiLineChart: {
+      title: "Tendencia Anual de Resistencia por Clase de Antimicrobianos",
       xlabel: "Clases de Antimicrobianos",
       ylabel: "Número de Registros",
     },

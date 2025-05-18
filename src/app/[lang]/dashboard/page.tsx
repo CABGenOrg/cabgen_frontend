@@ -22,6 +22,13 @@ const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
     ssr: false,
     loading: () => <Loading />,
   });
+  const MultiLineChart = dynamic(
+    () => import("@/components/Dashboard/MultiLineChart"),
+    {
+      ssr: false,
+      loading: () => <Loading />,
+    }
+  );
   const StackedBarChart = dynamic(
     () => import("@/components/Dashboard/StackedBarChart"),
     {
@@ -56,19 +63,20 @@ const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
         </h4>
         <Map data={dashboardData.data} lang={lang} />
         {/* Resistance graph */}
-        <StackedBarChart
+        <MultiLineChart
           data={groupAndCountPresence({
             data: dashboardData.data,
             groupByKey: "year",
             countKeys: resistanceKeys,
           })}
-          title={Dashboard.resistanceBarChart.title}
+          title={Dashboard.resistanceMultiLineChart.title}
           xDataKey="year"
-          xLabel={Dashboard.resistanceBarChart.xlabel}
-          yLabel={Dashboard.resistanceBarChart.ylabel}
+          xLabel={Dashboard.resistanceMultiLineChart.xlabel}
           keys={resistanceKeys}
+          showLegend={true}
           rotateTicks={false}
-          xTick={false}
+          xLabelOffset={50}
+          xTick={true}
         />
         {/* Carbapenemase graph */}
         <StackedBarChart

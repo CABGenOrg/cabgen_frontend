@@ -102,10 +102,10 @@ const en = {
       xlabel: "Polymyxin",
       ylabel: "Number of Entries",
     },
-    resistanceBarChart: {
-      title: "Annual Distribution of Antimicrobial Resistance",
+    resistanceMultiLineChart: {
+      title: "Annual Trend of Resistance by Antimicrobial Class",
       xlabel: "Antimicrobial Classes",
-      ylabel: "Number of Entries",
+      ylabel: "Number of Records",
     },
     map: {
       title: "Distribution of Resistant Strains in Brazil",

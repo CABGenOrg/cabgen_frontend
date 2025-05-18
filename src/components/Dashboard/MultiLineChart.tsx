@@ -2,8 +2,8 @@
 
 import React, { useMemo } from "react";
 import {
-  BarChart,
-  Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -15,11 +15,11 @@ import {
 import { map_graph_title } from "@/styles/tailwind_classes";
 import { getRoundedMax, getColorForSpecies } from "@/utils/handleGraph";
 
-type BarChartData = Record<string, any>;
+type LineChartData = Record<string, any>;
 
-interface StackedBarChartProps {
+interface MultiLineChartProps {
   title: string;
-  data: BarChartData[];
+  data: LineChartData[];
   xDataKey: string;
   yLabel?: string;
   xLabel?: string;
@@ -30,7 +30,7 @@ interface StackedBarChartProps {
   rotateTicks?: boolean;
 }
 
-const StackedBarChart: React.FC<StackedBarChartProps> = ({
+const MultiLineChart: React.FC<MultiLineChartProps> = ({
   title,
   data,
   xDataKey,
@@ -44,30 +44,24 @@ const StackedBarChart: React.FC<StackedBarChartProps> = ({
 }) => {
   const maxValue = useMemo(() => {
     return Math.max(
-      ...data.map((item) =>
-        keys.reduce((sum, key) => sum + (item[key] || 0), 0)
-      )
+      ...data.flatMap((item) => keys.map((key) => item[key] || 0))
     );
   }, [data, keys]);
-  console.log(data);
-  // Base dimensions for short charts
-  const baseHeight = 400;
-  // Size per item
-  const sizePerItem = 15;
-  // Total height adapts to amount of data
-  const chartHeight = Math.max(baseHeight, data.length * sizePerItem);
+
+  const baseHeight = 300;
+  const chartHeight = Math.max(baseHeight, data.length * 15);
 
   return (
     <div className="w-full overflow-x-auto">
       <h2 className={map_graph_title}>{title}</h2>
       <div className="mx-auto w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[60vw]">
         <ResponsiveContainer width="100%" height={chartHeight}>
-          <BarChart
+          <LineChart
             data={data}
             margin={{
               top: 10,
-              right: 10,
-              left: 10,
+              right: 25,
+              left: 25,
               bottom: rotateTicks ? 250 : 50,
             }}
           >
@@ -82,15 +76,14 @@ const StackedBarChart: React.FC<StackedBarChartProps> = ({
               {xLabel && (
                 <Label
                   value={xLabel}
-                  offset={rotateTicks && xTick ? 135 : showLegend ? xLabelOffset : 0}
+                  offset={
+                    rotateTicks && xTick ? 135 : showLegend ? xLabelOffset : 0
+                  }
                   position="bottom"
                 />
               )}
             </XAxis>
-            <YAxis
-              domain={[0, getRoundedMax(maxValue)]}
-              allowDataOverflow={true}
-            >
+            <YAxis domain={[0, getRoundedMax(maxValue)]}>
               {yLabel && (
                 <Label
                   value={yLabel}
@@ -103,18 +96,21 @@ const StackedBarChart: React.FC<StackedBarChartProps> = ({
             <Tooltip />
             {showLegend && <Legend />}
             {keys.map((key) => (
-              <Bar
+              <Line
                 key={key}
                 dataKey={key}
-                stackId="a"
-                fill={getColorForSpecies(key)}
+                stroke={getColorForSpecies(key)}
+                type="monotone"
+                strokeWidth={2}
+                dot={{ r: 2 }}
+                activeDot={{ r: 4 }}
               />
             ))}
-          </BarChart>
+          </LineChart>
         </ResponsiveContainer>
       </div>
     </div>
   );
 };
 
-export default StackedBarChart;
+export default MultiLineChart;
