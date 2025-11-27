@@ -16,12 +16,14 @@ export const getLocale = (request: NextRequest): string | undefined => {
 
   // @ts-ignore locales are readonly
   const locales: string[] = i18n.locales;
-  const languages = new Negotiator({ headers: negotiatorHeaders })
-    .languages()
-    .map((value) => value.split("-")[0]);
+  const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
 
-  const locale = matchLocale(languages, locales, i18n.defaultLocale);
-  return locale;
+  try {
+    const locale = matchLocale(languages, locales, i18n.defaultLocale);
+    return locale;
+  } catch {
+    return i18n.defaultLocale;
+  }
 };
 
 const languageMiddleware: MiddlewareFactory = (next: NextMiddleware) => {

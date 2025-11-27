@@ -28,12 +28,12 @@ import { useSelector } from "react-redux";
 import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
-const URL = process.env.WEBSITE_URL || ""
+const URL = process.env.WEBSITE_URL || "";
 
 const LoginForm = () => {
   const lang = useSelector(selectCurrentLanguage);
   const {
-    dictionary: { Login },
+    dictionary: { Login, Errors },
   } = getTranslateClient(lang);
 
   const LoginFormSchema = z.object({
@@ -140,7 +140,16 @@ const LoginForm = () => {
                   {Login.formFooter2}
                 </CustomLink>
               </p>
-              {error && <Message msg={String(error)} type="error" />}
+              {error && (
+                <Message
+                  msg={
+                    typeof error === "string" && error === "internalServer"
+                      ? Errors[error]
+                      : String(error)
+                  }
+                  type="error"
+                />
+              )}
             </div>
           </form>
         </Form>

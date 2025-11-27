@@ -20,7 +20,7 @@ const handleError = (response: any) => {
   if (isValid) {
     return response.data.message || response.data.mensaje;
   } else {
-    return "Serviço indisponível, tente novamente mais tarde.";
+    return "internalServer";
   }
 };
 export default handleError;

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,11 +21,15 @@ import OptimizedImage from "../General/OptimizedImage";
 import { useSelector } from "react-redux";
 import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
 import { getTranslateClient } from "@/lib/getTranslateClient";
+import { useContactMutation } from "@/redux/services/contactService";
+import { serialize } from "object-to-formdata";
+import Loading from "../General/Loading";
+import Message from "../General/Message";
 
 const ContactForm = () => {
   const lang = useSelector(selectCurrentLanguage);
   const {
-    dictionary: { Contact },
+    dictionary: { Contact, Errors },
   } = getTranslateClient(lang);
 
   const ContactFormSchema = z.object({
@@ -52,10 +56,18 @@ const ContactForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    console.log(data);
-    form.reset();
+  const [contact, { isLoading, error, isSuccess }] = useContactMutation();
+
+  const onSubmit: SubmitHandler<FormData> = async (contactData: FormData) => {
+    const formData = serialize(contactData);
+    await contact(formData);
   };
+
+  useEffect(() => {
+    if (isSuccess && !error) {
+      form.reset();
+    }
+  }, [isSuccess, error, form]);
 
   return (
     <div className="mx-5 py-6 px-3 2xl:w-[45%] lg:w-[55%] md:w-[70%] bg-slate-200 rounded-lg">
@@ -169,10 +181,26 @@ const ContactForm = () => {
               }}
             />
             <div className="flex justify-center items-center mt-4">
-              <button className={section_btn} type="submit">
-                {Contact.sendBtn}
-              </button>
+              {!isLoading && (
+                <button className={section_btn} type="submit">
+                  {Contact.sendBtn}
+                </button>
+              )}
+              {isLoading && <Loading />}
             </div>
+            {error && (
+              <Message
+                msg={
+                  typeof error === "string" && error === "internalServer"
+                    ? Errors[error]
+                    : String(error)
+                }
+                type="error"
+              />
+            )}
+            {isSuccess && !error && (
+              <Message msg={Contact.successMessage} type="success" />
+            )}
           </form>
         </Form>
       </div>

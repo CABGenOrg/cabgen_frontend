@@ -39,7 +39,7 @@ import { getTranslateClient } from "@/lib/getTranslateClient";
 const RegisterForm = () => {
   const lang = useSelector(selectCurrentLanguage);
   const {
-    dictionary: { Register },
+    dictionary: { Register, Errors },
   } = getTranslateClient(lang);
 
   const RegisterFormSchema = z
@@ -366,7 +366,16 @@ const RegisterForm = () => {
                   {Register.formFooter2}
                 </CustomLink>
               </p>
-              {error && <Message msg={String(error)} type="error" />}
+              {error && (
+                <Message
+                  msg={
+                    typeof error === "string" && error === "internalServer"
+                      ? Errors[error]
+                      : String(error)
+                  }
+                  type="error"
+                />
+              )}
             </div>
           </form>
         </Form>

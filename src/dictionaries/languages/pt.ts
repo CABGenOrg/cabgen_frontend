@@ -164,6 +164,7 @@ const pt = {
     messageField: "Mensagem",
     messageFieldValidation: "A mensagem é obrigatória.",
     sendBtn: "Enviar",
+    successMessage: "Mensagem enviada com sucesso.",
   },
   Login: {
     usernameField: "Nome de Usuário",
@@ -212,6 +213,9 @@ const pt = {
     faqLink: "FAQ",
     termLink: "Termos de Uso",
     imageCredits: "Créditos das Imagens",
+  },
+  Errors: {
+    internalServer: "Serviço indisponível, tente novamente mais tarde.",
   },
 };
 export default pt;

@@ -165,6 +165,7 @@ const es = {
     messageField: "Mensaje",
     messageFieldValidation: "El mensaje es obligatorio.",
     sendBtn: "Enviar",
+    successMessage: "Mensaje enviado exitosamente.",
   },
   Login: {
     usernameField: "Nombre de Usuario",
@@ -217,6 +218,10 @@ const es = {
     faqLink: "FAQ",
     termLink: "Terminos de Uso",
     imageCredits: "Crédito de Imagen",
+  },
+  Errors: {
+    internalServer:
+      "Servicio no disponible, por favor inténtelo de nuevo más tarde.",
   },
 };
 export default es;

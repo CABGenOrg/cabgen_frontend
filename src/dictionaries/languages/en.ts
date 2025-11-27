@@ -164,6 +164,7 @@ const en = {
     messageField: "Message",
     messageFieldValidation: "Message is required.",
     sendBtn: "Send",
+    successMessage: "Message sent successfully.",
   },
   Login: {
     usernameField: "Username",
@@ -211,6 +212,9 @@ const en = {
     faqLink: "FAQ",
     termLink: "Terms of Use",
     imageCredits: "Image Credit",
+  },
+  Errors: {
+    internalServer: "Service unavailable, please try again later.",
   },
 };
 
