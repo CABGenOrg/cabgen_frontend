@@ -15,7 +15,7 @@ export const requestConfig = (url: string, method: string, data: any) => {
       url,
       method,
     };
-  } else if (url.includes("/login") || url.includes("/register")) || url.includes("/contact") {
+  } else if (url.includes("/login") || url.includes("/register")) || url.includes("/contact")) {
     config = {
       url,
       method,
