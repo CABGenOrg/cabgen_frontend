@@ -12,16 +12,14 @@ const NetworkMap = ({ lang }: { lang: Locale }) => {
 
   return (
     <Section id="network-map">
-      <div
-        className={`flex flex-col justify-center items-center ${section_spacing}`}
-      >
-        <h2 className={`${section_title} text-center mb-7 mt-4`}>
+      <div className={`flex flex-col justify-center items-center w-full ${section_spacing}`}>
+        <h2 className={`${section_title} text-center mb-10 mt-4`}>
           {Network.Map.sectionTitle}
         </h2>
         <OptimizedImage
           src="/Network/mapa_cabgen.png"
           alt="LACENs map"
-          className="w-fit h-auto rounded-xl"
+          className="xl:w-2/5 lg:w-3/5 md:w-4/5 w-full h-auto"
         />
       </div>
     </Section>
