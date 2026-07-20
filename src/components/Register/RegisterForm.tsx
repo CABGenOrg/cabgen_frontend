@@ -11,8 +11,7 @@ import {
 } from "@/styles/tailwind_classes";
 import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
-import { useSelector } from "react-redux";
-import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
+import { useLanguage } from "@/redux/LanguageContext";
 import {
   Select,
   SelectContent,
@@ -30,14 +29,13 @@ import {
 } from "../ui/form";
 import { countryOptions, getCountries } from "@/lib/getCountries";
 import { useRegisterMutation } from "@/redux/services/authService";
-import { serialize } from "object-to-formdata";
 import Loading from "../General/Loading";
 import { useRouter } from "next/navigation";
 import Message from "../General/Message";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
 const RegisterForm = () => {
-  const lang = useSelector(selectCurrentLanguage);
+  const lang = useLanguage();
   const {
     dictionary: { Register, Errors },
   } = getTranslateClient(lang);
@@ -123,8 +121,7 @@ const RegisterForm = () => {
       senha: registerData.password,
       confirmPassword: registerData.confirmPassword,
     };
-    const formData = serialize(parsedRegisterData);
-    await register(formData);
+    await register(parsedRegisterData);
   };
 
   useEffect(() => {

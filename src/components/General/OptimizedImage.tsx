@@ -17,7 +17,7 @@ const OptimizedImage = ({ src, alt, width, height, className }: ImageProps) => {
       alt={alt}
       width={width ? width : 2500}
       height={height ? height : 2500}
-      quality={65}
+      quality={75}
       className={
         className ? `${className} transition-opacity blur duration-300` : ""
       }

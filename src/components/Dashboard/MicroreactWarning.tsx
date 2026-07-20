@@ -3,8 +3,7 @@
 import { useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "../ui/toast";
-import { useSelector } from "react-redux";
-import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
+import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { isSafari } from "react-device-detect";
 
@@ -18,7 +17,7 @@ const writeLocalStorage = () => {
 
 const MicroreactWarning = () => {
   const { toast } = useToast();
-  const lang = useSelector(selectCurrentLanguage);
+  const lang = useLanguage();
   const {
     dictionary: { Dashboard },
   } = getTranslateClient(lang);

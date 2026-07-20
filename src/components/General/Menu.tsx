@@ -19,15 +19,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useDispatch } from "react-redux";
-import { updateLanguage } from "@/redux/slices/languageSlice";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { Locale } from "@/i18n/i18n.config";
 
 const Menu = ({ lang }: { lang: Locale }) => {
-  const dispatch = useDispatch();
-  dispatch(updateLanguage(lang));
-
   const {
     dictionary: { Menu: Navbar },
   } = getTranslateClient(lang);

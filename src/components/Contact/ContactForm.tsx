@@ -18,16 +18,14 @@ import {
   FormField,
 } from "../ui/form";
 import OptimizedImage from "../General/OptimizedImage";
-import { useSelector } from "react-redux";
-import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
+import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { useContactMutation } from "@/redux/services/contactService";
-import { serialize } from "object-to-formdata";
 import Loading from "../General/Loading";
 import Message from "../General/Message";
 
 const ContactForm = () => {
-  const lang = useSelector(selectCurrentLanguage);
+  const lang = useLanguage();
   const {
     dictionary: { Contact, Errors },
   } = getTranslateClient(lang);
@@ -59,8 +57,7 @@ const ContactForm = () => {
   const [contact, { isLoading, error, isSuccess }] = useContactMutation();
 
   const onSubmit: SubmitHandler<FormData> = async (contactData: FormData) => {
-    const formData = serialize(contactData);
-    await contact(formData);
+    await contact(contactData);
   };
 
   useEffect(() => {

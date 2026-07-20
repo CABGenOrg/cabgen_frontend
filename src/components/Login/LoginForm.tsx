@@ -13,7 +13,6 @@ import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
 import { useRouter } from "next/navigation";
 import { useLoginMutation } from "@/redux/services/authService";
-import { serialize } from "object-to-formdata";
 import Loading from "../General/Loading";
 import {
   Form,
@@ -24,14 +23,13 @@ import {
   FormField,
 } from "../ui/form";
 import Message from "../General/Message";
-import { useSelector } from "react-redux";
-import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
+import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
 const URL = process.env.WEBSITE_URL || "";
 
 const LoginForm = () => {
-  const lang = useSelector(selectCurrentLanguage);
+  const lang = useLanguage();
   const {
     dictionary: { Login, Errors },
   } = getTranslateClient(lang);
@@ -59,8 +57,7 @@ const LoginForm = () => {
       usuario: loginData.username,
       senha: loginData.password,
     };
-    const formData = serialize(parsedLoginData);
-    await login(formData);
+    await login(parsedLoginData);
   };
 
   useEffect(() => {

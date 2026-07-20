@@ -3,8 +3,7 @@
 import React from "react";
 import OptimizedImage from "../General/OptimizedImage";
 import { getTranslateClient } from "@/lib/getTranslateClient";
-import { useSelector } from "react-redux";
-import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
+import { useLanguage } from "@/redux/LanguageContext";
 
 const BoxInfo = () => {
   const genomes = 810;
@@ -12,7 +11,7 @@ const BoxInfo = () => {
   const resistanceGenes = 75;
   const countries = 5;
 
-  const lang = useSelector(selectCurrentLanguage);
+  const lang = useLanguage();
   const {
     dictionary: { Home },
   } = getTranslateClient(lang);

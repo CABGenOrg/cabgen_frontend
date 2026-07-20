@@ -10,7 +10,8 @@ import WarningBanner from "@/components/Home/WarningBanner";
 
 const showWarning = process.env.NEW_DOMAIN_WARNING === "true";
 
-const Home = ({ params: { lang } }: { params: { lang: Locale } }) => {
+const Home = async ({ params }: { params: Promise<{ lang: Locale }> }) => {
+  const { lang } = await params;
   return (
     <>
       {showWarning && <WarningBanner lang={lang} />}

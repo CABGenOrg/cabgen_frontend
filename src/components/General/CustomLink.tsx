@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import { selectCurrentLanguage } from "@/redux/slices/languageSlice";
+import { useLanguage } from "@/redux/LanguageContext";
 
 interface CustomLinkProps {
   href: string;
@@ -19,7 +18,7 @@ const CustomLink = ({
   children,
   className = "",
 }: CustomLinkProps) => {
-  const language = useSelector(selectCurrentLanguage);
+  const language = useLanguage();
   const path = lang ? `/${lang}${href}` : `/${language}${href}`;
 
   return (

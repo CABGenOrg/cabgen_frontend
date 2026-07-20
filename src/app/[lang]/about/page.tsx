@@ -6,7 +6,8 @@ import Team from "@/components/About/Team";
 import AboutContact from "@/components/About/AboutContact";
 import { Locale } from "@/i18n/i18n.config";
 
-const About = ({ params: { lang } }: { params: { lang: Locale } }) => {
+const About = async ({ params }: { params: Promise<{ lang: Locale }> }) => {
+  const { lang } = await params;
   return (
     <>
       <CabgenMission lang={lang}/>

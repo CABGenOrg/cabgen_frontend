@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 import fs from "fs";
 import path from "path";
-import { config } from "dotenv-safe";
+import { config } from "dotenv";
 import { fileURLToPath } from "url";
 
 const createEnvFile = () => {
@@ -21,10 +21,12 @@ const __dirname = path.dirname(__filename);
 
 const envFile = __dirname + "/.env";
 
+if (!fs.existsSync(envFile)) {
+  createEnvFile();
+}
+
 const { parsed: localEnv } = config({
-  allowEmptyValues: true,
-  path: fs.existsSync(envFile) ? envFile : createEnvFile(),
-  example: envFile,
+  path: envFile,
 });
 
 const nextConfig = {

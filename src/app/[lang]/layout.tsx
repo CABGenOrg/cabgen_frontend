@@ -4,7 +4,8 @@ import "./globals.css";
 import Menu from "@/components/General/Menu";
 import Footer from "@/components/General/Footer";
 import StoreProvider from "@/redux/store/StoreProvider";
-import { Locale, i18n } from "@/i18n/i18n.config";
+import { i18n, type Locale } from "@/i18n/i18n.config";
+import { LanguageProvider } from "@/redux/LanguageContext";
 import Layout from "@/components/General/Layout";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -61,25 +62,29 @@ export const generateStaticParams = async () => {
   return i18n.locales.map((locale) => ({ lang: locale }));
 };
 
-const RootLayout = ({
+const RootLayout = async ({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { lang: Locale };
+  params: Promise<{ lang: string }>;
 }>) => {
+  const { lang } = (await params) as { lang: Locale };
+
   return (
     <StoreProvider>
-      <html lang={params.lang}>
-        <body className={futura.className}>
-          <Menu lang={params.lang} />
-          <main className="md:min-h-[calc(100vh-200px)] min-h-[calc(100vh-250px)]">
-            <Layout>{children}</Layout>
-          </main>
-          <Footer lang={params.lang} />
-          <Toaster />
-        </body>
-      </html>
+      <LanguageProvider lang={lang}>
+        <html lang={lang}>
+          <body className={futura.className}>
+            <Menu lang={lang} />
+            <main className="md:min-h-[calc(100vh-200px)] min-h-[calc(100vh-250px)]">
+              <Layout>{children}</Layout>
+            </main>
+            <Footer lang={lang} />
+            <Toaster />
+          </body>
+        </html>
+      </LanguageProvider>
     </StoreProvider>
   );
 };

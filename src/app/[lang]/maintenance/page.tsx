@@ -6,7 +6,8 @@ import { Cog } from "lucide-react";
 import { Locale } from "@/i18n/i18n.config";
 import { getTranslateServer } from "@/lib/getTranslateServer";
 
-const Maintenance = ({ params: { lang } }: { params: { lang: Locale } }) => {
+const Maintenance = async ({ params }: { params: Promise<{ lang: Locale }> }) => {
+  const { lang } = await params;
   const {
     dictionary: { Maintenance },
   } = getTranslateServer(lang);

@@ -6,7 +6,8 @@ import MicroreactDashboard from "@/components/Dashboard/MicroreactDashboard";
 import { getTranslateServer } from "@/lib/getTranslateServer";
 import { Locale } from "@/i18n/i18n.config";
 
-const Dashboard = ({ params: { lang } }: { params: { lang: Locale } }) => {
+const Dashboard = async ({ params }: { params: Promise<{ lang: Locale }> }) => {
+  const { lang } = await params;
   const {
     dictionary: { Dashboard },
   } = getTranslateServer(lang);
