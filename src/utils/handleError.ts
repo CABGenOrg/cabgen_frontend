@@ -1,26 +1,11 @@
-// Types
-import { CustomError } from "@/redux/api/apiSlice";
+import type { ApiError } from "@/redux/api/apiSlice";
 
-const isValidCustomError = (response: any): response is CustomError => {
-  try {
-    return (
-      "errors" in response.data ||
-      "error" in response ||
-      "error" in response.data ||
-      "error" === response.data.estado
-    );
-  } catch (err) {
-    return false;
+const handleError = (response: unknown): string => {
+  const err = response as { data?: unknown };
+  if (err?.data && typeof err.data === "object" && "error" in err.data) {
+    return (err.data as ApiError).error;
   }
+  return "internalServer";
 };
 
-const handleError = (response: any) => {
-  const isValid = isValidCustomError(response);
-
-  if (isValid) {
-    return response.data.message || response.data.mensaje;
-  } else {
-    return "internalServer";
-  }
-};
 export default handleError;

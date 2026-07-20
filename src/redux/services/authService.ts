@@ -2,19 +2,59 @@ import { apiSlice } from "../api/apiSlice";
 import { requestConfig } from "../../utils/handleRequest";
 import handleError from "@/utils/handleError";
 
+export const AUTH_ENDPOINTS = {
+  ME: "/auth/me",
+  REGISTER: "/auth/register",
+  LOGIN: "/auth/login",
+  LOGOUT: "/auth/logout",
+  REFRESH: "/auth/refresh",
+  FORGOT_PASSWORD: "/auth/forgot-password",
+  RESET_PASSWORD: "/auth/reset-password",
+};
+
 const authService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getMe: builder.query({
+      query: () => requestConfig(AUTH_ENDPOINTS.ME, "GET"),
+      transformErrorResponse: (response) => handleError(response),
+    }),
     register: builder.mutation({
       query: (userData) =>
-        requestConfig("/admin/users/register", "POST", userData),
+        requestConfig(AUTH_ENDPOINTS.REGISTER, "POST", userData),
       transformErrorResponse: (response) => handleError(response),
     }),
     login: builder.mutation({
       query: (credentials) =>
-        requestConfig("/admin/users/login", "POST", credentials),
+        requestConfig(AUTH_ENDPOINTS.LOGIN, "POST", credentials),
+      transformErrorResponse: (response) => handleError(response),
+    }),
+    logout: builder.mutation({
+      query: () => requestConfig(AUTH_ENDPOINTS.LOGOUT, "POST", null),
+      transformErrorResponse: (response) => handleError(response),
+    }),
+    refresh: builder.mutation({
+      query: () => requestConfig(AUTH_ENDPOINTS.REFRESH, "POST", null),
+      transformErrorResponse: (response) => handleError(response),
+    }),
+    forgotPassword: builder.mutation({
+      query: (data: { email: string }) =>
+        requestConfig(AUTH_ENDPOINTS.FORGOT_PASSWORD, "POST", data),
+      transformErrorResponse: (response) => handleError(response),
+    }),
+    resetPassword: builder.mutation({
+      query: (data: { token: string; password: string; newPassword: string }) =>
+        requestConfig(AUTH_ENDPOINTS.RESET_PASSWORD, "POST", data),
       transformErrorResponse: (response) => handleError(response),
     }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = authService;
+export const {
+  useGetMeQuery,
+  useRegisterMutation,
+  useLoginMutation,
+  useLogoutMutation,
+  useRefreshMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
+} = authService;

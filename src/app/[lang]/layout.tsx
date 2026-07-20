@@ -6,6 +6,7 @@ import Footer from "@/components/General/Footer";
 import StoreProvider from "@/redux/store/StoreProvider";
 import { i18n, type Locale } from "@/i18n/i18n.config";
 import { LanguageProvider } from "@/redux/LanguageContext";
+import { AuthProvider } from "@/redux/AuthContext";
 import Layout from "@/components/General/Layout";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -73,18 +74,20 @@ const RootLayout = async ({
 
   return (
     <StoreProvider>
-      <LanguageProvider lang={lang}>
-        <html lang={lang}>
-          <body className={futura.className}>
-            <Menu lang={lang} />
-            <main className="md:min-h-[calc(100vh-200px)] min-h-[calc(100vh-250px)]">
-              <Layout>{children}</Layout>
-            </main>
-            <Footer lang={lang} />
-            <Toaster />
-          </body>
-        </html>
-      </LanguageProvider>
+      <AuthProvider>
+        <LanguageProvider lang={lang}>
+          <html lang={lang}>
+            <body className={futura.className}>
+              <Menu lang={lang} />
+              <main className="md:min-h-[calc(100vh-200px)] min-h-[calc(100vh-250px)]">
+                <Layout>{children}</Layout>
+              </main>
+              <Footer lang={lang} />
+              <Toaster />
+            </body>
+          </html>
+        </LanguageProvider>
+      </AuthProvider>
     </StoreProvider>
   );
 };
