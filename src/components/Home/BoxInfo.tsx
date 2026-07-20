@@ -41,11 +41,11 @@ const BoxInfo = () => {
   ];
 
   return (
-    <div className="grid lg:grid-cols-2 sm:grid-cols-1 grid-cols-2 content-around lg:gap-4 tablet:gap-x-12 gap-2">
+    <div className="grid lg:grid-cols-2 sm:grid-cols-1 grid-cols-2 content-around lg:gap-4 gap-2">
       {data.map(({ image, count, description }, idx) => (
         <div
           key={idx}
-          className="flex flex-col justify-center items-center bg-slate-400 2xl:p-2 p-1.5 rounded-xl 2xl:h-64 2xl:w-64 sm:h-48 sm:w-52 h-42"
+          className="flex flex-col justify-center items-center bg-slate-400 p-2 rounded-xl 2xl:h-64 2xl:w-64 sm:h-48 sm:w-52 h-44 w-36"
         >
           <OptimizedImage
             src={image}

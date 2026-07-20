@@ -173,7 +173,7 @@ const ContactForm = () => {
                       {Contact.messageField}
                     </FormLabel>
                     <FormControl>
-                      <textarea rows={7} className={input_class} {...field} />
+                      <textarea rows={7} className={`${input_class} resize-none`} {...field} />
                     </FormControl>
                     <FormMessage className="text-red-600" />
                   </FormItem>

@@ -93,7 +93,7 @@ const LoginForm = () => {
                         {Login.usernameField}
                       </FormLabel>
                       <FormControl>
-                        <input type="text" className={input_class} {...field} />
+                        <input type="text" className={input_class} autoComplete="username" {...field} />
                       </FormControl>
                       <FormMessage className="text-red-600" />
                     </FormItem>
@@ -113,6 +113,7 @@ const LoginForm = () => {
                         <input
                           type="password"
                           className={input_class}
+                          autoComplete="current-password"
                           {...field}
                         />
                       </FormControl>

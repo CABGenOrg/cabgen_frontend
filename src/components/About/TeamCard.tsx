@@ -11,7 +11,7 @@ interface Member {
 
 const TeamCard = ({ name, role, photo, link }: Member) => {
   return (
-    <div className="flex lg:flex-row md:flex-col sm:flex-row flex-col justify-start items-center gap-3 bg-slate-100 py-3 px-4 rounded-lg hover:scale-110 hover:bg-slate-200 delay-100 ease-in-out transition">
+    <div className="flex lg:flex-row md:flex-col sm:flex-row flex-col justify-start items-center gap-3 bg-slate-100 py-3 px-4 rounded-lg hover:scale-[1.03] hover:bg-slate-200 transition-transform duration-200 ease-out">
       <Avatar className="w-1/3 h-auto">
         <AvatarImage src={photo} alt={`${name} photo`} />
       </Avatar>

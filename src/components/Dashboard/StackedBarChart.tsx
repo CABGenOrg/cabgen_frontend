@@ -49,7 +49,6 @@ const StackedBarChart: React.FC<StackedBarChartProps> = ({
       )
     );
   }, [data, keys]);
-  console.log(data);
   // Base dimensions for short charts
   const baseHeight = 400;
   // Size per item

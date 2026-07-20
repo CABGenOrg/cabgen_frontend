@@ -10,7 +10,7 @@ const WarningBanner = ({ lang }: { lang: Locale }) => {
 
   return (
     <div className="bg-red-600 text-white text-center py-4 px-4 md:px-8 overflow-hidden">
-      <div className="flex items-center gap-5 whitespace-nowrap md:text-lg animate-marquee">
+      <div className="flex items-center gap-5 whitespace-nowrap md:text-lg motion-reduce:animate-none animate-marquee">
         {[...Array(3)].map((_, idx) => (
           <div key={idx} className="flex items-center flex-shrink-0">
             <span className="mr-2">{Home.WarningBanner.title}</span>

@@ -59,7 +59,9 @@ const Team = ({ lang }: { lang: Locale }) => {
       <div className={section_spacing}>
         <h2
           className={`${section_title} text-center 2xl:mb-7 mb-4 2xl:mt-4 mt-1`}
-        ></h2>
+        >
+          {About.Team.sectionTitle}
+        </h2>
         <div className="grid md:grid-cols-2 grid-cols-1 sm:gap-2 gap-1">
           {members.map(({ name, role, photo, link }, idx) => (
             <TeamCard

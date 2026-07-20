@@ -19,7 +19,7 @@ const CabgenDescription = ({ lang }: { lang: Locale }) => {
   return (
     <Section id="cagben-description" gray>
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
-        <div className="flex justify-center items-center sm:order-first order-last">
+        <div className="flex justify-center items-center sm:order-last order-first">
           <OptimizedImage
             src={"/Home/signature_cabgen_dark.png"}
             alt="cagben signature"

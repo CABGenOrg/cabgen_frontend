@@ -105,8 +105,7 @@ const RegisterForm = () => {
     },
   });
 
-  const language = useSelector(selectCurrentLanguage);
-  const countries = getCountries(language);
+  const countries = getCountries(lang);
   const router = useRouter();
 
   const [register, { isLoading, error, isSuccess }] = useRegisterMutation();
@@ -177,9 +176,9 @@ const RegisterForm = () => {
                       <FormLabel className={label_class}>
                         {Register.countryField}
                       </FormLabel>
-                      <Select onValueChange={field.onChange}>
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
-                          <SelectTrigger className="text-black focus-visible:ring-transparent 2xl:text-xl sm:text-sm">
+                          <SelectTrigger className="text-black focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:outline-none 2xl:text-xl sm:text-base">
                             <SelectValue
                               placeholder={Register.countryFieldLabel}
                               className={input_class}
@@ -280,6 +279,7 @@ const RegisterForm = () => {
                         <input
                           type="email"
                           className={input_class}
+                          autoComplete="email"
                           {...field}
                         />
                       </FormControl>
@@ -298,7 +298,7 @@ const RegisterForm = () => {
                         {Register.confirmEmailField}
                       </FormLabel>
                       <FormControl>
-                        <input type="text" className={input_class} {...field} />
+                        <input type="email" className={input_class} autoComplete="email" {...field} />
                       </FormControl>
                       <FormMessage className="text-red-600" />
                     </FormItem>
@@ -318,6 +318,7 @@ const RegisterForm = () => {
                         <input
                           type="password"
                           className={input_class}
+                          autoComplete="new-password"
                           {...field}
                         />
                       </FormControl>
@@ -339,6 +340,7 @@ const RegisterForm = () => {
                         <input
                           type="password"
                           className={input_class}
+                          autoComplete="new-password"
                           {...field}
                         />
                       </FormControl>

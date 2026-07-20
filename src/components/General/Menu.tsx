@@ -91,8 +91,8 @@ const Menu = ({ lang }: { lang: Locale }) => {
       <div
         className={
           menuOpen
-            ? "fixed left-0 top-0 h-auto md:hidden w-full bg-cabgen-400 px-10 py-5 ease-in duration-200"
-            : "fixed left-0 top-[-1500%] w-screenpx-10 py-5 ease-out duration-200"
+            ? "fixed left-0 top-0 h-auto md:hidden w-full bg-cabgen-400 px-10 py-5 ease-in-out duration-300"
+            : "fixed left-0 top-[-1500%] w-screen px-10 py-5 ease-in-out duration-300"
         }
       >
         <div className="flex w-full items-center justify-between">
@@ -106,7 +106,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
             />
           </CustomLink>
           <div onClick={handleMenu} className="cursor-pointer">
-            <XIcon className="w-9 h-9 text-cabgen-900" />
+            <XIcon className="w-9 h-9 text-white" />
           </div>
         </div>
         <div className="flex-col py-3">
@@ -115,13 +115,12 @@ const Menu = ({ lang }: { lang: Locale }) => {
               <CustomLink href={link} key={idx}>
                 <li
                   onClick={() => setMenuOpen(false)}
-                  className="flex flex-row justify-start items-center gap-2 fill-white text-white hover:text-cabgen-300 hover:fill-cabgen-300 h-16 py-2 cursor-pointer"
+                  className="flex flex-row justify-start items-center gap-2 fill-white text-white hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
                 >
                   {icon} {name}
                 </li>
               </CustomLink>
             ))}
-            <br />
             <LanguageSelector />
           </ul>
         </div>

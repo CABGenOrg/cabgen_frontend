@@ -40,7 +40,7 @@ const NetworkPurposes = () => {
         <div className="grid grid-row sm:grid-cols-3 grid-cols-2 sm:gap-3 gap-2 xl:text-xl sm:text-lg text-sm font-light">
           {data.map(({ text, button }, idx) => (
             <Card
-              className="flex flex-col justify-center items-center p-2 m-0 hover:scale-110 hover:font-normal hover:border-cabgen-700 delay-50 ease-in-out transition cursor-default"
+              className="flex flex-col justify-center items-center p-2 m-0 hover:scale-[1.03] hover:border-cabgen-700 transition-transform duration-200 ease-out cursor-default"
               key={idx}
             >
               <CardContent className="p-2 m-0">{text}</CardContent>

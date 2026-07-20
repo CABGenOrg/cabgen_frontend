@@ -179,7 +179,7 @@ const Map: React.FC<DashboardDataProps> = ({ lang, data }) => {
           dragging={true}
         >
           <TileLayer
-            url="http://a.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png"
+            url="https://a.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           />
           <GeoJSON

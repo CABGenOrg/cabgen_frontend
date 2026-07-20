@@ -19,7 +19,7 @@ const config = {
     },
     extend: {
       screens: {
-        tablet: { raw: "(min-height: 1366px)" },
+        xs: "400px",
       },
       colors: {
         cabgen: {
@@ -28,6 +28,8 @@ const config = {
           "200": "#0A6354",
           "300": "#91E5F6",
           "400": "#59A5D8",
+          "500": "#4A8FBF",
+          "700": "#064A3E",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
