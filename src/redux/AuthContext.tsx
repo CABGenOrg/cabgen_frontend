@@ -22,7 +22,9 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { data, isLoading } = useGetMeQuery(undefined);
+  const { data, isLoading } = useGetMeQuery(undefined, {
+    skip: typeof window === "undefined",
+  });
   const user = data?.data ?? null;
 
   return (

@@ -1,16 +1,7 @@
 import { apiSlice } from "../api/apiSlice";
 import { requestConfig } from "../../utils/handleRequest";
 import handleError from "@/utils/handleError";
-
-export const AUTH_ENDPOINTS = {
-  ME: "/auth/me",
-  REGISTER: "/auth/register",
-  LOGIN: "/auth/login",
-  LOGOUT: "/auth/logout",
-  REFRESH: "/auth/refresh",
-  FORGOT_PASSWORD: "/auth/forgot-password",
-  RESET_PASSWORD: "/auth/reset-password",
-};
+import { AUTH_ENDPOINTS } from "./authEndpoints";
 
 const authService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

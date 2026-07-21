@@ -1,25 +1,30 @@
-FROM node:20.11.0
-
+# Build
+FROM node:24-alpine AS builder
 WORKDIR /app
-
-RUN npm install --global pm2
-
-COPY ./package*.json ./
-
-RUN npm install
-
-COPY ./ ./
-
+# Dependencies
+COPY package*.json ./
+RUN npm ci
+# Source code
+COPY . .
+COPY .env .env
+# Compilation
 RUN npm run build
 
-ENV APP_ENV=${APP_ENV}
-ENV APP_DEV_API_URL=${APP_DEV_API_URL}
-ENV APP_PROD_API_URL=${APP_PROD_API_URL}
+# Runtime
+FROM node:24-alpine AS runner
+WORKDIR /app
 
-RUN chown -R node ./.next
+RUN addgroup --system --gid 1001 nodejs \
+    && adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
 
 EXPOSE 3000
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-USER node
-
-CMD ["pm2-runtime", "start", "npm", "--", "start" ]
+CMD ["node", "server.js"]

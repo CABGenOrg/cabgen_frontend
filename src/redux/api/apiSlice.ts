@@ -5,7 +5,7 @@ import {
   FetchArgs,
 } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../../utils/handleRequest";
-import { AUTH_ENDPOINTS } from "../services/authService";
+import { AUTH_ENDPOINTS } from "../services/authEndpoints";
 
 const baseQuery = fetchBaseQuery({
   baseUrl,

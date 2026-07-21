@@ -5,10 +5,5 @@ services:
     restart: unless-stopped
     env_file:
       .env
-  nginx:
-    build: ./nginx
-    depends_on:
-      - nextjs
-    restart: unless-stopped
     ports:
-      - 443:443
+      - "3000:3000"

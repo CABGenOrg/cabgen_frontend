@@ -2,14 +2,12 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
-// Default Account page
-import Account from "@/app/[lang]/account/page";
-// Account subpages
-import Overview from "../Account/Overview";
-import Analysis from "@/app/[lang]/account/analysis/page";
-import Sequences from "@/app/[lang]/account/sequences/page";
-import MyAccount from "@/app/[lang]/account/my-account/page";
-import Security from "@/app/[lang]/account/security/page";
+import Account from "@/components/Account/Account";
+import Overview from "@/components/Account/Overview";
+import AccountAnalysis from "@/components/Account/AccountAnalysis";
+import AccountSequences from "@/components/Account/AccountSequences";
+import AccountMyAccount from "@/components/Account/AccountMyAccount";
+import AccountSecurity from "@/components/Account/AccountSecurity";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [component, setComponent] = useState(<Overview />);
@@ -18,10 +16,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const findAccountComponent = useCallback((pathname: string) => {
     const accountComponents = [
-      { link: "/account/analysis", component: <Analysis /> },
-      { link: "/account/sequences", component: <Sequences /> },
-      { link: "/account/my-account", component: <MyAccount /> },
-      { link: "/account/security", component: <Security /> },
+      { link: "/account/analysis", component: <AccountAnalysis /> },
+      { link: "/account/sequences", component: <AccountSequences /> },
+      { link: "/account/my-account", component: <AccountMyAccount /> },
+      { link: "/account/security", component: <AccountSecurity /> },
       { link: "/account", component: <Overview /> },
     ];
     return accountComponents.find(({ link }) => pathname.includes(link));

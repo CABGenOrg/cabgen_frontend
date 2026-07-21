@@ -1,7 +1,1 @@
-import React from "react";
-
-const MyAccount = () => {
-  return <div>MyAccount</div>;
-};
-
-export default MyAccount;
+export { default } from "@/components/Account/AccountMyAccount";
