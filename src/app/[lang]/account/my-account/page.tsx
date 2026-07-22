@@ -1,1 +1,3 @@
-export { default } from "@/components/Account/AccountMyAccount";
+export default function AccountMyAccountPage() {
+  return null;
+}

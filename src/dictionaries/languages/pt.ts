@@ -217,5 +217,20 @@ const pt = {
   Errors: {
     internalServer: "Serviço indisponível, tente novamente mais tarde.",
   },
+  Account: {
+    sidebar: {
+      overview: "Visão Geral",
+      sequences: "Sequências",
+      analysis: "Análise",
+      myAccount: "Minha Conta",
+      security: "Segurança",
+      settings: "Configurações",
+      tutorial: "Tutorial",
+    },
+    overview: {
+      title: "Visão Geral",
+      welcome: "Bem-vindo",
+    },
+  },
 };
 export default pt;

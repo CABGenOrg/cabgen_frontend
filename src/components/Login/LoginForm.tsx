@@ -11,7 +11,6 @@ import {
 } from "@/styles/tailwind_classes";
 import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
-import { useRouter } from "next/navigation";
 import { useLoginMutation } from "@/redux/services/auth/authService";
 import Loading from "../General/Loading";
 import {
@@ -25,8 +24,6 @@ import {
 import Message from "../General/Message";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
-
-const URL = process.env.WEBSITE_URL || "";
 
 const LoginForm = () => {
   const lang = useLanguage();
@@ -50,7 +47,6 @@ const LoginForm = () => {
   });
 
   const [login, { isLoading, error, isSuccess }] = useLoginMutation();
-  const router = useRouter();
 
   const onSubmit: SubmitHandler<FormData> = async (loginData) => {
     await login(loginData);
@@ -59,9 +55,9 @@ const LoginForm = () => {
   useEffect(() => {
     if (isSuccess && !error) {
       form.reset();
-      router.replace(URL);
+      window.location.href = `/${lang}/account`;
     }
-  }, [isSuccess, error, form, router]);
+  }, [isSuccess, error, form, lang]);
 
   return (
     <div className="mx-5 py-10 px-5 2xl:w-[30%] lg:w-[40%] md:w-[60%] bg-slate-200 rounded-lg">

@@ -12,7 +12,7 @@ const registerRegex = /\/register/i;
 
 const authMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
-    const user = request.cookies.get("cabgenAuthCookie")?.value;
+    const user = request.cookies.get("AccessCookie")?.value;
     const loginURL = new URL("/login", request.url);
     const userURL = new URL("/account", request.url);
 

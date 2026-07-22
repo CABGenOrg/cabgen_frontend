@@ -223,5 +223,20 @@ const es = {
     internalServer:
       "Servicio no disponible, por favor inténtelo de nuevo más tarde.",
   },
+  Account: {
+    sidebar: {
+      overview: "Resumen",
+      sequences: "Secuencias",
+      analysis: "Análisis",
+      myAccount: "Mi Cuenta",
+      security: "Seguridad",
+      settings: "Configuración",
+      tutorial: "Tutorial",
+    },
+    overview: {
+      title: "Resumen",
+      welcome: "Bienvenido",
+    },
+  },
 };
 export default es;

@@ -216,6 +216,21 @@ const en = {
   Errors: {
     internalServer: "Service unavailable, please try again later.",
   },
+  Account: {
+    sidebar: {
+      overview: "Overview",
+      sequences: "Sequences",
+      analysis: "Analysis",
+      myAccount: "My Account",
+      security: "Security",
+      settings: "Settings",
+      tutorial: "Tutorial",
+    },
+    overview: {
+      title: "Overview",
+      welcome: "Welcome",
+    },
+  },
 };
 
 export default en;

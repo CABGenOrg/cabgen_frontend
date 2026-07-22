@@ -7,6 +7,7 @@ const authService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMe: builder.query({
       query: () => requestConfig(AUTH_ENDPOINTS.ME, "GET"),
+      providesTags: ["Auth"],
       transformErrorResponse: (response) => handleError(response),
     }),
     register: builder.mutation<ApiMessage, Record<string, string>>({
@@ -17,10 +18,12 @@ const authService = apiSlice.injectEndpoints({
     login: builder.mutation({
       query: (credentials) =>
         requestConfig(AUTH_ENDPOINTS.LOGIN, "POST", credentials),
+      invalidatesTags: ["Auth"],
       transformErrorResponse: (response) => handleError(response),
     }),
     logout: builder.mutation({
       query: () => requestConfig(AUTH_ENDPOINTS.LOGOUT, "POST", null),
+      invalidatesTags: ["Auth"],
       transformErrorResponse: (response) => handleError(response),
     }),
     refresh: builder.mutation({

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Sidebar, SidebarItem } from "./Sidebar";
 import {
@@ -9,6 +11,8 @@ import {
   LockIcon,
   FileQuestion,
 } from "lucide-react";
+import { useLanguage } from "@/redux/LanguageContext";
+import { getTranslateClient } from "@/lib/getTranslateClient";
 
 interface SidebarLink {
   linkName: string;
@@ -17,58 +21,63 @@ interface SidebarLink {
   disabled: boolean;
 }
 
-const sidebarLinks: SidebarLink[] = [
-  {
-    linkName: "Visão Geral",
-    link: "/account",
-    icon: <PanelBottom size={24} />,
-    disabled: true,
-  },
-  {
-    linkName: "Sequências",
-    link: "/account/sequences",
-    icon: <DnaIcon size={24} />,
-    disabled: true,
-  },
-  {
-    linkName: "Analisar",
-    link: "/account/analysis",
-    icon: <LucideSearch size={24} />,
-    disabled: true,
-  },
-  {
-    linkName: "Minha Conta",
-    link: "/account/my-account",
-    icon: <User2 size={24} />,
-    disabled: true,
-  },
-  {
-    linkName: "Segurança",
-    link: "/account/security",
-    icon: <LockIcon size={24} />,
-    disabled: true,
-  },
-  {
-    linkName: "Configurações",
-    link: "/account/settings",
-    icon: <Settings size={24} />,
-    disabled: false,
-  },
-  {
-    linkName: "Tutorial",
-    link: "/tutorial",
-    icon: <FileQuestion size={24} />,
-    disabled: false,
-  },
-];
+const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) => {
+  const lang = useLanguage();
+  const {
+    dictionary: { Account: AccountDict },
+  } = getTranslateClient(lang);
 
-const Account = ({ accountComponent }: any) => {
+  const sidebarLinks: SidebarLink[] = [
+    {
+      linkName: AccountDict.sidebar.overview,
+      link: "/account",
+      icon: <PanelBottom size={24} />,
+      disabled: false,
+    },
+    {
+      linkName: AccountDict.sidebar.sequences,
+      link: "/account/sequences",
+      icon: <DnaIcon size={24} />,
+      disabled: true,
+    },
+    {
+      linkName: AccountDict.sidebar.analysis,
+      link: "/account/analysis",
+      icon: <LucideSearch size={24} />,
+      disabled: true,
+    },
+    {
+      linkName: AccountDict.sidebar.myAccount,
+      link: "/account/my-account",
+      icon: <User2 size={24} />,
+      disabled: true,
+    },
+    {
+      linkName: AccountDict.sidebar.security,
+      link: "/account/security",
+      icon: <LockIcon size={24} />,
+      disabled: true,
+    },
+    {
+      linkName: AccountDict.sidebar.settings,
+      link: "/account/settings",
+      icon: <Settings size={24} />,
+      disabled: false,
+    },
+    {
+      linkName: AccountDict.sidebar.tutorial,
+      link: "/tutorial",
+      icon: <FileQuestion size={24} />,
+      disabled: false,
+    },
+  ];
+
   return (
     <div className="flex min-h-screen">
       <Sidebar className="sticky top-24 h-[calc(100vh-theme(spacing.24))] bg-cabgen-400">
         {sidebarLinks.map(({ linkName, icon, link, disabled }) => (
           <SidebarItem
-            key={linkName}
+            key={link}
             icon={icon}
             text={linkName}
             href={link}

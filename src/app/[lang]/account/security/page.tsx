@@ -1,1 +1,3 @@
-export { default } from "@/components/Account/AccountSecurity";
+export default function AccountSecurityPage() {
+  return null;
+}

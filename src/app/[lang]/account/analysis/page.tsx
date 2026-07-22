@@ -1,1 +1,3 @@
-export { default } from "@/components/Account/AccountAnalysis";
+export default function AccountAnalysisPage() {
+  return null;
+}
