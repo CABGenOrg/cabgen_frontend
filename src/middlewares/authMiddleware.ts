@@ -12,13 +12,15 @@ const registerRegex = /\/register/i;
 
 const authMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
-    const user = request.cookies.get("AccessCookie")?.value;
+    const accessToken = request.cookies.get("AccessCookie")?.value;
+    const refreshToken = request.cookies.get("RefreshCookie")?.value;
     const loginURL = new URL("/login", request.url);
     const userURL = new URL("/account", request.url);
 
     const responseNext = NextResponse.next();
     const responseRedirect = (url: URL) => NextResponse.redirect(url);
-    if (!user) {
+
+    if (!accessToken && !refreshToken) {
       if (accountRegex.test(request.nextUrl.pathname)) {
         return responseRedirect(loginURL);
       } else {
