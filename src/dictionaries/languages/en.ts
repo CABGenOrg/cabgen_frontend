@@ -6,6 +6,8 @@ const en = {
     about: "About",
     contact: "Contact",
     login: "Login",
+    logout: "Logout",
+    account: "Account",
   },
   Home: {
     WarningBanner: {

@@ -6,6 +6,8 @@ const es = {
     about: "¿Quiénes somos?",
     contact: "Contacto",
     login: "Login",
+    logout: "Salir",
+    account: "Cuenta",
   },
   Home: {
     WarningBanner: {

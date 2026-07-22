@@ -38,37 +38,37 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
       linkName: AccountDict.sidebar.sequences,
       link: "/account/sequences",
       icon: <DnaIcon size={24} />,
-      disabled: true,
+      disabled: false,
     },
     {
       linkName: AccountDict.sidebar.analysis,
       link: "/account/analysis",
       icon: <LucideSearch size={24} />,
-      disabled: true,
+      disabled: false,
     },
     {
       linkName: AccountDict.sidebar.myAccount,
       link: "/account/my-account",
       icon: <User2 size={24} />,
-      disabled: true,
+      disabled: false,
     },
     {
       linkName: AccountDict.sidebar.security,
       link: "/account/security",
       icon: <LockIcon size={24} />,
-      disabled: true,
+      disabled: false,
     },
     {
       linkName: AccountDict.sidebar.settings,
       link: "/account/settings",
       icon: <Settings size={24} />,
-      disabled: false,
+      disabled: true,
     },
     {
       linkName: AccountDict.sidebar.tutorial,
       link: "/tutorial",
       icon: <FileQuestion size={24} />,
-      disabled: false,
+      disabled: true,
     },
   ];
 

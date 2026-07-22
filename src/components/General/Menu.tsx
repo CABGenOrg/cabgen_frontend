@@ -10,6 +10,8 @@ import {
   AboutIcon,
   ContactIcon,
   LoginIcon,
+  AccountIcon,
+  LogoutIcon,
 } from "@/components/Images/index";
 import LanguageSelector from "./LanguageSelector";
 import { MenuIcon, XIcon } from "lucide-react";
@@ -21,6 +23,9 @@ import {
 } from "@/components/ui/tooltip";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { Locale } from "@/i18n/i18n.config";
+import { useAuth } from "@/redux/AuthContext";
+import { useLogoutMutation } from "@/redux/services/auth/authService";
+import { useRouter } from "next/navigation";
 
 const Menu = ({ lang }: { lang: Locale }) => {
   const {
@@ -32,13 +37,22 @@ const Menu = ({ lang }: { lang: Locale }) => {
     setMenuOpen(!menuOpen);
   };
 
+  const { isAuthenticated } = useAuth();
+  const [logout] = useLogoutMutation();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout(undefined);
+    setMenuOpen(false);
+    window.location.href = `/${lang}/login`;
+  };
+
   const items = [
     { name: Navbar.home, link: "/", icon: <HomeIcon /> },
     { name: Navbar.network, link: "/network", icon: <NetworkIcon /> },
     { name: Navbar.dashboard, link: "/dashboard", icon: <DashboardIcon /> },
     { name: Navbar.about, link: "/about", icon: <AboutIcon /> },
     { name: Navbar.contact, link: "/contact", icon: <ContactIcon /> },
-    { name: Navbar.login, link: "/login", icon: <LoginIcon /> },
   ];
 
   return (
@@ -75,6 +89,58 @@ const Menu = ({ lang }: { lang: Locale }) => {
               </Tooltip>
             </TooltipProvider>
           ))}
+          {isAuthenticated ? (
+            <>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <li>
+                      <CustomLink
+                        href="/account"
+                        lang={lang}
+                        className="fill-white hover:fill-cabgen-300"
+                      >
+                        <AccountIcon />
+                      </CustomLink>
+                    </li>
+                  </TooltipTrigger>
+                  <TooltipContent>{Navbar.account}</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="fill-white hover:fill-cabgen-300 cursor-pointer"
+                      >
+                        <LogoutIcon />
+                      </button>
+                    </li>
+                  </TooltipTrigger>
+                  <TooltipContent>{Navbar.logout}</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </>
+          ) : (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <li>
+                    <CustomLink
+                      href="/login"
+                      lang={lang}
+                      className="fill-white hover:fill-cabgen-300"
+                    >
+                      <LoginIcon />
+                    </CustomLink>
+                  </li>
+                </TooltipTrigger>
+                <TooltipContent>{Navbar.login}</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
           <LanguageSelector />
         </ul>
         {/* Menu Icon */}
@@ -116,6 +182,33 @@ const Menu = ({ lang }: { lang: Locale }) => {
                 </li>
               </CustomLink>
             ))}
+            {isAuthenticated ? (
+              <>
+                <CustomLink href="/account">
+                  <li
+                    onClick={() => setMenuOpen(false)}
+                    className="flex flex-row justify-start items-center gap-2 fill-white text-white hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
+                  >
+                    <AccountIcon /> {Navbar.account}
+                  </li>
+                </CustomLink>
+                <li
+                  onClick={handleLogout}
+                  className="flex flex-row justify-start items-center gap-2 fill-white text-white hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
+                >
+                  <LogoutIcon /> {Navbar.logout}
+                </li>
+              </>
+            ) : (
+              <CustomLink href="/login">
+                <li
+                  onClick={() => setMenuOpen(false)}
+                  className="flex flex-row justify-start items-center gap-2 fill-white text-white hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
+                >
+                  <LoginIcon /> {Navbar.login}
+                </li>
+              </CustomLink>
+            )}
             <LanguageSelector />
           </ul>
         </div>

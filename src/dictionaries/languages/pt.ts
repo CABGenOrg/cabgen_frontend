@@ -6,6 +6,8 @@ const pt = {
     about: "Sobre",
     contact: "Contato",
     login: "Login",
+    logout: "Sair",
+    account: "Conta",
   },
   Home: {
     WarningBanner: {

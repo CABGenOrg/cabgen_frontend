@@ -12,6 +12,7 @@ import {
 import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
 import { useLoginMutation } from "@/redux/services/auth/authService";
+import { useRouter } from "next/navigation";
 import Loading from "../General/Loading";
 import {
   Form,
@@ -47,6 +48,7 @@ const LoginForm = () => {
   });
 
   const [login, { isLoading, error, isSuccess }] = useLoginMutation();
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<FormData> = async (loginData) => {
     await login(loginData);
@@ -55,9 +57,9 @@ const LoginForm = () => {
   useEffect(() => {
     if (isSuccess && !error) {
       form.reset();
-      window.location.href = `/${lang}/account`;
+      router.push(`/${lang}/account`);
     }
-  }, [isSuccess, error, form, lang]);
+  }, [isSuccess, error, form, lang, router]);
 
   return (
     <div className="mx-5 py-10 px-5 2xl:w-[30%] lg:w-[40%] md:w-[60%] bg-slate-200 rounded-lg">
