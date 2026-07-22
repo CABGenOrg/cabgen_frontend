@@ -54,7 +54,7 @@ const ContactForm = () => {
     },
   });
 
-  const [contact, { isLoading, error, isSuccess }] = useContactMutation();
+  const [contact, { data, isLoading, error, isSuccess }] = useContactMutation();
 
   const onSubmit: SubmitHandler<FormData> = async (contactData: FormData) => {
     await contact(contactData);
@@ -195,8 +195,8 @@ const ContactForm = () => {
                 type="error"
               />
             )}
-            {isSuccess && !error && (
-              <Message msg={Contact.successMessage} type="success" />
+            {isSuccess && data && (
+              <Message msg={data.message} type="success" />
             )}
           </form>
         </Form>
