@@ -27,8 +27,8 @@ import {
   FormControl,
   FormField,
 } from "../ui/form";
-import { countryOptions, getCountries } from "@/lib/getCountries";
-import { useRegisterMutation } from "@/redux/services/authService";
+import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
+import { useRegisterMutation } from "@/redux/services/auth/authService";
 import Loading from "../General/Loading";
 import { useRouter } from "next/navigation";
 import Message from "../General/Message";
@@ -43,18 +43,12 @@ const RegisterForm = () => {
   const RegisterFormSchema = z
     .object({
       name: z.string().min(3, Register.nameFieldValidation),
-      country: z.string().refine((value) => countryOptions.includes(value), {
-        message: Register.countryFieldValidation,
-      }),
       username: z.string().min(3, Register.usernameFieldValidation),
-      interest: z.string(),
-      institution: z.string(),
-      role: z.string(),
       email: z
         .string()
         .min(1, Register.emailFieldValidationNull)
         .email(Register.emailFieldValidationValid),
-      confirmEmail: z
+      confirm_email: z
         .string()
         .min(5, Register.confirmEmailFieldValidationNull)
         .email(Register.confirmEmailFieldValidationValid),
@@ -62,24 +56,28 @@ const RegisterForm = () => {
         .string()
         .min(1, Register.passwordFieldValidationNull)
         .min(8, Register.passwordFieldValidationMinimum),
-      confirmPassword: z
+      confirm_password: z
         .string()
         .min(1, Register.confirmPasswordFieldValidation),
+      country_code: z.string().min(1, Register.countryFieldValidation),
+      interest: z.string(),
+      role: z.string(),
+      institution: z.string(),
     })
-    .superRefine(({ email, confirmEmail }, ctx) => {
-      if (email !== confirmEmail) {
+    .superRefine(({ email, confirm_email }, ctx) => {
+      if (email !== confirm_email) {
         ctx.addIssue({
           code: "custom",
-          path: ["confirmEmail"],
+          path: ["confirm_email"],
           message: Register.bothEmailFieldsValidation,
         });
       }
     })
-    .superRefine(({ password, confirmPassword }, ctx) => {
-      if (password !== confirmPassword) {
+    .superRefine(({ password, confirm_password }, ctx) => {
+      if (password !== confirm_password) {
         ctx.addIssue({
           code: "custom",
-          path: ["confirmPassword"],
+          path: ["confirm_password"],
           message: Register.bothPasswordFieldsValidation,
         });
       }
@@ -91,37 +89,25 @@ const RegisterForm = () => {
     resolver: zodResolver(RegisterFormSchema),
     defaultValues: {
       name: "",
-      country: "",
+      country_code: "",
       username: "",
       interest: "",
       institution: "",
       role: "",
       email: "",
-      confirmEmail: "",
+      confirm_email: "",
       password: "",
-      confirmPassword: "",
+      confirm_password: "",
     },
   });
 
-  const countries = getCountries(lang);
+  const { data: countries = [] } = useGetCountriesQuery(lang);
   const router = useRouter();
 
   const [register, { isLoading, error, isSuccess }] = useRegisterMutation();
 
   const onSubmit: SubmitHandler<FormData> = async (registerData: FormData) => {
-    const parsedRegisterData = {
-      nome: registerData.name,
-      codigoPais: registerData.country,
-      usuario: registerData.username,
-      interesse: registerData.interest,
-      instituicao: registerData.institution,
-      posicao: registerData.role,
-      email: registerData.email,
-      confirmEmail: registerData.confirmEmail,
-      senha: registerData.password,
-      confirmPassword: registerData.confirmPassword,
-    };
-    await register(parsedRegisterData);
+    await register(registerData);
   };
 
   useEffect(() => {
@@ -166,14 +152,17 @@ const RegisterForm = () => {
               />
               <FormField
                 control={form.control}
-                name="country"
+                name="country_code"
                 render={({ field }) => {
                   return (
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Register.countryField}
                       </FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger className="text-black focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:outline-none 2xl:text-xl sm:text-base">
                             <SelectValue
@@ -183,9 +172,9 @@ const RegisterForm = () => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className={input_class}>
-                          {countries.map(({ code, country }) => (
+                          {countries.map(({ code, name }) => (
                             <SelectItem key={code} value={code}>
-                              {country}
+                              {name}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -287,7 +276,7 @@ const RegisterForm = () => {
               />
               <FormField
                 control={form.control}
-                name="confirmEmail"
+                name="confirm_email"
                 render={({ field }) => {
                   return (
                     <FormItem>
@@ -295,7 +284,12 @@ const RegisterForm = () => {
                         {Register.confirmEmailField}
                       </FormLabel>
                       <FormControl>
-                        <input type="email" className={input_class} autoComplete="email" {...field} />
+                        <input
+                          type="email"
+                          className={input_class}
+                          autoComplete="email"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage className="text-red-600" />
                     </FormItem>
@@ -326,7 +320,7 @@ const RegisterForm = () => {
               />
               <FormField
                 control={form.control}
-                name="confirmPassword"
+                name="confirm_password"
                 render={({ field }) => {
                   return (
                     <FormItem>

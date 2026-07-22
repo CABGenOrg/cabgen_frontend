@@ -20,7 +20,7 @@ import {
 import OptimizedImage from "../General/OptimizedImage";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
-import { useContactMutation } from "@/redux/services/contactService";
+import { useContactMutation } from "@/redux/services/contact/contactService";
 import Loading from "../General/Loading";
 import Message from "../General/Message";
 

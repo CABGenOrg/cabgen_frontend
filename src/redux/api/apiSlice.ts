@@ -5,11 +5,21 @@ import {
   FetchArgs,
 } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../../utils/handleRequest";
-import { AUTH_ENDPOINTS } from "../services/authEndpoints";
+import { AUTH_ENDPOINTS } from "../services/auth/authEndpoints";
+import { i18n } from "@/i18n/i18n.config";
 
 const baseQuery = fetchBaseQuery({
   baseUrl,
   credentials: "include",
+  prepareHeaders: (headers) => {
+    if (typeof window !== "undefined") {
+      const locale = window.location.pathname.split("/")[1] || "en";
+      if (i18n.locales.includes(locale as (typeof i18n.locales)[number])) {
+        headers.set("Accept-Language", locale);
+      }
+    }
+    return headers;
+  },
 });
 
 export type ApiResponse<T> = { data: T };

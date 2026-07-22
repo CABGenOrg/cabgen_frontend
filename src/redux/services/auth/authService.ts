@@ -1,5 +1,5 @@
-import { apiSlice } from "../api/apiSlice";
-import { requestConfig } from "../../utils/handleRequest";
+import { apiSlice } from "../../api/apiSlice";
+import { requestConfig } from "../../../utils/handleRequest";
 import handleError from "@/utils/handleError";
 import { AUTH_ENDPOINTS } from "./authEndpoints";
 

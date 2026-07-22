@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import { useGetMeQuery } from "./services/authService";
+import { useGetMeQuery } from "./services/auth/authService";
 
 export type User = {
   id: string;

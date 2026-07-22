@@ -12,7 +12,7 @@ import {
 import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
 import { useRouter } from "next/navigation";
-import { useLoginMutation } from "@/redux/services/authService";
+import { useLoginMutation } from "@/redux/services/auth/authService";
 import Loading from "../General/Loading";
 import {
   Form,
@@ -52,12 +52,8 @@ const LoginForm = () => {
   const [login, { isLoading, error, isSuccess }] = useLoginMutation();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<FormData> = async (loginData: FormData) => {
-    const parsedLoginData = {
-      usuario: loginData.username,
-      senha: loginData.password,
-    };
-    await login(parsedLoginData);
+  const onSubmit: SubmitHandler<FormData> = async (loginData) => {
+    await login(loginData);
   };
 
   useEffect(() => {
