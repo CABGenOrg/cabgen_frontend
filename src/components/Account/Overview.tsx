@@ -17,20 +17,20 @@ const Overview = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-5 py-8">
+    <div>
       <h1 className="text-2xl font-semibold mb-6">
         {AccountDict.overview.title}
       </h1>
-      <div className="bg-slate-200 rounded-lg p-6">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="w-16 h-16 rounded-full bg-cabgen-400 flex items-center justify-center">
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="flex items-center gap-4">
+          <div className="w-16 h-16 rounded-full bg-cabgen-400 flex items-center justify-center shrink-0">
             <User2 size={32} className="text-white" />
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-lg font-medium">
               {AccountDict.overview.welcome}, {user?.username}
             </p>
-            <p className="text-gray-600">{user?.email}</p>
+            <p className="text-gray-500 truncate">{user?.email}</p>
           </div>
         </div>
       </div>

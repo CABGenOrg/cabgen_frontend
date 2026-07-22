@@ -3,10 +3,10 @@
 import React from "react";
 import { Sidebar, SidebarItem } from "./Sidebar";
 import {
-  User2,
+  UserCog,
   DnaIcon,
   LucideSearch,
-  PanelBottom,
+  LayoutDashboard,
   Settings,
   LockIcon,
   FileQuestion,
@@ -31,43 +31,43 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
     {
       linkName: AccountDict.sidebar.overview,
       link: "/account",
-      icon: <PanelBottom size={24} />,
+      icon: <LayoutDashboard size={22} />,
       disabled: false,
     },
     {
       linkName: AccountDict.sidebar.sequences,
       link: "/account/sequences",
-      icon: <DnaIcon size={24} />,
+      icon: <DnaIcon size={22} />,
       disabled: false,
     },
     {
       linkName: AccountDict.sidebar.analysis,
       link: "/account/analysis",
-      icon: <LucideSearch size={24} />,
+      icon: <LucideSearch size={22} />,
       disabled: false,
     },
     {
       linkName: AccountDict.sidebar.myAccount,
       link: "/account/my-account",
-      icon: <User2 size={24} />,
+      icon: <UserCog size={22} />,
       disabled: false,
     },
     {
       linkName: AccountDict.sidebar.security,
       link: "/account/security",
-      icon: <LockIcon size={24} />,
+      icon: <LockIcon size={22} />,
       disabled: false,
     },
     {
       linkName: AccountDict.sidebar.settings,
       link: "/account/settings",
-      icon: <Settings size={24} />,
+      icon: <Settings size={22} />,
       disabled: true,
     },
     {
       linkName: AccountDict.sidebar.tutorial,
       link: "/tutorial",
-      icon: <FileQuestion size={24} />,
+      icon: <FileQuestion size={22} />,
       disabled: true,
     },
   ];
