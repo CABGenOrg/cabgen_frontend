@@ -1,4 +1,4 @@
-import { apiSlice } from "../../api/apiSlice";
+import { apiSlice, ApiMessage } from "../../api/apiSlice";
 import { requestConfig } from "../../../utils/handleRequest";
 import handleError from "@/utils/handleError";
 import { AUTH_ENDPOINTS } from "./authEndpoints";
@@ -9,7 +9,7 @@ const authService = apiSlice.injectEndpoints({
       query: () => requestConfig(AUTH_ENDPOINTS.ME, "GET"),
       transformErrorResponse: (response) => handleError(response),
     }),
-    register: builder.mutation({
+    register: builder.mutation<ApiMessage, Record<string, string>>({
       query: (userData) =>
         requestConfig(AUTH_ENDPOINTS.REGISTER, "POST", userData),
       transformErrorResponse: (response) => handleError(response),

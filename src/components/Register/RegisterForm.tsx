@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,7 +30,6 @@ import {
 import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
 import { useRegisterMutation } from "@/redux/services/auth/authService";
 import Loading from "../General/Loading";
-import { useRouter } from "next/navigation";
 import Message from "../General/Message";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
@@ -102,20 +101,11 @@ const RegisterForm = () => {
   });
 
   const { data: countries = [] } = useGetCountriesQuery(lang);
-  const router = useRouter();
+  const [register, { data, isLoading, error, isSuccess }] = useRegisterMutation();
 
-  const [register, { isLoading, error, isSuccess }] = useRegisterMutation();
-
-  const onSubmit: SubmitHandler<FormData> = async (registerData: FormData) => {
+  const onSubmit: SubmitHandler<FormData> = async (registerData) => {
     await register(registerData);
   };
-
-  useEffect(() => {
-    if (isSuccess && !error) {
-      form.reset();
-      router.push("/login");
-    }
-  }, [isSuccess, error, form, router]);
 
   return (
     <div className="mx-5 py-5 px-3 2xl:w-[40%] lg:w-[60%] md:w-[75%] bg-slate-200 rounded-lg">
@@ -367,6 +357,12 @@ const RegisterForm = () => {
                       : String(error)
                   }
                   type="error"
+                />
+              )}
+              {isSuccess && data && (
+                <Message
+                  msg={data.message}
+                  type="success"
                 />
               )}
             </div>
