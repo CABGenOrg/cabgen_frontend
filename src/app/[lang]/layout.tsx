@@ -9,6 +9,7 @@ import { LanguageProvider } from "@/redux/LanguageContext";
 import { AuthProvider } from "@/redux/AuthContext";
 import Layout from "@/components/General/Layout";
 import { Toaster } from "@/components/ui/toaster";
+import { getServerUser } from "@/utils/handleServerUser";
 
 const futura = localFont({
   src: [
@@ -70,11 +71,12 @@ const RootLayout = async ({
   children: React.ReactNode;
   params: Promise<{ lang: string }>;
 }>) => {
+  const initialUser = await getServerUser();
   const { lang } = (await params) as { lang: Locale };
 
   return (
     <StoreProvider>
-      <AuthProvider>
+      <AuthProvider initialUser={initialUser}>
         <LanguageProvider lang={lang}>
           <html lang={lang}>
             <body className={futura.className}>

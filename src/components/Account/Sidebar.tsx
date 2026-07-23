@@ -18,7 +18,7 @@ interface SidebarContextProps {
 }
 
 const SidebarContext = createContext<SidebarContextProps | undefined>(
-  undefined
+  undefined,
 );
 
 interface SidebarProps {
@@ -39,14 +39,12 @@ const Sidebar: FC<SidebarProps> = ({ children, className = "" }) => {
   return (
     <aside className={className}>
       <div className="p-4 pb-2 flex justify-end items-center border-b border-cabgen-200/30">
-        {width && width >= 768 && (
-          <button
-            onClick={() => setExpanded((curr) => !curr)}
-            className="p-1.5 rounded-lg text-white bg-cabgen-200 hover:bg-cabgen-100 transition-colors"
-          >
-            {expanded ? <ChevronFirst /> : <ChevronLast />}
-          </button>
-        )}
+        <button
+          onClick={() => setExpanded((curr) => !curr)}
+          className="hidden md:block p-1.5 rounded-lg text-white bg-cabgen-200 hover:bg-cabgen-100 transition-colors"
+        >
+          {expanded ? <ChevronFirst /> : <ChevronLast />}
+        </button>
       </div>
 
       <SidebarContext.Provider value={{ expanded }}>
@@ -85,11 +83,7 @@ const SidebarItem: FC<SidebarItemProps> = ({
         className={`
           relative flex items-center py-2 px-2 rounded
           transition-colors duration-150 group
-          ${
-            disabled
-              ? "opacity-40 cursor-not-allowed"
-              : "cursor-pointer"
-          }
+          ${disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}
           ${
             isActive
               ? "bg-cabgen-200 text-white font-semibold"

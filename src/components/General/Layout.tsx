@@ -45,11 +45,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   }, [pathname, findAccountComponent]);
 
   if (isAccountPage && isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-200px)]">
-        <Loading />
-      </div>
-    );
+    return <Account accountComponent={<Loading />} />;
   }
 
   if (isAccountPage && !isAuthenticated) {

@@ -1,12 +1,13 @@
 "use client";
 
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import { useGetMeQuery } from "./services/auth/authService";
+import { usePathname } from "next/navigation";
 
 export type User = {
   id: string;
   username: string;
-  email: string;
+  user_role: string;
 };
 
 type AuthContextType = {
@@ -21,19 +22,28 @@ const AuthContext = createContext<AuthContextType>({
   isLoading: true,
 });
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({
+  children,
+  initialUser = null,
+}: {
+  children: React.ReactNode;
+  initialUser?: User | null;
+}) => {
+  const pathname = usePathname();
   const { data, isLoading } = useGetMeQuery(undefined, {
     skip: typeof window === "undefined",
   });
-  const user = data?.data ?? null;
 
-  return (
-    <AuthContext.Provider
-      value={{ user, isAuthenticated: !!user, isLoading }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = useMemo(() => {
+    const user = data?.data ?? initialUser;
+    const isAccountPage = pathname.includes("/account");
+    const stillResolving = !user && isLoading;
+    const isAuthenticated = !!user || (stillResolving && isAccountPage);
+
+    return { user, isAuthenticated, isLoading: stillResolving };
+  }, [data, isLoading, initialUser, pathname]);
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);
