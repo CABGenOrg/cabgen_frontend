@@ -1,6 +1,6 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
 import Menu from "@/components/General/Menu";
 import Footer from "@/components/General/Footer";
 import StoreProvider from "@/redux/store/StoreProvider";
@@ -79,7 +79,7 @@ const RootLayout = async ({
       <AuthProvider initialUser={initialUser}>
         <LanguageProvider lang={lang}>
           <html lang={lang}>
-            <body className={futura.className}>
+            <body className={futura.className} suppressHydrationWarning>
               <Menu lang={lang} />
               <main className="md:min-h-[calc(100vh-200px)] min-h-[calc(100vh-250px)]">
                 <Layout>{children}</Layout>

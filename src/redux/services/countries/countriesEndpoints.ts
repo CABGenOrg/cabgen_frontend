@@ -1,3 +1,3 @@
 export const COUNTRIES_ENDPOINTS = {
-  GETCOUNTRIES: "/countries",
+  DEFAULT: "/countries",
 } as const;

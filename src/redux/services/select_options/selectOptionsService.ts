@@ -1,0 +1,30 @@
+import { apiSlice, ApiResponse } from "@/redux/api/apiSlice";
+import { requestConfig } from "../../../utils/handleRequest";
+import handleError from "@/utils/handleError";
+import { SELECT_OPTIONS_ENDPOINTS } from "./selectOptionsEndpoints";
+
+export type SelectOption = {
+  label: string;
+  value: string;
+};
+
+export type EnumSelectsResponse = {
+  roles: SelectOption[];
+  taxons: SelectOption[];
+  genders: SelectOption[];
+  health_service_types: SelectOption[];
+  analysis_types: SelectOption[];
+};
+
+const selectOptionsService = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getSelectOptions: builder.query<EnumSelectsResponse, void>({
+      query: () => requestConfig(SELECT_OPTIONS_ENDPOINTS.DEFAULT, "GET"),
+      transformResponse: (res: ApiResponse<EnumSelectsResponse>) => res.data,
+      transformErrorResponse: (res) => handleError(res),
+      providesTags: ["SelectOptions"],
+    }),
+  }),
+});
+
+export const { useGetSelectOptionsQuery } = selectOptionsService;

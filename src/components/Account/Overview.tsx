@@ -30,7 +30,7 @@ const Overview = () => {
             <p className="text-lg font-medium">
               {AccountDict.overview.welcome}, {user?.username}
             </p>
-            <p className="text-gray-500 truncate">{user?.userRole}</p>
+            <p className="text-gray-500 truncate">{user?.user_role}</p>
           </div>
         </div>
       </div>

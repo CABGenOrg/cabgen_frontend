@@ -73,8 +73,8 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
   ];
 
   return (
-    <div className="flex min-h-screen">
-      <Sidebar className="sticky top-24 h-[calc(100vh-theme(spacing.24))] bg-cabgen-400">
+    <div className="flex min-h-screen gap-5">
+      <Sidebar className="sticky top-24 h-[calc(100vh-theme(spacing.24))] bg-cabgen-400 z-20">
         {sidebarLinks.map(({ linkName, icon, link, disabled }) => (
           <SidebarItem
             key={link}
@@ -85,7 +85,7 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
           />
         ))}
       </Sidebar>
-      <div className="w-full flex flex-row justify-around py-5 gap-5">{accountComponent}</div>
+      <div className="w-full py-5 pr-4">{accountComponent}</div>
     </div>
   );
 };
