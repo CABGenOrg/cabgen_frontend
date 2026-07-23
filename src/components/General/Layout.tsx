@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useMemo, useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Account from "@/components/Account/Account";
 import Overview from "@/components/Account/Overview";
@@ -12,7 +12,6 @@ import { useAuth } from "@/redux/AuthContext";
 import Loading from "./Loading";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const [component, setComponent] = useState(<Overview />);
   const pathname = usePathname();
   const router = useRouter();
   const { isAuthenticated, isLoading } = useAuth();
@@ -29,6 +28,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     return accountComponents.find(({ link }) => pathname.includes(link));
   }, []);
 
+  const component = useMemo(() => {
+    return findAccountComponent(pathname)?.component ?? <Overview />;
+  }, [pathname, findAccountComponent]);
+
   useEffect(() => {
     if (!isAccountPage) return;
     if (isLoading) return;
@@ -36,13 +39,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       router.replace("/login");
     }
   }, [isAccountPage, isLoading, isAuthenticated, router]);
-
-  useEffect(() => {
-    const accountComponent = findAccountComponent(pathname);
-    if (accountComponent) {
-      setComponent(accountComponent.component);
-    }
-  }, [pathname, findAccountComponent]);
 
   if (isAccountPage && isLoading) {
     return <Account accountComponent={<Loading />} />;
