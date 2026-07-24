@@ -87,9 +87,10 @@ const SampleFormModal: React.FC<{
   genderDict: Record<string, string>;
   labOther: string;
   cityOther: string;
+  healthServiceOther: string;
   errorsDict: Record<string, string>;
   initial?: SampleResponse | null;
-}> = ({ open, onClose, lang, dict, genderDict, labOther, cityOther, errorsDict, initial }) => {
+}> = ({ open, onClose, lang, dict, genderDict, labOther, cityOther, healthServiceOther, errorsDict, initial }) => {
   const isEdit = !!initial;
 
   const sampleSchema = z.object({
@@ -180,11 +181,15 @@ const SampleFormModal: React.FC<{
     label: o.label === "option.city.other" ? cityOther : o.label,
   }));
 
+  const healthServiceOptions = (formOptions?.health_services ?? []).map((o) => ({
+    ...o,
+    label: o.label === "option.healthService.other" ? healthServiceOther : o.label,
+  }));
+
   const origins = formOptions?.origins ?? [];
   const microorganisms = formOptions?.microorganisms ?? [];
   const sampleSources = formOptions?.sample_sources ?? [];
   const sequencers = formOptions?.sequencers ?? [];
-  const healthServices = formOptions?.health_service ?? [];
 
   const countryOptions = (countries ?? []).map((c) => ({
     value: c.code,
@@ -274,7 +279,7 @@ const SampleFormModal: React.FC<{
               name="health_service"
               label={dict.healthService}
               form={form}
-              options={healthServices}
+              options={healthServiceOptions}
               placeholder={dict.selectPlaceholder}
             />
             <SelectField
@@ -453,6 +458,7 @@ const AccountSequences = () => {
   const genderDict = AccountDict.option.gender;
   const labOther = AccountDict.option.laboratory.other;
   const cityOther = AccountDict.option.city.other;
+  const healthServiceOther = AccountDict.option.healthService.other;
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [modal, setModal] = useState<{
@@ -684,6 +690,7 @@ const AccountSequences = () => {
           genderDict={genderDict}
           labOther={labOther}
           cityOther={cityOther}
+          healthServiceOther={healthServiceOther}
           errorsDict={Errors}
         />
       )}
@@ -697,6 +704,7 @@ const AccountSequences = () => {
           genderDict={genderDict}
           labOther={labOther}
           cityOther={cityOther}
+          healthServiceOther={healthServiceOther}
           errorsDict={Errors}
           initial={modal.sample}
         />

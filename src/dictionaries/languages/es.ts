@@ -277,6 +277,7 @@ const es = {
       },
       laboratory: { other: "Otro" },
       city: { other: "Otra" },
+      healthService: { other: "Otro" },
     },
     overview: {
       title: "Resumen",

@@ -20,7 +20,7 @@ export type FormSelectsResponse = {
   laboratories: SelectOption[];
   sequencers: SelectOption[];
   origins: SelectOption[];
-  health_service: SelectOption[];
+  health_services: SelectOption[];
   microorganisms: SelectOption[];
   sample_sources: SelectOption[];
 };

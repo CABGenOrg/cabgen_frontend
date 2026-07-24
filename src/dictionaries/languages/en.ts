@@ -274,6 +274,7 @@ const en = {
       },
       laboratory: { other: "Other" },
       city: { other: "Other" },
+      healthService: { other: "Other" },
     },
   },
 };

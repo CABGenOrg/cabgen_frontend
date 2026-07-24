@@ -271,6 +271,7 @@ const pt = {
       },
       laboratory: { other: "Outro" },
       city: { other: "Outra" },
+      healthService: { other: "Outro" },
     },
     overview: {
       title: "Visão Geral",
