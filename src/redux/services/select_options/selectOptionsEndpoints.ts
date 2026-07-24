@@ -1,3 +1,4 @@
 export const SELECT_OPTIONS_ENDPOINTS = {
-  DEFAULT: "/select-options",
+  ENUM: "/select-options/enum",
+  FORM: "/select-options/form"
 } as const;

@@ -16,15 +16,31 @@ export type EnumSelectsResponse = {
   analysis_types: SelectOption[];
 };
 
+export type FormSelectsResponse = {
+  laboratories: SelectOption[];
+  sequencers: SelectOption[];
+  origins: SelectOption[];
+  health_service: SelectOption[];
+  microorganisms: SelectOption[];
+  sample_sources: SelectOption[];
+};
+
 const selectOptionsService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getSelectOptions: builder.query<EnumSelectsResponse, void>({
-      query: () => requestConfig(SELECT_OPTIONS_ENDPOINTS.DEFAULT, "GET"),
+    getEnumSelectOptions: builder.query<EnumSelectsResponse, void>({
+      query: () => requestConfig(SELECT_OPTIONS_ENDPOINTS.ENUM, "GET"),
       transformResponse: (res: ApiResponse<EnumSelectsResponse>) => res.data,
+      transformErrorResponse: (res) => handleError(res),
+      providesTags: ["SelectOptions"],
+    }),
+    getFormSelectOptions: builder.query<FormSelectsResponse, string>({
+      query: (lang) => requestConfig(SELECT_OPTIONS_ENDPOINTS.FORM, "GET"),
+      transformResponse: (res: ApiResponse<FormSelectsResponse>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["SelectOptions"],
     }),
   }),
 });
 
-export const { useGetSelectOptionsQuery } = selectOptionsService;
+export const { useGetEnumSelectOptionsQuery, useGetFormSelectOptionsQuery } =
+  selectOptionsService;

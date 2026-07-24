@@ -247,8 +247,8 @@ const es = {
       delete: "Eliminar",
       name: "Nombre",
       collectionDate: "Fecha de Recolección",
-      runNumber: "Número de Ejecución",
-      runDate: "Fecha de Ejecución",
+      runNumber: "Número de Carrera",
+      runDate: "Fecha de Carrera",
       city: "Ciudad",
       originCode: "Código de Origen",
       gender: "Género",
@@ -267,6 +267,7 @@ const es = {
       selectPlaceholder: "Seleccionar...",
       noResults: "No se encontraron muestras",
       showing: "{count} resultados",
+      validation: { required: "Este campo es obligatorio" },
     },
     option: {
       gender: {
@@ -274,6 +275,8 @@ const es = {
         female: "Femenino",
         unspecified: "No especificado",
       },
+      laboratory: { other: "Otro" },
+      city: { other: "Otra" },
     },
     overview: {
       title: "Resumen",

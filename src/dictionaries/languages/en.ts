@@ -264,6 +264,7 @@ const en = {
       selectPlaceholder: "Select...",
       noResults: "No samples found",
       showing: "{count} results",
+      validation: { required: "This field is required" },
     },
     option: {
       gender: {
@@ -271,6 +272,8 @@ const en = {
         female: "Female",
         unspecified: "Unspecified",
       },
+      laboratory: { other: "Other" },
+      city: { other: "Other" },
     },
   },
 };

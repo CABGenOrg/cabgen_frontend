@@ -33,14 +33,11 @@ import { getTranslateClient } from "@/lib/getTranslateClient";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
 import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
-import { useGetActiveOriginsQuery } from "@/redux/services/origins/originsService";
-import { useGetActiveMicroorganismsQuery } from "@/redux/services/microorganisms/microorganismsService";
-import { useGetActiveSampleSourcesQuery } from "@/redux/services/sample_sources/sampleSourcesService";
-import { useGetActiveSequencersQuery } from "@/redux/services/sequencers/sequencersService";
-import { useGetActiveLaboratoriesQuery } from "@/redux/services/laboratories/laboratoriesService";
-import { useGetActiveHealthServicesQuery } from "@/redux/services/health_services/healthServicesService";
-import { useGetSelectOptionsQuery } from "@/redux/services/select_options/selectOptionsService";
 import { useGetCitiesQuery } from "@/redux/services/cities/citiesService";
+import {
+  useGetFormSelectOptionsQuery,
+  useGetEnumSelectOptionsQuery,
+} from "@/redux/services/select_options/selectOptionsService";
 import {
   useGetSamplesQuery,
   useCreateSampleMutation,
@@ -66,7 +63,11 @@ const Modal: React.FC<{
       <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between px-6 py-4 border-b">
           <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors" aria-label="Close">
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-lg hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
+            aria-label="Close"
+          >
             <X size={20} />
           </button>
         </div>
@@ -76,34 +77,6 @@ const Modal: React.FC<{
   );
 };
 
-const sampleSchema = z.object({
-  name: z.string().min(1),
-  collection_date: z.string().min(1),
-  run_number: z.string().min(1),
-  run_date: z.string().min(1),
-  city: z.string().min(1),
-  origin_code: z.string().min(1),
-  gender: z.string().min(1),
-  date_of_birth: z.string().min(1),
-  country_code: z.string().min(1),
-  origin: z.string().min(1),
-  sample_source: z.string().min(1),
-  microorganism: z.string().min(1),
-  sequencer: z.string().min(1),
-  laboratory: z.string().min(1),
-  health_service: z.string().min(1),
-});
-
-type SampleFormData = z.infer<typeof sampleSchema>;
-
-const uploadSchema = z.object({
-  fastq1: z.string().min(1),
-  fastq2: z.string().min(1),
-  fasta: z.string().min(1),
-});
-
-type UploadFormData = z.infer<typeof uploadSchema>;
-
 const SampleFormModal: React.FC<{
   open: boolean;
   onClose: () => void;
@@ -112,10 +85,32 @@ const SampleFormModal: React.FC<{
     typeof getTranslateClient
   >["dictionary"]["Account"]["sequences"];
   genderDict: Record<string, string>;
+  labOther: string;
+  cityOther: string;
   errorsDict: Record<string, string>;
   initial?: SampleResponse | null;
-}> = ({ open, onClose, lang, dict, genderDict, errorsDict, initial }) => {
+}> = ({ open, onClose, lang, dict, genderDict, labOther, cityOther, errorsDict, initial }) => {
   const isEdit = !!initial;
+
+  const sampleSchema = z.object({
+    name: z.string().min(1, dict.validation.required),
+    collection_date: z.string().min(1, dict.validation.required),
+    run_number: z.string().min(1, dict.validation.required),
+    run_date: z.string().min(1, dict.validation.required),
+    city: z.string().min(1, dict.validation.required),
+    origin_code: z.string().min(1, dict.validation.required),
+    gender: z.string().min(1, dict.validation.required),
+    date_of_birth: z.string().min(1, dict.validation.required),
+    country_code: z.string().min(1, dict.validation.required),
+    origin: z.string().min(1, dict.validation.required),
+    sample_source: z.string().min(1, dict.validation.required),
+    microorganism: z.string().min(1, dict.validation.required),
+    sequencer: z.string().min(1, dict.validation.required),
+    laboratory: z.string().min(1, dict.validation.required),
+    health_service: z.string().min(1, dict.validation.required),
+  });
+
+  type SampleFormData = z.infer<typeof sampleSchema>;
 
   const dateStr = (d: Date | string | undefined) => {
     if (!d) return "";
@@ -144,15 +139,10 @@ const SampleFormModal: React.FC<{
     },
   });
 
-  const { data: countries = [] } = useGetCountriesQuery(lang);
-  const { data: origins = [] } = useGetActiveOriginsQuery();
-  const { data: microorganisms = [] } = useGetActiveMicroorganismsQuery();
-  const { data: sampleSources = [] } = useGetActiveSampleSourcesQuery();
-  const { data: sequencers = [] } = useGetActiveSequencersQuery();
-  const { data: laboratories = [] } = useGetActiveLaboratoriesQuery();
-  const { data: healthServices = [] } = useGetActiveHealthServicesQuery();
-  const { data: selectOptions } = useGetSelectOptionsQuery();
-  const { data: cities = [] } = useGetCitiesQuery();
+  const { data: countries } = useGetCountriesQuery(lang);
+  const { data: cities } = useGetCitiesQuery();
+  const { data: formOptions } = useGetFormSelectOptionsQuery(lang);
+  const { data: enumOptions } = useGetEnumSelectOptionsQuery();
   const [createSample, { isLoading: creating, error: createError }] =
     useCreateSampleMutation();
   const [updateSample, { isLoading: updating, error: updateError }] =
@@ -175,9 +165,30 @@ const SampleFormModal: React.FC<{
     onClose();
   };
 
-  const genderOptions = (selectOptions?.genders ?? []).map((g) => ({
+  const genderOptions = (enumOptions?.genders ?? []).map((g) => ({
     ...g,
     label: genderDict[g.value.toLowerCase()] ?? g.label,
+  }));
+
+  const laboratoryOptions = (formOptions?.laboratories ?? []).map((o) => ({
+    ...o,
+    label: o.label === "option.laboratory.other" ? labOther : o.label,
+  }));
+
+  const cityOptions = (cities ?? []).map((o) => ({
+    ...o,
+    label: o.label === "option.city.other" ? cityOther : o.label,
+  }));
+
+  const origins = formOptions?.origins ?? [];
+  const microorganisms = formOptions?.microorganisms ?? [];
+  const sampleSources = formOptions?.sample_sources ?? [];
+  const sequencers = formOptions?.sequencers ?? [];
+  const healthServices = formOptions?.health_service ?? [];
+
+  const countryOptions = (countries ?? []).map((c) => ({
+    value: c.code,
+    label: c.name,
   }));
 
   return (
@@ -194,7 +205,7 @@ const SampleFormModal: React.FC<{
               name="country_code"
               label={dict.country}
               form={form}
-              options={countries.map((c) => ({ value: c.code, label: c.name }))}
+              options={countryOptions}
               placeholder={dict.selectPlaceholder}
             />
             <TextField
@@ -228,70 +239,55 @@ const SampleFormModal: React.FC<{
               name="origin"
               label={dict.origin}
               form={form}
-              options={origins.map((o) => ({ value: o.id, label: o.name }))}
+              options={origins}
               placeholder={dict.selectPlaceholder}
             />
             <SelectField
               name="sample_source"
               label={dict.sampleSource}
               form={form}
-              options={sampleSources.map((s) => ({
-                value: s.id,
-                label: s.name,
-              }))}
+              options={sampleSources}
               placeholder={dict.selectPlaceholder}
             />
             <SelectField
               name="microorganism"
               label={dict.microorganism}
               form={form}
-              options={microorganisms.map((m) => ({
-                value: m.id,
-                label: m.species,
-              }))}
+              options={microorganisms}
               placeholder={dict.selectPlaceholder}
             />
             <SelectField
               name="sequencer"
               label={dict.sequencer}
               form={form}
-              options={sequencers.map((s) => ({
-                value: s.id,
-                label: `${s.model} (${s.branch})`,
-              }))}
+              options={sequencers}
               placeholder={dict.selectPlaceholder}
             />
             <SelectField
               name="laboratory"
               label={dict.laboratory}
               form={form}
-              options={laboratories.map((l) => ({
-                value: l.id,
-                label: l.name,
-              }))}
+              options={laboratoryOptions}
               placeholder={dict.selectPlaceholder}
             />
             <SelectField
               name="health_service"
               label={dict.healthService}
               form={form}
-              options={healthServices.map((h) => ({
-                value: h.id,
-                label: h.name,
-              }))}
+              options={healthServices}
               placeholder={dict.selectPlaceholder}
             />
             <SelectField
               name="city"
               label={dict.city}
               form={form}
-              options={cities}
+              options={cityOptions}
               placeholder={dict.selectPlaceholder}
             />
           </div>
 
-          <div className="flex justify-end items-center gap-3 mt-6">
-            {error && (
+          {error && (
+            <div className="mt-4">
               <Message
                 msg={
                   typeof error === "string" && error === "internalServer"
@@ -300,7 +296,10 @@ const SampleFormModal: React.FC<{
                 }
                 type="error"
               />
-            )}
+            </div>
+          )}
+
+          <div className="flex justify-end gap-3 mt-4">
             <Button type="button" variant="outline" onClick={onClose}>
               {dict.cancel}
             </Button>
@@ -327,6 +326,13 @@ const UploadFormModal: React.FC<{
   errorsDict: Record<string, string>;
   sample: SampleResponse | null;
 }> = ({ open, onClose, dict, errorsDict, sample }) => {
+  const uploadSchema = z.object({
+    fastq1: z.string().min(1, dict.validation.required),
+    fastq2: z.string().min(1, dict.validation.required),
+    fasta: z.string().min(1, dict.validation.required),
+  });
+
+  type UploadFormData = z.infer<typeof uploadSchema>;
   const form = useForm<UploadFormData>({
     resolver: zodResolver(uploadSchema),
     defaultValues: { fastq1: "", fastq2: "", fasta: "" },
@@ -357,8 +363,8 @@ const UploadFormModal: React.FC<{
             <TextField name="fastq2" label={dict.fastq2} form={form} />
             <TextField name="fasta" label={dict.fasta} form={form} />
           </div>
-          <div className="flex justify-end items-center gap-3 mt-6">
-            {error && (
+          {error && (
+            <div className="mt-4">
               <Message
                 msg={
                   typeof error === "string" && error === "internalServer"
@@ -367,7 +373,10 @@ const UploadFormModal: React.FC<{
                 }
                 type="error"
               />
-            )}
+            </div>
+          )}
+
+          <div className="flex justify-end gap-3 mt-4">
             <Button type="button" variant="outline" onClick={onClose}>
               {dict.cancel}
             </Button>
@@ -442,6 +451,8 @@ const AccountSequences = () => {
   } = getTranslateClient(lang);
   const dict = AccountDict.sequences;
   const genderDict = AccountDict.option.gender;
+  const labOther = AccountDict.option.laboratory.other;
+  const cityOther = AccountDict.option.city.other;
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [modal, setModal] = useState<{
@@ -547,7 +558,7 @@ const AccountSequences = () => {
         ),
       }),
     ],
-    [dict],
+    [dict, lang],
   );
 
   const table = useReactTable({
@@ -587,9 +598,18 @@ const AccountSequences = () => {
                         style={{ width: h.getSize() }}
                       >
                         <span className="inline-flex items-center gap-1">
-                          {flexRender(h.column.columnDef.header, h.getContext())}
+                          {flexRender(
+                            h.column.columnDef.header,
+                            h.getContext(),
+                          )}
                           {sorted && (
-                            <span className={sorted === "asc" ? "text-cabgen-200" : "text-cabgen-200"}>
+                            <span
+                              className={
+                                sorted === "asc"
+                                  ? "text-cabgen-200"
+                                  : "text-cabgen-200"
+                              }
+                            >
                               {sorted === "asc" ? "\u2191" : "\u2193"}
                             </span>
                           )}
@@ -611,8 +631,18 @@ const AccountSequences = () => {
                 <tr>
                   <td colSpan={99} className="py-16 text-center">
                     <div className="flex flex-col items-center gap-2 text-gray-400">
-                      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                      <svg
+                        className="w-12 h-12"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+                        />
                       </svg>
                       <span className="text-sm">{dict.noResults}</span>
                     </div>
@@ -626,7 +656,10 @@ const AccountSequences = () => {
                   >
                     {row.getVisibleCells().map((cell) => (
                       <td key={cell.id} className="px-4 py-3 whitespace-nowrap">
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
                       </td>
                     ))}
                   </tr>
@@ -649,6 +682,8 @@ const AccountSequences = () => {
           lang={lang}
           dict={dict}
           genderDict={genderDict}
+          labOther={labOther}
+          cityOther={cityOther}
           errorsDict={Errors}
         />
       )}
@@ -660,6 +695,8 @@ const AccountSequences = () => {
           lang={lang}
           dict={dict}
           genderDict={genderDict}
+          labOther={labOther}
+          cityOther={cityOther}
           errorsDict={Errors}
           initial={modal.sample}
         />
