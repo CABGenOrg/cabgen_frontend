@@ -1,5 +1,8 @@
 "use client";
 
+import { useDispatch } from "react-redux";
+import { baseUrl } from "@/utils/handleRequest";
+import handleError from "@/utils/handleError";
 import React, { useState, useMemo } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
@@ -22,7 +25,7 @@ import {
   FormField,
 } from "@/components/ui/form";
 import { SmartSelect } from "../General/SmartSelect";
-import { X, Plus, Upload, Pencil, Trash2 } from "lucide-react";
+import { X, Plus, Upload, Pencil, Trash2, Loader2 } from "lucide-react";
 import {
   section_btn,
   input_class,
@@ -42,14 +45,14 @@ import {
   useGetSamplesQuery,
   useCreateSampleMutation,
   useUpdateSampleMutation,
-  useUploadMutation,
   useDeleteSampleMutation,
 } from "@/redux/services/samples/samplesService";
 import type {
   SampleResponse,
   SampleInput,
-  SampleAttachmentInput,
 } from "@/redux/services/samples/samplesService";
+import { apiSlice } from "@/redux/api/apiSlice";
+import { SAMPLES_ENDPOINTS } from "@/redux/services/samples/samplesEndpoints";
 
 const Modal: React.FC<{
   open: boolean;
@@ -90,25 +93,38 @@ const SampleFormModal: React.FC<{
   healthServiceOther: string;
   errorsDict: Record<string, string>;
   initial?: SampleResponse | null;
-}> = ({ open, onClose, lang, dict, genderDict, labOther, cityOther, healthServiceOther, errorsDict, initial }) => {
+}> = ({
+  open,
+  onClose,
+  lang,
+  dict,
+  genderDict,
+  labOther,
+  cityOther,
+  healthServiceOther,
+  errorsDict,
+  initial,
+}) => {
   const isEdit = !!initial;
+
+  const emptyToNull = z.string().transform((val) => (val === "" ? null : val));
 
   const sampleSchema = z.object({
     name: z.string().min(1, dict.validation.required),
     collection_date: z.string().min(1, dict.validation.required),
     run_number: z.string().min(1, dict.validation.required),
     run_date: z.string().min(1, dict.validation.required),
-    city: z.string().min(1, dict.validation.required),
-    origin_code: z.string().min(1, dict.validation.required),
-    gender: z.string().min(1, dict.validation.required),
-    date_of_birth: z.string().min(1, dict.validation.required),
+    city: emptyToNull,
+    origin_code: emptyToNull,
+    gender: emptyToNull,
+    date_of_birth: emptyToNull,
     country_code: z.string().min(1, dict.validation.required),
-    origin: z.string().min(1, dict.validation.required),
-    sample_source: z.string().min(1, dict.validation.required),
-    microorganism: z.string().min(1, dict.validation.required),
-    sequencer: z.string().min(1, dict.validation.required),
-    laboratory: z.string().min(1, dict.validation.required),
-    health_service: z.string().min(1, dict.validation.required),
+    origin_id: z.string().min(1, dict.validation.required),
+    sample_source_id: z.string().min(1, dict.validation.required),
+    microorganism_id: z.string().min(1, dict.validation.required),
+    sequencer_id: z.string().min(1, dict.validation.required),
+    laboratory_id: z.string().min(1, dict.validation.required),
+    health_service_id: z.string().min(1, dict.validation.required),
   });
 
   type SampleFormData = z.infer<typeof sampleSchema>;
@@ -131,19 +147,28 @@ const SampleFormModal: React.FC<{
       gender: initial?.gender ?? "",
       date_of_birth: dateStr(initial?.date_of_birth),
       country_code: initial?.country_code ?? "",
-      origin: initial?.origin ?? "",
-      sample_source: initial?.sample_source ?? "",
-      microorganism: initial?.microorganism ?? "",
-      sequencer: initial?.sequencer ?? "",
-      laboratory: initial?.laboratory ?? "",
-      health_service: initial?.health_service ?? "",
+      origin_id: initial?.origin ?? "",
+      sample_source_id: initial?.sample_source ?? "",
+      microorganism_id: initial?.microorganism ?? "",
+      sequencer_id: initial?.sequencer ?? "",
+      laboratory_id: initial?.laboratory ?? "",
+      health_service_id: initial?.health_service ?? "",
     },
   });
 
-  const { data: countries } = useGetCountriesQuery(lang);
-  const { data: cities } = useGetCitiesQuery();
-  const { data: formOptions } = useGetFormSelectOptionsQuery(lang);
-  const { data: enumOptions } = useGetEnumSelectOptionsQuery();
+  const { data: countries, error: countriesError } = useGetCountriesQuery(lang);
+  const { data: cities, error: citiesError } = useGetCitiesQuery();
+  const { data: formOptions, error: formOptionsError } =
+    useGetFormSelectOptionsQuery(lang);
+  const { data: enumOptions, error: enumOptionsError } =
+    useGetEnumSelectOptionsQuery();
+
+  const optionsLoadFailed = !!(
+    countriesError ||
+    citiesError ||
+    formOptionsError ||
+    enumOptionsError
+  );
   const [createSample, { isLoading: creating, error: createError }] =
     useCreateSampleMutation();
   const [updateSample, { isLoading: updating, error: updateError }] =
@@ -153,17 +178,18 @@ const SampleFormModal: React.FC<{
   const error = createError || updateError;
 
   const onSubmit: SubmitHandler<SampleFormData> = async (data) => {
-    const payload = { ...data };
-    if (isEdit && initial) {
-      await updateSample({
-        id: initial.id,
-        data: payload as unknown as SampleInput,
-      });
-    } else {
-      await createSample(payload as unknown as SampleInput);
-    }
-    form.reset();
-    onClose();
+    try {
+      if (isEdit && initial) {
+        await updateSample({
+          id: initial.id,
+          data: data as unknown as SampleInput,
+        }).unwrap();
+      } else {
+        await createSample(data as unknown as SampleInput).unwrap();
+      }
+      form.reset();
+      onClose();
+    } catch {}
   };
 
   const genderOptions = (enumOptions?.genders ?? []).map((g) => ({
@@ -181,10 +207,13 @@ const SampleFormModal: React.FC<{
     label: o.label === "option.city.other" ? cityOther : o.label,
   }));
 
-  const healthServiceOptions = (formOptions?.health_services ?? []).map((o) => ({
-    ...o,
-    label: o.label === "option.healthService.other" ? healthServiceOther : o.label,
-  }));
+  const healthServiceOptions = (formOptions?.health_services ?? []).map(
+    (o) => ({
+      ...o,
+      label:
+        o.label === "option.healthService.other" ? healthServiceOther : o.label,
+    }),
+  );
 
   const origins = formOptions?.origins ?? [];
   const microorganisms = formOptions?.microorganisms ?? [];
@@ -204,27 +233,40 @@ const SampleFormModal: React.FC<{
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
+          {optionsLoadFailed && (
+            <div className="mb-4">
+              <Message msg={dict.optionsLoadError} type="error" />
+            </div>
+          )}
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
-            <TextField name="name" label={dict.name} form={form} />
+            <TextField name="name" label={dict.name} form={form} required />
             <SelectField
               name="country_code"
               label={dict.country}
               form={form}
               options={countryOptions}
               placeholder={dict.selectPlaceholder}
+              required
             />
             <TextField
               name="collection_date"
               label={dict.collectionDate}
               form={form}
               type="date"
+              required
             />
-            <TextField name="run_number" label={dict.runNumber} form={form} />
+            <TextField
+              name="run_number"
+              label={dict.runNumber}
+              form={form}
+              required
+            />
             <TextField
               name="run_date"
               label={dict.runDate}
               form={form}
               type="date"
+              required
             />
             <TextField name="origin_code" label={dict.originCode} form={form} />
             <SelectField
@@ -241,46 +283,52 @@ const SampleFormModal: React.FC<{
               type="date"
             />
             <SelectField
-              name="origin"
+              name="origin_id"
               label={dict.origin}
               form={form}
               options={origins}
               placeholder={dict.selectPlaceholder}
+              required
             />
             <SelectField
-              name="sample_source"
+              name="sample_source_id"
               label={dict.sampleSource}
               form={form}
               options={sampleSources}
               placeholder={dict.selectPlaceholder}
+              required
             />
             <SelectField
-              name="microorganism"
+              name="microorganism_id"
               label={dict.microorganism}
               form={form}
               options={microorganisms}
               placeholder={dict.selectPlaceholder}
+              required
             />
             <SelectField
-              name="sequencer"
+              name="sequencer_id"
               label={dict.sequencer}
               form={form}
               options={sequencers}
               placeholder={dict.selectPlaceholder}
+              required
             />
             <SelectField
-              name="laboratory"
+              name="laboratory_id"
               label={dict.laboratory}
               form={form}
               options={laboratoryOptions}
               placeholder={dict.selectPlaceholder}
+              required
             />
             <SelectField
-              name="health_service"
+              name="health_service_id"
               label={dict.healthService}
               form={form}
               options={healthServiceOptions}
               placeholder={dict.selectPlaceholder}
+              required
             />
             <SelectField
               name="city"
@@ -311,7 +359,11 @@ const SampleFormModal: React.FC<{
             {isLoading ? (
               <Loading />
             ) : (
-              <button type="submit" className={section_btn}>
+              <button
+                type="submit"
+                className={section_btn}
+                disabled={optionsLoadFailed}
+              >
                 {dict.save}
               </button>
             )}
@@ -322,79 +374,228 @@ const SampleFormModal: React.FC<{
   );
 };
 
+const ensureGzipped = async (file: File): Promise<File> => {
+  if (file.name.endsWith(".gz")) return file;
+  const stream = file.stream().pipeThrough(new CompressionStream("gzip"));
+  const blob = await new Response(stream).blob();
+  return new File([blob], `${file.name}.gz`, { type: "application/gzip" });
+};
+
+const uploadWithProgress = (
+  url: string,
+  lang: string,
+  formData: FormData,
+  onProgress: (percent: number) => void,
+): Promise<unknown> => {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", url, true);
+    xhr.withCredentials = true;
+    xhr.setRequestHeader("Accept-Language", lang);
+
+    xhr.upload.onprogress = (event) => {
+      if (event.lengthComputable) {
+        onProgress(Math.round((event.loaded / event.total) * 100));
+      }
+    };
+
+    xhr.onload = () => {
+      let data: unknown = null;
+      try {
+        data = JSON.parse(xhr.responseText);
+      } catch {
+        data = xhr.responseText;
+      }
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(data);
+      } else {
+        reject({ status: xhr.status, data });
+      }
+    };
+
+    xhr.onerror = () => reject({ status: "FETCH_ERROR", data: null });
+
+    xhr.send(formData);
+  });
+};
+
 const UploadFormModal: React.FC<{
   open: boolean;
   onClose: () => void;
+  lang: string;
   dict: ReturnType<
     typeof getTranslateClient
   >["dictionary"]["Account"]["sequences"];
   errorsDict: Record<string, string>;
   sample: SampleResponse | null;
-}> = ({ open, onClose, dict, errorsDict, sample }) => {
-  const uploadSchema = z.object({
-    fastq1: z.string().min(1, dict.validation.required),
-    fastq2: z.string().min(1, dict.validation.required),
-    fasta: z.string().min(1, dict.validation.required),
+}> = ({ open, onClose, lang, dict, errorsDict, sample }) => {
+  const dispatch = useDispatch();
+
+  const [files, setFiles] = useState<{
+    fastq1: File | null;
+    fastq2: File | null;
+    fasta: File | null;
+  }>({
+    fastq1: null,
+    fastq2: null,
+    fasta: null,
   });
 
-  type UploadFormData = z.infer<typeof uploadSchema>;
-  const form = useForm<UploadFormData>({
-    resolver: zodResolver(uploadSchema),
-    defaultValues: { fastq1: "", fastq2: "", fasta: "" },
-  });
+  const [phase, setPhase] = useState<"idle" | "compressing" | "uploading">(
+    "idle",
+  );
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
-  const [upload, { isLoading, error }] = useUploadMutation();
+  const canSubmit = (files.fastq1 && files.fastq2) || files.fasta;
+  const isBusy = phase !== "idle";
 
-  const onSubmit: SubmitHandler<UploadFormData> = async (data) => {
-    if (!sample) return;
-    await upload({ id: sample.id, data } as {
-      id: string;
-      data: SampleAttachmentInput;
-    });
-    form.reset();
-    onClose();
+  const onSubmit = async (e: React.SubmitEvent) => {
+    e.preventDefault();
+    if (!sample || !canSubmit || isBusy) return;
+    setError(null);
+
+    try {
+      const formData = new FormData();
+
+      if (files.fastq1 && files.fastq2) {
+        setPhase("compressing");
+        const [fq1, fq2] = await Promise.all([
+          ensureGzipped(files.fastq1),
+          ensureGzipped(files.fastq2),
+        ]);
+        formData.append("fastq1", fq1);
+        formData.append("fastq2", fq2);
+      }
+
+      if (files.fasta) {
+        setPhase("compressing");
+        const fa = await ensureGzipped(files.fasta);
+        formData.append("fasta", fa);
+      }
+
+      setPhase("uploading");
+      setProgress(0);
+      await uploadWithProgress(
+        `${baseUrl}${SAMPLES_ENDPOINTS.DEFAULT}/${sample.id}/upload`,
+        lang,
+        formData,
+        setProgress,
+      );
+
+      dispatch(
+        apiSlice.util.invalidateTags([
+          { type: "Samples", id: sample.id },
+          "Samples",
+        ]),
+      );
+      setFiles({ fastq1: null, fastq2: null, fasta: null });
+      onClose();
+    } catch (err) {
+      setError(handleError(err as any));
+    } finally {
+      setPhase("idle");
+    }
   };
+
+  const fileInput = (key: keyof typeof files, label: string) => (
+    <div className="flex flex-col gap-2">
+      <span className={label_class}>{label}</span>
+      <label
+        className={`
+          flex items-center justify-between gap-3 px-4 py-3 rounded-md border-2 border-dashed cursor-pointer
+          transition-colors
+          ${isBusy ? "opacity-50 pointer-events-none" : ""}
+          ${
+            files[key]
+              ? "border-cabgen-200 bg-cabgen-200/5"
+              : "border-gray-300 hover:border-cabgen-300 bg-gray-50"
+          }
+        `}
+      >
+        <span
+          className={`text-sm truncate ${files[key] ? "text-gray-900 font-medium" : "text-gray-400"}`}
+        >
+          {files[key]?.name ??
+            (key === "fasta" ? ".fasta" : ".fastq|.fastq.gz")}
+        </span>
+        <span className="text-xs shrink-0 px-2 py-1 rounded bg-white border border-gray-200 text-gray-500">
+          {files[key]
+            ? `${(files[key]!.size / 1024).toFixed(0)} KB`
+            : dict.selectPlaceholder}
+        </span>
+        <input
+          type="file"
+          disabled={isBusy}
+          onChange={(e) =>
+            setFiles((p) => ({ ...p, [key]: e.target.files?.[0] ?? null }))
+          }
+          className="hidden"
+        />
+      </label>
+    </div>
+  );
 
   return (
     <Modal
       open={open}
       onClose={onClose}
-      title={`${dict.uploadSequences} — ${sample?.name ?? ""}`}
+      title={`${dict.uploadSequences} - ${sample?.name ?? ""}`}
     >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-4">
-            <TextField name="fastq1" label={dict.fastq1} form={form} />
-            <TextField name="fastq2" label={dict.fastq2} form={form} />
-            <TextField name="fasta" label={dict.fasta} form={form} />
-          </div>
-          {error && (
-            <div className="mt-4">
-              <Message
-                msg={
-                  typeof error === "string" && error === "internalServer"
-                    ? errorsDict[error]
-                    : String(error)
-                }
-                type="error"
+      <form onSubmit={onSubmit}>
+        <div className="flex flex-col gap-5">
+          {fileInput("fastq1", dict.fastq1)}
+          {fileInput("fastq2", dict.fastq2)}
+          {fileInput("fasta", dict.fasta)}
+        </div>
+
+        {phase === "compressing" && (
+          <p className="mt-4 text-sm text-gray-500">{dict.compressing}</p>
+        )}
+
+        {phase === "uploading" && (
+          <div className="mt-4">
+            <div className="flex justify-between text-sm text-gray-500 mb-1">
+              <span>{dict.uploading}</span>
+              <span>{progress}%</span>
+            </div>
+            <div className="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+              <div
+                className="h-full bg-cabgen-200 transition-all duration-150"
+                style={{ width: `${progress}%` }}
               />
             </div>
-          )}
-
-          <div className="flex justify-end gap-3 mt-4">
-            <Button type="button" variant="outline" onClick={onClose}>
-              {dict.cancel}
-            </Button>
-            {isLoading ? (
-              <Loading />
-            ) : (
-              <button type="submit" className={section_btn}>
-                {dict.upload}
-              </button>
-            )}
           </div>
-        </form>
-      </Form>
+        )}
+
+        {error && (
+          <div className="mt-4">
+            <Message
+              msg={error === "internalServer" ? errorsDict[error] : error}
+              type="error"
+            />
+          </div>
+        )}
+
+        <div className="flex justify-end gap-3 mt-6">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onClose}
+            disabled={isBusy}
+          >
+            {dict.cancel}
+          </Button>
+          <button
+            type="submit"
+            className={`${section_btn} flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed`}
+            disabled={!canSubmit || isBusy}
+          >
+            {isBusy && <Loader2 size={16} className="animate-spin" />}
+            {dict.upload}
+          </button>
+        </div>
+      </form>
     </Modal>
   );
 };
@@ -404,13 +605,17 @@ const TextField: React.FC<{
   label: string;
   form: any;
   type?: string;
-}> = ({ name, label, form, type = "text" }) => (
+  required?: boolean;
+}> = ({ name, label, form, type = "text", required }) => (
   <FormField
     control={form.control}
     name={name}
     render={({ field }) => (
       <FormItem>
-        <FormLabel className={label_class}>{label}</FormLabel>
+        <FormLabel className={label_class}>
+          {label}
+          {required && <span className="text-red-500 ml-0.5">*</span>}
+        </FormLabel>
         <FormControl>
           <input type={type} className={input_class} {...field} />
         </FormControl>
@@ -426,13 +631,17 @@ const SelectField: React.FC<{
   form: any;
   options: { value: string; label: string }[];
   placeholder: string;
-}> = ({ name, label, form, options, placeholder }) => (
+  required?: boolean;
+}> = ({ name, label, form, options, placeholder, required }) => (
   <FormField
     control={form.control}
     name={name}
     render={({ field }) => (
       <FormItem>
-        <FormLabel className={label_class}>{label}</FormLabel>
+        <FormLabel className={label_class}>
+          {label}
+          {required && <span className="text-red-500 ml-0.5">*</span>}
+        </FormLabel>
         <FormControl>
           <SmartSelect
             value={field.value}
@@ -469,7 +678,15 @@ const AccountSequences = () => {
   const closeModal = () => setModal({ type: null });
 
   const { data = [], isLoading: loadingSamples } = useGetSamplesQuery();
-  const [deleteSample, { isLoading: deleting }] = useDeleteSampleMutation();
+  const [deleteSample, { isLoading: deleting, error: deleteError }] =
+    useDeleteSampleMutation();
+
+  const handleDelete = async () => {
+    try {
+      await deleteSample(modal.sample?.id ?? "").unwrap();
+      closeModal();
+    } catch {}
+  };
 
   const columns = useMemo(
     () => [
@@ -487,7 +704,14 @@ const AccountSequences = () => {
       columnHelper.accessor("collection_date", {
         header: dict.collectionDate,
         size: 130,
-        cell: (info) => info.getValue().toLocaleDateString(lang),
+        cell: (info) => {
+          const v = info.getValue();
+          if (!v) return "-";
+          const d = v instanceof Date ? v : new Date(v);
+          return isNaN(d.getTime())
+            ? "-"
+            : d.toLocaleDateString(lang, { timeZone: "UTC" });
+        },
       }),
       columnHelper.accessor("country_code", { header: dict.country, size: 80 }),
       columnHelper.accessor("city", { header: dict.city, size: 130 }),
@@ -714,6 +938,7 @@ const AccountSequences = () => {
         <UploadFormModal
           open
           onClose={closeModal}
+          lang={lang}
           dict={dict}
           errorsDict={Errors}
           sample={modal.sample ?? null}
@@ -737,19 +962,24 @@ const AccountSequences = () => {
           </div>
         </div>
         <div className="flex justify-end gap-3 mt-6">
+          {deleteError && (
+            <Message
+              msg={
+                typeof deleteError === "string" &&
+                deleteError === "internalServer"
+                  ? Errors[deleteError]
+                  : String(deleteError)
+              }
+              type="error"
+            />
+          )}
           <Button variant="outline" onClick={closeModal}>
             {dict.cancel}
           </Button>
           {deleting ? (
             <Loading />
           ) : (
-            <Button
-              variant="destructive"
-              onClick={() => {
-                deleteSample(modal.sample?.id ?? "");
-                closeModal();
-              }}
-            >
+            <Button variant="destructive" onClick={() => handleDelete()}>
               {dict.delete}
             </Button>
           )}

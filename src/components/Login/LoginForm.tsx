@@ -82,6 +82,7 @@ const LoginForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Login.usernameField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} autoComplete="username" {...field} />
@@ -99,6 +100,7 @@ const LoginForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Login.passwordField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input

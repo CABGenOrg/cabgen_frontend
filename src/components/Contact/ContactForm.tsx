@@ -95,6 +95,7 @@ const ContactForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Contact.nameField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
@@ -112,6 +113,7 @@ const ContactForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Contact.emailField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input
@@ -133,6 +135,7 @@ const ContactForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Contact.institutionField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
@@ -150,6 +153,7 @@ const ContactForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Contact.subjectField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
@@ -168,6 +172,7 @@ const ContactForm = () => {
                   <FormItem>
                     <FormLabel className={label_class}>
                       {Contact.messageField}
+                      <span className="text-red-500 ml-0.5">*</span>
                     </FormLabel>
                     <FormControl>
                       <textarea rows={7} className={`${input_class} resize-none`} {...field} />

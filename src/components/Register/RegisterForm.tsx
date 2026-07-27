@@ -131,6 +131,7 @@ const RegisterForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Register.nameField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
@@ -148,6 +149,7 @@ const RegisterForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Register.countryField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <Select
                         onValueChange={field.onChange}
@@ -182,6 +184,7 @@ const RegisterForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Register.usernameField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
@@ -250,6 +253,7 @@ const RegisterForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Register.emailField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input
@@ -272,6 +276,7 @@ const RegisterForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Register.confirmEmailField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input
@@ -294,6 +299,7 @@ const RegisterForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Register.passwordField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input
@@ -316,6 +322,7 @@ const RegisterForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Register.confirmPasswordField}
+                        <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
                         <input

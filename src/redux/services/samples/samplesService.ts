@@ -44,12 +44,6 @@ export type SampleInput = {
   health_service: string;
 };
 
-export type SampleAttachmentInput = {
-  fastq1: string;
-  fastq2: string;
-  fasta: string;
-};
-
 const samplesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getSamples: builder.query<SampleResponse[], void>({
@@ -80,16 +74,6 @@ const samplesService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       invalidatesTags: (_r, _e, { id }) => [{ type: "Samples", id }, "Samples"],
     }),
-    upload: builder.mutation<
-      string,
-      { id: string; data: SampleAttachmentInput }
-    >({
-      query: ({ id, data }) =>
-        requestConfig(`${SAMPLES_ENDPOINTS.DEFAULT}/${id}/upload`, "PUT", data),
-      transformResponse: (res: ApiMessage) => res.message,
-      transformErrorResponse: (res) => handleError(res),
-      invalidatesTags: (_r, _e, { id }) => [{ type: "Samples", id }, "Samples"],
-    }),
     deleteSample: builder.mutation<string, string>({
       query: (id) =>
         requestConfig(`${SAMPLES_ENDPOINTS.DEFAULT}/${id}`, "DELETE"),
@@ -105,6 +89,5 @@ export const {
   useGetSampleByIDQuery,
   useCreateSampleMutation,
   useUpdateSampleMutation,
-  useUploadMutation,
   useDeleteSampleMutation,
 } = samplesService;
