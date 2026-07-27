@@ -53,7 +53,7 @@ const AccountSequences = () => {
 
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingSamples } = useGetSamplesQuery();
+  const { data = [], isLoading: loadingSamples } = useGetSamplesQuery(lang);
   const [deleteSample, { isLoading: deleting, error: deleteError }] =
     useDeleteSampleMutation();
 

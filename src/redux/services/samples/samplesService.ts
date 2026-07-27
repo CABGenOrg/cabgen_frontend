@@ -46,8 +46,8 @@ export type SampleInput = {
 
 const samplesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getSamples: builder.query<SampleResponse[], void>({
-      query: () => requestConfig(SAMPLES_ENDPOINTS.DEFAULT, "GET"),
+    getSamples: builder.query<SampleResponse[], string>({
+      query: (lang) => requestConfig(SAMPLES_ENDPOINTS.DEFAULT, "GET"),
       transformResponse: (res: ApiResponse<SampleResponse[]>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Samples"],
