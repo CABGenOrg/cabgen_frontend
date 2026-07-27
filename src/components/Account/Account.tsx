@@ -85,7 +85,7 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
           />
         ))}
       </Sidebar>
-      <div className="w-full py-5 pr-4">{accountComponent}</div>
+      <div className="w-full py-5 pr-4 min-w-0">{accountComponent}</div>
     </div>
   );
 };
