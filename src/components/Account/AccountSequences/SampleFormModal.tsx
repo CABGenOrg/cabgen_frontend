@@ -37,6 +37,7 @@ import type {
 } from "@/redux/services/samples/samplesService";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import Modal from "./Modal";
+import { emptyToNull } from "@/utils/zodHelpers";
 
 const dateStr = (d: Date | string | undefined) => {
   if (!d) return "";
@@ -145,7 +146,6 @@ const SampleFormModalBody: React.FC<
 > = ({
   open,
   onClose,
-  lang,
   dict,
   genderDict,
   labOther,
@@ -159,8 +159,6 @@ const SampleFormModalBody: React.FC<
   enumOptions,
 }) => {
   const isEdit = !!initial;
-
-  const emptyToNull = z.string().transform((val) => (val === "" ? null : val));
 
   const sampleSchema = z.object({
     name: z.string().min(1, dict.validation.required),
