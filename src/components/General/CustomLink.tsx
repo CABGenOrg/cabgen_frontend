@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { i18n } from "@/i18n/i18n.config";
 import { useLanguage } from "@/redux/LanguageContext";
 
 interface CustomLinkProps {
@@ -19,7 +20,13 @@ const CustomLink = ({
   className = "",
 }: CustomLinkProps) => {
   const language = useLanguage();
-  const path = lang ? `/${lang}${href}` : `/${language}${href}`;
+
+  const buildPath = (locale: string) => {
+    if (href.startsWith("http") || href.startsWith("#")) return href;
+    return locale === i18n.defaultLocale ? href : `/${locale}${href}`;
+  };
+
+  const path = lang ? buildPath(lang) : buildPath(language);
 
   return (
     <Link

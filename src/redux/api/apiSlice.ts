@@ -13,9 +13,12 @@ const baseQuery = fetchBaseQuery({
   credentials: "include",
   prepareHeaders: (headers) => {
     if (typeof window !== "undefined") {
-      const locale = window.location.pathname.split("/")[1] || "en";
-      if (i18n.locales.includes(locale as (typeof i18n.locales)[number])) {
-        headers.set("Accept-Language", locale);
+      const locale = window.location.pathname.split("/")[1];
+      const validLocale = i18n.locales.includes(locale as (typeof i18n.locales)[number])
+        ? locale
+        : document.cookie.match(/NEXT_LOCALE=([^;]+)/)?.[1];
+      if (validLocale && i18n.locales.includes(validLocale as (typeof i18n.locales)[number])) {
+        headers.set("Accept-Language", validLocale);
       }
     }
     return headers;

@@ -1,3 +1,5 @@
+import AccountSecurity from "@/components/Account/AccountSecurity";
+
 export default function AccountSecurityPage() {
-  return null;
+  return <AccountSecurity />;
 }

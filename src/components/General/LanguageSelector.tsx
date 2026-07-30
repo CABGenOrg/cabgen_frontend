@@ -10,26 +10,43 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { usePathname, useParams, useRouter } from "next/navigation";
-import { Locale } from "@/i18n/i18n.config";
+import { i18n, Locale } from "@/i18n/i18n.config";
 
 const LanguageSelector = () => {
   const { lang } = useParams();
   const router = useRouter();
   const pathName = usePathname();
-  const [language, setLanguage] = useState(lang);
+  const currentLocale = Array.isArray(lang)
+    ? lang[0]
+    : (lang ?? i18n.defaultLocale);
+  const [language, setLanguage] = useState(currentLocale);
 
-  const redirectedPathName = (locale: string) => {
+  const redirectedPathName = (newLocale: string) => {
     if (!pathName) return "/";
 
     const segments = pathName.split("/");
-    segments[1] = locale;
-    return segments.join("/");
+    const firstSegment = segments[1];
+
+    const hasLocalePrefix = i18n.locales.includes(firstSegment as Locale);
+    const pathWithoutLocale = hasLocalePrefix
+      ? segments.slice(2)
+      : segments.slice(1);
+
+    const rest = pathWithoutLocale.join("/");
+
+    if (newLocale === i18n.defaultLocale) {
+      return `/${rest}`;
+    }
+    return `/${newLocale}${rest ? `/${rest}` : ""}`;
   };
 
   const changeLanguageURL = (newLanguage: Locale) => {
     const url = redirectedPathName(newLanguage);
     setLanguage(newLanguage);
+    document.cookie = `NEXT_LOCALE=${newLanguage}; path=/; max-age=31536000`;
+    
     router.replace(url);
+    router.refresh();
   };
 
   const languages = [

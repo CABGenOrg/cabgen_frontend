@@ -9,12 +9,15 @@ import AccountSequences from "@/components/Account/AccountSequences";
 import AccountMyAccount from "@/components/Account/AccountMyAccount";
 import AccountSecurity from "@/components/Account/AccountSecurity";
 import { useAuth } from "@/redux/AuthContext";
+import { useLanguage } from "@/redux/LanguageContext";
+import { i18n } from "@/i18n/i18n.config";
 import Loading from "./Loading";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const router = useRouter();
   const { isAuthenticated, isLoading } = useAuth();
+  const lang = useLanguage();
   const isAccountPage = pathname.includes("/account");
 
   const findAccountComponent = useCallback((pathname: string) => {
@@ -36,9 +39,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     if (!isAccountPage) return;
     if (isLoading) return;
     if (!isAuthenticated) {
-      router.replace("/login");
+      const loginPath =
+        lang === i18n.defaultLocale ? "/login" : `/${lang}/login`;
+      router.replace(loginPath);
     }
-  }, [isAccountPage, isLoading, isAuthenticated, router]);
+  }, [isAccountPage, isLoading, isAuthenticated, router, lang]);
 
   if (isAccountPage && isLoading) {
     return <Account accountComponent={<Loading />} />;
