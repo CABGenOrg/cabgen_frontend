@@ -393,6 +393,12 @@ const es = {
     overview: {
       title: "Resumen",
       welcome: "Bienvenido",
+      totalSamples: "Total de Muestras",
+      totalAnalyses: "Total de Análisis",
+      analysesDone: "Análisis Completados",
+      byStatus: "Análisis por Estado",
+      byType: "Análisis por Tipo",
+      topSpecies: "Principales Especies",
     },
   },
 };

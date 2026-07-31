@@ -387,6 +387,12 @@ const pt = {
     overview: {
       title: "Visão Geral",
       welcome: "Bem-vindo",
+      totalSamples: "Total de Amostras",
+      totalAnalyses: "Total de Análises",
+      analysesDone: "Análises Concluídas",
+      byStatus: "Análises por Status",
+      byType: "Análises por Tipo",
+      topSpecies: "Principais Espécies",
     },
   },
 };

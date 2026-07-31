@@ -231,6 +231,12 @@ const en = {
     overview: {
       title: "Overview",
       welcome: "Welcome",
+      totalSamples: "Total Samples",
+      totalAnalyses: "Total Analyses",
+      analysesDone: "Analyses Done",
+      byStatus: "Analyses by Status",
+      byType: "Analyses by Type",
+      topSpecies: "Top Species",
     },
     sequences: {
       title: "Samples",
