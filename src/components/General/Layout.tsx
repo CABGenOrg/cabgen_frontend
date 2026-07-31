@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Account from "@/components/Account/Account";
 import Overview from "@/components/Account/Overview";
 import AccountAnalysis from "@/components/Account/AccountAnalysis";
+import AccountAnalysisDetail from "@/components/Account/AccountAnalysisDetail";
 import AccountSequences from "@/components/Account/AccountSequences";
 import AccountMyAccount from "@/components/Account/AccountMyAccount";
 import AccountSecurity from "@/components/Account/AccountSecurity";
@@ -22,6 +23,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const findAccountComponent = useCallback((pathname: string) => {
     const accountComponents = [
+      { link: "/account/analysis/", component: <AccountAnalysisDetail /> },
       { link: "/account/analysis", component: <AccountAnalysis /> },
       { link: "/account/sequences", component: <AccountSequences /> },
       { link: "/account/my-account", component: <AccountMyAccount /> },
