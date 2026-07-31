@@ -228,7 +228,7 @@ const es = {
   Account: {
     sidebar: {
       overview: "Resumen",
-      sequences: "Secuencias",
+      sequences: "Muestras",
       analysis: "Análisis",
       myAccount: "Mi Cuenta",
       security: "Seguridad",
@@ -236,7 +236,7 @@ const es = {
       tutorial: "Tutorial",
     },
     sequences: {
-      title: "Secuencias",
+      title: "Muestras",
       newSample: "Nueva Muestra",
       editSample: "Editar Muestra",
       uploadSequences: "Subir Secuencias",

@@ -13,6 +13,7 @@ import {
   FormField,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
+import { Shield } from "lucide-react";
 import { input_class, label_class } from "@/styles/tailwind_classes";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
@@ -118,7 +119,12 @@ const AccountSecurity = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-5">{dict.title}</h1>
+      <h1 className="text-2xl font-semibold mb-5 flex items-center gap-2">
+        <Shield className="text-cabgen-400" size={24} />
+        <span className="bg-gradient-to-r from-cabgen-700 to-cabgen-400 bg-clip-text text-transparent">
+          {dict.title}
+        </span>
+      </h1>
 
       <div className="bg-white rounded-lg shadow-md border border-gray-100 p-6 mb-6">
         <h2 className="text-lg font-medium mb-1">{dict.changeEmail}</h2>

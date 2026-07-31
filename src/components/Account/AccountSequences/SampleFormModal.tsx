@@ -14,11 +14,7 @@ import {
   FormField,
 } from "@/components/ui/form";
 import { SmartSelect } from "../../General/SmartSelect";
-import {
-  section_btn,
-  input_class,
-  label_class,
-} from "@/styles/tailwind_classes";
+import { input_class, label_class } from "@/styles/tailwind_classes";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
 import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
@@ -378,15 +374,24 @@ const SampleFormModalBody: React.FC<
           )}
 
           <div className="flex justify-end gap-3 mt-4">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              className="px-6 py-2 text-base"
+            >
               {dict.cancel}
             </Button>
             {isLoading ? (
               <Loading />
             ) : (
-              <button type="submit" className={section_btn}>
+              <Button
+                type="submit"
+                variant="green"
+                className="px-6 py-2 text-base"
+              >
                 {dict.save}
-              </button>
+              </Button>
             )}
           </div>
         </form>

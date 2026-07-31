@@ -221,8 +221,8 @@ const en = {
   Account: {
     sidebar: {
       overview: "Overview",
-      sequences: "Sequences",
-      analysis: "Analysis",
+      sequences: "Samples",
+      analysis: "Analyses",
       myAccount: "My Account",
       security: "Security",
       settings: "Settings",
@@ -233,7 +233,7 @@ const en = {
       welcome: "Welcome",
     },
     sequences: {
-      title: "Sequences",
+      title: "Samples",
       newSample: "New Sample",
       editSample: "Edit Sample",
       uploadSequences: "Upload Sequences",
@@ -270,7 +270,7 @@ const en = {
       uploading: "Uploading...",
     },
     analyses: {
-      title: "Analysis",
+      title: "Analyses",
       newAnalysis: "New Analysis",
       sample: "Sample",
       type: "Type",

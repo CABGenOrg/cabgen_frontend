@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
+import { UserCog } from "lucide-react";
 import {
   Form,
   FormItem,
@@ -114,7 +115,12 @@ const AccountMyAccount = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-5">{dict.title}</h1>
+      <h1 className="text-2xl font-semibold mb-5 flex items-center gap-2">
+        <UserCog className="text-cabgen-400" size={24} />
+        <span className="bg-gradient-to-r from-cabgen-700 to-cabgen-400 bg-clip-text text-transparent">
+          {dict.title}
+        </span>
+      </h1>
 
       {profile && (
         <div className="bg-white rounded-lg shadow-md border border-gray-100 p-6 mb-6">

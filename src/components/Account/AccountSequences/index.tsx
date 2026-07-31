@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Plus, Upload, Pencil, Trash2 } from "lucide-react";
+import { Plus, Upload, Pencil, Trash2, Dna } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   useReactTable,
@@ -196,7 +196,12 @@ const AccountSequences = () => {
   return (
     <div className="w-full">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
-        <h1 className="text-2xl font-semibold">{dict.title}</h1>
+        <h1 className="text-2xl font-semibold flex items-center gap-2">
+          <Dna className="text-cabgen-400" size={24} />
+          <span className="bg-gradient-to-r from-cabgen-700 to-cabgen-400 bg-clip-text text-transparent">
+            {dict.title}
+          </span>
+        </h1>
         <button
           className={`${section_btn} flex items-center justify-center gap-1.5 shrink-0 w-full sm:w-auto`}
           onClick={() => setModal({ type: "add" })}
@@ -366,7 +371,7 @@ const AccountSequences = () => {
               type="error"
             />
           )}
-          <Button variant="outline" onClick={closeModal}>
+          <Button variant="outline" onClick={closeModal} className="px-6 py-2 text-base">
             {dict.cancel}
           </Button>
           {deleting ? (

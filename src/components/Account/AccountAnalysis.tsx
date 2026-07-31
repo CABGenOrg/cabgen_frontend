@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Plus, Eye, Trash2 } from "lucide-react";
+import { Plus, Eye, Trash2, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -104,7 +104,12 @@ const AccountAnalysis = () => {
     defaultValues: { type: "", sample_id: "" },
   });
 
-  const analysisTypeOptions = enumOptions?.analysis_types ?? [];
+  const analysisTypeOptions = (enumOptions?.analysis_types ?? []).map((opt) => ({
+    value: opt.value,
+    label:
+      (analysisTypeDict as Record<string, string>)[opt.value.toLowerCase()] ??
+      opt.label,
+  }));
   const sampleOptions = useMemo(
     () =>
       (samples ?? []).map((s: SampleResponse) => ({
@@ -257,7 +262,12 @@ const AccountAnalysis = () => {
   return (
     <div className="w-full">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
-        <h1 className="text-2xl font-semibold">{dict.title}</h1>
+        <h1 className="text-2xl font-semibold flex items-center gap-2">
+          <Search className="text-cabgen-400" size={24} />
+          <span className="bg-gradient-to-r from-cabgen-700 to-cabgen-400 bg-clip-text text-transparent">
+            {dict.title}
+          </span>
+        </h1>
         <button
           className={`${section_btn} flex items-center justify-center gap-1.5 shrink-0 w-full sm:w-auto`}
           onClick={() => setModal({ type: "add" })}
@@ -430,15 +440,20 @@ const AccountAnalysis = () => {
                     variant="outline"
                     onClick={closeModal}
                     disabled={isBusy}
+                    className="px-6 py-2 text-base"
                   >
                     {dict.cancel}
                   </Button>
                   {creating ? (
                     <Loading />
                   ) : (
-                    <button type="submit" className={section_btn}>
+                    <Button
+                      type="submit"
+                      variant="green"
+                      className="px-6 py-2 text-base"
+                    >
                       {dict.createAnalysis}
-                    </button>
+                    </Button>
                   )}
                 </div>
               </form>
@@ -478,7 +493,7 @@ const AccountAnalysis = () => {
               type="error"
             />
           )}
-          <Button variant="outline" onClick={closeModal}>
+          <Button variant="outline" onClick={closeModal} className="px-6 py-2 text-base">
             {dict.cancel}
           </Button>
           {deleting ? (

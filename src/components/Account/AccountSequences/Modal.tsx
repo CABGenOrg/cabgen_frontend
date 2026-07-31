@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { X } from "lucide-react";
 
 const Modal: React.FC<{
@@ -9,6 +9,15 @@ const Modal: React.FC<{
   title: string;
   children: React.ReactNode;
 }> = ({ open, onClose, title, children }) => {
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">

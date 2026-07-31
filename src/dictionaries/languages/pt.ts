@@ -222,15 +222,15 @@ const pt = {
   Account: {
     sidebar: {
       overview: "Visão Geral",
-      sequences: "Sequências",
-      analysis: "Análise",
+      sequences: "Amostras",
+      analysis: "Análises",
       myAccount: "Minha Conta",
       security: "Segurança",
       settings: "Configurações",
       tutorial: "Tutorial",
     },
     sequences: {
-      title: "Sequências",
+      title: "Amostras",
       newSample: "Nova Amostra",
       editSample: "Editar Amostra",
       uploadSequences: "Enviar Sequências",
@@ -267,7 +267,7 @@ const pt = {
       uploading: "Enviando...",
     },
     analyses: {
-      title: "Análise",
+      title: "Análises",
       newAnalysis: "Nova Análise",
       sample: "Amostra",
       type: "Tipo",

@@ -5,7 +5,7 @@ import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import Loading from "../General/Loading";
-import { User2 } from "lucide-react";
+import { User2, LayoutDashboard } from "lucide-react";
 
 const Overview = () => {
   const { user, isLoading } = useAuth();
@@ -18,8 +18,11 @@ const Overview = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-6">
-        {AccountDict.overview.title}
+      <h1 className="text-2xl font-semibold mb-6 flex items-center gap-2">
+        <LayoutDashboard className="text-cabgen-400" size={24} />
+        <span className="bg-gradient-to-r from-cabgen-700 to-cabgen-400 bg-clip-text text-transparent">
+          {AccountDict.overview.title}
+        </span>
       </h1>
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="flex items-center gap-4">
