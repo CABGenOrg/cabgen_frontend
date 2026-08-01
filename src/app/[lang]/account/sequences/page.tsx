@@ -1,3 +1,2 @@
-export default function AccountSequencesPage() {
-  return null;
-}
+const Page = () => {return null}
+export default Page;

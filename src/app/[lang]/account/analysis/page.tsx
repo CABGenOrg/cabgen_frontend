@@ -1,3 +1,2 @@
-export default function AccountAnalysisPage() {
-  return null;
-}
+const Page = () => {return null}
+export default Page;

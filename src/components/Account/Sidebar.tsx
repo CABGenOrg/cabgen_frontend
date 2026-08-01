@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLast, ChevronFirst } from "lucide-react";
+import { ChevronLast, ChevronFirst, ChevronDown, ChevronUp } from "lucide-react";
 import {
   useContext,
   createContext,
@@ -9,7 +9,7 @@ import {
   FC,
   useEffect,
 } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import CustomLink from "../General/CustomLink";
 import useScreenSize from "@/hooks/useScreenSize";
 
@@ -60,6 +60,7 @@ interface SidebarItemProps {
   href: string;
   disabled?: boolean;
   alert?: boolean;
+  indent?: boolean;
 }
 
 const SidebarItem: FC<SidebarItemProps> = ({
@@ -68,6 +69,7 @@ const SidebarItem: FC<SidebarItemProps> = ({
   href,
   disabled = false,
   alert = false,
+  indent = false,
 }) => {
   const context = useContext(SidebarContext);
   const pathname = usePathname();
@@ -84,6 +86,7 @@ const SidebarItem: FC<SidebarItemProps> = ({
           relative flex items-center py-2 px-2 rounded
           transition-colors duration-150 group
           ${disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}
+          ${indent ? "pl-10" : ""}
           ${
             isActive
               ? "bg-cabgen-200 text-white font-semibold"
@@ -128,4 +131,64 @@ const SidebarItem: FC<SidebarItemProps> = ({
   );
 };
 
-export { Sidebar, SidebarItem };
+interface SidebarGroupProps {
+  icon: ReactNode;
+  text: string;
+  href?: string;
+  children: ReactNode;
+}
+
+const SidebarGroup: FC<SidebarGroupProps> = ({ icon, text, href, children }) => {
+  const context = useContext(SidebarContext);
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  if (!context) {
+    throw new Error("SidebarGroup must be used within a Sidebar");
+  }
+  const { expanded } = context;
+
+  const isChildActive = href ? pathname.startsWith(href) : false;
+
+  const handleClick = () => {
+    if (!expanded && href) {
+      router.push(href);
+    } else {
+      setOpen((v) => !v);
+    }
+  };
+
+  useEffect(() => {
+    if (isChildActive && !open) setOpen(true);
+  }, [isChildActive, open]);
+
+  return (
+    <li>
+      <button
+        type="button"
+        onClick={handleClick}
+        className={`
+          w-full flex items-center py-2 px-2 rounded
+          transition-colors duration-150 group
+          ${isChildActive ? "bg-cabgen-200 text-white font-semibold" : "text-white hover:bg-cabgen-300/40"}
+          ${expanded ? "" : "justify-center"}
+        `}
+      >
+        <span className="flex items-center justify-center w-8 h-8 shrink-0">
+          {icon}
+        </span>
+        {expanded && (
+          <>
+            <span className="ml-3 text-left flex-1">{text}</span>
+            <span className="ml-auto">
+              {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </span>
+          </>
+        )}
+      </button>
+      {expanded && open && <ul className="mt-1 space-y-1">{children}</ul>}
+    </li>
+  );
+};
+
+export { Sidebar, SidebarItem, SidebarGroup };

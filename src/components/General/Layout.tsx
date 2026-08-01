@@ -9,6 +9,8 @@ import AccountAnalysisDetail from "@/components/Account/AccountAnalysisDetail";
 import AccountSequences from "@/components/Account/AccountSequences";
 import AccountMyAccount from "@/components/Account/AccountMyAccount";
 import AccountSecurity from "@/components/Account/AccountSecurity";
+import AdminOverview from "@/components/Account/Admin/AdminOverview";
+import AdminUsers from "@/components/Account/Admin/AdminUsers";
 import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { i18n } from "@/i18n/i18n.config";
@@ -23,6 +25,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const findAccountComponent = useCallback((pathname: string) => {
     const accountComponents = [
+      { link: "/account/admin/users", component: <AdminUsers /> },
+      { link: "/account/admin", component: <AdminOverview /> },
       { link: "/account/analysis/", component: <AccountAnalysisDetail /> },
       { link: "/account/analysis", component: <AccountAnalysis /> },
       { link: "/account/sequences", component: <AccountSequences /> },

@@ -7,10 +7,11 @@ import {
   DnaIcon,
   LucideSearch,
   LayoutDashboard,
-  Settings,
+  Shield,
   LockIcon,
   FileQuestion,
 } from "lucide-react";
+import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
@@ -26,6 +27,8 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
   const {
     dictionary: { Account: AccountDict },
   } = getTranslateClient(lang);
+  const { user } = useAuth();
+  const isAdmin = user?.user_role === "Admin";
 
   const sidebarLinks: SidebarLink[] = [
     {
@@ -59,12 +62,6 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
       disabled: false,
     },
     {
-      linkName: AccountDict.sidebar.settings,
-      link: "/account/settings",
-      icon: <Settings size={22} />,
-      disabled: true,
-    },
-    {
       linkName: AccountDict.sidebar.tutorial,
       link: "/tutorial",
       icon: <FileQuestion size={22} />,
@@ -84,6 +81,13 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
             disabled={disabled}
           />
         ))}
+        {isAdmin && (
+          <SidebarItem
+            icon={<Shield size={22} />}
+            text={AccountDict.sidebar.admin}
+            href="/account/admin"
+          />
+        )}
       </Sidebar>
       <div className="w-full py-5 pr-4 min-w-0">{accountComponent}</div>
     </div>

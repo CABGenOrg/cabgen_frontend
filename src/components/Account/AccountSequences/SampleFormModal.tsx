@@ -5,16 +5,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  FormControl,
-  FormField,
-} from "@/components/ui/form";
-import { SmartSelect } from "../../General/SmartSelect";
-import { input_class, label_class } from "@/styles/tailwind_classes";
+import { Form } from "@/components/ui/form";
+import TextField from "@/components/General/TextField";
+import SelectField from "@/components/General/SelectField";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
 import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
@@ -41,62 +34,6 @@ const dateStr = (d: Date | string | undefined) => {
   if (isNaN(date.getTime())) return "";
   return date.toISOString().split("T")[0];
 };
-
-const TextField: React.FC<{
-  name: string;
-  label: string;
-  form: any;
-  type?: string;
-  required?: boolean;
-}> = ({ name, label, form, type = "text", required }) => (
-  <FormField
-    control={form.control}
-    name={name}
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel className={label_class}>
-          {label}
-          {required && <span className="text-red-500 ml-0.5">*</span>}
-        </FormLabel>
-        <FormControl>
-          <input type={type} className={input_class} {...field} />
-        </FormControl>
-        <FormMessage className="text-red-600" />
-      </FormItem>
-    )}
-  />
-);
-
-const SelectField: React.FC<{
-  name: string;
-  label: string;
-  form: any;
-  options: { value: string; label: string }[];
-  placeholder: string;
-  required?: boolean;
-}> = ({ name, label, form, options, placeholder, required }) => (
-  <FormField
-    control={form.control}
-    name={name}
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel className={label_class}>
-          {label}
-          {required && <span className="text-red-500 ml-0.5">*</span>}
-        </FormLabel>
-        <FormControl>
-          <SmartSelect
-            value={field.value}
-            onChange={field.onChange}
-            options={options}
-            placeholder={placeholder}
-          />
-        </FormControl>
-        <FormMessage className="text-red-600" />
-      </FormItem>
-    )}
-  />
-);
 
 const getVal = (
   opts: { value: string; label: string }[],

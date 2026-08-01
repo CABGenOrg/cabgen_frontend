@@ -1,5 +1,2 @@
-import AccountMyAccount from "@/components/Account/AccountMyAccount";
-
-export default function AccountMyAccountPage() {
-  return <AccountMyAccount />;
-}
+const Page = () => {return null}
+export default Page;

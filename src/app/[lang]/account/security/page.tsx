@@ -1,5 +1,2 @@
-import AccountSecurity from "@/components/Account/AccountSecurity";
-
-export default function AccountSecurityPage() {
-  return <AccountSecurity />;
-}
+const Page = () => {return null}
+export default Page;
