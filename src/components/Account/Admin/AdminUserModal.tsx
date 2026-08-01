@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,6 +25,7 @@ import type {
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { emptyToNull } from "@/utils/zodHelpers";
+import { getChangedFields } from "@/utils/getChangedFields";
 
 const AdminUserModalBody: React.FC<{
   open: boolean;
@@ -54,32 +55,39 @@ const AdminUserModalBody: React.FC<{
   const userSchema = z.object({
     name: z.string().min(1, dict.validation.required),
     username: z.string().min(1, dict.validation.required),
+    email: z.string().min(1, dict.validation.required),
     password: isEdit
       ? z.string().optional()
       : z.string().min(1, dict.validation.required),
     country_code: z.string().min(1, dict.validation.required),
     user_role: z.string().min(1, dict.validation.required),
     is_active: z.boolean(),
-    interest: emptyToNull,
-    role: emptyToNull,
-    institution: emptyToNull,
+    interest: emptyToNull.optional(),
+    role: emptyToNull.optional(),
+    institution: emptyToNull.optional(),
   });
 
   type UserFormData = z.infer<typeof userSchema>;
 
+  const initialValues = useMemo(() => {
+    if (!initial) return undefined;
+    return {
+      name: initial.name ?? "",
+      username: initial.username ?? "",
+      email: initial.email ?? "",
+      password: "",
+      country_code: initial.country_code ?? "",
+      user_role: initial.user_role ?? "",
+      is_active: initial.is_active ?? true,
+      interest: initial.interest ?? "",
+      role: initial.role ?? "",
+      institution: initial.institution ?? "",
+    };
+  }, [initial]);
+
   const form = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
-    defaultValues: {
-      name: initial?.name ?? "",
-      username: initial?.username ?? "",
-      password: "",
-      country_code: initial?.country_code ?? "",
-      user_role: initial?.user_role ?? "",
-      is_active: initial?.is_active ?? true,
-      interest: initial?.interest ?? "",
-      role: initial?.role ?? "",
-      institution: initial?.institution ?? "",
-    },
+    values: initialValues,
   });
 
   const [createUser, { isLoading: creating, error: createError }] =
@@ -93,10 +101,15 @@ const AdminUserModalBody: React.FC<{
   const onSubmit: SubmitHandler<UserFormData> = async (data) => {
     try {
       if (isEdit && initial) {
+        const changed = getChangedFields(
+          initialValues ?? ({} as UserFormData),
+          data,
+        );
+        if (Object.keys(changed).length === 0) return;
         await updateUser({
           id: initial.id,
-          ...data,
-        } as AdminUserUpdateInput).unwrap();
+          data: changed as Partial<AdminUserInput>,
+        }).unwrap();
       } else {
         await createUser(data as AdminUserInput).unwrap();
       }
@@ -115,7 +128,13 @@ const AdminUserModalBody: React.FC<{
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
             <TextField name="name" label={dict.name} form={form} required />
-            <TextField name="username" label={dict.username} form={form} required />
+            <TextField
+              name="username"
+              label={dict.username}
+              form={form}
+              required
+            />
+            <TextField name="email" label={dict.email} form={form} required />
             <TextField
               name="password"
               label={dict.password}

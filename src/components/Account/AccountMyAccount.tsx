@@ -23,6 +23,7 @@ import { useGetProfileQuery, useUpdateProfileMutation } from "@/redux/services/u
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { emptyToNull } from "@/utils/zodHelpers";
+import { getChangedFields } from "@/utils/getChangedFields";
 
 const AccountMyAccount = () => {
   const lang = useLanguage();
@@ -72,16 +73,9 @@ const AccountMyAccount = () => {
 
   const onSubmit: SubmitHandler<ProfileFormData> = async (data) => {
     try {
-      const changed: Record<string, string | null> = {};
-      if (data.name !== (profileValues?.name ?? "")) changed.name = data.name;
-      if (data.username !== (profileValues?.username ?? "")) changed.username = data.username;
-      if (data.country_code !== (profileValues?.country_code ?? "")) changed.country_code = data.country_code;
-      if (data.institution !== (profileValues?.institution ?? "")) changed.institution = data.institution;
-      if (data.role !== (profileValues?.role ?? "")) changed.role = data.role;
-      if (data.interest !== (profileValues?.interest ?? "")) changed.interest = data.interest;
-
+      const changed = getChangedFields(profileValues ?? ({} as ProfileFormData), data);
       if (Object.keys(changed).length === 0) return;
-      await updateProfile(changed as any).unwrap();
+      await updateProfile(changed as Record<string, string | null>).unwrap();
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch {}

@@ -47,7 +47,7 @@ const usersService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Users"],
     }),
-    updateProfile: builder.mutation<UserResponse, UserInput>({
+    updateProfile: builder.mutation<UserResponse, Partial<UserInput>>({
       query: (data) => requestConfig(USERS_ENDPOINTS.DEFAULT, "PUT", data),
       transformResponse: (res: ApiResponse<UserResponse>) => res.data,
       transformErrorResponse: (res) => handleError(res),

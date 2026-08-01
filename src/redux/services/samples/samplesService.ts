@@ -66,7 +66,7 @@ const samplesService = apiSlice.injectEndpoints({
     }),
     updateSample: builder.mutation<
       SampleResponse,
-      { id: string; data: SampleInput }
+      { id: string; data: Partial<SampleInput> }
     >({
       query: ({ id, data }) =>
         requestConfig(`${SAMPLES_ENDPOINTS.DEFAULT}/${id}`, "PUT", data),

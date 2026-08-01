@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,6 +27,7 @@ import type {
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import Modal from "./Modal";
 import { emptyToNull } from "@/utils/zodHelpers";
+import { getChangedFields } from "@/utils/getChangedFields";
 
 const dateStr = (d: Date | string | undefined) => {
   if (!d) return "";
@@ -144,25 +145,30 @@ const SampleFormModalBody: React.FC<
   const sampleSources = formOptions.sample_sources ?? [];
   const sequencers = formOptions.sequencers ?? [];
 
+  const initialValues = useMemo(() => {
+    if (!initial) return undefined;
+    return {
+      name: initial.name ?? "",
+      collection_date: dateStr(initial.collection_date),
+      run_number: initial.run_number ?? "",
+      run_date: dateStr(initial.run_date),
+      city: getVal(cityOptions, initial.city),
+      origin_code: initial.origin_code ?? "",
+      gender: getVal(genderOptions, initial.gender),
+      date_of_birth: dateStr(initial.date_of_birth),
+      country_code: getVal(countryOptions, initial.country_code),
+      origin_id: getVal(origins, initial.origin),
+      sample_source_id: getVal(sampleSources, initial.sample_source),
+      microorganism_id: getVal(microorganisms, initial.microorganism),
+      sequencer_id: getVal(sequencers, initial.sequencer),
+      laboratory_id: getVal(laboratoryOptions, initial.laboratory),
+      health_service_id: getVal(healthServiceOptions, initial.health_service),
+    };
+  }, [initial, cityOptions, genderOptions, countryOptions, origins, microorganisms, sampleSources, sequencers, laboratoryOptions, healthServiceOptions]);
+
   const form = useForm<SampleFormData>({
     resolver: zodResolver(sampleSchema),
-    defaultValues: {
-      name: initial?.name ?? "",
-      collection_date: dateStr(initial?.collection_date),
-      run_number: initial?.run_number ?? "",
-      run_date: dateStr(initial?.run_date),
-      city: getVal(cityOptions, initial?.city),
-      origin_code: initial?.origin_code ?? "",
-      gender: getVal(genderOptions, initial?.gender),
-      date_of_birth: dateStr(initial?.date_of_birth),
-      country_code: getVal(countryOptions, initial?.country_code),
-      origin_id: getVal(origins, initial?.origin),
-      sample_source_id: getVal(sampleSources, initial?.sample_source),
-      microorganism_id: getVal(microorganisms, initial?.microorganism),
-      sequencer_id: getVal(sequencers, initial?.sequencer),
-      laboratory_id: getVal(laboratoryOptions, initial?.laboratory),
-      health_service_id: getVal(healthServiceOptions, initial?.health_service),
-    },
+    values: initialValues,
   });
 
   const [createSample, { isLoading: creating, error: createError }] =
@@ -176,9 +182,11 @@ const SampleFormModalBody: React.FC<
   const onSubmit: SubmitHandler<SampleFormData> = async (data) => {
     try {
       if (isEdit && initial) {
+        const changed = getChangedFields(initialValues ?? ({} as SampleFormData), data);
+        if (Object.keys(changed).length === 0) return;
         await updateSample({
           id: initial.id,
-          data: data as unknown as SampleInput,
+          data: changed as unknown as SampleInput,
         }).unwrap();
       } else {
         await createSample(data as unknown as SampleInput).unwrap();

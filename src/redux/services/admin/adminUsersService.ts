@@ -25,6 +25,7 @@ export type AdminUserResponse = {
 export type AdminUserInput = {
   name: string;
   username: string;
+  email: string;
   password: string;
   country_code: string;
   user_role: string;
@@ -34,7 +35,10 @@ export type AdminUserInput = {
   institution: string;
 };
 
-export type AdminUserUpdateInput = Partial<AdminUserInput> & { id: string };
+export type AdminUserUpdateInput = {
+  id: string;
+  data: Partial<AdminUserInput>;
+};
 
 const adminUsersService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -57,7 +61,8 @@ const adminUsersService = apiSlice.injectEndpoints({
       invalidatesTags: ["Users"],
     }),
     updateUser: builder.mutation<AdminUserResponse, AdminUserUpdateInput>({
-      query: (data) => requestConfig(ADMIN_ENDPOINTS.USERS, "PUT", data),
+      query: ({ id, data }) =>
+        requestConfig(`${ADMIN_ENDPOINTS.USERS}/${id}`, "PUT", data),
       transformResponse: (res: ApiResponse<AdminUserResponse>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       invalidatesTags: ["Users"],
