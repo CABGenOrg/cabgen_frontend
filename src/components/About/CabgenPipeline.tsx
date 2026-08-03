@@ -25,7 +25,7 @@ const CabgenPipeline = ({ lang }: { lang: Locale }) => {
         <OptimizedImage
           src="/About/cabgen_pipeline.png"
           alt="cabgen pipeline"
-          className="w-auto h-auto"
+          className="w-full max-w-5xl mx-auto"
         />
       </div>
     </Section>

@@ -63,8 +63,8 @@ const Menu = ({ lang }: { lang: Locale }) => {
           <Image
             src="/Menu/fiocruz_logo.png"
             alt="FioCruz logo"
-            width={5000}
-            height={2500}
+            width={500}
+            height={250}
             className="w-auto lg:h-16 h-14 cursor-pointer"
             priority={true}
           />
@@ -161,8 +161,8 @@ const Menu = ({ lang }: { lang: Locale }) => {
             <Image
               src="/Menu/fiocruz_logo.png"
               alt="FioCruz logo"
-              width={5000}
-              height={2500}
+              width={500}
+              height={250}
               className="w-auto h-[75%] cursor-pointer"
             />
           </CustomLink>

@@ -5,8 +5,8 @@ import maintenanceMiddleware from "./middlewares/maintenanceMiddleware";
 import blockedURLsMiddleware from "./middlewares/blockedURLsMiddleware";
 
 const middlewares = [
-  languageMiddleware,
   blockedURLsMiddleware,
+  languageMiddleware,
   maintenanceMiddleware,
   authMiddleware,
 ];

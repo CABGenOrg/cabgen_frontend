@@ -36,7 +36,7 @@ const CabgenResults = ({ lang }: { lang: Locale }) => {
         <OptimizedImage
           src="/About/cabgen_result.png"
           alt="cabgen result example"
-          className="w-auto h-auto"
+          className="w-full max-w-5xl mx-auto"
         />
       </div>
     </Section>

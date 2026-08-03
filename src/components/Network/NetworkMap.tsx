@@ -19,7 +19,7 @@ const NetworkMap = ({ lang }: { lang: Locale }) => {
         <OptimizedImage
           src="/Network/mapa_cabgen.png"
           alt="LACENs map"
-          className="xl:w-2/5 lg:w-3/5 md:w-4/5 w-full h-auto"
+          className="xl:w-4/5 lg:w-3/5 md:w-4/5 w-full h-auto"
         />
       </div>
     </Section>

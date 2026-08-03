@@ -56,8 +56,8 @@ const LanguageSelector = () => {
           className="w-5 h-4"
           src="/Menu/br.png"
           alt="Brazil flag"
-          width={5000}
-          height={2500}
+          width={80}
+          height={64}
         />
       ),
       name: "Português",
@@ -69,8 +69,8 @@ const LanguageSelector = () => {
           className="w-5 h-4"
           src="/Menu/us.png"
           alt="USA flag"
-          width={5000}
-          height={2500}
+          width={80}
+          height={64}
         />
       ),
       name: "English",
@@ -82,8 +82,8 @@ const LanguageSelector = () => {
           className="w-5 h-4"
           src="/Menu/es.png"
           alt="Spain flag"
-          width={5000}
-          height={2500}
+          width={80}
+          height={64}
         />
       ),
       name: "Español",

@@ -6,18 +6,34 @@ import {
   NextResponse,
 } from "next/server";
 import { buildURLWithLanguage } from "@/utils/handleURLs";
+import { i18n } from "@/i18n/i18n.config";
 
-const blockedURLs = process.env.BLOCKED_URLS || "";
-const blockedURLsRegex = new RegExp(blockedURLs.split(",").join("|"), "i");
+const nonDefaultLocales = i18n.locales.filter(
+  (locale) => locale !== i18n.defaultLocale,
+);
+const localePrefixRegex = new RegExp(
+  `^/(${nonDefaultLocales.join("|")})(?=/|$)`,
+);
 
 const blockedURLsMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
-    const loginURL = buildURLWithLanguage(request, "/");
+    const blockedURLs = process.env.BLOCKED_URLS || "";
 
-    const responseRedirect = (url: URL) => NextResponse.redirect(url);
+    if (blockedURLs) {
+      const patterns = blockedURLs
+        .split(",")
+        .map((p) => p.trim())
+        .filter(Boolean);
 
-    if (blockedURLs && blockedURLsRegex.test(request.nextUrl.pathname)) {
-      return responseRedirect(loginURL);
+      if (patterns.length > 0) {
+        const regex = new RegExp(patterns.join("|"), "i");
+        const pathWithoutLocale =
+          request.nextUrl.pathname.replace(localePrefixRegex, "") || "/";
+
+        if (regex.test(pathWithoutLocale)) {
+          return NextResponse.redirect(buildURLWithLanguage(request, "/"));
+        }
+      }
     }
 
     return next(request, _next);

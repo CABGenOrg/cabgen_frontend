@@ -81,7 +81,7 @@ const config = {
         },
         marquee: {
           "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(var(--marquee-shift, -50%))" },
         },
       },
       animation: {
