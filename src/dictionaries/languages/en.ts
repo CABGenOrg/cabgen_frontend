@@ -369,6 +369,13 @@ const en = {
       noOrigins: "No origins found",
       showingOrigins: "{count} origins",
       names: { pt: "Portuguese Name", en: "English Name", es: "Spanish Name" },
+      newSequencer: "New Sequencer",
+      editSequencer: "Edit Sequencer",
+      createSequencer: "Create Sequencer",
+      noSequencers: "No sequencers found",
+      showingSequencers: "{count} sequencers",
+      model: "Model",
+      brand: "Brand",
     },
     myAccount: {
       title: "My Account",

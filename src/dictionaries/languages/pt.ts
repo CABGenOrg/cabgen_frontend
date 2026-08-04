@@ -360,6 +360,13 @@ const pt = {
       noOrigins: "Nenhuma origem encontrada",
       showingOrigins: "{count} origens",
       names: { pt: "Nome em Português", en: "Nome em Inglês", es: "Nome em Espanhol" },
+      newSequencer: "Novo Sequenciador",
+      editSequencer: "Editar Sequenciador",
+      createSequencer: "Criar Sequenciador",
+      noSequencers: "Nenhum sequenciador encontrado",
+      showingSequencers: "{count} sequenciadores",
+      model: "Modelo",
+      brand: "Marca",
     },
     myAccount: {
       title: "Minha Conta",

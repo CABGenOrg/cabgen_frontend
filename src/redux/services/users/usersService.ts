@@ -19,9 +19,9 @@ export type UserInput = {
   name: string;
   username: string;
   country_code: string;
-  interest: string;
-  role: string;
-  institution: string;
+  interest?: string | null;
+  role?: string | null;
+  institution?: string | null;
 };
 
 export type UpdatePasswordInput = {

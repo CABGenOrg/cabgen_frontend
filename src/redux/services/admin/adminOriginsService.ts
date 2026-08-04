@@ -2,11 +2,11 @@ import { apiSlice, ApiResponse, ApiMessage } from "../../api/apiSlice";
 import { requestConfig } from "../../../utils/handleRequest";
 import handleError from "@/utils/handleError";
 import { ADMIN_ENDPOINTS } from "./adminEndpoints";
-import { Names } from "@/types/api";
+import { Translations } from "@/types/api";
 
 export type AdminOriginDetailResponse = {
   id: string;
-  names: Names;
+  names: Translations;
   is_active: boolean;
 };
 
@@ -17,7 +17,7 @@ export type AdminOriginTableResponse = {
 };
 
 export type AdminOriginInput = {
-  names: Names;
+  names: Translations;
   is_active: boolean;
 };
 
@@ -42,10 +42,10 @@ const adminOriginsService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Origins"],
     }),
-    getOriginByName: builder.query<AdminOriginTableResponse, string>({
+    getOriginsByName: builder.query<AdminOriginTableResponse[], string>({
       query: (name) =>
         requestConfig(`${ADMIN_ENDPOINTS.ORIGINS_SEARCH}${name}`, "GET"),
-      transformResponse: (res: ApiResponse<AdminOriginTableResponse>) =>
+      transformResponse: (res: ApiResponse<AdminOriginTableResponse[]>) =>
         res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Origins"],
@@ -83,7 +83,7 @@ const adminOriginsService = apiSlice.injectEndpoints({
 export const {
   useGetOriginsQuery,
   useGetOriginByIDQuery,
-  useGetOriginByNameQuery,
+  useGetOriginsByNameQuery,
   useCreateOriginMutation,
   useUpdateOriginMutation,
   useDeleteOriginMutation,

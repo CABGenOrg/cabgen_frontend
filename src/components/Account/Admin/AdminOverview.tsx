@@ -57,7 +57,7 @@ const AdminOverview = () => {
   const cards: AdminCardProps[] = [
     { icon: <Users size={24} />, title: dict.users, href: "/account/admin/users" },
     { icon: <Globe size={24} />, title: dict.origins, href: "/account/admin/origins" },
-    { icon: <Cpu size={24} />, title: dict.sequencers, href: "#", disabled: true },
+    { icon: <Cpu size={24} />, title: dict.sequencers, href: "/account/admin/sequencers" },
     { icon: <FlaskConical size={24} />, title: dict.sampleSources, href: "#", disabled: true },
     { icon: <HeartPulse size={24} />, title: dict.healthServices, href: "#", disabled: true },
     { icon: <Bug size={24} />, title: dict.microorganisms, href: "#", disabled: true },

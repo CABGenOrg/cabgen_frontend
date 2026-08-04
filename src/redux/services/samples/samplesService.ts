@@ -31,10 +31,10 @@ export type SampleInput = {
   collection_date: Date;
   run_number: string;
   run_date: Date;
-  city: string;
-  origin_code: string;
-  gender: string;
-  date_of_birth: Date;
+  city?: string  | null;
+  origin_code?: string  | null;
+  gender?: string  | null;
+  date_of_birth?: Date  | null;
   country_code: string;
   origin: string;
   sample_source: string;

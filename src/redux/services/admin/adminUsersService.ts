@@ -30,9 +30,9 @@ export type AdminUserInput = {
   country_code: string;
   user_role: string;
   is_active: boolean;
-  interest: string;
-  role: string;
-  institution: string;
+  interest?: string | null;
+  role?: string | null;
+  institution?: string | null;
 };
 
 export type AdminUserUpdateInput = {

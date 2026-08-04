@@ -99,10 +99,10 @@ const SampleFormModalBody: React.FC<
     collection_date: z.string().min(1, dict.validation.required),
     run_number: z.string().min(1, dict.validation.required),
     run_date: z.string().min(1, dict.validation.required),
-    city: emptyToNull,
-    origin_code: emptyToNull,
-    gender: emptyToNull,
-    date_of_birth: emptyToNull,
+    city: emptyToNull.optional(),
+    origin_code: emptyToNull.optional(),
+    gender: emptyToNull.optional(),
+    date_of_birth: emptyToNull.optional(),
     country_code: z.string().min(1, dict.validation.required),
     origin_id: z.string().min(1, dict.validation.required),
     sample_source_id: z.string().min(1, dict.validation.required),
@@ -164,7 +164,18 @@ const SampleFormModalBody: React.FC<
       laboratory_id: getVal(laboratoryOptions, initial.laboratory),
       health_service_id: getVal(healthServiceOptions, initial.health_service),
     };
-  }, [initial, cityOptions, genderOptions, countryOptions, origins, microorganisms, sampleSources, sequencers, laboratoryOptions, healthServiceOptions]);
+  }, [
+    initial,
+    cityOptions,
+    genderOptions,
+    countryOptions,
+    origins,
+    microorganisms,
+    sampleSources,
+    sequencers,
+    laboratoryOptions,
+    healthServiceOptions,
+  ]);
 
   const form = useForm<SampleFormData>({
     resolver: zodResolver(sampleSchema),
@@ -182,7 +193,10 @@ const SampleFormModalBody: React.FC<
   const onSubmit: SubmitHandler<SampleFormData> = async (data) => {
     try {
       if (isEdit && initial) {
-        const changed = getChangedFields(initialValues ?? ({} as SampleFormData), data);
+        const changed = getChangedFields(
+          initialValues ?? ({} as SampleFormData),
+          data,
+        );
         if (Object.keys(changed).length === 0) return;
         await updateSample({
           id: initial.id,

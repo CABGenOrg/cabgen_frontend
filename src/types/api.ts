@@ -1,4 +1,4 @@
-export type Names = {
+export type Translations = {
   pt: string;
   en: string;
   es: string;
