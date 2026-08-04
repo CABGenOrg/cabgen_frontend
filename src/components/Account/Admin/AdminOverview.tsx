@@ -61,7 +61,7 @@ const AdminOverview = () => {
     { icon: <FlaskConical size={24} />, title: dict.sampleSources, href: "#", disabled: true },
     { icon: <HeartPulse size={24} />, title: dict.healthServices, href: "#", disabled: true },
     { icon: <Bug size={24} />, title: dict.microorganisms, href: "#", disabled: true },
-    { icon: <Microscope size={24} />, title: dict.laboratories, href: "#", disabled: true },
+    { icon: <Microscope size={24} />, title: dict.laboratories, href: "/account/admin/laboratories" },
     { icon: <Dna size={24} />, title: dict.allSamples, href: "#", disabled: true },
     { icon: <Search size={24} />, title: dict.allAnalyses, href: "#", disabled: true },
   ];

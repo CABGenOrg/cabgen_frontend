@@ -376,6 +376,12 @@ const en = {
       showingSequencers: "{count} sequencers",
       model: "Model",
       brand: "Brand",
+      newLaboratory: "New Laboratory",
+      editLaboratory: "Edit Laboratory",
+      createLaboratory: "Create Laboratory",
+      noLaboratories: "No laboratories found",
+      showingLaboratories: "{count} laboratories",
+      abbreviation: "Abbreviation",
     },
     myAccount: {
       title: "My Account",

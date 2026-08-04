@@ -13,6 +13,7 @@ import AdminOverview from "@/components/Account/Admin/AdminOverview";
 import AdminUsers from "@/components/Account/Admin/AdminUsers";
 import AdminOrigins from "@/components/Account/Admin/AdminOrigins";
 import AdminSequencers from "@/components/Account/Admin/AdminSequencers";
+import AdminLaboratories from "@/components/Account/Admin/AdminLaboratories";
 import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { i18n } from "@/i18n/i18n.config";
@@ -30,6 +31,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       { link: "/account/admin/users", component: <AdminUsers /> },
       { link: "/account/admin/origins", component: <AdminOrigins /> },
       { link: "/account/admin/sequencers", component: <AdminSequencers /> },
+      { link: "/account/admin/laboratories", component: <AdminLaboratories /> },
       { link: "/account/admin", component: <AdminOverview /> },
       { link: "/account/analysis/", component: <AccountAnalysisDetail /> },
       { link: "/account/analysis", component: <AccountAnalysis /> },

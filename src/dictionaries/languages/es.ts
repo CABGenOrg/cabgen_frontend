@@ -373,6 +373,12 @@ const es = {
       showingSequencers: "{count} secuenciadores",
       model: "Modelo",
       brand: "Marca",
+      newLaboratory: "Nuevo Laboratorio",
+      editLaboratory: "Editar Laboratorio",
+      createLaboratory: "Crear Laboratorio",
+      noLaboratories: "No se encontraron laboratorios",
+      showingLaboratories: "{count} laboratorios",
+      abbreviation: "Abreviatura",
     },
     myAccount: {
       title: "Mi Cuenta",

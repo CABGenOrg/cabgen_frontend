@@ -367,6 +367,12 @@ const pt = {
       showingSequencers: "{count} sequenciadores",
       model: "Modelo",
       brand: "Marca",
+      newLaboratory: "Novo Laboratório",
+      editLaboratory: "Editar Laboratório",
+      createLaboratory: "Criar Laboratório",
+      noLaboratories: "Nenhum laboratório encontrado",
+      showingLaboratories: "{count} laboratórios",
+      abbreviation: "Abreviação",
     },
     myAccount: {
       title: "Minha Conta",
