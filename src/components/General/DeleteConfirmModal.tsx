@@ -42,8 +42,14 @@ const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
       </div>
     </div>
     <div className="flex justify-end gap-3 mt-6">
-      {error && <Message msg={error} type="error" />}
-      <Button variant="outline" onClick={onClose} className="px-6 py-2 text-base">
+      {error && typeof error === "string" && error !== "undefined" && (
+        <Message msg={error} type="error" />
+      )}
+      <Button
+        variant="outline"
+        onClick={onClose}
+        className="px-6 py-2 text-base"
+      >
         {dict.cancel}
       </Button>
       {deleting ? (

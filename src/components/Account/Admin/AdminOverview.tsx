@@ -17,7 +17,6 @@ import {
 import PageHeader from "@/components/General/PageHeader";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
-import { useGetUsersQuery } from "@/redux/services/admin/adminUsersService";
 
 interface AdminCardProps {
   icon: React.ReactNode;
@@ -55,11 +54,9 @@ const AdminOverview = () => {
   } = getTranslateClient(lang);
   const dict = AccountDict.admin;
 
-  const { data: users = [] } = useGetUsersQuery();
-
   const cards: AdminCardProps[] = [
-    { icon: <Users size={24} />, title: `${dict.users} (${users.length})`, href: "/account/admin/users" },
-    { icon: <Globe size={24} />, title: dict.origins, href: "#", disabled: true },
+    { icon: <Users size={24} />, title: dict.users, href: "/account/admin/users" },
+    { icon: <Globe size={24} />, title: dict.origins, href: "/account/admin/origins" },
     { icon: <Cpu size={24} />, title: dict.sequencers, href: "#", disabled: true },
     { icon: <FlaskConical size={24} />, title: dict.sampleSources, href: "#", disabled: true },
     { icon: <HeartPulse size={24} />, title: dict.healthServices, href: "#", disabled: true },

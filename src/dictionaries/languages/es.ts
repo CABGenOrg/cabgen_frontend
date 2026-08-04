@@ -360,6 +360,12 @@ const es = {
       validation: { required: "Este campo es obligatorio" },
       activeValues: { yes: "Sí", no: "No" },
       roleValues: { Admin: "Administrador", Collaborator: "Colaborador" },
+      newOrigin: "Nuevo Origen",
+      editOrigin: "Editar Origen",
+      createOrigin: "Crear Origen",
+      noOrigins: "No se encontraron orígenes",
+      showingOrigins: "{count} orígenes",
+      names: { pt: "Nombre en Portugués", en: "Nombre en Inglés", es: "Nombre en Español" },
     },
     myAccount: {
       title: "Mi Cuenta",

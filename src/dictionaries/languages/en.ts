@@ -363,6 +363,12 @@ const en = {
       validation: { required: "This field is required" },
       activeValues: { yes: "Yes", no: "No" },
       roleValues: { Admin: "Admin", Collaborator: "Collaborator" },
+      newOrigin: "New Origin",
+      editOrigin: "Edit Origin",
+      createOrigin: "Create Origin",
+      noOrigins: "No origins found",
+      showingOrigins: "{count} origins",
+      names: { pt: "Portuguese Name", en: "English Name", es: "Spanish Name" },
     },
     myAccount: {
       title: "My Account",

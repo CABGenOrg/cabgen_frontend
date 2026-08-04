@@ -354,6 +354,12 @@ const pt = {
       validation: { required: "Este campo é obrigatório" },
       activeValues: { yes: "Sim", no: "Não" },
       roleValues: { Admin: "Administrador", Collaborator: "Colaborador" },
+      newOrigin: "Nova Origem",
+      editOrigin: "Editar Origem",
+      createOrigin: "Criar Origem",
+      noOrigins: "Nenhuma origem encontrada",
+      showingOrigins: "{count} origens",
+      names: { pt: "Nome em Português", en: "Nome em Inglês", es: "Nome em Espanhol" },
     },
     myAccount: {
       title: "Minha Conta",
