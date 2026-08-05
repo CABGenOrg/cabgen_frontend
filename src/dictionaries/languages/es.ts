@@ -396,6 +396,20 @@ const es = {
       noSampleSources: "No se encontraron fuentes de muestra",
       showingSampleSources: "{count} fuentes de muestras",
       group: "Grupo",
+      newMicroorganism: "Nuevo Microorganismo",
+      editMicroorganism: "Editar Microorganismo",
+      createMicroorganism: "Crear Microorganismo",
+      noMicroorganisms: "No se encontraron microorganismos",
+      showingMicroorganisms: "{count} microorganismos",
+      taxon: "Taxón",
+      species: "Especie",
+      variety: "Variedad",
+      taxonValues: {
+        Bacteria: "Bacteria",
+        Virus: "Virus",
+        Protozoa: "Protozoa",
+        Fungi: "Hongos",
+      },
     },
     myAccount: {
       title: "Mi Cuenta",
@@ -457,6 +471,7 @@ const es = {
       laboratory: { other: "Otro" },
       city: { other: "Otra" },
       healthService: { other: "Otro" },
+      microorganism: { other: "Otro" },
       analysis_type: {
         fastqc: "Calidad",
         genome: "Genómica",
