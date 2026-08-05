@@ -19,5 +19,4 @@ export const ADMIN_ENDPOINTS = {
   ANALYSES: "/admin/analyses",
   ANALYSES_SEARCH: "/admin/analyses/search",
   TICKETS: "/admin/tickets",
-  TICKETS_SEARCH: "/admin/tickets?status=",
 } as const;

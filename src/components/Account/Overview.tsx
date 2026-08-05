@@ -170,7 +170,7 @@ const Overview = () => {
         />
         <StatCard
           icon={<CheckCircle size={24} />}
-          value={analyses.filter((a) => a.status === "done").length}
+          value={analyses.filter((a) => a.status === "DONE").length}
           label={overviewDict.analysesDone}
           onClick={() => router.push("/account/analysis")}
         />

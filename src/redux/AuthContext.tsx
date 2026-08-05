@@ -1,11 +1,11 @@
 "use client";
 
 import React, { createContext, useContext, useMemo } from "react";
-import { useGetProfileQuery } from "./services/users/usersService";
-import type { UserResponse } from "./services/users/usersService";
+import { useGetMeQuery } from "./services/auth/authService";
+import type { UserToken } from "./services/auth/authService";
 import { usePathname } from "next/navigation";
 
-export type User = UserResponse;
+export type User = UserToken;
 
 type AuthContextType = {
   user: User | null;
@@ -27,7 +27,7 @@ export const AuthProvider = ({
   initialUser?: User | null;
 }) => {
   const pathname = usePathname();
-  const { data, isLoading, isUninitialized } = useGetProfileQuery(undefined, {
+  const { data, isLoading, isUninitialized } = useGetMeQuery(undefined, {
     skip: typeof window === "undefined",
   });
 
@@ -40,9 +40,7 @@ export const AuthProvider = ({
     return { user, isAuthenticated, isLoading: stillResolving };
   }, [data, isLoading, isUninitialized, initialUser, pathname]);
 
-  return (
-    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);

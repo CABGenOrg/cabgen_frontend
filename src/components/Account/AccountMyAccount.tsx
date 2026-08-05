@@ -81,7 +81,7 @@ const AccountMyAccount = () => {
     } catch {}
   };
 
-  if (loadingProfile) {
+  if (loadingProfile || !countries) {
     return (
       <div className="flex justify-center py-16">
         <Loading />

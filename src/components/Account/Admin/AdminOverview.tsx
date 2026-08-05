@@ -13,6 +13,7 @@ import {
   Dna,
   Search,
   Shield,
+  MessageSquare,
 } from "lucide-react";
 import PageHeader from "@/components/General/PageHeader";
 import { useLanguage } from "@/redux/LanguageContext";
@@ -62,6 +63,7 @@ const AdminOverview = () => {
     { icon: <HeartPulse size={24} />, title: dict.healthServices, href: "/account/admin/health-services" },
     { icon: <Bug size={24} />, title: dict.microorganisms, href: "/account/admin/microorganisms" },
     { icon: <Microscope size={24} />, title: dict.laboratories, href: "/account/admin/laboratories" },
+    { icon: <MessageSquare size={24} />, title: dict.tickets, href: "/account/admin/tickets" },
     { icon: <Dna size={24} />, title: dict.allSamples, href: "#", disabled: true },
     { icon: <Search size={24} />, title: dict.allAnalyses, href: "#", disabled: true },
   ];

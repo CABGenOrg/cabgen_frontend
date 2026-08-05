@@ -368,7 +368,7 @@ const RegisterForm = () => {
               )}
               {isSuccess && data && (
                 <Message
-                  msg={data.message}
+                  msg={data}
                   type="success"
                 />
               )}
