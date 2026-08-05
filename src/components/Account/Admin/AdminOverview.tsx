@@ -58,7 +58,7 @@ const AdminOverview = () => {
     { icon: <Users size={24} />, title: dict.users, href: "/account/admin/users" },
     { icon: <Globe size={24} />, title: dict.origins, href: "/account/admin/origins" },
     { icon: <Cpu size={24} />, title: dict.sequencers, href: "/account/admin/sequencers" },
-    { icon: <FlaskConical size={24} />, title: dict.sampleSources, href: "#", disabled: true },
+    { icon: <FlaskConical size={24} />, title: dict.sampleSources, href: "/account/admin/sample-sources" },
     { icon: <HeartPulse size={24} />, title: dict.healthServices, href: "/account/admin/health-services" },
     { icon: <Bug size={24} />, title: dict.microorganisms, href: "#", disabled: true },
     { icon: <Microscope size={24} />, title: dict.laboratories, href: "/account/admin/laboratories" },

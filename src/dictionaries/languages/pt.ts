@@ -384,6 +384,12 @@ const pt = {
       contactant: "Contatante",
       contactEmail: "E-mail de Contato",
       contactPhone: "Telefone de Contato",
+      newSampleSource: "Nova Fonte de Amostra",
+      editSampleSource: "Editar Fonte de Amostra",
+      createSampleSource: "Criar Fonte de Amostra",
+      noSampleSources: "Nenhuma fonte de amostra encontrada",
+      showingSampleSources: "{count} fontes de amostras",
+      group: "Grupo",
     },
     myAccount: {
       title: "Minha Conta",

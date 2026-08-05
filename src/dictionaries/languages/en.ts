@@ -393,6 +393,12 @@ const en = {
       contactant: "Contactant",
       contactEmail: "Contact Email",
       contactPhone: "Contact Phone",
+      newSampleSource: "New Sample Source",
+      editSampleSource: "Edit Sample Source",
+      createSampleSource: "Create Sample Source",
+      noSampleSources: "No sample sources found",
+      showingSampleSources: "{count} sample sources",
+      group: "Group",
     },
     myAccount: {
       title: "My Account",

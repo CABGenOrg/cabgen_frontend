@@ -15,6 +15,7 @@ import AdminOrigins from "@/components/Account/Admin/AdminOrigins";
 import AdminSequencers from "@/components/Account/Admin/AdminSequencers";
 import AdminLaboratories from "@/components/Account/Admin/AdminLaboratories";
 import AdminHealthServices from "@/components/Account/Admin/AdminHealthServices";
+import AdminSampleSources from "@/components/Account/Admin/AdminSampleSources";
 import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { i18n } from "@/i18n/i18n.config";
@@ -34,6 +35,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       { link: "/account/admin/sequencers", component: <AdminSequencers /> },
       { link: "/account/admin/laboratories", component: <AdminLaboratories /> },
       { link: "/account/admin/health-services", component: <AdminHealthServices /> },
+      { link: "/account/admin/sample-sources", component: <AdminSampleSources /> },
       { link: "/account/admin", component: <AdminOverview /> },
       { link: "/account/analysis/", component: <AccountAnalysisDetail /> },
       { link: "/account/analysis", component: <AccountAnalysis /> },

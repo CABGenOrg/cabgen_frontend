@@ -390,6 +390,12 @@ const es = {
       contactant: "Contacto",
       contactEmail: "Correo de Contacto",
       contactPhone: "Teléfono de Contacto",
+      newSampleSource: "Nueva Fuente de Muestra",
+      editSampleSource: "Editar Fuente de Muestra",
+      createSampleSource: "Crear Fuente de Muestra",
+      noSampleSources: "No se encontraron fuentes de muestra",
+      showingSampleSources: "{count} fuentes de muestras",
+      group: "Grupo",
     },
     myAccount: {
       title: "Mi Cuenta",

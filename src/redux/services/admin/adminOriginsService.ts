@@ -28,8 +28,8 @@ export type AdminOriginUpdateInput = {
 
 const adminOriginsService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getOrigins: builder.query<AdminOriginTableResponse[], void>({
-      query: () => requestConfig(ADMIN_ENDPOINTS.ORIGINS, "GET"),
+    getOrigins: builder.query<AdminOriginTableResponse[], string>({
+      query: (lang) => requestConfig(ADMIN_ENDPOINTS.ORIGINS, "GET"),
       transformResponse: (res: ApiResponse<AdminOriginTableResponse[]>) =>
         res.data,
       transformErrorResponse: (res) => handleError(res),
