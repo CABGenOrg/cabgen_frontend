@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Upload, Pencil, Trash2, Dna } from "lucide-react";
+import { Upload, Pencil, Trash2, Dna, Eye } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
@@ -15,6 +15,7 @@ import {
 import type { SampleResponse } from "@/redux/services/samples/samplesService";
 import SampleFormModal from "./SampleFormModal";
 import UploadFormModal from "./UploadFormModal";
+import AccountSampleModal from "../AccountSampleModal";
 
 const columnHelper = createColumnHelper<SampleResponse>();
 
@@ -30,7 +31,7 @@ const AccountSequences = () => {
   const healthServiceOther = AccountDict.option.healthService.other;
 
   const [modal, setModal] = useState<{
-    type: "add" | "edit" | "upload" | "delete" | null;
+    type: "add" | "edit" | "upload" | "delete" | "viewSample" | null;
     sample?: SampleResponse;
   }>({ type: null });
 
@@ -143,6 +144,15 @@ const AccountSequences = () => {
               <Upload size={15} />
             </button>
             <button
+              aria-label={dict.viewSample}
+              className="p-2 rounded-lg text-gray-500 hover:text-cabgen-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
+              onClick={() =>
+                setModal({ type: "viewSample", sample: info.row.original })
+              }
+            >
+              <Eye size={15} />
+            </button>
+            <button
               aria-label={dict.editSample}
               className="p-2 rounded-lg text-gray-500 hover:text-cabgen-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
               onClick={() =>
@@ -221,6 +231,14 @@ const AccountSequences = () => {
           dict={dict}
           errorsDict={Errors}
           sample={modal.sample ?? null}
+        />
+      )}
+
+      {modal.type === "viewSample" && modal.sample && (
+        <AccountSampleModal
+          open
+          onClose={closeModal}
+          sample={modal.sample}
         />
       )}
 

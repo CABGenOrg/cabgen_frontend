@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Dna, Pencil, Trash2, Upload } from "lucide-react";
+import { Dna, Pencil, Trash2, Upload, Eye } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
@@ -15,6 +15,7 @@ import {
 import type { SampleResponse } from "@/redux/services/samples/samplesService";
 import AdminSampleModal from "./AdminSampleModal";
 import AdminUploadFormModal from "./AdminUploadFormModal";
+import AccountSampleModal from "../AccountSampleModal";
 
 const columnHelper = createColumnHelper<SampleResponse>();
 
@@ -27,7 +28,7 @@ const AdminSamples = () => {
   const seqDict = AccountDict.sequences;
 
   const [modal, setModal] = useState<{
-    type: "add" | "edit" | "upload" | "delete" | null;
+    type: "add" | "edit" | "upload" | "delete" | "viewSample" | null;
     sample?: SampleResponse;
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
@@ -144,6 +145,15 @@ const AdminSamples = () => {
               <Upload size={15} />
             </button>
             <button
+              aria-label={seqDict.viewSample}
+              className="p-2 rounded-lg text-gray-500 hover:text-cabgen-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
+              onClick={() =>
+                setModal({ type: "viewSample", sample: info.row.original })
+              }
+            >
+              <Eye size={15} />
+            </button>
+            <button
               aria-label={adminDict.editSample}
               className="p-2 rounded-lg text-gray-500 hover:text-cabgen-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
               onClick={() => setModal({ type: "edit", sample: info.row.original })}
@@ -196,6 +206,14 @@ const AdminSamples = () => {
           onClose={closeModal}
           sample={modal.sample ?? null}
           errorsDict={Errors}
+        />
+      )}
+
+      {modal.type === "viewSample" && modal.sample && (
+        <AccountSampleModal
+          open
+          onClose={closeModal}
+          sample={modal.sample}
         />
       )}
 
