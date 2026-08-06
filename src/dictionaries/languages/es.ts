@@ -177,6 +177,35 @@ const es = {
     loginBtn: "Continuar",
     formFooter1: "¿No tienes una cuenta? ",
     formFooter2: "Regístrate.",
+    forgotPassword: "¿Olvidaste tu contraseña?",
+  },
+  ForgotPassword: {
+    title: "Olvidé mi Contraseña",
+    description:
+      "Introduce el correo electrónico asociado a tu cuenta y te enviaremos un enlace para restablecer tu contraseña.",
+    emailField: "Correo Electrónico",
+    emailFieldValidation: "Introduce un correo electrónico válido.",
+    button: "Enviar Enlace de Restablecimiento",
+    success:
+      "Si existe una cuenta con ese correo, se ha enviado un enlace de restablecimiento. Revisa tu bandeja de entrada.",
+    backToLogin: "Volver al Inicio de Sesión",
+  },
+  ResetPassword: {
+    title: "Restablecer Contraseña",
+    description: "Introduce tu nueva contraseña a continuación.",
+    newPasswordField: "Nueva Contraseña",
+    newPasswordFieldValidationMinimum:
+      "La contraseña necesita al menos 8 caracteres.",
+    confirmPasswordField: "Confirmar Contraseña",
+    confirmPasswordFieldValidation:
+      "La confirmación de contraseña es obligatoria.",
+    bothPasswordFieldsValidation: "Las contraseñas no coinciden.",
+    button: "Restablecer Contraseña",
+    success:
+      "Contraseña restablecida correctamente. Ya puedes iniciar sesión.",
+    invalidToken:
+      "Enlace de restablecimiento inválido o expirado. Solicita uno nuevo.",
+    backToLogin: "Volver al Inicio de Sesión",
   },
   Register: {
     nameField: "Nombre",
@@ -490,6 +519,8 @@ const es = {
         required: "Este campo es obligatorio",
         email: "Dirección de correo electrónico inválida",
         match: "Los campos no coinciden",
+        passwordMinLength: "La contraseña necesita al menos 8 caracteres.",
+        passwordDifferent: "La nueva contraseña debe ser diferente de la actual.",
       },
     },
     option: {

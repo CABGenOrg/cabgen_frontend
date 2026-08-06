@@ -10,6 +10,16 @@ export type UserToken = {
   user_role: string;
 };
 
+export type ForgotPasswordInput = {
+  email: string;
+};
+
+export type ResetPasswordInput = {
+  token: string;
+  new_password: string;
+  confirm_password: string;
+};
+
 const authService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMe: builder.query<UserToken, void>({
@@ -39,14 +49,16 @@ const authService = apiSlice.injectEndpoints({
       query: () => requestConfig(AUTH_ENDPOINTS.REFRESH, "POST", null),
       transformErrorResponse: (res) => handleError(res),
     }),
-    forgotPassword: builder.mutation({
-      query: (data: { email: string }) =>
+    forgotPassword: builder.mutation<string, ForgotPasswordInput>({
+      query: (data) =>
         requestConfig(AUTH_ENDPOINTS.FORGOT_PASSWORD, "POST", data),
+      transformResponse: (res: ApiMessage) => res.message,
       transformErrorResponse: (res) => handleError(res),
     }),
-    resetPassword: builder.mutation({
-      query: (data: { token: string; password: string; newPassword: string }) =>
+    resetPassword: builder.mutation<string, ResetPasswordInput>({
+      query: (data) =>
         requestConfig(AUTH_ENDPOINTS.RESET_PASSWORD, "POST", data),
+      transformResponse: (res: ApiMessage) => res.message,
       transformErrorResponse: (res) => handleError(res),
     }),
   }),

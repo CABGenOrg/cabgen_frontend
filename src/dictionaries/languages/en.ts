@@ -176,6 +176,31 @@ const en = {
     loginBtn: "Continue",
     formFooter1: "Don't have an account? ",
     formFooter2: "Sign up.",
+    forgotPassword: "Forgot your password?",
+  },
+  ForgotPassword: {
+    title: "Forgot Password",
+    description:
+      "Enter the email associated with your account and we will send you a link to reset your password.",
+    emailField: "Email",
+    emailFieldValidation: "Please enter a valid email.",
+    button: "Send Reset Link",
+    success:
+      "If an account exists for that email, a password reset link has been sent. Check your inbox.",
+    backToLogin: "Back to Login",
+  },
+  ResetPassword: {
+    title: "Reset Password",
+    description: "Enter your new password below.",
+    newPasswordField: "New Password",
+    newPasswordFieldValidationMinimum: "Password needs at least 8 characters.",
+    confirmPasswordField: "Confirm Password",
+    confirmPasswordFieldValidation: "Confirm password is required.",
+    bothPasswordFieldsValidation: "Passwords do not match.",
+    button: "Reset Password",
+    success: "Password reset successfully. You can now log in.",
+    invalidToken: "Invalid or expired reset link. Please request a new one.",
+    backToLogin: "Back to Login",
   },
   Register: {
     nameField: "Name",
@@ -493,6 +518,8 @@ const en = {
         required: "This field is required",
         email: "Invalid email address",
         match: "Fields do not match",
+        passwordMinLength: "Password needs at least 8 characters.",
+        passwordDifferent: "New password must be different from the current one.",
       },
     },
     option: {

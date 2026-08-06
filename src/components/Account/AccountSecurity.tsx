@@ -70,12 +70,19 @@ const AccountSecurity = () => {
   const passwordSchema = z
     .object({
       current_password: z.string().min(1, dict.validation.required),
-      new_password: z.string().min(1, dict.validation.required),
+      new_password: z
+        .string()
+        .min(1, dict.validation.required)
+        .min(8, dict.validation.passwordMinLength),
       confirm_password: z.string().min(1, dict.validation.required),
     })
     .refine((data) => data.new_password === data.confirm_password, {
       message: dict.validation.match,
       path: ["confirm_password"],
+    })
+    .refine((data) => data.new_password !== data.current_password, {
+      message: dict.validation.passwordDifferent,
+      path: ["new_password"],
     });
   type PasswordFormData = z.infer<typeof passwordSchema>;
 

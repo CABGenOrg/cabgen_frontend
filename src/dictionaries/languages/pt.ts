@@ -176,6 +176,33 @@ const pt = {
     loginBtn: "Continuar",
     formFooter1: "Não possui conta? ",
     formFooter2: "Cadastre-se.",
+    forgotPassword: "Esqueceu sua senha?",
+  },
+  ForgotPassword: {
+    title: "Esqueceu a Senha",
+    description:
+      "Digite o e-mail associado à sua conta e enviaremos um link para redefinir sua senha.",
+    emailField: "E-mail",
+    emailFieldValidation: "Insira um e-mail válido.",
+    button: "Enviar Link de Redefinição",
+    success:
+      "Se existir uma conta com esse e-mail, um link de redefinição de senha foi enviado. Verifique sua caixa de entrada.",
+    backToLogin: "Voltar ao Login",
+  },
+  ResetPassword: {
+    title: "Redefinir Senha",
+    description: "Digite sua nova senha abaixo.",
+    newPasswordField: "Nova Senha",
+    newPasswordFieldValidationMinimum:
+      "A senha precisa de pelo menos 8 caracteres.",
+    confirmPasswordField: "Confirme a Senha",
+    confirmPasswordFieldValidation: "A confirmação de senha é obrigatória.",
+    bothPasswordFieldsValidation: "As senhas não são iguais.",
+    button: "Redefinir Senha",
+    success: "Senha redefinida com sucesso. Agora você pode entrar.",
+    invalidToken:
+      "Link de redefinição inválido ou expirado. Solicite um novo.",
+    backToLogin: "Voltar ao Login",
   },
   Register: {
     nameField: "Nome",
@@ -484,6 +511,8 @@ const pt = {
         required: "Este campo é obrigatório",
         email: "Endereço de e-mail inválido",
         match: "Os campos não correspondem",
+        passwordMinLength: "A senha precisa de pelo menos 8 caracteres.",
+        passwordDifferent: "A nova senha deve ser diferente da atual.",
       },
     },
     option: {

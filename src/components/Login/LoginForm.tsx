@@ -134,6 +134,14 @@ const LoginForm = () => {
                   {Login.formFooter2}
                 </CustomLink>
               </p>
+              <p className="mt-1">
+                <CustomLink
+                  href="/forgot-password"
+                  className="text-blue-500 hover:text-blue-700"
+                >
+                  {Login.forgotPassword}
+                </CustomLink>
+              </p>
               {error && (
                 <Message
                   msg={
