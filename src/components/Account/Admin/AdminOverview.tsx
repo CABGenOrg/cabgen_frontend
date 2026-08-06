@@ -65,7 +65,7 @@ const AdminOverview = () => {
     { icon: <Microscope size={24} />, title: dict.laboratories, href: "/account/admin/laboratories" },
     { icon: <MessageSquare size={24} />, title: dict.tickets, href: "/account/admin/tickets" },
     { icon: <Dna size={24} />, title: dict.allSamples, href: "/account/admin/samples" },
-    { icon: <Search size={24} />, title: dict.allAnalyses, href: "#", disabled: true },
+    { icon: <Search size={24} />, title: dict.allAnalyses, href: "/account/admin/analyses" },
   ];
 
   return (

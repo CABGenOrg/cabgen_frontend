@@ -436,6 +436,13 @@ const en = {
       noSamples: "No samples found",
       showingSamples: "{count} samples",
       user: "User",
+      newAnalysis: "New Analysis",
+      editAnalysis: "Edit Analysis",
+      createAnalysis: "Create Analysis",
+      noAnalyses: "No analyses found",
+      showingAnalyses: "{count} analyses",
+      metrics: "Metrics",
+      resultsZipPath: "Results ZIP Path",
     },
     myAccount: {
       title: "My Account",

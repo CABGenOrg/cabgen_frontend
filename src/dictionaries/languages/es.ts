@@ -433,6 +433,13 @@ const es = {
       noSamples: "No se encontraron muestras",
       showingSamples: "{count} muestras",
       user: "Usuario",
+      newAnalysis: "Nuevo Análisis",
+      editAnalysis: "Editar Análisis",
+      createAnalysis: "Crear Análisis",
+      noAnalyses: "No se encontraron análisis",
+      showingAnalyses: "{count} análisis",
+      metrics: "Métricas",
+      resultsZipPath: "Ruta del ZIP de Resultados",
     },
     myAccount: {
       title: "Mi Cuenta",

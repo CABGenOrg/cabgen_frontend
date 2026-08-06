@@ -19,6 +19,7 @@ import AdminSampleSources from "@/components/Account/Admin/AdminSampleSources";
 import AdminMicroorganisms from "@/components/Account/Admin/AdminMicroorganisms";
 import AdminTickets from "@/components/Account/Admin/AdminTickets";
 import AdminSamples from "@/components/Account/Admin/AdminSamples";
+import AdminAnalyses from "@/components/Account/Admin/AdminAnalyses";
 import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { i18n } from "@/i18n/i18n.config";
@@ -42,6 +43,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       { link: "/account/admin/microorganisms", component: <AdminMicroorganisms /> },
       { link: "/account/admin/tickets", component: <AdminTickets /> },
       { link: "/account/admin/samples", component: <AdminSamples /> },
+      { link: "/account/admin/analyses", component: <AdminAnalyses /> },
       { link: "/account/admin", component: <AdminOverview /> },
       { link: "/account/analysis/", component: <AccountAnalysisDetail /> },
       { link: "/account/analysis", component: <AccountAnalysis /> },

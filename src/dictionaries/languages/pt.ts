@@ -427,6 +427,13 @@ const pt = {
       noSamples: "Nenhuma amostra encontrada",
       showingSamples: "{count} amostras",
       user: "Usuário",
+      newAnalysis: "Nova Análise",
+      editAnalysis: "Editar Análise",
+      createAnalysis: "Criar Análise",
+      noAnalyses: "Nenhuma análise encontrada",
+      showingAnalyses: "{count} análises",
+      metrics: "Métricas",
+      resultsZipPath: "Caminho do ZIP de Resultados",
     },
     myAccount: {
       title: "Minha Conta",
