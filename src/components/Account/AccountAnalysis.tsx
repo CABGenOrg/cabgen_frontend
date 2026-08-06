@@ -68,7 +68,10 @@ const AccountAnalysis = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingAnalyses } = useGetAnalysesQuery();
+  const { data = [], isLoading: loadingAnalyses } = useGetAnalysesQuery(
+    undefined,
+    { pollingInterval: 30000 },
+  );
   const [deleteAnalysis, { isLoading: deleting, error: deleteError }] =
     useDeleteAnalysisMutation();
   const [createAnalysis, { isLoading: creating, error: createError }] =

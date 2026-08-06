@@ -43,7 +43,10 @@ const AdminAnalyses = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingAnalyses } = useGetAdminAnalysesQuery();
+  const { data = [], isLoading: loadingAnalyses } = useGetAdminAnalysesQuery(
+    undefined,
+    { pollingInterval: 30000 },
+  );
   const [deleteAnalysis, { isLoading: deleting, error: deleteError }] =
     useDeleteAdminAnalysisMutation();
 
