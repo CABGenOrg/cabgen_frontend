@@ -41,7 +41,7 @@ const AdminTickets = () => {
   } = getTranslateClient(lang);
   const dict = AccountDict.admin;
   const { user } = useAuth();
-  console.log(user)
+
   const [statusFilter, setStatusFilter] =
     useState<(typeof FILTERS)[number]["value"]>("OPEN");
   const [modal, setModal] = useState<{

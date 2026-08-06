@@ -427,6 +427,12 @@ const es = {
         IN_PROGRESS: "En Progreso",
         RESOLVED: "Resuelto",
       },
+      newSample: "Nueva Muestra",
+      editSample: "Editar Muestra",
+      createSample: "Crear Muestra",
+      noSamples: "No se encontraron muestras",
+      showingSamples: "{count} muestras",
+      user: "Usuario",
     },
     myAccount: {
       title: "Mi Cuenta",

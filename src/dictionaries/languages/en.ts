@@ -430,6 +430,12 @@ const en = {
         IN_PROGRESS: "In Progress",
         RESOLVED: "Resolved",
       },
+      newSample: "New Sample",
+      editSample: "Edit Sample",
+      createSample: "Create Sample",
+      noSamples: "No samples found",
+      showingSamples: "{count} samples",
+      user: "User",
     },
     myAccount: {
       title: "My Account",

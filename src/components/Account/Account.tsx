@@ -61,12 +61,12 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
       icon: <LockIcon size={22} />,
       disabled: false,
     },
-    {
-      linkName: AccountDict.sidebar.tutorial,
-      link: "/tutorial",
-      icon: <FileQuestion size={22} />,
-      disabled: true,
-    },
+    // {
+    //   linkName: AccountDict.sidebar.tutorial,
+    //   link: "/tutorial",
+    //   icon: <FileQuestion size={22} />,
+    //   disabled: true,
+    // },
   ];
 
   return (

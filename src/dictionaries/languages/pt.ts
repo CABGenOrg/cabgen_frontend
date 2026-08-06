@@ -421,6 +421,12 @@ const pt = {
         IN_PROGRESS: "Em Andamento",
         RESOLVED: "Resolvido",
       },
+      newSample: "Nova Amostra",
+      editSample: "Editar Amostra",
+      createSample: "Criar Amostra",
+      noSamples: "Nenhuma amostra encontrada",
+      showingSamples: "{count} amostras",
+      user: "Usuário",
     },
     myAccount: {
       title: "Minha Conta",
