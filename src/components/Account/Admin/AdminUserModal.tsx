@@ -61,7 +61,6 @@ const AdminUserModalBody: React.FC<{
       : z.string().min(1, dict.validation.required),
     country_code: z.string().min(1, dict.validation.required),
     user_role: z.string().min(1, dict.validation.required),
-    is_active: z.boolean(),
     interest: emptyToNull.optional(),
     role: emptyToNull.optional(),
     institution: emptyToNull.optional(),
@@ -78,7 +77,6 @@ const AdminUserModalBody: React.FC<{
       password: "",
       country_code: initial.country_code ?? "",
       user_role: initial.user_role ?? "",
-      is_active: initial.is_active ?? true,
       interest: initial.interest ?? "",
       role: initial.role ?? "",
       institution: initial.institution ?? "",
@@ -111,7 +109,10 @@ const AdminUserModalBody: React.FC<{
           data: changed as Partial<AdminUserInput>,
         }).unwrap();
       } else {
-        await createUser(data as AdminUserInput).unwrap();
+        await createUser({
+          ...(data as AdminUserInput),
+          is_active: true,
+        }).unwrap();
       }
       form.reset();
       onClose();
@@ -158,17 +159,6 @@ const AdminUserModalBody: React.FC<{
               placeholder={dict.selectPlaceholder}
               required
             />
-            <div className="flex items-center gap-2 sm:col-span-2">
-              <input
-                type="checkbox"
-                id="is_active"
-                className="h-4 w-4 rounded border-gray-300 text-cabgen-200 focus:ring-cabgen-200"
-                {...form.register("is_active")}
-              />
-              <label htmlFor="is_active" className="text-gray-900">
-                {dict.isActive}
-              </label>
-            </div>
             <TextField name="interest" label={dict.interest} form={form} />
             <TextField name="role" label={dict.role} form={form} />
             <TextField

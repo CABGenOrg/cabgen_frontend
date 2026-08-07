@@ -1,7 +1,5 @@
 export const ADMIN_ENDPOINTS = {
   USERS: "/admin/users",
-  USER_ACTIVATE: "/admin/users/activate",
-  USER_DEACTIVATE: "/admin/users/deactivate",
   ORIGINS: "/admin/origins",
   ORIGINS_SEARCH: "/admin/origins/search?name=",
   SEQUENCERS: "/admin/sequencers",

@@ -67,18 +67,14 @@ const adminUsersService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       invalidatesTags: ["Users"],
     }),
-    activateUser: builder.mutation<string, string>({
+    activateUser: builder.mutation<void, string>({
       query: (id) =>
-        requestConfig(`${ADMIN_ENDPOINTS.USER_ACTIVATE}/${id}`, "PATCH"),
-      transformResponse: (res: ApiMessage) => res.message,
-      transformErrorResponse: (res) => handleError(res),
+        requestConfig(`${ADMIN_ENDPOINTS.USERS}/${id}/activate`, "PATCH"),
       invalidatesTags: ["Users"],
     }),
-    deactivateUser: builder.mutation<string, string>({
+    deactivateUser: builder.mutation<void, string>({
       query: (id) =>
-        requestConfig(`${ADMIN_ENDPOINTS.USER_DEACTIVATE}/${id}`, "PATCH"),
-      transformResponse: (res: ApiMessage) => res.message,
-      transformErrorResponse: (res) => handleError(res),
+        requestConfig(`${ADMIN_ENDPOINTS.USERS}/${id}/deactivate`, "PATCH"),
       invalidatesTags: ["Users"],
     }),
     deleteUser: builder.mutation<string, string>({

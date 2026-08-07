@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Users, Pencil, Trash2 } from "lucide-react";
+import { Users, Pencil, Trash2, Power } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/General/PageHeader";
@@ -12,6 +12,8 @@ import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetUsersQuery,
   useDeleteUserMutation,
+  useActivateUserMutation,
+  useDeactivateUserMutation,
 } from "@/redux/services/admin/adminUsersService";
 import type { AdminUserResponse } from "@/redux/services/admin/adminUsersService";
 import AdminUserModal from "./AdminUserModal";
@@ -40,6 +42,9 @@ const AdminUsers = () => {
   const { data = [], isLoading: loadingUsers } = useGetUsersQuery();
   const [deleteUser, { isLoading: deleting, error: deleteError }] =
     useDeleteUserMutation();
+  const [activateUser, { isLoading: togglingActive }] =
+    useActivateUserMutation();
+  const [deactivateUser] = useDeactivateUserMutation();
 
   const handleDelete = async () => {
     try {
@@ -98,6 +103,24 @@ const AdminUsers = () => {
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <button
+              aria-label={info.row.original.is_active ? dict.deactivate : dict.activate}
+              title={info.row.original.is_active ? dict.deactivate : dict.activate}
+              disabled={togglingActive}
+              className={`p-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 disabled:opacity-50 ${
+                info.row.original.is_active
+                  ? "text-red-500 hover:text-red-600 hover:bg-red-50"
+                  : "text-green-600 hover:text-green-700 hover:bg-green-50"
+              }`}
+              onClick={() => {
+                const action = info.row.original.is_active
+                  ? deactivateUser
+                  : activateUser;
+                action(info.row.original.id).unwrap().catch(() => {});
+              }}
+            >
+              <Power size={15} />
+            </button>
+            <button
               aria-label={dict.editUser}
               className="p-2 rounded-lg text-gray-500 hover:text-cabgen-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
               onClick={() => setModal({ type: "edit", user: info.row.original })}
@@ -115,7 +138,7 @@ const AdminUsers = () => {
         ),
       }),
     ],
-    [dict, lang],
+    [dict, lang, togglingActive, activateUser, deactivateUser],
   );
 
   return (

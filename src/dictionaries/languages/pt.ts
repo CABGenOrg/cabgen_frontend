@@ -390,6 +390,8 @@ const pt = {
       selectPlaceholder: "Selecionar...",
       validation: { required: "Este campo é obrigatório" },
       activeValues: { yes: "Sim", no: "Não" },
+      activate: "Ativar",
+      deactivate: "Desativar",
       roleValues: { Admin: "Administrador", Collaborator: "Colaborador" },
       healthServiceTypeValues: { Public: "Público", Private: "Privado" },
       newOrigin: "Nova Origem",
