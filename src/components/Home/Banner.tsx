@@ -13,7 +13,7 @@ const Banner = ({ lang }: { lang: Locale }) => {
     <Section
       id="home-banner"
       background="/Home/source.png"
-      classToAdd="xl:h-96 md:h-80 h-64"
+      className="xl:h-96 md:h-80 h-64"
     >
       <div className="h-full flex items-center text-center">
         <h1

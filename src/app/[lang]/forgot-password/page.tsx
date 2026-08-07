@@ -5,8 +5,8 @@ import { form_spacing } from "@/styles/tailwind_classes";
 
 const ForgotPassword = () => {
   return (
-    <Section id="forgot-password">
-      <div className={form_spacing}>
+    <Section id="forgot-password" className="flex-1">
+      <div className={`${form_spacing} flex-1`}>
         <ForgotPasswordForm />
       </div>
     </Section>

@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
+import { usePathname } from "next/navigation";
 import { Sidebar, SidebarItem } from "./Sidebar";
+import AdminNav from "./Admin/AdminNav";
 import {
   UserCog,
   DnaIcon,
@@ -24,11 +26,13 @@ interface SidebarLink {
 
 const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) => {
   const lang = useLanguage();
+  const pathname = usePathname();
   const {
     dictionary: { Account: AccountDict },
   } = getTranslateClient(lang);
   const { user } = useAuth();
   const isAdmin = user?.user_role === "Admin";
+  const isAdminSection = pathname.startsWith("/account/admin/");
 
   const sidebarLinks: SidebarLink[] = [
     {
@@ -70,8 +74,8 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
   ];
 
   return (
-    <div className="flex min-h-screen gap-5">
-      <Sidebar className="sticky top-24 h-[calc(100vh-theme(spacing.24))] bg-cabgen-400 z-20">
+    <div className="flex gap-5 flex-1">
+      <Sidebar className="sticky top-24 bg-cabgen-400 z-20">
         {sidebarLinks.map(({ linkName, icon, link, disabled }) => (
           <SidebarItem
             key={link}
@@ -89,7 +93,10 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
           />
         )}
       </Sidebar>
-      <div className="w-full py-5 pr-4 min-w-0">{accountComponent}</div>
+      <div className="w-full py-5 pr-4 min-w-0">
+        {isAdminSection && <AdminNav />}
+        {accountComponent}
+      </div>
     </div>
   );
 };

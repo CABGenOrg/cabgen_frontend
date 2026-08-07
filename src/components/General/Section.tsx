@@ -5,7 +5,7 @@ interface SectionParams {
   children: React.ReactNode;
   gray?: boolean;
   background?: string;
-  classToAdd?: string;
+  className?: string;
 }
 
 const Section = ({
@@ -13,15 +13,15 @@ const Section = ({
   gray,
   children,
   background,
-  classToAdd,
+  className,
 }: SectionParams) => {
   return (
     <section
       id={id}
-      className={`w-full flex flex-col items-center justify-center py-3 ${
+      className={`w-full flex flex-col items-center py-6 md:py-10 lg:py-16 ${
         gray ? "bg-gray-100" : "bg-white"
       } ${background ? "bg-center bg-cover bg-no-repeat" : ""} ${
-        classToAdd ?? ""
+        className ?? ""
       }`}
       style={
         background

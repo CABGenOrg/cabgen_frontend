@@ -79,9 +79,12 @@ const RootLayout = async ({
       <AuthProvider initialUser={initialUser}>
         <LanguageProvider lang={lang}>
           <html lang={lang}>
-            <body className={futura.className} suppressHydrationWarning>
+            <body
+              className={`${futura.className} flex flex-col min-h-screen`}
+              suppressHydrationWarning
+            >
               <Menu lang={lang} />
-              <main className="md:min-h-[calc(100vh-200px)] min-h-[calc(100vh-250px)]">
+              <main className="flex-1 flex flex-col">
                 <Layout>{children}</Layout>
               </main>
               <Footer lang={lang} />

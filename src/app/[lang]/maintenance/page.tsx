@@ -13,8 +13,8 @@ const Maintenance = async ({ params }: { params: Promise<{ lang: Locale }> }) =>
   } = getTranslateServer(lang);
 
   return (
-    <Section id="maintenance">
-      <div className={form_spacing}>
+    <Section id="maintenance" className="flex-1">
+      <div className={`${form_spacing} flex-1`}>
         <div className="flex flex-col items-center justify-center my-5 py-10 mx-5">
           <OptimizedImage
             src="/Home/horizontal_signature_cabgen_dark.png"

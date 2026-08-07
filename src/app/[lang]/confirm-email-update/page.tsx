@@ -28,7 +28,7 @@ const ConfirmEmailUpdate = () => {
   }, [token, confirmEmail, isLoading, isSuccess, error]);
 
   return (
-    <div className={form_spacing}>
+    <div className={`${form_spacing} flex-1`}>
       <div className="max-w-md w-full bg-white rounded-lg shadow-md border border-gray-100 p-8 text-center">
         <h1 className="text-2xl font-semibold mb-4">
           {dict.confirmEmailTitle}

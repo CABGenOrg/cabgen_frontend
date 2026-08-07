@@ -20,8 +20,8 @@ const ResetPassword = () => {
   const token = useSearchParams().get("token");
 
   return (
-    <Section id="reset-password">
-      <div className={form_spacing}>
+    <Section id="reset-password" className="flex-1">
+      <div className={`${form_spacing} flex-1`}>
         <div className="mx-5 py-10 px-5 2xl:w-[30%] lg:w-[40%] md:w-[60%] bg-slate-200 rounded-lg">
           <div className="flex flex-col justify-center items-center py-6 sm:px-8 px-2">
             <div className="flex flex-row justify-center items-center">

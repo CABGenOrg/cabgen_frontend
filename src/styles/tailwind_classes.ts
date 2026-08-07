@@ -4,11 +4,11 @@ export const section_text = "my-5 2xl:text-2xl md:text-lg text-base";
 export const map_graph_title = "font-bold text-center my-4 2xl:text-5xl md:text-4xl text-2xl";
 export const section_image = "object-cover w-5/6 max-w-full";
 export const section_spacing =
-  "xl:max-w-7xl xl:mx-auto xl:mx-48 lg:mx-32 md:mx-16 sm:mx-10 mx-7 md:py-3 py-5 sm:gap-2 gap-5";
+  "xl:max-w-7xl xl:mx-auto lg:mx-32 md:mx-16 sm:mx-10 mx-7 md:py-3 py-5 sm:gap-2 gap-5";
 export const section_btn =
   "bg-cabgen-200 hover:bg-cabgen-100 rounded-lg 2xl:py-3 py-2 2xl:px-7 px-6 2xl:text-xl text-lg text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:ring-offset-2";
 export const form_spacing =
-  "w-full my-3 mx-auto md:min-h-[calc(100vh-125px)] flex flex-col justify-center items-center";
+  "w-full my-3 mx-auto flex flex-col justify-center items-center";
 export const form_title =
   "font-semibold 2xl:text-5xl md:text-4xl text-2xl text-center tracking-tight text-gray-800";
 export const input_class =
