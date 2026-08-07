@@ -114,7 +114,7 @@ const AdminHealthServices = () => {
         ),
       }),
     ],
-    [dict],
+    [dict, hsOther],
   );
 
   return (

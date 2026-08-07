@@ -102,7 +102,7 @@ const AdminLaboratories = () => {
         ),
       }),
     ],
-    [dict],
+    [dict, labOther],
   );
 
   return (

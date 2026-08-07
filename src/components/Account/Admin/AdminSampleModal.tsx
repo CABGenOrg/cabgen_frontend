@@ -132,10 +132,10 @@ const AdminSampleModalBody: React.FC<
     label: c.name,
   }));
 
-  const origins = formOptions.origins ?? [];
-  const microorganisms = formOptions.microorganisms ?? [];
-  const sampleSources = formOptions.sample_sources ?? [];
-  const sequencers = formOptions.sequencers ?? [];
+  const origins = useMemo(() => formOptions.origins ?? [], [formOptions.origins]);
+  const microorganisms = useMemo(() => formOptions.microorganisms ?? [], [formOptions.microorganisms]);
+  const sampleSources = useMemo(() => formOptions.sample_sources ?? [], [formOptions.sample_sources]);
+  const sequencers = useMemo(() => formOptions.sequencers ?? [], [formOptions.sequencers]);
 
   const initialValues = useMemo(() => {
     if (!initial) return undefined;
