@@ -43,7 +43,7 @@ const adminLaboratoriesService = apiSlice.injectEndpoints({
       string
     >({
       query: (input) =>
-        requestConfig(`${ADMIN_ENDPOINTS.LABORATORIES}/${input}`, "GET"),
+        requestConfig(`${ADMIN_ENDPOINTS.LABORATORIES_SEARCH}${input}`, "GET"),
       transformResponse: (res: ApiResponse<AdminLaboratoryTableResponse[]>) =>
         res.data,
       transformErrorResponse: (res) => handleError(res),

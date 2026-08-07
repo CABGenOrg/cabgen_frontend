@@ -48,6 +48,23 @@ const adminUsersService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Users"],
     }),
+    getUsersByInput: builder.query<AdminUserResponse[], string>({
+      query: (input) => {
+        const params = new URLSearchParams();
+        if (input) params.append("input", input);
+
+        const queryString = params.toString();
+
+        const url = queryString
+          ? `${ADMIN_ENDPOINTS.USERS}?${queryString}`
+          : ADMIN_ENDPOINTS.USERS;
+
+        return requestConfig(url, "GET");
+      },
+      transformResponse: (res: ApiResponse<AdminUserResponse[]>) => res.data,
+      transformErrorResponse: (res) => handleError(res),
+      providesTags: ["Users"],
+    }),
     getUserByID: builder.query<AdminUserResponse, string>({
       query: (id) => requestConfig(`${ADMIN_ENDPOINTS.USERS}/${id}`, "GET"),
       transformResponse: (res: ApiResponse<AdminUserResponse>) => res.data,
@@ -88,6 +105,7 @@ const adminUsersService = apiSlice.injectEndpoints({
 
 export const {
   useGetUsersQuery,
+  useGetUsersByInputQuery,
   useGetUserByIDQuery,
   useCreateUserMutation,
   useUpdateUserMutation,

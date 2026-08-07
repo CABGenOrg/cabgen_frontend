@@ -6,11 +6,13 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
+import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetUsersQuery,
+  useGetUsersByInputQuery,
   useDeleteUserMutation,
   useActivateUserMutation,
   useDeactivateUserMutation,
@@ -39,7 +41,12 @@ const AdminUsers = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingUsers } = useGetUsersQuery();
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const { data: fullData = [], isLoading: loadingUsers } = useGetUsersQuery();
+  const { data: searchData = [] } = useGetUsersByInputQuery(debouncedSearch, {
+    skip: !debouncedSearch,
+  });
+  const data = debouncedSearch ? searchData : fullData;
   const [deleteUser, { isLoading: deleting, error: deleteError }] =
     useDeleteUserMutation();
   const [activateUser, { isLoading: togglingActive }] =
@@ -149,6 +156,8 @@ const AdminUsers = () => {
         actionLabel={dict.newUser}
         onAction={() => setModal({ type: "add" })}
       />
+
+      <SearchInput onSearch={setDebouncedSearch} />
 
       <DataTable
         data={data}

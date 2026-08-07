@@ -6,11 +6,13 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
+import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetHealthServicesQuery,
+  useGetHealthServicesByNameQuery,
   useDeleteHealthServiceMutation,
 } from "@/redux/services/admin/adminHealthServicesService";
 import type { AdminHealthServiceTableResponse } from "@/redux/services/admin/adminHealthServicesService";
@@ -32,8 +34,14 @@ const AdminHealthServices = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingHealthServices } =
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const { data: fullData = [], isLoading: loadingHealthServices } =
     useGetHealthServicesQuery();
+  const { data: searchData = [] } = useGetHealthServicesByNameQuery(
+    debouncedSearch,
+    { skip: !debouncedSearch },
+  );
+  const data = debouncedSearch ? searchData : fullData;
   const [deleteHealthService, { isLoading: deleting, error: deleteError }] =
     useDeleteHealthServiceMutation();
 
@@ -117,6 +125,8 @@ const AdminHealthServices = () => {
         actionLabel={dict.newHealthService}
         onAction={() => setModal({ type: "add" })}
       />
+
+      <SearchInput onSearch={setDebouncedSearch} />
 
       <DataTable
         data={data}

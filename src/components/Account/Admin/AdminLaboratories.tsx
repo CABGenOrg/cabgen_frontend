@@ -6,11 +6,13 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
+import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetLaboratoriesQuery,
+  useGetLaboratoriesByNameOrAbbreviationQuery,
   useDeleteLaboratoryMutation,
 } from "@/redux/services/admin/adminLaboratoriesService";
 import type { AdminLaboratoryTableResponse } from "@/redux/services/admin/adminLaboratoriesService";
@@ -32,7 +34,14 @@ const AdminLaboratories = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingLaboratories } = useGetLaboratoriesQuery();
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const { data: fullData = [], isLoading: loadingLaboratories } =
+    useGetLaboratoriesQuery();
+  const { data: searchData = [] } =
+    useGetLaboratoriesByNameOrAbbreviationQuery(debouncedSearch, {
+      skip: !debouncedSearch,
+    });
+  const data = debouncedSearch ? searchData : fullData;
   const [deleteLaboratory, { isLoading: deleting, error: deleteError }] =
     useDeleteLaboratoryMutation();
 
@@ -104,6 +113,8 @@ const AdminLaboratories = () => {
         actionLabel={dict.newLaboratory}
         onAction={() => setModal({ type: "add" })}
       />
+
+      <SearchInput onSearch={setDebouncedSearch} />
 
       <DataTable
         data={data}

@@ -59,7 +59,7 @@ const adminMicroorganismsService = apiSlice.injectEndpoints({
     >({
       query: (species) =>
         requestConfig(
-          `${ADMIN_ENDPOINTS.MICROORGANISMS_SEARCH}/${species}`,
+          `${ADMIN_ENDPOINTS.MICROORGANISMS_SEARCH}${species}`,
           "GET",
         ),
       transformResponse: (

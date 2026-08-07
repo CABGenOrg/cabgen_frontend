@@ -6,11 +6,13 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
+import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetSampleSourcesQuery,
+  useGetSampleSourcesNyNameOrGroupQuery,
   useGetSampleSourceByIdQuery,
   useDeleteSampleSourceMutation,
 } from "@/redux/services/admin/adminSampleSourcesService";
@@ -32,8 +34,14 @@ const AdminSampleSources = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingSampleSources } =
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const { data: fullData = [], isLoading: loadingSampleSources } =
     useGetSampleSourcesQuery(lang);
+  const { data: searchData = [] } =
+    useGetSampleSourcesNyNameOrGroupQuery(debouncedSearch, {
+      skip: !debouncedSearch,
+    });
+  const data = debouncedSearch ? searchData : fullData;
   const [deleteSampleSource, { isLoading: deleting, error: deleteError }] =
     useDeleteSampleSourceMutation();
 
@@ -112,6 +120,8 @@ const AdminSampleSources = () => {
         actionLabel={dict.newSampleSource}
         onAction={() => setModal({ type: "add" })}
       />
+
+      <SearchInput onSearch={setDebouncedSearch} />
 
       <DataTable
         data={data}

@@ -6,11 +6,13 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
+import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetMicroorganismsQuery,
+  useGetMicroorganismsBySpeciesQuery,
   useGetMicroorganismByIdQuery,
   useDeleteMicroorganismMutation,
 } from "@/redux/services/admin/adminMicroorganismsService";
@@ -33,8 +35,14 @@ const AdminMicroorganisms = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingMicroorganisms } =
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const { data: fullData = [], isLoading: loadingMicroorganisms } =
     useGetMicroorganismsQuery(lang);
+  const { data: searchData = [] } = useGetMicroorganismsBySpeciesQuery(
+    debouncedSearch,
+    { skip: !debouncedSearch },
+  );
+  const data = debouncedSearch ? searchData : fullData;
   const [deleteMicroorganism, { isLoading: deleting, error: deleteError }] =
     useDeleteMicroorganismMutation();
 
@@ -124,6 +132,8 @@ const AdminMicroorganisms = () => {
         actionLabel={dict.newMicroorganism}
         onAction={() => setModal({ type: "add" })}
       />
+
+      <SearchInput onSearch={setDebouncedSearch} />
 
       <DataTable
         data={data}

@@ -43,7 +43,7 @@ const adminSequencersService = apiSlice.injectEndpoints({
       string
     >({
       query: (input) =>
-        requestConfig(`${ADMIN_ENDPOINTS.SEQUENCERS}/${input}`, "GET"),
+        requestConfig(`${ADMIN_ENDPOINTS.SEQUENCERS_SEARCH}${input}`, "GET"),
       transformResponse: (res: ApiResponse<AdminSequencerTableResponse[]>) =>
         res.data,
       transformErrorResponse: (res) => handleError(res),

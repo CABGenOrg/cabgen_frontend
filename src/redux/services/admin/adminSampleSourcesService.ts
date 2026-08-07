@@ -54,7 +54,7 @@ const adminSampleSourcesService = apiSlice.injectEndpoints({
       string
     >({
       query: (input) =>
-        requestConfig(`${ADMIN_ENDPOINTS.SAMPLE_SOURCES}/${input}`, "GET"),
+        requestConfig(`${ADMIN_ENDPOINTS.SAMPLE_SOURCES_SEARCH}${input}`, "GET"),
       transformResponse: (res: ApiResponse<AdminSampleSourceTableResponse[]>) =>
         res.data,
       transformErrorResponse: (res) => handleError(res),

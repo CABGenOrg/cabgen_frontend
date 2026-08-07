@@ -6,11 +6,13 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
+import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetOriginsQuery,
+  useGetOriginsByNameQuery,
   useGetOriginByIDQuery,
   useDeleteOriginMutation,
 } from "@/redux/services/admin/adminOriginsService";
@@ -32,7 +34,13 @@ const AdminOrigins = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingOrigins } = useGetOriginsQuery(lang);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const { data: fullData = [], isLoading: loadingOrigins } =
+    useGetOriginsQuery(lang);
+  const { data: searchData = [] } = useGetOriginsByNameQuery(debouncedSearch, {
+    skip: !debouncedSearch,
+  });
+  const data = debouncedSearch ? searchData : fullData;
   const [deleteOrigin, { isLoading: deleting, error: deleteError }] =
     useDeleteOriginMutation();
 
@@ -102,6 +110,8 @@ const AdminOrigins = () => {
         actionLabel={dict.newOrigin}
         onAction={() => setModal({ type: "add" })}
       />
+
+      <SearchInput onSearch={setDebouncedSearch} />
 
       <DataTable
         data={data}

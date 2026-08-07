@@ -6,11 +6,13 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
+import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetSequencersQuery,
+  useGetSequencersByBrandOrModelQuery,
   useDeleteSequencerMutation,
 } from "@/redux/services/admin/adminSequencersService";
 import type { AdminSequencerTableResponse } from "@/redux/services/admin/adminSequencersService";
@@ -31,7 +33,14 @@ const AdminSequencers = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingSequencers } = useGetSequencersQuery();
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const { data: fullData = [], isLoading: loadingSequencers } =
+    useGetSequencersQuery();
+  const { data: searchData = [] } =
+    useGetSequencersByBrandOrModelQuery(debouncedSearch, {
+      skip: !debouncedSearch,
+    });
+  const data = debouncedSearch ? searchData : fullData;
   const [deleteSequencer, { isLoading: deleting, error: deleteError }] =
     useDeleteSequencerMutation();
 
@@ -99,6 +108,8 @@ const AdminSequencers = () => {
         actionLabel={dict.newSequencer}
         onAction={() => setModal({ type: "add" })}
       />
+
+      <SearchInput onSearch={setDebouncedSearch} />
 
       <DataTable
         data={data}
