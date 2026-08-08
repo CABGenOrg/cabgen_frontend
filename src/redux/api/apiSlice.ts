@@ -69,5 +69,6 @@ export const apiSlice = createApi({
     "Cities",
     "Analyses",
     "Tickets",
+    "Metrics",
   ],
 });

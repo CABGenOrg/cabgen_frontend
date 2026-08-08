@@ -30,10 +30,14 @@ const pt = {
       loginBtn: "Começar",
     },
     BoxInfo: {
-      genomesInfo: "genomas submetidos",
-      speciesInfo: "espécies analisadas",
-      genesInfo: "genes de resistência detectados",
-      countriesInfo: "países submissores",
+      samplesInfoSg: "amostra submetida",
+      samplesInfoPl: "amostras submetidas",
+      speciesInfoSg: "espécie analisada",
+      speciesInfoPl: "espécies analisadas",
+      genesInfoSg: "gene de resistência detectado",
+      genesInfoPl: "genes de resistência detectados",
+      countriesInfoSg: "país submissor",
+      countriesInfoPl: "países submissores",
     },
     GenomicSurveillance: {
       sectionTitle: "REDE NACIONAL DE VIGILÂNCIA GENÔMICA DE",

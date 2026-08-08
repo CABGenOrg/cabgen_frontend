@@ -18,4 +18,5 @@ export const ADMIN_ENDPOINTS = {
   ANALYSES_SEARCH: "/admin/analyses/search",
   ANALYSES_DOWNLOAD_BATCH_TSVS: "/analyses/download/tsv",
   TICKETS: "/admin/tickets",
+  METRICS: "/admin/metrics",
 } as const;

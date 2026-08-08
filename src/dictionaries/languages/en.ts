@@ -30,10 +30,14 @@ const en = {
       loginBtn: "Start",
     },
     BoxInfo: {
-      genomesInfo: "submitted genomes",
-      speciesInfo: "analyzed species",
-      genesInfo: "detected resistance genes",
-      countriesInfo: "submitting countries",
+      samplesInfoSg: "submitted sample",
+      samplesInfoPl: "submitted samples",
+      speciesInfoSg: "analyzed species",
+      speciesInfoPl: "analyzed species",
+      genesInfoSg: "detected resistance gene",
+      genesInfoPl: "detected resistance genes",
+      countriesInfoSg: "submitting country",
+      countriesInfoPl: "submitting countries",
     },
     GenomicSurveillance: {
       sectionTitle: "NATIONAL GENOMIC SURVEILLANCE NETWORK OF",

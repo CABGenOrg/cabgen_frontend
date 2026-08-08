@@ -30,10 +30,14 @@ const es = {
       loginBtn: "Comenzar",
     },
     BoxInfo: {
-      genomesInfo: "genomas enviados",
-      speciesInfo: "especies analizadas",
-      genesInfo: "genes de resistencia detectados",
-      countriesInfo: "países remitentes",
+      samplesInfoSg: "muestra enviada",
+      samplesInfoPl: "muestras enviadas",
+      speciesInfoSg: "especie analizada",
+      speciesInfoPl: "especies analizadas",
+      genesInfoSg: "gen de resistencia detectado",
+      genesInfoPl: "genes de resistencia detectados",
+      countriesInfoSg: "país remitente",
+      countriesInfoPl: "países remitentes",
     },
     GenomicSurveillance: {
       sectionTitle: "RED NACIONAL DE VIGILANCIA GENÓMICA DE",
