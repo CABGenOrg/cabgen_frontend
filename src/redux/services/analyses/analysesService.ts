@@ -24,9 +24,12 @@ export type AnalysisResponse = {
   id: string;
   type: string;
   status: string;
+  step: string;
   error_message: string;
   sample: string;
   sample_id: string;
+  user: string;
+  user_id: string;
   metrics: AnalysisResult;
   results_zip_path: string;
   fastqc1: string;

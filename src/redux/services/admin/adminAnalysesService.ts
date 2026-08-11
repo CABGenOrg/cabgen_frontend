@@ -2,41 +2,13 @@ import { apiSlice, ApiResponse, ApiMessage } from "../../api/apiSlice";
 import { requestConfig } from "../../../utils/handleRequest";
 import handleError from "@/utils/handleError";
 import { ADMIN_ENDPOINTS } from "./adminEndpoints";
-import { AnalysisTSVDownloadInput } from "../analyses/analysesService";
+import {
+  AnalysisTSVDownloadInput,
+  AnalysisResponse,
+  AnalysisResult,
+} from "../analyses/analysesService";
 
-export type AnalysisResults = {
-  coverage?: number;
-  completeness?: string;
-  contamination?: string;
-  genome_size?: string;
-  n50?: string;
-  primary_species?: string;
-  secondary_species?: string;
-  mlst?: string;
-  poli_mutations?: string[];
-  other_mutations?: string[];
-  gene?: string[];
-  resfinder?: string[];
-  vfdb?: string[];
-  plasmid?: string[];
-};
-
-export type AdminAnalysisResponse = {
-  id: string;
-  type: string;
-  status: string;
-  error_message: string | null;
-  sample: string;
-  sample_id: string;
-  user: string;
-  user_id: string;
-  metrics: AnalysisResults;
-  results_zip_path: string | null;
-  fastqc1: string | null;
-  fastqc2: string | null;
-  started_at: string | null;
-  finished_at: string | null;
-};
+export type AdminAnalysisResponse = AnalysisResponse;
 
 export type AdminAnalysisInput = {
   type: string;
@@ -46,7 +18,7 @@ export type AdminAnalysisInput = {
 
 export type AdminAnalysisUpdateData = {
   status?: string | null;
-  metrics?: AnalysisResults | null;
+  metrics?: AnalysisResult | null;
   fastqc1?: string | null;
   fastqc2?: string | null;
   results_zip_path?: string | null;
@@ -60,16 +32,15 @@ export type AdminAnalysisUpdateInput = {
 
 const analysesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAdminAnalyses: builder.query<AdminAnalysisResponse[], void>({
+    getAdminAnalyses: builder.query<AnalysisResponse[], void>({
       query: () => requestConfig(ADMIN_ENDPOINTS.ANALYSES, "GET"),
-      transformResponse: (res: ApiResponse<AdminAnalysisResponse[]>) =>
-        res.data,
+      transformResponse: (res: ApiResponse<AnalysisResponse[]>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Analyses"],
     }),
-    getAdminAnalysisByID: builder.query<AdminAnalysisResponse, string>({
+    getAdminAnalysisByID: builder.query<AnalysisResponse, string>({
       query: (id) => requestConfig(`${ADMIN_ENDPOINTS.ANALYSES}/${id}`, "GET"),
-      transformResponse: (res: ApiResponse<AdminAnalysisResponse>) => res.data,
+      transformResponse: (res: ApiResponse<AnalysisResponse>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: (_r, _e, id) => [{ type: "Analyses", id }],
     }),

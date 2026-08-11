@@ -7,9 +7,12 @@ import {
   flexRender,
   type ColumnDef,
   type SortingState,
+  type RowSelectionState,
+  type OnChangeFn,
 } from "@tanstack/react-table";
 import { useState } from "react";
 import Loading from "./Loading";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface DataTableProps<TData> {
   data: TData[];
@@ -17,6 +20,10 @@ interface DataTableProps<TData> {
   loading: boolean;
   emptyMessage: string;
   countLabel: string;
+  enableRowSelection?: boolean | ((row: any) => boolean);
+  rowSelection?: RowSelectionState;
+  onRowSelectionChange?: OnChangeFn<RowSelectionState>;
+  maxSelection?: number;
 }
 
 const DataTable = <TData,>({
@@ -25,17 +32,31 @@ const DataTable = <TData,>({
   loading,
   emptyMessage,
   countLabel,
+  enableRowSelection = false,
+  rowSelection,
+  onRowSelectionChange,
+  maxSelection,
 }: DataTableProps<TData>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
     data,
     columns,
-    state: { sorting },
+    state: {
+      sorting,
+      ...(enableRowSelection && rowSelection ? { rowSelection } : {}),
+    },
     onSortingChange: setSorting,
+    onRowSelectionChange: onRowSelectionChange ?? undefined,
+    enableRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
+
+  const selectionFull =
+    maxSelection !== undefined &&
+    rowSelection !== undefined &&
+    Object.keys(rowSelection).length >= maxSelection;
 
   return (
     <div className="bg-white rounded-lg shadow-md border border-gray-100">
@@ -44,6 +65,18 @@ const DataTable = <TData,>({
           <thead className="sticky top-0 z-10">
             {table.getHeaderGroups().map((hg) => (
               <tr key={hg.id} className="bg-gray-50">
+                {enableRowSelection && (
+                  <th className="px-4 py-3 w-10">
+                    <Checkbox
+                      aria-label="Select all"
+                      checked={table.getIsAllPageRowsSelected()}
+                      disabled={selectionFull && !table.getIsAllPageRowsSelected()}
+                      onCheckedChange={(value) =>
+                        table.toggleAllPageRowsSelected(!!value)
+                      }
+                    />
+                  </th>
+                )}
                 {hg.headers.map((h) => {
                   const sorted = h.column.getIsSorted();
                   return (
@@ -102,8 +135,23 @@ const DataTable = <TData,>({
               table.getRowModel().rows.map((row) => (
                 <tr
                   key={row.id}
-                  className="border-b border-gray-100 odd:bg-gray-50/30 hover:bg-gray-100/50 transition-colors"
+                  className={`border-b border-gray-100 odd:bg-gray-50/30 hover:bg-gray-100/50 transition-colors ${
+                    row.getIsSelected() ? "bg-cabgen-100/10" : ""
+                  }`}
                 >
+                  {enableRowSelection && (
+                    <td className="px-4 py-3 w-10">
+                      <Checkbox
+                        aria-label="Select row"
+                        checked={row.getIsSelected()}
+                        disabled={
+                          !row.getCanSelect() ||
+                          (selectionFull && !row.getIsSelected())
+                        }
+                        onCheckedChange={(value) => row.toggleSelected(!!value)}
+                      />
+                    </td>
+                  )}
                   {row.getVisibleCells().map((cell) => (
                     <td
                       key={cell.id}

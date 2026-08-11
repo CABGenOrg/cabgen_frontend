@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Plus, Eye, Trash2, Search } from "lucide-react";
+import { Plus, Eye, Trash2, Search, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +18,8 @@ import { getTranslateClient } from "@/lib/getTranslateClient";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
 import { SmartSelect } from "@/components/General/SmartSelect";
+import { downloadPostFile } from "@/utils/downloadFile";
+import { ANALYSES_ENDPOINTS } from "@/redux/services/analyses/analysesEndpoints";
 import {
   Form,
   FormItem,
@@ -125,6 +127,10 @@ const AccountAnalysis = () => {
     } catch {}
   };
 
+  const hasRunning = data.some(
+    (a) => a.status.toLowerCase() === "running",
+  );
+
   const columns = useMemo(
     () => [
       columnHelper.accessor("sample", {
@@ -169,6 +175,20 @@ const AccountAnalysis = () => {
           );
         },
       }),
+      ...(hasRunning
+        ? [
+            columnHelper.accessor("step", {
+              header: dict.step,
+              size: 120,
+              cell: (info) => {
+                const status = info.row.original.status;
+                return status.toLowerCase() === "running"
+                  ? (info.getValue() || "-")
+                  : "-";
+              },
+            }),
+          ]
+        : []),
       columnHelper.accessor("started_at", {
         header: dict.startedAt,
         size: 110,
@@ -236,10 +256,35 @@ const AccountAnalysis = () => {
         ),
       }),
     ],
-    [dict, lang, router, analysisTypeDict],
+    [dict, lang, router, analysisTypeDict, hasRunning],
   );
 
   const isBusy = deleting || creating || loadingEnums || loadingSamples;
+
+  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
+  const [downloading, setDownloading] = useState(false);
+
+  const selectedIds = useMemo(
+    () =>
+      Object.keys(rowSelection)
+        .filter((k) => rowSelection[k])
+        .map((idx) => data[Number(idx)]?.id)
+        .filter(Boolean) as string[],
+    [rowSelection, data],
+  );
+
+  const handleDownloadTsv = async () => {
+    if (!selectedIds.length || downloading) return;
+    setDownloading(true);
+    try {
+      await downloadPostFile(
+        ANALYSES_ENDPOINTS.DOWNLOAD_BATCH_TSVS,
+        { ids: selectedIds },
+        "analyses.tsv",
+      );
+    } catch {}
+    setDownloading(false);
+  };
 
   return (
     <div className="w-full">
@@ -250,12 +295,32 @@ const AccountAnalysis = () => {
         onAction={() => setModal({ type: "add" })}
       />
 
+      <div className="flex justify-start mb-4">
+        <Button
+          variant="outline"
+          disabled={selectedIds.length === 0 || downloading}
+          onClick={handleDownloadTsv}
+          className="flex items-center gap-1.5"
+        >
+          <Download size={16} />
+          {dict.downloadTsv}
+          {selectedIds.length > 0 && ` (${selectedIds.length})`}
+        </Button>
+      </div>
+
       <DataTable
         data={data}
         columns={columns}
         loading={loadingAnalyses}
         emptyMessage={dict.noResults}
         countLabel={dict.showing}
+        enableRowSelection={(row) =>
+          row.original.status.toLowerCase() === "done" &&
+          row.original.type.toLowerCase() !== "fastqc"
+        }
+        rowSelection={rowSelection}
+        onRowSelectionChange={setRowSelection}
+        maxSelection={50}
       />
 
       {modal.type === "add" && (

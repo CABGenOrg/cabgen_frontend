@@ -1,23 +1,26 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Search, Eye, Pencil, Trash2 } from "lucide-react";
+import { Search, Eye, Pencil, Trash2, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { createColumnHelper } from "@tanstack/react-table";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
+import { downloadPostFile } from "@/utils/downloadFile";
+import { ADMIN_ENDPOINTS } from "@/redux/services/admin/adminEndpoints";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetAdminAnalysesQuery,
   useDeleteAdminAnalysisMutation,
 } from "@/redux/services/admin/adminAnalysesService";
-import type { AdminAnalysisResponse } from "@/redux/services/admin/adminAnalysesService";
+import type { AnalysisResponse } from "@/redux/services/analyses/analysesService";
 import AdminAnalysisModal from "./AdminAnalysisModal";
 
-const columnHelper = createColumnHelper<AdminAnalysisResponse>();
+const columnHelper = createColumnHelper<AnalysisResponse>();
 
 const formatDate = (value: Date | string | null | undefined, lang: string) => {
   if (!value) return "-";
@@ -39,7 +42,7 @@ const AdminAnalyses = () => {
 
   const [modal, setModal] = useState<{
     type: "add" | "edit" | "delete" | null;
-    analysis?: AdminAnalysisResponse;
+    analysis?: AnalysisResponse;
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
@@ -55,6 +58,35 @@ const AdminAnalyses = () => {
       await deleteAnalysis(modal.analysis?.id ?? "").unwrap();
       closeModal();
     } catch {}
+  };
+
+  const hasRunning = data.some(
+    (a) => a.status.toLowerCase() === "running",
+  );
+
+  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
+  const [downloading, setDownloading] = useState(false);
+
+  const selectedIds = useMemo(
+    () =>
+      Object.keys(rowSelection)
+        .filter((k) => rowSelection[k])
+        .map((idx) => data[Number(idx)]?.id)
+        .filter(Boolean) as string[],
+    [rowSelection, data],
+  );
+
+  const handleDownloadTsv = async () => {
+    if (!selectedIds.length || downloading) return;
+    setDownloading(true);
+    try {
+      await downloadPostFile(
+        ADMIN_ENDPOINTS.ANALYSES_DOWNLOAD_BATCH_TSVS,
+        { ids: selectedIds },
+        "analyses.tsv",
+      );
+    } catch {}
+    setDownloading(false);
   };
 
   const columns = useMemo(
@@ -110,6 +142,20 @@ const AdminAnalyses = () => {
           );
         },
       }),
+      ...(hasRunning
+        ? [
+            columnHelper.accessor("step", {
+              header: analysisDict.step,
+              size: 120,
+              cell: (info) => {
+                const status = info.row.original.status;
+                return status.toLowerCase() === "running"
+                  ? (info.getValue() || "-")
+                  : "-";
+              },
+            }),
+          ]
+        : []),
       columnHelper.accessor("started_at", {
         header: analysisDict.startedAt,
         size: 110,
@@ -186,7 +232,7 @@ const AdminAnalyses = () => {
         ),
       }),
     ],
-    [adminDict, analysisDict, analysisTypeDict, lang, router],
+    [adminDict, analysisDict, analysisTypeDict, lang, router, hasRunning],
   );
 
   return (
@@ -198,12 +244,32 @@ const AdminAnalyses = () => {
         onAction={() => setModal({ type: "add" })}
       />
 
+      <div className="flex justify-start mb-4">
+        <Button
+          variant="outline"
+          disabled={selectedIds.length === 0 || downloading}
+          onClick={handleDownloadTsv}
+          className="flex items-center gap-1.5"
+        >
+          <Download size={16} />
+          {adminDict.downloadTsv}
+          {selectedIds.length > 0 && ` (${selectedIds.length})`}
+        </Button>
+      </div>
+
       <DataTable
         data={data}
         columns={columns}
         loading={loadingAnalyses}
         emptyMessage={adminDict.noAnalyses}
         countLabel={adminDict.showingAnalyses}
+        enableRowSelection={(row) =>
+          row.original.status.toLowerCase() === "done" &&
+          row.original.type.toLowerCase() !== "fastqc"
+        }
+        rowSelection={rowSelection}
+        onRowSelectionChange={setRowSelection}
+        maxSelection={50}
       />
 
       {(modal.type === "add" || modal.type === "edit") && (

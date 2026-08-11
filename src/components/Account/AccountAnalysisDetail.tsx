@@ -106,12 +106,18 @@ const AccountAnalysisDetail = () => {
       analysis?.type.toLowerCase() ?? ""
     ] ?? analysis?.type;
 
-  const zipUrl = analysis?.results_zip_path
-    ? `${baseUrl}${ANALYSES_ENDPOINTS.DEFAULT}/${id}/download/zip`
-    : null;
+  const zipUrl =
+    analysis?.results_zip_path && analysis?.status.toLowerCase() === "done"
+      ? `${baseUrl}${ANALYSES_ENDPOINTS.DEFAULT}/${id}/download/zip`
+      : null;
 
-  const fastqc1Url = `${baseUrl}${ANALYSES_ENDPOINTS.DEFAULT}/${id}/fastqc1`;
-  const fastqc2Url = `${baseUrl}${ANALYSES_ENDPOINTS.DEFAULT}/${id}/fastqc2`;
+  const fastqcReady = analysis?.status.toLowerCase() === "done";
+  const fastqc1Url = fastqcReady
+    ? `${baseUrl}${ANALYSES_ENDPOINTS.DEFAULT}/${id}/fastqc1`
+    : null;
+  const fastqc2Url = fastqcReady
+    ? `${baseUrl}${ANALYSES_ENDPOINTS.DEFAULT}/${id}/fastqc2`
+    : null;
 
   if (isLoading) {
     return (
@@ -188,7 +194,7 @@ const AccountAnalysisDetail = () => {
           <h2 className="font-semibold text-gray-900">{detailDict.fastqc}</h2>
         </div>
         <div className="p-4 flex flex-col sm:flex-row gap-3">
-          {analysis.fastqc1 ? (
+          {fastqc1Url && analysis.fastqc1 ? (
             <a
               href={fastqc1Url}
               target="_blank"
@@ -201,7 +207,7 @@ const AccountAnalysisDetail = () => {
           ) : (
             <span className="text-gray-400">{detailDict.fastqc1} —</span>
           )}
-          {analysis.fastqc2 ? (
+          {fastqc2Url && analysis.fastqc2 ? (
             <a
               href={fastqc2Url}
               target="_blank"
