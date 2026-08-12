@@ -15,6 +15,7 @@ import {
   Pie,
   Cell,
   Tooltip,
+  Legend,
   BarChart,
   Bar,
   XAxis,
@@ -75,7 +76,7 @@ const ChartCard: React.FC<{ title: string; children: React.ReactNode }> = ({
 }) => (
   <div className="bg-white rounded-lg shadow-md border border-gray-100 p-5">
     <h2 className="text-lg font-semibold text-gray-900 mb-4">{title}</h2>
-    <div className="h-64">{children}</div>
+    <div className="h-[250px] md:h-[300px]">{children}</div>
   </div>
 );
 
@@ -189,6 +190,9 @@ const Overview = () => {
                 innerRadius="50%"
                 outerRadius="80%"
                 paddingAngle={2}
+                label={({ name, percent }) =>
+                  `${name} ${(percent * 100).toFixed(0)}%`
+                }
               >
                 {statusData.map((entry, i) => (
                   <Cell key={`cell-${i}`} fill={entry.fill} />
@@ -197,6 +201,7 @@ const Overview = () => {
               <Tooltip
                 formatter={(value: number, name: string) => [value, name]}
               />
+              <Legend iconType="circle" />
             </PieChart>
           </ResponsiveContainer>
         </ChartCard>
@@ -212,7 +217,9 @@ const Overview = () => {
                 cy="50%"
                 outerRadius="80%"
                 paddingAngle={2}
-                label={({ name, value }) => `${name}: ${value}`}
+                label={({ name, percent }) =>
+                  `${name} ${(percent * 100).toFixed(0)}%`
+                }
               >
                 {typeData.map((entry, i) => (
                   <Cell key={`cell-${i}`} fill={entry.fill} />
@@ -221,22 +228,23 @@ const Overview = () => {
               <Tooltip
                 formatter={(value: number, name: string) => [value, name]}
               />
+              <Legend iconType="circle" />
             </PieChart>
           </ResponsiveContainer>
         </ChartCard>
-      </div>
 
-      <ChartCard title={overviewDict.topSpecies}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={speciesData} layout="vertical" margin={{ left: 40, right: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" />
-            <YAxis dataKey="name" type="category" width={120} tick={{ fontSize: 12 }} />
-            <Tooltip />
-            <Bar dataKey="value" fill="#0A6354" radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
-      </ChartCard>
+        <ChartCard title={overviewDict.topSpecies}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={speciesData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
+              <XAxis type="number" />
+              <YAxis dataKey="name" type="category" width={110} tick={{ fontSize: 12 }} />
+              <Tooltip cursor={{ fill: "#f3f4f6" }} />
+              <Bar dataKey="value" fill="#0A6354" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartCard>
+      </div>
     </div>
   );
 };

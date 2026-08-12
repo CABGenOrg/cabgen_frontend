@@ -22,6 +22,7 @@ import {
   Pie,
   Cell,
   Tooltip,
+  Legend,
   BarChart,
   Bar,
   XAxis,
@@ -65,7 +66,7 @@ const ChartCard: React.FC<{ title: string; children: React.ReactNode }> = ({
 }) => (
   <div className="bg-white rounded-lg shadow-md border border-gray-100 p-5">
     <h2 className="text-lg font-semibold text-gray-900 mb-4">{title}</h2>
-    <div className="h-64">{children}</div>
+    <div className="h-[250px] md:h-[300px]">{children}</div>
   </div>
 );
 
@@ -97,22 +98,28 @@ const AdminOverview = () => {
   if (isLoading) return <Loading />;
 
   const statusData = metrics
-    ? Object.entries(metrics.analyses_by_status ?? {}).map(([key, value]) => ({
-        name:
-          (statusValues as Record<string, string>)[key] ??
-          key[0].toUpperCase() + key.slice(1),
-        value,
-        fill: STATUS_COLORS[key] ?? STATUS_COLORS.failed,
-      }))
+    ? Object.entries(metrics.analyses_by_status ?? {})
+        .filter(([, value]) => value > 0)
+        .map(([key, value]) => ({
+          name:
+            (statusValues as Record<string, string>)[key] ??
+            key[0].toUpperCase() + key.slice(1),
+          value,
+          fill: STATUS_COLORS[key] ?? STATUS_COLORS.failed,
+        }))
     : [];
 
-  const countryData = (metrics?.top_countries ?? []).slice(0, 5).map((c, i) => ({
-    name: c.country,
-    value: c.count,
-    fill: BAR_COLORS[i % BAR_COLORS.length],
-  }));
+  const countryData = (metrics?.top_countries ?? [])
+    .filter((c) => c.count > 0)
+    .slice(0, 5)
+    .map((c, i) => ({
+      name: c.country,
+      value: c.count,
+      fill: BAR_COLORS[i % BAR_COLORS.length],
+    }));
 
   const speciesData = (metrics?.species_breakdown ?? [])
+    .filter((s) => s.count > 0)
     .slice(0, 5)
     .map((s, i) => ({
       name: s.species,
@@ -188,9 +195,8 @@ const AdminOverview = () => {
         </div>
       </div>
 
-      <div>
-        <div className="grid lg:grid-cols-2 gap-6 mb-6">
-          <ChartCard title={overviewDict.analysesByStatus}>
+      <div className="grid lg:grid-cols-2 gap-6 mb-6">
+        <ChartCard title={overviewDict.analysesByStatus}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -202,23 +208,27 @@ const AdminOverview = () => {
                 innerRadius="50%"
                 outerRadius="80%"
                 paddingAngle={2}
+                label={({ name, percent }) =>
+                  `${name} ${(percent * 100).toFixed(0)}%`
+                }
               >
                 {statusData.map((entry, i) => (
                   <Cell key={`cell-${i}`} fill={entry.fill} />
                 ))}
               </Pie>
               <Tooltip formatter={(value: number, name: string) => [value, name]} />
+              <Legend iconType="circle" />
             </PieChart>
           </ResponsiveContainer>
         </ChartCard>
 
         <ChartCard title={overviewDict.topCountries}>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={countryData} layout="vertical" margin={{ left: 40, right: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" />
+            <BarChart data={countryData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
               <XAxis type="number" allowDecimals={false} />
-              <YAxis dataKey="name" type="category" width={80} tick={{ fontSize: 12 }} />
-              <Tooltip formatter={(val: number) => [val, overviewDict.count]} />
+              <YAxis dataKey="name" type="category" width={90} tick={{ fontSize: 12 }} />
+              <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, overviewDict.count]} />
               <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                 {countryData.map((entry, i) => (
                   <Cell key={`cell-${i}`} fill={entry.fill} />
@@ -227,23 +237,22 @@ const AdminOverview = () => {
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
-      </div>
 
-      <ChartCard title={overviewDict.speciesBreakdown}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={speciesData} layout="vertical" margin={{ left: 120, right: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" allowDecimals={false} />
-            <YAxis dataKey="name" type="category" width={110} tick={{ fontSize: 12 }} />
-            <Tooltip formatter={(val: number) => [val, overviewDict.count]} />
-            <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-              {speciesData.map((entry, i) => (
-                <Cell key={`cell-${i}`} fill={entry.fill} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </ChartCard>
+        <ChartCard title={overviewDict.speciesBreakdown}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={speciesData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
+              <XAxis type="number" allowDecimals={false} />
+              <YAxis dataKey="name" type="category" width={110} tick={{ fontSize: 12 }} />
+              <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, overviewDict.count]} />
+              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                {speciesData.map((entry, i) => (
+                  <Cell key={`cell-${i}`} fill={entry.fill} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartCard>
       </div>
     </div>
   );
