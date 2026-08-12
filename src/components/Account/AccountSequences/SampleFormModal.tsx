@@ -59,6 +59,7 @@ type SampleFormModalProps = {
   labOther: string;
   cityOther: string;
   healthServiceOther: string;
+  sequencerOther: string;
   errorsDict: Record<string, string>;
   initial?: SampleResponse | null;
 };
@@ -85,6 +86,7 @@ const SampleFormModalBody: React.FC<
   labOther,
   cityOther,
   healthServiceOther,
+  sequencerOther,
   errorsDict,
   initial,
   countries,
@@ -95,12 +97,11 @@ const SampleFormModalBody: React.FC<
   const isEdit = !!initial;
 
   const sampleSchema = z.object({
-    name: z.string().min(1, dict.validation.required),
     collection_date: z.string().min(1, dict.validation.required),
     run_number: z.string().min(1, dict.validation.required),
     run_date: z.string().min(1, dict.validation.required),
     city: emptyToNull.optional(),
-    origin_code: emptyToNull.optional(),
+    origin_code: z.string().min(1, dict.validation.required),
     gender: emptyToNull.optional(),
     date_of_birth: emptyToNull.optional(),
     country_code: z.string().min(1, dict.validation.required),
@@ -145,10 +146,14 @@ const SampleFormModalBody: React.FC<
   const sampleSources = useMemo(() => formOptions.sample_sources ?? [], [formOptions.sample_sources]);
   const sequencers = useMemo(() => formOptions.sequencers ?? [], [formOptions.sequencers]);
 
+  const sequencerOptions = sequencers.map((o) => ({
+    ...o,
+    label: o.label === "option.sequencer.other" ? sequencerOther : o.label,
+  }));
+
   const initialValues = useMemo(() => {
     if (!initial) return undefined;
     return {
-      name: initial.name ?? "",
       collection_date: dateStr(initial.collection_date),
       run_number: initial.run_number ?? "",
       run_date: dateStr(initial.run_date),
@@ -219,7 +224,7 @@ const SampleFormModalBody: React.FC<
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
-            <TextField name="name" label={dict.name} form={form} required />
+            <TextField name="origin_code" label={dict.originCode} form={form} required />
             <SelectField
               name="country_code"
               label={dict.country}
@@ -248,7 +253,6 @@ const SampleFormModalBody: React.FC<
               type="date"
               required
             />
-            <TextField name="origin_code" label={dict.originCode} form={form} />
             <SelectField
               name="gender"
               label={dict.gender}
@@ -290,7 +294,7 @@ const SampleFormModalBody: React.FC<
               name="sequencer_id"
               label={dict.sequencer}
               form={form}
-              options={sequencers}
+              options={sequencerOptions}
               placeholder={dict.selectPlaceholder}
               required
             />
@@ -368,6 +372,7 @@ const SampleFormModal: React.FC<SampleFormModalProps> = ({
   labOther,
   cityOther,
   healthServiceOther,
+  sequencerOther,
   errorsDict,
   initial,
 }) => {
@@ -421,6 +426,7 @@ const SampleFormModal: React.FC<SampleFormModalProps> = ({
       labOther={labOther}
       cityOther={cityOther}
       healthServiceOther={healthServiceOther}
+      sequencerOther={sequencerOther}
       errorsDict={errorsDict}
       initial={initial}
       countries={countries}

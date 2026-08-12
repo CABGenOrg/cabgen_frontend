@@ -185,7 +185,7 @@ const AdminUploadFormModal: React.FC<{
     <Modal
       open={open}
       onClose={onClose}
-      title={`${dict.uploadSequences} - ${sample?.name ?? ""}`}
+      title={`${dict.uploadSequences} - ${sample?.origin_code ?? ""}`}
     >
       <form onSubmit={onSubmit}>
         <div className="flex flex-col gap-5">

@@ -5,12 +5,11 @@ import { SAMPLES_ENDPOINTS } from "./samplesEndpoints";
 
 export type SampleResponse = {
   id: string;
-  name: string;
+  origin_code: string;
   collection_date: Date;
   run_number: string;
   run_date: Date;
   city: string;
-  origin_code: string;
   gender: string;
   date_of_birth: Date;
   fastq1: string;
@@ -27,12 +26,11 @@ export type SampleResponse = {
 };
 
 export type SampleInput = {
-  name: string;
+  origin_code: string;
   collection_date: Date;
   run_number: string;
   run_date: Date;
   city?: string  | null;
-  origin_code?: string  | null;
   gender?: string  | null;
   date_of_birth?: Date  | null;
   country_code: string;

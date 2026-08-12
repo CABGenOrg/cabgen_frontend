@@ -80,7 +80,7 @@ const AccountSampleModal = ({
     <Modal
       open={open}
       onClose={onClose}
-      title={sample?.name || detailDict.title}
+      title={sample?.origin_code || detailDict.title}
     >
       <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
         <Badge variant="secondary">{detailDict.user}</Badge>
@@ -90,7 +90,7 @@ const AccountSampleModal = ({
       <SampleSection
         title={detailDict.identity}
         rows={[
-          { label: dict.name, value: sample?.name },
+          { label: dict.originCode, value: sample?.origin_code },
           { label: dict.collectionDate, value: formatDate(sample?.collection_date) },
           { label: dict.runNumber, value: sample?.run_number },
           { label: dict.runDate, value: formatDate(sample?.run_date) },

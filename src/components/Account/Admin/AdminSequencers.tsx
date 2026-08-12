@@ -53,13 +53,13 @@ const AdminSequencers = () => {
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("model", {
-        header: dict.model,
-        size: 200,
-      }),
       columnHelper.accessor("brand", {
         header: dict.brand,
         size: 150,
+      }),
+      columnHelper.accessor("model", {
+        header: dict.model,
+        size: 200,
       }),
       columnHelper.accessor("is_active", {
         header: dict.isActive,

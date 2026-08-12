@@ -5,12 +5,11 @@ import { ADMIN_ENDPOINTS } from "./adminEndpoints";
 import { SampleResponse } from "../samples/samplesService";
 
 export type AdminSampleInput = {
-  name: string;
   collection_date: string;
   run_number: string;
   run_date: string;
   city?: string | null;
-  origin_code?: string | null;
+  origin_code: string;
   gender?: string | null;
   date_of_birth?: string | null;
   country_code: string;

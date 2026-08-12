@@ -72,7 +72,7 @@ const AccountAnalysis = () => {
 
   const { data = [], isLoading: loadingAnalyses } = useGetAnalysesQuery(
     undefined,
-    { pollingInterval: 30000 },
+    { pollingInterval: 15000 },
   );
   const [deleteAnalysis, { isLoading: deleting, error: deleteError }] =
     useDeleteAnalysisMutation();
@@ -107,7 +107,7 @@ const AccountAnalysis = () => {
     () =>
       (samples ?? []).map((s: SampleResponse) => ({
         value: s.id,
-        label: s.name,
+        label: s.origin_code,
       })),
     [samples],
   );
@@ -208,7 +208,7 @@ const AccountAnalysis = () => {
         meta: { responsive: "hidden md:table-cell" },
         cell: (info) => {
           const v = info.getValue();
-          return v === undefined || v === null ? "-" : String(v);
+          return v === undefined || v === null ? "-" : v.toFixed(2);
         },
       }),
       columnHelper.accessor((row) => row.metrics?.primary_species, {

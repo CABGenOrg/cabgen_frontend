@@ -29,6 +29,7 @@ const AccountSequences = () => {
   const labOther = AccountDict.option.laboratory.other;
   const cityOther = AccountDict.option.city.other;
   const healthServiceOther = AccountDict.option.healthService.other;
+  const sequencerOther = AccountDict.option.sequencer.other;
 
   const [modal, setModal] = useState<{
     type: "add" | "edit" | "upload" | "delete" | "viewSample" | null;
@@ -50,8 +51,8 @@ const AccountSequences = () => {
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("name", {
-        header: dict.name,
+      columnHelper.accessor("origin_code", {
+        header: dict.originCode,
         size: 140,
         cell: (info) => <span title={info.getValue()} className="line-clamp-2 sm:truncate sm:block sm:max-w-[140px]">{info.getValue()}</span>,
       }),
@@ -204,6 +205,7 @@ const AccountSequences = () => {
           labOther={labOther}
           cityOther={cityOther}
           healthServiceOther={healthServiceOther}
+          sequencerOther={sequencerOther}
           errorsDict={Errors}
         />
       )}
@@ -218,6 +220,7 @@ const AccountSequences = () => {
           labOther={labOther}
           cityOther={cityOther}
           healthServiceOther={healthServiceOther}
+          sequencerOther={sequencerOther}
           errorsDict={Errors}
           initial={modal.sample}
         />
@@ -245,7 +248,7 @@ const AccountSequences = () => {
       <DeleteConfirmModal
         open={modal.type === "delete"}
         onClose={closeModal}
-        entityName={modal.sample?.name ?? ""}
+        entityName={modal.sample?.origin_code ?? ""}
         onDelete={handleDelete}
         deleting={deleting}
         error={

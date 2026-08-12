@@ -81,12 +81,11 @@ const AdminSampleModalBody: React.FC<
   const isEdit = !!initial;
 
   const sampleSchema = z.object({
-    name: z.string().min(1, adminDict.validation.required),
     collection_date: z.string().min(1, adminDict.validation.required),
     run_number: z.string().min(1, adminDict.validation.required),
     run_date: z.string().min(1, adminDict.validation.required),
     city: emptyToNull.optional(),
-    origin_code: emptyToNull.optional(),
+    origin_code: z.string().min(1, adminDict.validation.required),
     gender: emptyToNull.optional(),
     date_of_birth: emptyToNull.optional(),
     country_code: z.string().min(1, adminDict.validation.required),
@@ -137,10 +136,14 @@ const AdminSampleModalBody: React.FC<
   const sampleSources = useMemo(() => formOptions.sample_sources ?? [], [formOptions.sample_sources]);
   const sequencers = useMemo(() => formOptions.sequencers ?? [], [formOptions.sequencers]);
 
+  const sequencerOptions = sequencers.map((o) => ({
+    ...o,
+    label: o.label === "option.sequencer.other" ? AccountDict.option.sequencer.other : o.label,
+  }));
+
   const initialValues = useMemo(() => {
     if (!initial) return undefined;
     return {
-      name: initial.name ?? "",
       collection_date: dateStr(initial.collection_date),
       run_number: initial.run_number ?? "",
       run_date: dateStr(initial.run_date),
@@ -211,7 +214,7 @@ const AdminSampleModalBody: React.FC<
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
-            <TextField name="name" label={seqDict.name} form={form} required />
+            <TextField name="origin_code" label={seqDict.originCode} form={form} required />
             <SelectField
               name="country_code"
               label={seqDict.country}
@@ -240,7 +243,6 @@ const AdminSampleModalBody: React.FC<
               type="date"
               required
             />
-            <TextField name="origin_code" label={seqDict.originCode} form={form} />
             <SelectField
               name="gender"
               label={seqDict.gender}
@@ -282,7 +284,7 @@ const AdminSampleModalBody: React.FC<
               name="sequencer_id"
               label={seqDict.sequencer}
               form={form}
-              options={sequencers}
+              options={sequencerOptions}
               placeholder={adminDict.selectPlaceholder}
               required
             />

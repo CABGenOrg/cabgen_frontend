@@ -60,9 +60,7 @@ const AdminAnalyses = () => {
     } catch {}
   };
 
-  const hasRunning = data.some(
-    (a) => a.status.toLowerCase() === "running",
-  );
+  const hasRunning = data.some((a) => a.status.toLowerCase() === "running");
 
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
   const [downloading, setDownloading] = useState(false);
@@ -150,7 +148,7 @@ const AdminAnalyses = () => {
               cell: (info) => {
                 const status = info.row.original.status;
                 return status.toLowerCase() === "running"
-                  ? (info.getValue() || "-")
+                  ? info.getValue() || "-"
                   : "-";
               },
             }),
@@ -175,7 +173,7 @@ const AdminAnalyses = () => {
         meta: { responsive: "hidden md:table-cell" },
         cell: (info) => {
           const v = info.getValue();
-          return v === undefined || v === null ? "-" : String(v);
+          return v === undefined || v === null ? "-" : v.toFixed(2);
         },
       }),
       columnHelper.accessor((row) => row.metrics?.primary_species, {

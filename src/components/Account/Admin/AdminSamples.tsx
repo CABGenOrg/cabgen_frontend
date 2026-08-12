@@ -46,8 +46,8 @@ const AdminSamples = () => {
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("name", {
-        header: adminDict.name,
+      columnHelper.accessor("origin_code", {
+        header: seqDict.originCode,
         size: 140,
         cell: (info) => <span title={info.getValue()} className="line-clamp-2 sm:truncate sm:block sm:max-w-[140px]">{info.getValue()}</span>,
       }),
@@ -220,7 +220,7 @@ const AdminSamples = () => {
       <DeleteConfirmModal
         open={modal.type === "delete"}
         onClose={closeModal}
-        entityName={modal.sample?.name || ""}
+        entityName={modal.sample?.origin_code || ""}
         onDelete={handleDelete}
         deleting={deleting}
         error={

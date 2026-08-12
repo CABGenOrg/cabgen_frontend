@@ -10,9 +10,8 @@ import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import Loading from "@/components/General/Loading";
 import Message from "@/components/General/Message";
-import { useGetAnalysisByIDQuery } from "@/redux/services/analyses/analysesService";
+import { useGetAdminAnalysisByIDQuery } from "@/redux/services/admin/adminAnalysesService";
 import { ANALYSES_ENDPOINTS } from "@/redux/services/analyses/analysesEndpoints";
-import type { AnalysisResult } from "@/redux/services/analyses/analysesService";
 
 const formatValue = (value: unknown): string => {
   if (value === undefined || value === null) return "";
@@ -33,10 +32,7 @@ const MetricsSection: React.FC<{
         {rows.map(({ label, value }) => {
           const formatted = formatValue(value);
           return (
-            <tr
-              key={label}
-              className="border-b border-gray-100 last:border-0"
-            >
+            <tr key={label} className="border-b border-gray-100 last:border-0">
               <th className="px-4 py-3 text-left font-medium text-gray-500 whitespace-nowrap bg-gray-50/50 w-1/3">
                 {label}
               </th>
@@ -65,7 +61,7 @@ const AccountAnalysisDetail = () => {
   const metricsDict = detailDict.metrics;
   const analysisTypeDict = AccountDict.option.analysis_type;
 
-  const { data: analysis, isLoading, error } = useGetAnalysisByIDQuery(id);
+  const { data: analysis, isLoading, error } = useGetAdminAnalysisByIDQuery(id);
 
   const { genomicRows, speciesRows, virulenceRows } = useMemo(() => {
     if (!analysis?.metrics) {
@@ -74,11 +70,32 @@ const AccountAnalysisDetail = () => {
     const m = analysis.metrics;
     return {
       genomicRows: [
-        { label: metricsDict.completeness, value: m.completeness },
-        { label: metricsDict.n50, value: m.n50 },
-        { label: metricsDict.genomeSize, value: m.genome_size },
-        { label: metricsDict.coverage, value: m.coverage },
-        { label: metricsDict.contamination, value: m.contamination },
+        {
+          label: metricsDict.completeness,
+          value:
+            m.completeness != null ? Number(m.completeness).toFixed(2) : "—",
+        },
+        {
+          label: metricsDict.n50,
+          value:
+            m.n50 != null ? `${Number(m.n50).toLocaleString(lang)} bp` : "—",
+        },
+        {
+          label: metricsDict.genomeSize,
+          value:
+            m.genome_size != null
+              ? `${Number(m.genome_size).toLocaleString(lang)} bp`
+              : "—",
+        },
+        {
+          label: metricsDict.coverage,
+          value: m.coverage != null ? Number(m.coverage).toFixed(2) : "—",
+        },
+        {
+          label: metricsDict.contamination,
+          value:
+            m.contamination != null ? Number(m.contamination).toFixed(2) : "—",
+        },
       ],
       speciesRows: [
         { label: metricsDict.identifiedSpecies, value: m.primary_species },
@@ -94,7 +111,7 @@ const AccountAnalysisDetail = () => {
         { label: metricsDict.plasmid, value: m.plasmid },
       ],
     };
-  }, [analysis?.metrics, metricsDict]);
+  }, [analysis?.metrics, metricsDict, lang]);
 
   const statusLabel =
     (dict.statusValues as Record<string, string>)[

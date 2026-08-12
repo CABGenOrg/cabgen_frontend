@@ -547,7 +547,7 @@ const AdminAnalysisModal: React.FC<AdminAnalysisModalProps> = ({
   }));
   const sampleOptions = (samples ?? []).map((s) => ({
     value: s.id,
-    label: s.name,
+    label: s.origin_code,
   }));
   const userOptions = (users ?? []).map((u) => ({
     value: u.id,

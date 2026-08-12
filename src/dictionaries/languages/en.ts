@@ -564,6 +564,7 @@ identifiedSpecies: "Identified Species",
       laboratory: { other: "Other" },
       city: { other: "Other" },
       healthService: { other: "Other" },
+      sequencer: { other: "Other" },
       microorganism: { other: "Other" },
       analysis_type: {
         fastqc: "Quality",
