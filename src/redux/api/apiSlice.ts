@@ -29,6 +29,8 @@ export type ApiResponse<T> = { data: T };
 export type ApiMessage = { message: string };
 export type ApiError = { error: string };
 
+let refreshPromise: Promise<boolean> | null = null;
+
 const baseQueryWithReauth = async (
   args: string | FetchArgs,
   api: BaseQueryApi,
@@ -36,16 +38,25 @@ const baseQueryWithReauth = async (
 ) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result.error && result.error.status === 403) {
-    const refreshResult = await baseQuery(
-      { url: AUTH_ENDPOINTS.REFRESH, method: "POST" },
-      api,
-      extraOptions,
-    );
-
-    if (refreshResult.meta?.response?.ok) {
-      result = await baseQuery(args, api, extraOptions);
+  if (result.error && (result.error.status === 401 || result.error.status === 403)) {
+    if (!refreshPromise) {
+      refreshPromise = (async () => {
+        const res = await baseQuery(
+          { url: AUTH_ENDPOINTS.REFRESH, method: "POST" },
+          api,
+          extraOptions,
+        );
+        if (res.meta?.response?.ok) return true;
+        await baseQuery({ url: AUTH_ENDPOINTS.LOGOUT, method: "POST" }, api, extraOptions);
+        if (typeof window !== "undefined") window.location.href = "/login";
+        return false;
+      })();
     }
+
+    const ok = await refreshPromise;
+    refreshPromise = null;
+
+    if (ok) result = await baseQuery(args, api, extraOptions);
   }
 
   return result;
