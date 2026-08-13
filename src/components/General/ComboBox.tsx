@@ -82,7 +82,7 @@ export function Combobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between font-normal text-black sm:text-base"
+          className="w-full justify-between font-normal text-black px-3.5 text-base 2xl:text-xl"
         >
           {selectedLabel ?? placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

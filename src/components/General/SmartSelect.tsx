@@ -38,7 +38,7 @@ export function SmartSelect({
 
   return (
     <Select onValueChange={onChange} value={value}>
-      <SelectTrigger className="text-black focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:outline-none 2xl:text-xl sm:text-base">
+      <SelectTrigger className="text-black focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:outline-none px-3.5 text-base 2xl:text-xl">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
