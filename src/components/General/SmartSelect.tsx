@@ -1,4 +1,3 @@
-// components/General/SmartSelect.tsx
 "use client";
 
 import {
@@ -10,8 +9,6 @@ import {
 } from "@/components/ui/select";
 import { Combobox, type ComboboxOption } from "./ComboBox";
 
-// Acima disso, o Select nativo do Radix começa a pesar
-// (DOM grande, sem busca). Abaixo, mantém a UX simples e acessível.
 const VIRTUALIZE_THRESHOLD = 200;
 
 export function SmartSelect({
