@@ -91,7 +91,7 @@ const Overview = () => {
   const statusValues = AccountDict.analyses.statusValues;
   const analysisTypeDict = AccountDict.option.analysis_type;
 
-  const { data: analyses = [], isLoading: analysesLoading } = useGetAnalysesQuery();
+  const { data: analyses = [], isLoading: analysesLoading } = useGetAnalysesQuery(lang);
   const { data: samples = [], isLoading: samplesLoading } = useGetSamplesQuery(lang);
 
   const statusData = useMemo(() => {

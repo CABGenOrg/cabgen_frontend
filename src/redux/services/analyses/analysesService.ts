@@ -48,18 +48,18 @@ export type AnalysisTSVDownloadInput = {
 
 const analysesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAnalyses: builder.query<AnalysisResponse[], void>({
-      query: () => requestConfig(ANALYSES_ENDPOINTS.DEFAULT, "GET"),
+    getAnalyses: builder.query<AnalysisResponse[], string>({
+      query: (lang) => requestConfig(ANALYSES_ENDPOINTS.DEFAULT, "GET"),
       transformResponse: (res: ApiResponse<AnalysisResponse[]>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Analyses"],
     }),
-    getAnalysisByID: builder.query<AnalysisResponse, string>({
-      query: (id) =>
+    getAnalysisByID: builder.query<AnalysisResponse, [string, string]>({
+      query: ([id, lang]) =>
         requestConfig(`${ANALYSES_ENDPOINTS.DEFAULT}/${id}`, "GET"),
       transformResponse: (res: ApiResponse<AnalysisResponse>) => res.data,
       transformErrorResponse: (res) => handleError(res),
-      providesTags: (_r, _e, id) => [{ type: "Analyses", id }],
+      providesTags: (_r, _e, [id]) => [{ type: "Analyses", id }],
     }),
     getAnalysisZip: builder.query<void, string>({
       query: (id) =>

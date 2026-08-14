@@ -32,17 +32,17 @@ export type AdminAnalysisUpdateInput = {
 
 const analysesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAdminAnalyses: builder.query<AnalysisResponse[], void>({
-      query: () => requestConfig(ADMIN_ENDPOINTS.ANALYSES, "GET"),
+    getAdminAnalyses: builder.query<AnalysisResponse[], string>({
+      query: (lang) => requestConfig(ADMIN_ENDPOINTS.ANALYSES, "GET"),
       transformResponse: (res: ApiResponse<AnalysisResponse[]>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Analyses"],
     }),
-    getAdminAnalysisByID: builder.query<AnalysisResponse, string>({
-      query: (id) => requestConfig(`${ADMIN_ENDPOINTS.ANALYSES}/${id}`, "GET"),
+    getAdminAnalysisByID: builder.query<AnalysisResponse, [string, string]>({
+      query: ([id, lang]) => requestConfig(`${ADMIN_ENDPOINTS.ANALYSES}/${id}`, "GET"),
       transformResponse: (res: ApiResponse<AnalysisResponse>) => res.data,
       transformErrorResponse: (res) => handleError(res),
-      providesTags: (_r, _e, id) => [{ type: "Analyses", id }],
+      providesTags: (_r, _e, [id]) => [{ type: "Analyses", id }],
     }),
     getAdminAnalysisZip: builder.query<void, string>({
       query: (id) =>

@@ -71,7 +71,7 @@ const AccountAnalysis = () => {
   const closeModal = () => setModal({ type: null });
 
   const { data = [], isLoading: loadingAnalyses } = useGetAnalysesQuery(
-    undefined,
+    lang,
     { pollingInterval: 15000 },
   );
   const [deleteAnalysis, { isLoading: deleting, error: deleteError }] =

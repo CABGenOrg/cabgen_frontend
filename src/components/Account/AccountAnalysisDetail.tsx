@@ -63,7 +63,7 @@ const AccountAnalysisDetail = () => {
 
   const [downloadError, setDownloadError] = useState<string | null>(null);
 
-  const { data: analysis, isLoading, error } = useGetAdminAnalysisByIDQuery(id);
+  const { data: analysis, isLoading, error } = useGetAdminAnalysisByIDQuery([id, lang]);
 
   const { genomicRows, speciesRows, virulenceRows } = useMemo(() => {
     if (!analysis?.metrics) {
@@ -105,11 +105,11 @@ const AccountAnalysisDetail = () => {
         { label: metricsDict.mlst, value: m.mlst },
       ],
       virulenceRows: [
-        { label: metricsDict.vfdb, value: m.vfdb },
+        { label: metricsDict.acquiredResistance, value: m.acquired_resistance },
         { label: metricsDict.poliMutations, value: m.poli_mutations },
         { label: metricsDict.otherMutations, value: m.other_mutations },
-        { label: metricsDict.acquiredResistance, value: m.acquired_resistance },
         { label: metricsDict.plasmid, value: m.plasmid },
+        { label: metricsDict.vfdb, value: m.vfdb },
       ],
     };
   }, [analysis?.metrics, metricsDict, lang]);
