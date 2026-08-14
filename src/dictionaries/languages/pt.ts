@@ -249,6 +249,8 @@ const pt = {
   },
   Errors: {
     internalServer: "Serviço indisponível, tente novamente mais tarde.",
+    downloadError: "Erro ao baixar arquivo. Tente novamente.",
+    viewError: "Erro ao acessar o arquivo. Tente novamente.",
   },
   Account: {
     sidebar: {

@@ -246,6 +246,8 @@ const en = {
   },
   Errors: {
     internalServer: "Service unavailable, please try again later.",
+    downloadError: "Failed to download file. Please try again.",
+    viewError: "Failed to access file. Please try again.",
   },
   Account: {
     sidebar: {

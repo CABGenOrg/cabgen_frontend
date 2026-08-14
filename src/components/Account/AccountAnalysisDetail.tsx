@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Download, ExternalLink } from "lucide-react";
-import { baseUrl } from "@/utils/handleRequest";
 import { section_btn } from "@/styles/tailwind_classes";
+import { downloadGetFile, openGetFile } from "@/utils/downloadFile";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
@@ -54,12 +54,14 @@ const AccountAnalysisDetail = () => {
   const id = params.id as string;
 
   const {
-    dictionary: { Account: AccountDict },
+    dictionary: { Account: AccountDict, Errors },
   } = getTranslateClient(lang);
   const dict = AccountDict.analyses;
   const detailDict = dict.detail;
   const metricsDict = detailDict.metrics;
   const analysisTypeDict = AccountDict.option.analysis_type;
+
+  const [downloadError, setDownloadError] = useState<string | null>(null);
 
   const { data: analysis, isLoading, error } = useGetAdminAnalysisByIDQuery(id);
 
@@ -122,17 +124,17 @@ const AccountAnalysisDetail = () => {
       analysis?.type.toLowerCase() ?? ""
     ] ?? analysis?.type;
 
-  const zipUrl =
+  const zipPath =
     analysis?.results_zip_path && analysis?.status.toLowerCase() === "done"
-      ? `${baseUrl}${ANALYSES_ENDPOINTS.DEFAULT}/${id}/download/zip`
+      ? `${ANALYSES_ENDPOINTS.DEFAULT}/${id}/download/zip`
       : null;
 
   const fastqcReady = analysis?.status.toLowerCase() === "done";
-  const fastqc1Url = fastqcReady
-    ? `${baseUrl}${ANALYSES_ENDPOINTS.DEFAULT}/${id}/fastqc1`
+  const fastqc1Path = fastqcReady
+    ? `${ANALYSES_ENDPOINTS.DEFAULT}/${id}/fastqc1`
     : null;
-  const fastqc2Url = fastqcReady
-    ? `${baseUrl}${ANALYSES_ENDPOINTS.DEFAULT}/${id}/fastqc2`
+  const fastqc2Path = fastqcReady
+    ? `${ANALYSES_ENDPOINTS.DEFAULT}/${id}/fastqc2`
     : null;
 
   if (isLoading) {
@@ -186,16 +188,20 @@ const AccountAnalysisDetail = () => {
             </Badge>
           </div>
         </div>
-        {zipUrl && (
-          <a
-            href={zipUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+        {zipPath && (
+          <button
+            type="button"
+            onClick={() => {
+              setDownloadError(null);
+              downloadGetFile(zipPath, "results.zip").catch(() =>
+                setDownloadError(Errors.downloadError),
+              );
+            }}
             className={`${section_btn} inline-flex items-center justify-center gap-1.5 shrink-0`}
           >
             <Download size={18} />
             {detailDict.downloadResults}
-          </a>
+          </button>
         )}
       </div>
 
@@ -205,34 +211,48 @@ const AccountAnalysisDetail = () => {
         </div>
       )}
 
+      {downloadError && (
+        <div className="mb-5">
+          <Message msg={downloadError} type="error" />
+        </div>
+      )}
+
       <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden mb-6">
         <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
           <h2 className="font-semibold text-gray-900">{detailDict.fastqc}</h2>
         </div>
         <div className="p-4 flex flex-col sm:flex-row gap-3">
-          {fastqc1Url && analysis.fastqc1 ? (
-            <a
-              href={fastqc1Url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-cabgen-200 hover:text-cabgen-300 hover:underline"
+          {fastqc1Path && analysis.fastqc1 ? (
+            <button
+              type="button"
+              onClick={() => {
+                setDownloadError(null);
+                openGetFile(fastqc1Path).catch(() =>
+                  setDownloadError(Errors.viewError),
+                );
+              }}
+              className="inline-flex items-center gap-1.5 text-cabgen-200 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"
             >
               <ExternalLink size={16} />
               {detailDict.fastqc1}
-            </a>
+            </button>
           ) : (
             <span className="text-gray-400">{detailDict.fastqc1} —</span>
           )}
-          {fastqc2Url && analysis.fastqc2 ? (
-            <a
-              href={fastqc2Url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-cabgen-200 hover:text-cabgen-300 hover:underline"
+          {fastqc2Path && analysis.fastqc2 ? (
+            <button
+              type="button"
+              onClick={() => {
+                setDownloadError(null);
+                openGetFile(fastqc2Path).catch(() =>
+                  setDownloadError(Errors.viewError),
+                );
+              }}
+              className="inline-flex items-center gap-1.5 text-cabgen-200 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"
             >
               <ExternalLink size={16} />
               {detailDict.fastqc2}
-            </a>
+            </button>
           ) : (
             <span className="text-gray-400">{detailDict.fastqc2} —</span>
           )}

@@ -257,6 +257,8 @@ const es = {
   Errors: {
     internalServer:
       "Servicio no disponible, por favor inténtelo de nuevo más tarde.",
+    downloadError: "Error al descargar archivo. Intente de nuevo.",
+    viewError: "Error al acceder al archivo. Intente de nuevo.",
   },
   Account: {
     sidebar: {
