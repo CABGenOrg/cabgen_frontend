@@ -14,8 +14,7 @@ export type AnalysisResult = {
   mlst: string;
   poli_mutations: string[];
   other_mutations: string[];
-  gene: string[];
-  resfinder: string[];
+  acquired_resistance: string[];
   vfdb: string[];
   plasmid: string[];
 };

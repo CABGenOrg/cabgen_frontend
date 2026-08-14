@@ -106,8 +106,7 @@ const AccountAnalysisDetail = () => {
         { label: metricsDict.vfdb, value: m.vfdb },
         { label: metricsDict.poliMutations, value: m.poli_mutations },
         { label: metricsDict.otherMutations, value: m.other_mutations },
-        { label: metricsDict.gene, value: m.gene },
-        { label: metricsDict.resfinder, value: m.resfinder },
+        { label: metricsDict.acquiredResistance, value: m.acquired_resistance },
         { label: metricsDict.plasmid, value: m.plasmid },
       ],
     };

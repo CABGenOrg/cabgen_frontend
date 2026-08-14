@@ -64,8 +64,7 @@ type EditFormData = {
     mlst?: string | null;
     poli_mutations?: string | null;
     other_mutations?: string | null;
-    gene?: string | null;
-    resfinder?: string | null;
+    acquired_resistance?: string | null;
     vfdb?: string | null;
     plasmid?: string | null;
   };
@@ -77,8 +76,7 @@ type EditFormData = {
 const LIST_KEYS = [
   "poli_mutations",
   "other_mutations",
-  "gene",
-  "resfinder",
+  "acquired_resistance",
   "vfdb",
   "plasmid",
 ] as const;
@@ -153,8 +151,7 @@ const AdminAnalysisModalBody: React.FC<
         mlst: emptyToNull.optional(),
         poli_mutations: emptyToNull.optional(),
         other_mutations: emptyToNull.optional(),
-        gene: emptyToNull.optional(),
-        resfinder: emptyToNull.optional(),
+        acquired_resistance: emptyToNull.optional(),
         vfdb: emptyToNull.optional(),
         plasmid: emptyToNull.optional(),
       })
@@ -186,8 +183,7 @@ const AdminAnalysisModalBody: React.FC<
         mlst: m.mlst ?? "",
         poli_mutations: listToStr(m.poli_mutations),
         other_mutations: listToStr(m.other_mutations),
-        gene: listToStr(m.gene),
-        resfinder: listToStr(m.resfinder),
+        acquired_resistance: listToStr(m.acquired_resistance),
         vfdb: listToStr(m.vfdb),
         plasmid: listToStr(m.plasmid),
       },
@@ -333,13 +329,8 @@ const AdminAnalysisModalBody: React.FC<
                 form={editForm}
               />
               <TextField
-                name="metrics.gene"
-                label={analysisDict.detail.metrics.gene}
-                form={editForm}
-              />
-              <TextField
-                name="metrics.resfinder"
-                label={analysisDict.detail.metrics.resfinder}
+                name="metrics.acquired_resistance"
+                label={analysisDict.detail.metrics.acquiredResistance}
                 form={editForm}
               />
               <TextField
