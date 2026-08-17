@@ -48,7 +48,7 @@ const AdminAnalyses = () => {
 
   const { data = [], isLoading: loadingAnalyses } = useGetAdminAnalysesQuery(
     lang,
-    { pollingInterval: 30000 },
+    { pollingInterval: 15000 },
   );
   const [deleteAnalysis, { isLoading: deleting, error: deleteError }] =
     useDeleteAdminAnalysisMutation();

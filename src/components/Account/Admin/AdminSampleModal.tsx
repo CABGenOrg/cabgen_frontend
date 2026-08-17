@@ -38,13 +38,15 @@ const dateStr = (d: Date | string | undefined) => {
 };
 
 const getVal = (
-  opts: { value: string; label: string }[],
+  opts: { value: string; label: string; rawLabel?: string }[],
   searchVal: string | null | undefined,
 ) => {
   if (!searchVal) return "";
   const matchByValue = opts.find((o) => o.value === searchVal);
   if (matchByValue) return matchByValue.value;
-  const matchByLabel = opts.find((o) => o.label === searchVal);
+  const matchByLabel = opts.find(
+    (o) => o.label === searchVal || o.rawLabel === searchVal,
+  );
   if (matchByLabel) return matchByLabel.value;
   return searchVal;
 };
@@ -106,6 +108,7 @@ const AdminSampleModalBody: React.FC<
 
   const laboratoryOptions = (formOptions.laboratories ?? []).map((o) => ({
     ...o,
+    rawLabel: o.label,
     label:
       o.label === "option.laboratory.other"
         ? AccountDict.option.laboratory.other
@@ -114,12 +117,14 @@ const AdminSampleModalBody: React.FC<
 
   const cityOptions = (cities ?? []).map((o) => ({
     ...o,
+    rawLabel: o.label,
     label:
       o.label === "option.city.other" ? AccountDict.option.city.other : o.label,
   })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
   const healthServiceOptions = (formOptions.health_services ?? []).map((o) => ({
     ...o,
+    rawLabel: o.label,
     label:
       o.label === "option.healthService.other"
         ? AccountDict.option.healthService.other
@@ -138,6 +143,7 @@ const AdminSampleModalBody: React.FC<
 
   const sequencerOptions = sequencers.map((o) => ({
     ...o,
+    rawLabel: o.label,
     label: o.label === "option.sequencer.other" ? AccountDict.option.sequencer.other : o.label,
   }));
 
