@@ -41,7 +41,7 @@ const AccountMyAccount = () => {
   const countryOptions = (countries ?? []).map((c) => ({
     value: c.code,
     label: c.name,
-  }));
+  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
   const profileSchema = z.object({
     name: emptyToNull,

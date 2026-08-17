@@ -26,6 +26,8 @@ const AdminSamples = () => {
   } = getTranslateClient(lang);
   const adminDict = AccountDict.admin;
   const seqDict = AccountDict.sequences;
+  const cityOther = AccountDict.option.city.other;
+  const sequencerOther = AccountDict.option.sequencer.other;
 
   const [modal, setModal] = useState<{
     type: "add" | "edit" | "upload" | "delete" | "viewSample" | null;
@@ -78,7 +80,7 @@ const AdminSamples = () => {
         header: seqDict.sequencer,
         size: 140,
         meta: { responsive: "hidden md:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[140px]">{info.getValue() || "-"}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[140px]">{info.getValue() === "option.sequencer.other" ? sequencerOther : (info.getValue() || "-")}</span>,
       }),
       columnHelper.accessor("collection_date", {
         header: seqDict.collectionDate,
@@ -100,7 +102,7 @@ const AdminSamples = () => {
         header: seqDict.city,
         size: 130,
         meta: { responsive: "hidden lg:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]">{info.getValue() || "-"}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]">{info.getValue() === "option.city.other" ? cityOther : (info.getValue() || "-")}</span>,
       }),
       columnHelper.accessor("fastq1", {
         header: seqDict.fastq1,
@@ -171,7 +173,7 @@ const AdminSamples = () => {
         ),
       }),
     ],
-    [adminDict, seqDict, lang],
+    [adminDict, seqDict, lang, cityOther, sequencerOther],
   );
 
   return (

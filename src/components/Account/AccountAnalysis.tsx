@@ -105,10 +105,12 @@ const AccountAnalysis = () => {
   }));
   const sampleOptions = useMemo(
     () =>
-      (samples ?? []).map((s: SampleResponse) => ({
-        value: s.id,
-        label: s.origin_code,
-      })),
+      (samples ?? [])
+        .map((s: SampleResponse) => ({
+          value: s.id,
+          label: s.origin_code,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })),
     [samples],
   );
 

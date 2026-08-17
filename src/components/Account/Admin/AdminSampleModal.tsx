@@ -110,13 +110,13 @@ const AdminSampleModalBody: React.FC<
       o.label === "option.laboratory.other"
         ? AccountDict.option.laboratory.other
         : o.label,
-  }));
+  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
   const cityOptions = (cities ?? []).map((o) => ({
     ...o,
     label:
       o.label === "option.city.other" ? AccountDict.option.city.other : o.label,
-  }));
+  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
   const healthServiceOptions = (formOptions.health_services ?? []).map((o) => ({
     ...o,
@@ -124,17 +124,17 @@ const AdminSampleModalBody: React.FC<
       o.label === "option.healthService.other"
         ? AccountDict.option.healthService.other
         : o.label,
-  }));
+  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
   const countryOptions = (countries ?? []).map((c) => ({
     value: c.code,
     label: c.name,
-  }));
+  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
-  const origins = useMemo(() => formOptions.origins ?? [], [formOptions.origins]);
-  const microorganisms = useMemo(() => formOptions.microorganisms ?? [], [formOptions.microorganisms]);
-  const sampleSources = useMemo(() => formOptions.sample_sources ?? [], [formOptions.sample_sources]);
-  const sequencers = useMemo(() => formOptions.sequencers ?? [], [formOptions.sequencers]);
+  const origins = useMemo(() => [...(formOptions.origins ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.origins]);
+  const microorganisms = useMemo(() => [...(formOptions.microorganisms ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.microorganisms]);
+  const sampleSources = useMemo(() => [...(formOptions.sample_sources ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.sample_sources]);
+  const sequencers = useMemo(() => [...(formOptions.sequencers ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.sequencers]);
 
   const sequencerOptions = sequencers.map((o) => ({
     ...o,

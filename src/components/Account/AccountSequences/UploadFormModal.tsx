@@ -112,9 +112,7 @@ const UploadFormModal: React.FC<{
       }
 
       if (files.fasta) {
-        setPhase("compressing");
-        const fa = await ensureGzipped(files.fasta);
-        formData.append("fasta", fa);
+        formData.append("fasta", files.fasta);
       }
 
       setPhase("uploading");

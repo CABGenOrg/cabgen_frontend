@@ -539,11 +539,11 @@ const AdminAnalysisModal: React.FC<AdminAnalysisModalProps> = ({
   const sampleOptions = (samples ?? []).map((s) => ({
     value: s.id,
     label: s.origin_code,
-  }));
+  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
   const userOptions = (users ?? []).map((u) => ({
     value: u.id,
     label: u.name,
-  }));
+  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
   const statusOptions = Object.entries(analysisDict.statusValues).map(
     ([value, label]) => ({ value, label }),
   );
