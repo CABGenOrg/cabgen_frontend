@@ -51,7 +51,8 @@ const futura = localFont({
   ],
 });
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
+  await params;
   return {
     title: "CABGen",
     description:
@@ -77,25 +78,25 @@ const RootLayout = async ({
   const { lang } = (await params) as { lang: Locale };
 
   return (
-    <StoreProvider>
-      <AuthProvider initialUser={initialUser}>
-        <LanguageProvider lang={lang}>
-          <html lang={lang}>
-            <body
-              className={`${futura.className} flex flex-col min-h-screen`}
-              suppressHydrationWarning
-            >
+    <html lang={lang}>
+      <body
+        className={`${futura.className} flex flex-col min-h-screen`}
+        suppressHydrationWarning
+      >
+        <StoreProvider>
+          <AuthProvider initialUser={initialUser}>
+            <LanguageProvider lang={lang}>
               <Menu lang={lang} />
               <main className="flex-1 flex flex-col">
                 <Layout>{children}</Layout>
               </main>
               <Footer lang={lang} />
               <Toaster />
-            </body>
-          </html>
-        </LanguageProvider>
-      </AuthProvider>
-    </StoreProvider>
+            </LanguageProvider>
+          </AuthProvider>
+        </StoreProvider>
+      </body>
+    </html>
   );
 };
 

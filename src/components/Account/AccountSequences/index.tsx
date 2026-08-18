@@ -100,7 +100,7 @@ const AccountSequences = () => {
         header: dict.city,
         size: 130,
         meta: { responsive: "hidden lg:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]">{info.getValue() === "option.city.other" ? cityOther : (info.getValue() || "-")}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]">{info.getValue() === "Other" ? cityOther : (info.getValue() || "-")}</span>,
       }),
       columnHelper.accessor("fastq1", {
         header: dict.fastq1,
