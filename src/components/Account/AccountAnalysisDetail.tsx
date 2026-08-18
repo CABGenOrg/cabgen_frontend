@@ -75,7 +75,7 @@ const AccountAnalysisDetail = () => {
         {
           label: metricsDict.completeness,
           value:
-            m.completeness != null ? Number(m.completeness).toFixed(2) : "—",
+            m.completeness != null ? `${Number(m.completeness).toFixed(2)}%` : "—",
         },
         {
           label: metricsDict.n50,
@@ -91,17 +91,17 @@ const AccountAnalysisDetail = () => {
         },
         {
           label: metricsDict.coverage,
-          value: m.coverage != null ? Number(m.coverage).toFixed(2) : "—",
+          value: m.coverage != null ? `${Number(m.coverage).toFixed(2)}x` : "—",
         },
         {
           label: metricsDict.contamination,
           value:
-            m.contamination != null ? Number(m.contamination).toFixed(2) : "—",
+            m.contamination != null ? `${Number(m.contamination).toFixed(2)}%` : "—",
         },
       ],
       speciesRows: [
         { label: metricsDict.identifiedSpecies, value: m.primary_species },
-        { label: metricsDict.secondarySpecies, value: m.secondary_species },
+        { label: metricsDict.secondarySpecies, value: m.secondary_species || "—" },
         { label: metricsDict.mlst, value: m.mlst },
       ],
       virulenceRows: [

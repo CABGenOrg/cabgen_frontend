@@ -31,6 +31,8 @@ const COLORS = {
   type: ["#0A6354", "#59A5D8", "#34B290"],
 };
 
+const BAR_COLORS = ["#0A6354", "#59A5D8", "#34B290", "#F59E0B", "#8B5CF6"];
+
 const topSpecies = (analyses: { status: string; metrics?: { primary_species?: string } | null }[]) => {
   const counts: Record<string, number> = {};
   let total = 0;
@@ -47,7 +49,7 @@ const topSpecies = (analyses: { status: string; metrics?: { primary_species?: st
   if (total > topTotal) {
     sorted.push(["Other", total - topTotal]);
   }
-  return sorted.map(([name, value]) => ({ name, value }));
+  return sorted.map(([name, value], i) => ({ name, value, fill: BAR_COLORS[i % BAR_COLORS.length] }));
 };
 
 const StatCard: React.FC<{
@@ -237,10 +239,14 @@ const Overview = () => {
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={speciesData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
-              <XAxis type="number" />
+              <XAxis type="number" allowDecimals={false} />
               <YAxis dataKey="name" type="category" width={110} tick={{ fontSize: 12 }} />
-              <Tooltip cursor={{ fill: "#f3f4f6" }} />
-              <Bar dataKey="value" fill="#0A6354" radius={[4, 4, 0, 0]} />
+              <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, overviewDict.count]} />
+              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                {speciesData.map((entry, i) => (
+                  <Cell key={`cell-${i}`} fill={entry.fill} />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>

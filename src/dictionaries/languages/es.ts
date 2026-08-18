@@ -583,6 +583,7 @@ identifiedSpecies: "Especie Identificada",
       byStatus: "Análisis por Estado",
       byType: "Análisis por Tipo",
       topSpecies: "Principales Especies",
+      count: "Conteo",
     },
   },
 };

@@ -575,6 +575,7 @@ identifiedSpecies: "Espécie Identificada",
       byStatus: "Análises por Status",
       byType: "Análises por Tipo",
       topSpecies: "Principais Espécies",
+      count: "Contagem",
     },
   },
 };

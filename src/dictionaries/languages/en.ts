@@ -268,6 +268,7 @@ const en = {
       byStatus: "Analyses by Status",
       byType: "Analyses by Type",
       topSpecies: "Top Species",
+      count: "Count",
     },
     sequences: {
       title: "Samples",
