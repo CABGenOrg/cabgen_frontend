@@ -35,7 +35,7 @@ const topSpecies = (analyses: { status: string; metrics?: { primary_species?: st
   const counts: Record<string, number> = {};
   let total = 0;
   analyses.forEach((a) => {
-    const species = a.status === "done" ? a.metrics?.primary_species : undefined;
+    const species = a.status.toLowerCase() === "done" ? a.metrics?.primary_species : undefined;
     if (!species) return;
     counts[species] = (counts[species] ?? 0) + 1;
     total += 1;
@@ -76,7 +76,7 @@ const ChartCard: React.FC<{ title: string; children: React.ReactNode }> = ({
 }) => (
   <div className="bg-white rounded-lg shadow-md border border-gray-100 p-5">
     <h2 className="text-lg font-semibold text-gray-900 mb-4">{title}</h2>
-    <div className="h-[250px] md:h-[300px]">{children}</div>
+    <div className="h-[300px] md:h-[350px]">{children}</div>
   </div>
 );
 

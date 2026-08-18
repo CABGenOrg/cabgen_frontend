@@ -217,7 +217,7 @@ const AccountAnalysisDetail = () => {
         </div>
       )}
 
-      <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden mb-6">
+  <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-6">
         <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
           <h2 className="font-semibold text-gray-900">{detailDict.fastqc}</h2>
         </div>

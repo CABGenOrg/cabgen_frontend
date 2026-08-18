@@ -51,14 +51,16 @@ const futura = localFont({
   ],
 });
 
-export const metadata: Metadata = {
-  title: "CABGen",
-  description:
-    "A Web Application for the Bioinformatic Analysis of Bacterial Genomes",
-  icons: {
-    icon: "/images/cabgen.ico",
-  },
-};
+export function generateMetadata(): Metadata {
+  return {
+    title: "CABGen",
+    description:
+      "A Web Application for the Bioinformatic Analysis of Bacterial Genomes",
+    icons: {
+      icon: "/images/cabgen.ico",
+    },
+  };
+}
 
 export const generateStaticParams = async () => {
   return i18n.locales.map((locale) => ({ lang: locale }));
