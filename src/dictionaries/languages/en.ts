@@ -9,6 +9,7 @@ const en = {
     logout: "Logout",
     account: "Account",
   },
+  close: "Close",
   Home: {
     WarningBanner: {
       title:

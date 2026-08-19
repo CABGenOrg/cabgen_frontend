@@ -67,13 +67,14 @@ const AdminNav = () => {
             onClick={() => router.push(href)}
             title={label}
             aria-label={label}
-            className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 ${
+            aria-current={active ? "page" : undefined}
+            className={`h-10 w-10 inline-flex items-center justify-center rounded-md transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 ${
               active
-                ? "bg-cabgen-200 text-white"
+                ? "bg-cabgen-200 text-white ring-2 ring-cabgen-200 ring-offset-1"
                 : "text-gray-600 hover:bg-gray-200"
             }`}
           >
-            <Icon size={16} />
+            <Icon size={18} />
           </button>
         );
       })}

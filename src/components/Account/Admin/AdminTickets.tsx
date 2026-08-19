@@ -14,6 +14,7 @@ import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import Modal from "@/components/General/Modal";
+import IconButton from "@/components/General/IconButton";
 import { useLanguage } from "@/redux/LanguageContext";
 import { useAuth } from "@/redux/AuthContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
@@ -151,39 +152,34 @@ const AdminTickets = () => {
           const ticket = info.row.original;
           return (
             <div className="flex items-center gap-1.5">
-              <button
-                aria-label={dict.view}
-                className="p-2 rounded-lg text-gray-500 hover:text-cabgen-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
+              <IconButton
+                label={dict.view}
+                icon={<Eye size={18} />}
                 onClick={() => setModal({ type: "view", ticket })}
-              >
-                <Eye size={15} />
-              </button>
+              />
               {ticket.status === "OPEN" && (
-                <button
-                  aria-label={dict.assign}
-                  className="p-2 rounded-lg text-green-600 hover:bg-green-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 transition-colors"
+                <IconButton
+                  variant="success"
+                  label={dict.assign}
+                  icon={<UserCheck size={18} />}
                   onClick={() => handleAssign(ticket.id)}
-                >
-                  <UserCheck size={15} />
-                </button>
+                />
               )}
               {ticket.status === "IN_PROGRESS" && (
-                <button
-                  aria-label={dict.resolve}
-                  className="p-2 rounded-lg text-blue-600 hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition-colors"
+                <IconButton
+                  variant="info"
+                  label={dict.resolve}
+                  icon={<CheckCircle size={18} />}
                   onClick={() => handleResolve(ticket.id)}
-                >
-                  <CheckCircle size={15} />
-                </button>
+                />
               )}
               {ticket.status === "RESOLVED" && (
-                <button
-                  aria-label={dict.delete}
-                  className="p-2 rounded-lg text-gray-500 hover:text-red-600 hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 transition-colors"
+                <IconButton
+                  variant="danger"
+                  label={dict.delete}
+                  icon={<Trash2 size={18} />}
                   onClick={() => setModal({ type: "delete", ticket })}
-                >
-                  <Trash2 size={15} />
-                </button>
+                />
               )}
             </div>
           );

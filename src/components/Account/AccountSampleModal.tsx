@@ -13,23 +13,23 @@ const formatValue = (value: unknown): string => {
   return String(value);
 };
 
-const formatDate = (value: unknown): string => {
+const formatDate = (value: unknown, lang: string): string => {
   if (!value) return "";
   const date = new Date(String(value));
   return isNaN(date.getTime())
     ? String(value)
-    : date.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+    : date.toLocaleDateString(lang, { timeZone: "UTC" });
 };
 
 const SampleSection: React.FC<{
   title: string;
   rows: { label: string; value: unknown }[];
 }> = ({ title, rows }) => (
-  <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-4">
+  <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-4 min-w-0">
     <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
       <h2 className="font-semibold text-gray-900">{title}</h2>
     </div>
-    <table className="w-full text-sm">
+    <table className="w-full text-sm min-w-full">
       <tbody>
         {rows.map(({ label, value }) => {
           const formatted = formatValue(value);
@@ -38,10 +38,10 @@ const SampleSection: React.FC<{
               key={label}
               className="border-b border-gray-100 last:border-0"
             >
-              <th className="px-4 py-3 text-left font-medium text-gray-500 whitespace-nowrap bg-gray-50/50 w-1/3">
+              <th className="px-4 py-3 text-left font-medium text-gray-500 sm:whitespace-nowrap bg-gray-50/50 w-1/3">
                 {label}
               </th>
-              <td className="px-4 py-3 text-gray-900 break-words">
+              <td className="px-4 py-3 text-gray-900 break-words min-w-0">
                 {formatted || "—"}
               </td>
             </tr>
@@ -98,9 +98,9 @@ const AccountSampleModal = ({
         title={detailDict.identity}
         rows={[
           { label: dict.originCode, value: sample?.origin_code },
-          { label: dict.collectionDate, value: formatDate(sample?.collection_date) },
+          { label: dict.collectionDate, value: formatDate(sample?.collection_date, lang) },
           { label: dict.runNumber, value: sample?.run_number },
-          { label: dict.runDate, value: formatDate(sample?.run_date) },
+          { label: dict.runDate, value: formatDate(sample?.run_date, lang) },
         ]}
       />
 
@@ -120,7 +120,7 @@ const AccountSampleModal = ({
         title={detailDict.personalInfo}
         rows={[
           { label: dict.gender, value: genderLabel },
-          { label: dict.dateOfBirth, value: formatDate(sample?.date_of_birth) },
+          { label: dict.dateOfBirth, value: formatDate(sample?.date_of_birth, lang) },
           { label: dict.country, value: sample?.country_code },
           { label: dict.city, value: translateOther(sample?.city, "option.city.other", optionDict.city.other) },
           { label: dict.originCode, value: sample?.origin_code },

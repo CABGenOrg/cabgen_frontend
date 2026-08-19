@@ -23,20 +23,20 @@ const MetricsSection: React.FC<{
   title: string;
   rows: { label: string; value: unknown }[];
 }> = ({ title, rows }) => (
-  <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden mb-6">
+  <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-6 min-w-0">
     <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
       <h2 className="font-semibold text-gray-900">{title}</h2>
     </div>
-    <table className="w-full text-sm">
+    <table className="w-full text-sm min-w-full">
       <tbody>
         {rows.map(({ label, value }) => {
           const formatted = formatValue(value);
           return (
             <tr key={label} className="border-b border-gray-100 last:border-0">
-              <th className="px-4 py-3 text-left font-medium text-gray-500 whitespace-nowrap bg-gray-50/50 w-1/3">
+              <th className="px-4 py-3 text-left font-medium text-gray-500 sm:whitespace-nowrap bg-gray-50/50 w-1/3">
                 {label}
               </th>
-              <td className="px-4 py-3 text-gray-900 break-words">
+              <td className="px-4 py-3 text-gray-900 break-words min-w-0">
                 {formatted || "—"}
               </td>
             </tr>

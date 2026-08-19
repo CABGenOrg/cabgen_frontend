@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Sidebar, SidebarItem } from "./Sidebar";
 import AdminNav from "./Admin/AdminNav";
@@ -11,7 +11,7 @@ import {
   LayoutDashboard,
   Shield,
   LockIcon,
-  FileQuestion,
+  Menu,
 } from "lucide-react";
 import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
@@ -27,6 +27,7 @@ interface SidebarLink {
 const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) => {
   const lang = useLanguage();
   const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const {
     dictionary: { Account: AccountDict },
   } = getTranslateClient(lang);
@@ -65,17 +66,26 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
       icon: <LockIcon size={22} />,
       disabled: false,
     },
-    // {
-    //   linkName: AccountDict.sidebar.tutorial,
-    //   link: "/tutorial",
-    //   icon: <FileQuestion size={22} />,
-    //   disabled: true,
-    // },
   ];
 
   return (
-    <div className="flex gap-5 flex-1">
-      <Sidebar className="sticky top-24 bg-cabgen-400 z-20">
+    <div className="flex flex-col md:flex-row gap-3 md:gap-5 flex-1">
+      <div className="md:hidden sticky top-0 z-20 flex items-center px-4 py-3 bg-white border-b">
+        <button
+          type="button"
+          onClick={() => setMobileMenuOpen(true)}
+          className="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-cabgen-400 text-white hover:bg-cabgen-300 active:bg-cabgen-400 transition-colors"
+          aria-label="Abrir menu"
+        >
+          <Menu size={22} />
+        </button>
+      </div>
+
+      <Sidebar
+        className="bg-cabgen-400"
+        mobileOpen={mobileMenuOpen}
+        onMobileClose={() => setMobileMenuOpen(false)}
+      >
         {sidebarLinks.map(({ linkName, icon, link, disabled }) => (
           <SidebarItem
             key={link}
@@ -93,7 +103,7 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
           />
         )}
       </Sidebar>
-      <div className="w-full py-5 pr-4 min-w-0">
+      <div className="w-full py-3 md:py-5 px-4 md:px-0 md:pr-4 min-w-0">
         {isAdminSection && <AdminNav />}
         {accountComponent}
       </div>

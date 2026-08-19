@@ -2,13 +2,14 @@ const es = {
   Menu: {
     home: "Home",
     network: "Red",
-    dashboard: "Panel",
-    about: "¿Quiénes somos?",
+    dashboard: "Dashboard",
+    about: "Sobre",
     contact: "Contacto",
     login: "Login",
     logout: "Salir",
     account: "Cuenta",
   },
+  close: "Cerrar",
   Home: {
     WarningBanner: {
       title:

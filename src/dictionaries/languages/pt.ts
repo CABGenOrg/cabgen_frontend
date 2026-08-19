@@ -9,6 +9,7 @@ const pt = {
     logout: "Sair",
     account: "Conta",
   },
+  close: "Fechar",
   Home: {
     WarningBanner: {
       title:

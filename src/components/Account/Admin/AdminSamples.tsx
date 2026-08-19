@@ -6,6 +6,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
+import IconButton from "@/components/General/IconButton";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
@@ -137,38 +138,32 @@ const AdminSamples = () => {
         size: 120,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
-            <button
-              aria-label={seqDict.uploadSequences}
-              className="p-2 rounded-lg bg-cabgen-400 text-white hover:bg-cabgen-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
+            <IconButton
+              variant="primary"
+              label={seqDict.uploadSequences}
+              icon={<Upload size={18} />}
               onClick={() =>
                 setModal({ type: "upload", sample: info.row.original })
               }
-            >
-              <Upload size={15} />
-            </button>
-            <button
-              aria-label={seqDict.viewSample}
-              className="p-2 rounded-lg text-gray-500 hover:text-cabgen-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
+            />
+            <IconButton
+              label={seqDict.viewSample}
+              icon={<Eye size={18} />}
               onClick={() =>
                 setModal({ type: "viewSample", sample: info.row.original })
               }
-            >
-              <Eye size={15} />
-            </button>
-            <button
-              aria-label={adminDict.editSample}
-              className="p-2 rounded-lg text-gray-500 hover:text-cabgen-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
+            />
+            <IconButton
+              label={adminDict.editSample}
+              icon={<Pencil size={18} />}
               onClick={() => setModal({ type: "edit", sample: info.row.original })}
-            >
-              <Pencil size={15} />
-            </button>
-            <button
-              aria-label={adminDict.delete}
-              className="p-2 rounded-lg text-gray-500 hover:text-red-600 hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 transition-colors"
+            />
+            <IconButton
+              variant="danger"
+              label={adminDict.delete}
+              icon={<Trash2 size={18} />}
               onClick={() => setModal({ type: "delete", sample: info.row.original })}
-            >
-              <Trash2 size={15} />
-            </button>
+            />
           </div>
         ),
       }),

@@ -1,56 +1,68 @@
 "use client";
 
-import { ChevronLast, ChevronFirst, ChevronDown, ChevronUp } from "lucide-react";
-import {
-  useContext,
-  createContext,
-  useState,
-  ReactNode,
-  FC,
-  useEffect,
-} from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { X } from "lucide-react";
+import { ReactNode, FC, useContext, createContext } from "react";
+import { usePathname } from "next/navigation";
 import CustomLink from "../General/CustomLink";
-import useScreenSize from "@/hooks/useScreenSize";
+import { cn } from "@/lib/utils";
 
 interface SidebarContextProps {
-  expanded: boolean;
+  onMobileClose?: () => void;
 }
 
-const SidebarContext = createContext<SidebarContextProps | undefined>(
-  undefined,
-);
+const SidebarContext = createContext<SidebarContextProps | undefined>(undefined);
 
 interface SidebarProps {
   children: ReactNode;
   className?: string;
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
 }
 
-const Sidebar: FC<SidebarProps> = ({ children, className = "" }) => {
-  const { width } = useScreenSize();
-  const [expanded, setExpanded] = useState(false);
-
-  useEffect(() => {
-    if (width && width < 768) {
-      setExpanded(false);
-    }
-  }, [width]);
-
+const Sidebar: FC<SidebarProps> = ({
+  children,
+  className = "",
+  mobileOpen = false,
+  onMobileClose,
+}) => {
   return (
-    <aside className={className}>
-      <div className="p-4 pb-2 flex justify-end items-center border-b border-cabgen-200/30">
-        <button
-          onClick={() => setExpanded((curr) => !curr)}
-          className="hidden md:block p-1.5 rounded-lg text-white bg-cabgen-200 hover:bg-cabgen-100 transition-colors"
-        >
-          {expanded ? <ChevronFirst /> : <ChevronLast />}
-        </button>
-      </div>
+    <>
+      <div
+        className={cn(
+          "fixed inset-0 bg-black/50 z-30 md:hidden transition-opacity duration-200",
+          mobileOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none",
+        )}
+        onClick={onMobileClose}
+        aria-hidden="true"
+      />
+      <aside
+        className={cn(
+          "fixed md:sticky top-24 left-0 bottom-0 md:bottom-auto md:h-auto bg-cabgen-400 z-40 flex flex-col",
+          "transition-transform duration-200 ease-in-out",
+          mobileOpen ? "translate-x-0" : "-translate-x-full",
+          "md:translate-x-0",
+          "w-64 md:w-20",
+          className,
+        )}
+      >
+        <div className="p-3 pb-2 flex items-center gap-2 border-b border-cabgen-200/30 md:hidden">
+          <button
+            onClick={onMobileClose}
+            className="p-1.5 rounded-lg text-white bg-cabgen-200 hover:bg-cabgen-100 transition-colors"
+            aria-label="Fechar menu"
+          >
+            <X size={20} />
+          </button>
+          <span className="text-white font-semibold text-sm">CABGen</span>
+        </div>
 
-      <SidebarContext.Provider value={{ expanded }}>
-        <ul className="flex-1 px-2 py-1">{children}</ul>
-      </SidebarContext.Provider>
-    </aside>
+        <SidebarContext.Provider value={{ onMobileClose }}>
+          <ul className="flex-1 px-2 py-1">{children}</ul>
+        </SidebarContext.Provider>
+      </aside>
+    </>
   );
 };
 
@@ -71,22 +83,19 @@ const SidebarItem: FC<SidebarItemProps> = ({
   alert = false,
   indent = false,
 }) => {
-  const context = useContext(SidebarContext);
   const pathname = usePathname();
-  if (!context) {
-    throw new Error("SidebarItem must be used within a Sidebar");
-  }
-  const { expanded } = context;
+  const ctx = useContext(SidebarContext);
   const isActive = pathname.endsWith(href);
 
   return (
     <CustomLink href={href} disabled={disabled}>
       <li
+        onClick={ctx?.onMobileClose}
         className={`
           relative flex items-center py-2 px-2 rounded
           transition-colors duration-150 group
           ${disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}
-          ${indent ? "pl-10" : ""}
+          ${indent ? "pl-10" : "md:justify-center"}
           ${
             isActive
               ? "bg-cabgen-200 text-white font-semibold"
@@ -99,96 +108,25 @@ const SidebarItem: FC<SidebarItemProps> = ({
         <span className="flex items-center justify-center w-8 h-8 shrink-0">
           {icon}
         </span>
-        <span
-          className={`overflow-hidden transition-all ${
-            expanded ? "w-44 ml-3" : "w-0"
-          }`}
-        >
-          {text}
-        </span>
+        <span className="w-auto min-w-0 flex-1 ml-3 md:hidden">{text}</span>
         {alert && (
-          <div
-            className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
-              expanded ? "" : "top-2"
-            }`}
-          />
+          <div className="absolute right-2 top-2 w-2 h-2 rounded bg-indigo-400" />
         )}
 
-        {!expanded && !disabled && (
-          <div
-            className="
-              absolute left-full rounded-md px-2.5 py-1.5 ml-4
-              bg-cabgen-200 text-white text-sm shadow-lg
-              invisible opacity-0 -translate-x-2 transition-all duration-150 text-nowrap z-50
-              group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-            "
-          >
-            {text}
-          </div>
-        )}
+        <div
+          className="
+            hidden md:block
+            absolute left-full rounded-md px-2.5 py-1.5 ml-4
+            bg-cabgen-200 text-white text-sm shadow-lg
+            invisible opacity-0 -translate-x-2 transition-all duration-150 text-nowrap z-50
+            group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
+          "
+        >
+          {text}
+        </div>
       </li>
     </CustomLink>
   );
 };
 
-interface SidebarGroupProps {
-  icon: ReactNode;
-  text: string;
-  href?: string;
-  children: ReactNode;
-}
-
-const SidebarGroup: FC<SidebarGroupProps> = ({ icon, text, href, children }) => {
-  const context = useContext(SidebarContext);
-  const [open, setOpen] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
-  if (!context) {
-    throw new Error("SidebarGroup must be used within a Sidebar");
-  }
-  const { expanded } = context;
-
-  const isChildActive = href ? pathname.startsWith(href) : false;
-
-  const handleClick = () => {
-    if (!expanded && href) {
-      router.push(href);
-    } else {
-      setOpen((v) => !v);
-    }
-  };
-
-  useEffect(() => {
-    if (isChildActive && !open) setOpen(true);
-  }, [isChildActive, open]);
-
-  return (
-    <li>
-      <button
-        type="button"
-        onClick={handleClick}
-        className={`
-          w-full flex items-center py-2 px-2 rounded
-          transition-colors duration-150 group
-          ${isChildActive ? "bg-cabgen-200 text-white font-semibold" : "text-white hover:bg-cabgen-300/40"}
-          ${expanded ? "" : "justify-center"}
-        `}
-      >
-        <span className="flex items-center justify-center w-8 h-8 shrink-0">
-          {icon}
-        </span>
-        {expanded && (
-          <>
-            <span className="ml-3 text-left flex-1">{text}</span>
-            <span className="ml-auto">
-              {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-            </span>
-          </>
-        )}
-      </button>
-      {expanded && open && <ul className="mt-1 space-y-1">{children}</ul>}
-    </li>
-  );
-};
-
-export { Sidebar, SidebarItem, SidebarGroup };
+export { Sidebar, SidebarItem };

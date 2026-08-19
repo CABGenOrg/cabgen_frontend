@@ -98,7 +98,7 @@ const AccountMyAccount = () => {
       ? "bg-blue-100 text-blue-700"
       : profile?.user_role === "Collaborator"
         ? "bg-green-100 text-green-700"
-        : "bg-cabgen-100 text-white";
+        : "bg-cabgen-100/20 text-cabgen-700";
 
   const roleLabel =
     profile?.user_role === "Admin"

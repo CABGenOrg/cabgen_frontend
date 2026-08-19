@@ -24,6 +24,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",
+    "focus-trap-react": "^12.0.3",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.468.0",
     "negotiator": "^0.6.4",

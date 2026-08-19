@@ -12,6 +12,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
+import IconButton from "@/components/General/IconButton";
 import { label_class } from "@/styles/tailwind_classes";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
@@ -233,27 +234,25 @@ const AccountAnalysis = () => {
         size: 110,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
-            <button
-              aria-label={dict.view}
-              className="p-2 rounded-lg bg-cabgen-400 text-white hover:bg-cabgen-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
+            <IconButton
+              variant="primary"
+              label={dict.view}
+              icon={<Eye size={18} />}
               onClick={() =>
                 router.push(`/account/analysis/${info.row.original.id}`)
               }
-            >
-              <Eye size={15} />
-            </button>
-            <button
-              aria-label={dict.delete}
-              className="p-2 rounded-lg text-gray-500 hover:text-red-600 hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 transition-colors"
+            />
+            <IconButton
+              variant="danger"
+              label={dict.delete}
+              icon={<Trash2 size={18} />}
               onClick={() =>
                 setModal({
                   type: "delete",
                   analysis: info.row.original,
                 })
               }
-            >
-              <Trash2 size={15} />
-            </button>
+            />
           </div>
         ),
       }),

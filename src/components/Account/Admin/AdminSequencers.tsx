@@ -8,6 +8,7 @@ import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
 import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
+import IconButton from "@/components/General/IconButton";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
@@ -26,6 +27,7 @@ const AdminSequencers = () => {
     dictionary: { Account: AccountDict, Errors },
   } = getTranslateClient(lang);
   const dict = AccountDict.admin;
+  const sequencerOther = AccountDict.option.sequencer.other;
 
   const [modal, setModal] = useState<{
     type: "add" | "edit" | "delete" | null;
@@ -56,10 +58,12 @@ const AdminSequencers = () => {
       columnHelper.accessor("brand", {
         header: dict.brand,
         size: 150,
+        cell: (info) => <span>{info.getValue() === "option.sequencer.other" ? sequencerOther : info.getValue()}</span>,
       }),
       columnHelper.accessor("model", {
         header: dict.model,
         size: 200,
+        cell: (info) => <span>{info.getValue() === "option.sequencer.other" ? sequencerOther : info.getValue()}</span>,
       }),
       columnHelper.accessor("is_active", {
         header: dict.isActive,
@@ -79,25 +83,22 @@ const AdminSequencers = () => {
         size: 100,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
-            <button
-              aria-label={dict.editSequencer}
-              className="p-2 rounded-lg text-gray-500 hover:text-cabgen-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
+            <IconButton
+              label={dict.editSequencer}
+              icon={<Pencil size={18} />}
               onClick={() => setModal({ type: "edit", sequencer: info.row.original })}
-            >
-              <Pencil size={15} />
-            </button>
-            <button
-              aria-label={dict.delete}
-              className="p-2 rounded-lg text-gray-500 hover:text-red-600 hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 transition-colors"
+            />
+            <IconButton
+              variant="danger"
+              label={dict.delete}
+              icon={<Trash2 size={18} />}
               onClick={() => setModal({ type: "delete", sequencer: info.row.original })}
-            >
-              <Trash2 size={15} />
-            </button>
+            />
           </div>
         ),
       }),
     ],
-    [dict],
+    [dict, sequencerOther],
   );
 
   return (

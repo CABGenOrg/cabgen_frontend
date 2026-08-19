@@ -60,7 +60,7 @@ const DataTable = <TData,>({
 
   return (
     <div className="bg-white rounded-lg shadow-md border border-gray-100">
-      <div className="overflow-x-auto max-h-[60vh]">
+      <div className="overflow-x-auto max-h-[min(600px,70vh)]">
         <table className="w-full text-sm">
           <thead className="sticky top-0 z-10">
             {table.getHeaderGroups().map((hg) => (
