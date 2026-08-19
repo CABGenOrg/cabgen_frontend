@@ -9,8 +9,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const { dictionary } = getTranslateServer(lang);
-  return { title: `${dictionary.Account.admin.allAnalyses} | CABGen` };
+  return { title: `${dictionary.Account.security.confirmEmailTitle} | CABGen` };
 }
 
-const Page = () => null;
-export default Page;
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
+}

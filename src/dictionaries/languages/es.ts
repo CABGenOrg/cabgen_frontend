@@ -61,6 +61,7 @@ const es = {
     },
   },
   Network: {
+    title: "Red",
     Description: {
       firstParagraph:
         "La red reúne expertos en resistencia antimicrobiana (RAM) y bioinformática de diferentes unidades de Fiocruz, LACEN y CGLAB-MS, con un enfoque principal en la estructuración, capacitación, análisis e interpretación de datos de secuenciación de genoma completo de bacterias multirresistentes. Esta iniciativa permitirá una comprensión más profunda del escenario de la RAM en Brasil, con la intención de garantizar agilidad para futuras acciones en el control de la propagación de estos microorganismos.",
@@ -119,6 +120,7 @@ const es = {
     },
   },
   About: {
+    title: "Acerca de",
     CabgenMission: {
       sectionTitle: "Comprende ",
       sectionSubtitle: "Misión y Propósito",
@@ -158,6 +160,7 @@ const es = {
     },
   },
   Contact: {
+    title: "Contacto",
     formSubtitle: "Por favor, deja tu mensaje, pregunta o sugerencia.",
     nameField: "Nombre",
     nameFieldValidation: "El nombre es obligatorio.",
@@ -175,6 +178,7 @@ const es = {
     successMessage: "Mensaje enviado exitosamente.",
   },
   Login: {
+    title: "Iniciar Sesión",
     usernameField: "Nombre de Usuario",
     usernameFieldValidation: "El nombre de usuario es obligatorio.",
     passwordField: "Contraseña",
@@ -213,6 +217,7 @@ const es = {
     backToLogin: "Volver al Inicio de Sesión",
   },
   Register: {
+    title: "Registro",
     nameField: "Nombre",
     nameFieldValidation: "El nombre es obligatorio.",
     countryField: "País",
@@ -576,7 +581,7 @@ identifiedSpecies: "Especie Identificada",
       },
     },
     overview: {
-      title: "Resumen",
+      title: "Cuenta",
       welcome: "Bienvenido",
       totalSamples: "Total de Muestras",
       totalAnalyses: "Total de Análisis",

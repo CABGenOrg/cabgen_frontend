@@ -1,12 +1,27 @@
+import type { Metadata } from "next";
+import { type Locale } from "@/i18n/i18n.config";
+import { getTranslateServer } from "@/lib/getTranslateServer";
 import React from "react";
 import Section from "@/components/General/Section";
 import { form_spacing } from "@/styles/tailwind_classes";
 import OptimizedImage from "@/components/General/OptimizedImage";
 import { Cog } from "lucide-react";
-import { Locale } from "@/i18n/i18n.config";
-import { getTranslateServer } from "@/lib/getTranslateServer";
 
-const Maintenance = async ({ params }: { params: Promise<{ lang: Locale }> }) => {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const { dictionary } = getTranslateServer(lang);
+  return { title: `${dictionary.Maintenance.sectionTitle} | CABGen` };
+}
+
+const Maintenance = async ({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}) => {
   const { lang } = await params;
   const {
     dictionary: { Maintenance },

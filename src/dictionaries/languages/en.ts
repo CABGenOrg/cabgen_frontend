@@ -61,6 +61,7 @@ const en = {
     },
   },
   Network: {
+    title: "Network",
     Description: {
       firstParagraph:
         "The network brings together experts in antimicrobial resistance (AMR) and bioinformatics from different units of Fiocruz, LACEN, and CGLAB-MS, with a main focus on structuring, training, analysis, and interpretation of whole genome sequencing data from multidrug-resistant bacteria. This initiative will allow for a deeper understanding of the AMR scenario in Brazil to ensure agility for future actions in controlling the spread of these microorganisms.",
@@ -119,6 +120,7 @@ const en = {
     },
   },
   About: {
+    title: "About",
     CabgenMission: {
       sectionTitle: "Understand ",
       sectionSubtitle: "Mission and Purpose",
@@ -158,6 +160,7 @@ const en = {
     },
   },
   Contact: {
+    title: "Contact",
     formSubtitle: "Please leave your message, question, or suggestion.",
     nameField: "Name",
     nameFieldValidation: "Name is required.",
@@ -174,6 +177,7 @@ const en = {
     successMessage: "Message sent successfully.",
   },
   Login: {
+    title: "Login",
     usernameField: "Username",
     usernameFieldValidation: "Username is required.",
     passwordField: "Password",
@@ -208,6 +212,7 @@ const en = {
     backToLogin: "Back to Login",
   },
   Register: {
+    title: "Register",
     nameField: "Name",
     nameFieldValidation: "Name is required.",
     countryField: "Country",
@@ -261,7 +266,7 @@ const en = {
       tutorial: "Tutorial",
     },
     overview: {
-      title: "Overview",
+      title: "Account",
       welcome: "Welcome",
       totalSamples: "Total Samples",
       totalAnalyses: "Total Analyses",
