@@ -24,6 +24,7 @@ import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { i18n } from "@/i18n/i18n.config";
 import Loading from "./Loading";
+import { getTranslateClient } from "@/lib/getTranslateClient";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -31,6 +32,46 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useAuth();
   const lang = useLanguage();
   const isAccountPage = pathname.includes("/account");
+  const { dictionary } = getTranslateClient(lang);
+
+  const titleMap: Record<string, string> = useMemo(
+    () => ({
+      "/account/admin/users": dictionary.Account.admin.users,
+      "/account/admin/origins": dictionary.Account.admin.origins,
+      "/account/admin/sequencers": dictionary.Account.admin.sequencers,
+      "/account/admin/laboratories": dictionary.Account.admin.laboratories,
+      "/account/admin/health-services": dictionary.Account.admin.healthServices,
+      "/account/admin/sample-sources": dictionary.Account.admin.sampleSources,
+      "/account/admin/microorganisms": dictionary.Account.admin.microorganisms,
+      "/account/admin/tickets": dictionary.Account.admin.tickets,
+      "/account/admin/samples": dictionary.Account.admin.allSamples,
+      "/account/admin/analyses": dictionary.Account.admin.allAnalyses,
+      "/account/admin": dictionary.Account.admin.overview.title,
+      "/account/analysis": dictionary.Account.analyses.title,
+      "/account/sequences": dictionary.Account.sequences.title,
+      "/account/my-account": dictionary.Account.myAccount.title,
+      "/account/security": dictionary.Account.security.title,
+      "/account": dictionary.Account.overview.title,
+      "/about": dictionary.About.title,
+      "/contact": dictionary.Contact.title,
+      "/dashboard": dictionary.Dashboard.sectionTitle,
+      "/login": dictionary.Login.title,
+      "/register": dictionary.Register.title,
+      "/network": dictionary.Network.title,
+      "/maintenance": dictionary.Maintenance.sectionTitle,
+      "/forgot-password": dictionary.ForgotPassword.title,
+      "/reset-password": dictionary.ResetPassword.title,
+      "/confirm-email-update": dictionary.Account.security.confirmEmailTitle,
+    }),
+    [dictionary],
+  );
+
+  useEffect(() => {
+    const match = Object.keys(titleMap)
+      .sort((a, b) => b.length - a.length)
+      .find((route) => pathname.includes(route));
+    document.title = match ? `${titleMap[match]} | CABGen` : "CABGen";
+  }, [pathname, titleMap]);
 
   const findAccountComponent = useCallback((pathname: string) => {
     const accountComponents = [
