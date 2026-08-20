@@ -324,7 +324,7 @@ const pt = {
       status: "Estado",
       startedAt: "Início",
       finishedAt: "Fim",
-      coverage: "Cobertura",
+      completeness: "Completude",
       genomeSize: "Tamanho do Genoma",
       n50: "N50",
       identifiedSpecies: "Espécie Identificada",

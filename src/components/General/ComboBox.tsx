@@ -83,7 +83,9 @@ export function Combobox({
           aria-expanded={open}
           className="w-full justify-between font-normal text-black px-3.5 text-base 2xl:text-xl overflow-hidden"
         >
-          <span className="truncate min-w-0">{selectedLabel ?? placeholder}</span>
+          <span className="truncate min-w-0">
+            {selectedLabel ?? placeholder}
+          </span>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

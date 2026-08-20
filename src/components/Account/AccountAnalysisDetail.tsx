@@ -63,61 +63,82 @@ const AccountAnalysisDetail = () => {
 
   const [downloadError, setDownloadError] = useState<string | null>(null);
 
-  const { data: analysis, isLoading, error } = useGetAdminAnalysisByIDQuery([id, lang]);
+  const {
+    data: analysis,
+    isLoading,
+    error,
+  } = useGetAdminAnalysisByIDQuery([id, lang]);
 
-  const { genomicRows, speciesRows, virulenceRows, versionsRows } = useMemo(() => {
-    if (!analysis?.metrics) {
-      return { genomicRows: [], speciesRows: [], virulenceRows: [], versionsRows: [] };
-    }
-    const m = analysis.metrics;
-    return {
-      genomicRows: [
-        {
-          label: metricsDict.completeness,
-          value:
-            m.completeness != null ? `${Number(m.completeness).toFixed(2)}%` : "—",
-        },
-        {
-          label: metricsDict.n50,
-          value:
-            m.n50 != null ? `${Number(m.n50).toLocaleString(lang)} bp` : "—",
-        },
-        {
-          label: metricsDict.genomeSize,
-          value:
-            m.genome_size != null
-              ? `${Number(m.genome_size).toLocaleString(lang)} bp`
-              : "—",
-        },
-        {
-          label: metricsDict.coverage,
-          value: m.coverage != null ? `${Number(m.coverage).toFixed(2)}x` : "—",
-        },
-        {
-          label: metricsDict.contamination,
-          value:
-            m.contamination != null ? `${Number(m.contamination).toFixed(2)}%` : "—",
-        },
-      ],
-      speciesRows: [
-        { label: metricsDict.identifiedSpecies, value: m.primary_species },
-        { label: metricsDict.secondarySpecies, value: m.secondary_species || "—" },
-        { label: metricsDict.mlst, value: m.mlst },
-      ],
-      virulenceRows: [
-        { label: metricsDict.acquiredResistance, value: m.acquired_resistance },
-        { label: metricsDict.poliMutations, value: m.poli_mutations },
-        { label: metricsDict.otherMutations, value: m.other_mutations },
-        { label: metricsDict.plasmid, value: m.plasmid },
-        { label: metricsDict.vfdb, value: m.vfdb },
-      ],
-      versionsRows: (m.versions ?? []).map((v) => ({
-        label: v.name,
-        value: v.version,
-      })),
-    };
-  }, [analysis?.metrics, metricsDict, lang]);
-
+  const { genomicRows, speciesRows, virulenceRows, versionsRows } =
+    useMemo(() => {
+      if (!analysis?.metrics) {
+        return {
+          genomicRows: [],
+          speciesRows: [],
+          virulenceRows: [],
+          versionsRows: [],
+        };
+      }
+      const m = analysis.metrics;
+      return {
+        genomicRows: [
+          {
+            label: metricsDict.completeness,
+            value:
+              m.completeness != null
+                ? `${Number(m.completeness).toFixed(2)}%`
+                : "—",
+          },
+          {
+            label: metricsDict.n50,
+            value:
+              m.n50 != null ? `${Number(m.n50).toLocaleString(lang)} bp` : "—",
+          },
+          {
+            label: metricsDict.genomeSize,
+            value:
+              m.genome_size != null
+                ? `${Number(m.genome_size).toLocaleString(lang)} bp`
+                : "—",
+          },
+          {
+            label: metricsDict.coverage,
+            value:
+              m.coverage != null ? `${Number(m.coverage).toFixed(2)}x` : "—",
+          },
+          {
+            label: metricsDict.contamination,
+            value:
+              m.contamination != null
+                ? `${Number(m.contamination).toFixed(2)}%`
+                : "—",
+          },
+        ],
+        speciesRows: [
+          { label: metricsDict.identifiedSpecies, value: m.primary_species },
+          {
+            label: metricsDict.secondarySpecies,
+            value: m.secondary_species || "—",
+          },
+          { label: metricsDict.mlst, value: m.mlst },
+        ],
+        virulenceRows: [
+          {
+            label: metricsDict.acquiredResistance,
+            value: m.acquired_resistance,
+          },
+          { label: metricsDict.poliMutations, value: m.poli_mutations },
+          { label: metricsDict.otherMutations, value: m.other_mutations },
+          { label: metricsDict.plasmid, value: m.plasmid },
+          { label: metricsDict.vfdb, value: m.vfdb },
+        ],
+        versionsRows: (m.versions ?? []).map((v) => ({
+          label: v.name,
+          value: v.version,
+        })),
+      };
+    }, [analysis?.metrics, metricsDict, lang]);
+  console.log(analysis?.metrics?.versions);
   const statusLabel =
     (dict.statusValues as Record<string, string>)[
       analysis?.status.toLowerCase() ?? ""
@@ -221,7 +242,7 @@ const AccountAnalysisDetail = () => {
         </div>
       )}
 
-  <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-6">
+      <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-6">
         <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
           <h2 className="font-semibold text-gray-900">{detailDict.fastqc}</h2>
         </div>

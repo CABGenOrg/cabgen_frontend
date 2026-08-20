@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useRef } from "react";
-import { Plus, Eye, Trash2, Search, Download } from "lucide-react";
+import { Eye, Trash2, Search, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -38,17 +38,16 @@ import type { AnalysisResponse } from "@/redux/services/analyses/analysesService
 import { useGetEnumSelectOptionsQuery } from "@/redux/services/select_options/selectOptionsService";
 import { useGetSamplesQuery } from "@/redux/services/samples/samplesService";
 import type { SampleResponse } from "@/redux/services/samples/samplesService";
-import Modal from "./AccountSequences/Modal";
+import Modal from "@/components/General/Modal";
 
 const columnHelper = createColumnHelper<AnalysisResponse>();
 
-const formatDate = (
-  value: Date | string | undefined,
-  lang: string,
-) => {
+const formatDate = (value: Date | string | undefined, lang: string) => {
   if (!value) return "-";
   const d = value instanceof Date ? value : new Date(value);
-  return isNaN(d.getTime()) ? "-" : d.toLocaleDateString(lang, { timeZone: "UTC" });
+  return isNaN(d.getTime())
+    ? "-"
+    : d.toLocaleDateString(lang, { timeZone: "UTC" });
 };
 
 type CreateFormData = {
@@ -110,12 +109,14 @@ const AccountAnalysis = () => {
     defaultValues: { type: "", sample_id: "" },
   });
 
-  const analysisTypeOptions = (enumOptions?.analysis_types ?? []).map((opt) => ({
-    value: opt.value,
-    label:
-      (analysisTypeDict as Record<string, string>)[opt.value.toLowerCase()] ??
-      opt.label,
-  }));
+  const analysisTypeOptions = (enumOptions?.analysis_types ?? []).map(
+    (opt) => ({
+      value: opt.value,
+      label:
+        (analysisTypeDict as Record<string, string>)[opt.value.toLowerCase()] ??
+        opt.label,
+    }),
+  );
   const sampleOptions = useMemo(
     () =>
       (samples ?? [])
@@ -123,7 +124,9 @@ const AccountAnalysis = () => {
           value: s.id,
           label: s.origin_code,
         }))
-        .sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })),
+        .sort((a, b) =>
+          a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
+        ),
     [samples],
   );
 
@@ -142,9 +145,7 @@ const AccountAnalysis = () => {
     } catch {}
   };
 
-  const hasRunning = data.some(
-    (a) => a.status.toLowerCase() === "running",
-  );
+  const hasRunning = data.some((a) => a.status.toLowerCase() === "running");
 
   const columns = useMemo(
     () => [
@@ -166,9 +167,7 @@ const AccountAnalysis = () => {
         cell: (info) => {
           const v = info.getValue();
           const typeKey = v.toLowerCase();
-          return (
-            (analysisTypeDict as Record<string, string>)[typeKey] ?? v
-          );
+          return (analysisTypeDict as Record<string, string>)[typeKey] ?? v;
         },
       }),
       columnHelper.accessor("status", {
@@ -181,9 +180,7 @@ const AccountAnalysis = () => {
             (dict.statusValues as Record<string, string>)[statusKey] ?? v;
           return (
             <Badge
-              variant={
-                statusKey as "pending" | "running" | "done" | "failed"
-              }
+              variant={statusKey as "pending" | "running" | "done" | "failed"}
             >
               {label}
             </Badge>
@@ -198,7 +195,7 @@ const AccountAnalysis = () => {
               cell: (info) => {
                 const status = info.row.original.status;
                 return status.toLowerCase() === "running"
-                  ? (info.getValue() || "-")
+                  ? info.getValue() || "-"
                   : "-";
               },
             }),
@@ -216,14 +213,14 @@ const AccountAnalysis = () => {
         meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => formatDate(info.getValue(), lang),
       }),
-      columnHelper.accessor((row) => row.metrics?.coverage, {
-        id: "coverage",
-        header: dict.coverage,
+      columnHelper.accessor((row) => row.metrics?.completeness, {
+        id: "completeness",
+        header: dict.completeness,
         size: 100,
         meta: { responsive: "hidden md:table-cell" },
         cell: (info) => {
           const v = info.getValue();
-          return v === undefined || v === null ? "-" : v.toFixed(2);
+          return v ? `${v}%` : "-";
         },
       }),
       columnHelper.accessor((row) => row.metrics?.primary_species, {
@@ -310,7 +307,10 @@ const AccountAnalysis = () => {
 
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+          <Search
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            size={16}
+          />
           <input
             type="text"
             placeholder={dict.search}
@@ -372,8 +372,7 @@ const AccountAnalysis = () => {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className={label_class}>
-                          {dict.type}{" "}
-                          <span className="text-red-500">*</span>
+                          {dict.type} <span className="text-red-500">*</span>
                         </FormLabel>
                         <FormControl>
                           <SmartSelect
@@ -393,8 +392,7 @@ const AccountAnalysis = () => {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className={label_class}>
-                          {dict.sample}{" "}
-                          <span className="text-red-500">*</span>
+                          {dict.sample} <span className="text-red-500">*</span>
                         </FormLabel>
                         <FormControl>
                           <SmartSelect

@@ -332,7 +332,7 @@ const en = {
       status: "Status",
       startedAt: "Started",
       finishedAt: "Finished",
-      coverage: "Coverage",
+      completeness: "Completeness",
       genomeSize: "Genome Size",
       n50: "N50",
       identifiedSpecies: "Identified Species",

@@ -192,14 +192,14 @@ const AdminAnalyses = () => {
         meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => formatDate(info.getValue(), lang),
       }),
-      columnHelper.accessor((row) => row.metrics?.coverage, {
-        id: "coverage",
-        header: analysisDict.coverage,
+      columnHelper.accessor((row) => row.metrics?.completeness, {
+        id: "completeness",
+        header: analysisDict.completeness,
         size: 100,
         meta: { responsive: "hidden md:table-cell" },
         cell: (info) => {
           const v = info.getValue();
-          return v === undefined || v === null ? "-" : v.toFixed(2);
+          return v ? `${v}%` : "-";
         },
       }),
       columnHelper.accessor((row) => row.metrics?.primary_species, {

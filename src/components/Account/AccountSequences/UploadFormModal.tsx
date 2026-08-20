@@ -6,16 +6,13 @@ import handleError from "@/utils/handleError";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import {
-  section_btn,
-  label_class,
-} from "@/styles/tailwind_classes";
+import { section_btn, label_class } from "@/styles/tailwind_classes";
 import Message from "@/components/General/Message";
 import { apiSlice } from "@/redux/api/apiSlice";
 import { SAMPLES_ENDPOINTS } from "@/redux/services/samples/samplesEndpoints";
 import type { SampleResponse } from "@/redux/services/samples/samplesService";
 import { getTranslateClient } from "@/lib/getTranslateClient";
-import Modal from "./Modal";
+import Modal from "@/components/General/Modal";
 
 const ensureGzipped = async (file: File): Promise<File> => {
   if (file.name.endsWith(".gz")) return file;

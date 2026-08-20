@@ -25,7 +25,7 @@ import type {
   SampleInput,
 } from "@/redux/services/samples/samplesService";
 import { getTranslateClient } from "@/lib/getTranslateClient";
-import Modal from "./Modal";
+import Modal from "@/components/General/Modal";
 import { emptyToNull } from "@/utils/zodHelpers";
 import { getChangedFields } from "@/utils/getChangedFields";
 
@@ -122,34 +122,74 @@ const SampleFormModalBody: React.FC<
     label: genderDict[g.value.toLowerCase()] ?? g.label,
   }));
 
-  const laboratoryOptions = (formOptions.laboratories ?? []).map((o) => ({
-    ...o,
-    rawLabel: o.label,
-    label: o.label === "option.laboratory.other" ? labOther : o.label,
-  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+  const laboratoryOptions = (formOptions.laboratories ?? [])
+    .map((o) => ({
+      ...o,
+      rawLabel: o.label,
+      label: o.label === "option.laboratory.other" ? labOther : o.label,
+    }))
+    .sort((a, b) =>
+      a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
+    );
 
-  const cityOptions = (cities ?? []).map((o) => ({
-    ...o,
-    rawLabel: o.label,
-    label: o.label === "option.city.other" ? cityOther : o.label,
-  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+  const cityOptions = (cities ?? [])
+    .map((o) => ({
+      ...o,
+      rawLabel: o.label,
+      label: o.label === "option.city.other" ? cityOther : o.label,
+    }))
+    .sort((a, b) =>
+      a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
+    );
 
-  const healthServiceOptions = (formOptions.health_services ?? []).map((o) => ({
-    ...o,
-    rawLabel: o.label,
-    label:
-      o.label === "option.healthService.other" ? healthServiceOther : o.label,
-  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+  const healthServiceOptions = (formOptions.health_services ?? [])
+    .map((o) => ({
+      ...o,
+      rawLabel: o.label,
+      label:
+        o.label === "option.healthService.other" ? healthServiceOther : o.label,
+    }))
+    .sort((a, b) =>
+      a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
+    );
 
-  const countryOptions = (countries ?? []).map((c) => ({
-    value: c.code,
-    label: c.name,
-  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+  const countryOptions = (countries ?? [])
+    .map((c) => ({
+      value: c.code,
+      label: c.name,
+    }))
+    .sort((a, b) =>
+      a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
+    );
 
-  const origins = useMemo(() => [...(formOptions.origins ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.origins]);
-  const microorganisms = useMemo(() => [...(formOptions.microorganisms ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.microorganisms]);
-  const sampleSources = useMemo(() => [...(formOptions.sample_sources ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.sample_sources]);
-  const sequencers = useMemo(() => [...(formOptions.sequencers ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.sequencers]);
+  const origins = useMemo(
+    () =>
+      [...(formOptions.origins ?? [])].sort((a, b) =>
+        a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
+      ),
+    [formOptions.origins],
+  );
+  const microorganisms = useMemo(
+    () =>
+      [...(formOptions.microorganisms ?? [])].sort((a, b) =>
+        a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
+      ),
+    [formOptions.microorganisms],
+  );
+  const sampleSources = useMemo(
+    () =>
+      [...(formOptions.sample_sources ?? [])].sort((a, b) =>
+        a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
+      ),
+    [formOptions.sample_sources],
+  );
+  const sequencers = useMemo(
+    () =>
+      [...(formOptions.sequencers ?? [])].sort((a, b) =>
+        a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
+      ),
+    [formOptions.sequencers],
+  );
 
   const sequencerOptions = sequencers.map((o) => ({
     ...o,
@@ -230,7 +270,12 @@ const SampleFormModalBody: React.FC<
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
-            <TextField name="origin_code" label={dict.originCode} form={form} required />
+            <TextField
+              name="origin_code"
+              label={dict.originCode}
+              form={form}
+              required
+            />
             <SelectField
               name="country_code"
               label={dict.country}

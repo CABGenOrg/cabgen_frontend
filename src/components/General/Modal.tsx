@@ -38,7 +38,7 @@ const Modal: React.FC<{
 
   if (!open) return null;
   return (
-    <FocusTrap>
+    <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
       <div
         className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
         onClick={(e) => {

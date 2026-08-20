@@ -24,7 +24,7 @@ import {
 } from "@/redux/services/users/usersService";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
-import Modal from "../Account/AccountSequences/Modal";
+import Modal from "@/components/General/Modal";
 
 const AccountSecurity = () => {
   const lang = useLanguage();
