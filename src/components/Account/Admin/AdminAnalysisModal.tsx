@@ -198,6 +198,15 @@ const AdminAnalysisModalBody: React.FC<
     values: editInitialValues,
   });
 
+  const filteredStatusOptions = useMemo(() => {
+    if (!initial) return statusOptions;
+    const current = initial.status?.toLowerCase() ?? "";
+    if (current === "done" || current === "failed") {
+      return statusOptions.filter((o) => o.value === "pending" || o.value === "failed");
+    }
+    return statusOptions.filter((o) => o.value === "failed");
+  }, [initial, statusOptions]);
+
   const [createAnalysis, { isLoading: creating, error: createError }] =
     useCreateAdminAnalysisMutation();
   const [updateAnalysis, { isLoading: updating, error: updateError }] =
@@ -265,7 +274,7 @@ const AdminAnalysisModalBody: React.FC<
                 name="status"
                 label={analysisDict.status}
                 form={editForm}
-                options={statusOptions}
+                options={filteredStatusOptions}
                 placeholder={adminDict.selectPlaceholder}
                 required
               />
