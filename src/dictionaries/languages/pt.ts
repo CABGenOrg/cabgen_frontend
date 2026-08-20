@@ -371,6 +371,7 @@ identifiedSpecies: "Espécie Identificada",
           vfdb: "VFDB",
           plasmid: "Plasmídeo",
         },
+        versions: "Versões das Ferramentas",
       },
     },
     admin: {

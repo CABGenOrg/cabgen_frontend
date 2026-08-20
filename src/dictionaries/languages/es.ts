@@ -379,6 +379,7 @@ identifiedSpecies: "Especie Identificada",
           vfdb: "VFDB",
           plasmid: "Plásmido",
         },
+        versions: "Versiones de Herramientas",
       },
     },
     admin: {

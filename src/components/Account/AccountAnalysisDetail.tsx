@@ -65,9 +65,9 @@ const AccountAnalysisDetail = () => {
 
   const { data: analysis, isLoading, error } = useGetAdminAnalysisByIDQuery([id, lang]);
 
-  const { genomicRows, speciesRows, virulenceRows } = useMemo(() => {
+  const { genomicRows, speciesRows, virulenceRows, versionsRows } = useMemo(() => {
     if (!analysis?.metrics) {
-      return { genomicRows: [], speciesRows: [], virulenceRows: [] };
+      return { genomicRows: [], speciesRows: [], virulenceRows: [], versionsRows: [] };
     }
     const m = analysis.metrics;
     return {
@@ -111,6 +111,10 @@ const AccountAnalysisDetail = () => {
         { label: metricsDict.plasmid, value: m.plasmid },
         { label: metricsDict.vfdb, value: m.vfdb },
       ],
+      versionsRows: (m.versions ?? []).map((v) => ({
+        label: v.name,
+        value: v.version,
+      })),
     };
   }, [analysis?.metrics, metricsDict, lang]);
 
@@ -262,6 +266,9 @@ const AccountAnalysisDetail = () => {
       <MetricsSection title={detailDict.genomic} rows={genomicRows} />
       <MetricsSection title={detailDict.species} rows={speciesRows} />
       <MetricsSection title={detailDict.virulence} rows={virulenceRows} />
+      {versionsRows.length > 0 && (
+        <MetricsSection title={detailDict.versions} rows={versionsRows} />
+      )}
     </div>
   );
 };
