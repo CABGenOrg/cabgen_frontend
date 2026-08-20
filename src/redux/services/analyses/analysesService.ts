@@ -52,10 +52,24 @@ export type AnalysisTSVDownloadInput = {
   ids: string[];
 };
 
+export type AnalysisFilters = {
+  originCode?: string;
+  type?: string;
+};
+
 const analysesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAnalyses: builder.query<AnalysisResponse[], string>({
-      query: (lang) => requestConfig(ANALYSES_ENDPOINTS.DEFAULT, "GET"),
+    getAnalyses: builder.query<AnalysisResponse[], AnalysisFilters>({
+      query: (filters = {}) => {
+        const params = new URLSearchParams();
+        if (filters.originCode) params.append("originCode", filters.originCode);
+        if (filters.type) params.append("type", filters.type);
+        const qs = params.toString();
+        const url = qs
+          ? `${ANALYSES_ENDPOINTS.DEFAULT}?${qs}`
+          : ANALYSES_ENDPOINTS.DEFAULT;
+        return requestConfig(url, "GET");
+      },
       transformResponse: (res: ApiResponse<AnalysisResponse[]>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Analyses"],

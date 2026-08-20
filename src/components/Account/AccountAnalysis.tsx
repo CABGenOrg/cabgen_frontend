@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { Plus, Eye, Trash2, Search, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import IconButton from "@/components/General/IconButton";
-import { label_class } from "@/styles/tailwind_classes";
+import { label_class, input_class } from "@/styles/tailwind_classes";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import Message from "@/components/General/Message";
@@ -71,8 +71,20 @@ const AccountAnalysis = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
+  const [filters, setFilters] = useState<{ originCode: string; type: string }>({
+    originCode: "",
+    type: "",
+  });
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const handleFilterChange = (key: string, value: string) => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setFilters((f) => ({ ...f, [key]: value }));
+    }, 300);
+  };
+
   const { data = [], isLoading: loadingAnalyses } = useGetAnalysesQuery(
-    lang,
+    filters,
     { pollingInterval: 15000 },
   );
   const [deleteAnalysis, { isLoading: deleting, error: deleteError }] =
@@ -295,6 +307,26 @@ const AccountAnalysis = () => {
         actionLabel={dict.newAnalysis}
         onAction={() => setModal({ type: "add" })}
       />
+
+      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+          <input
+            type="text"
+            placeholder={dict.search}
+            className={`${input_class} pl-9`}
+            onChange={(e) => handleFilterChange("originCode", e.target.value)}
+          />
+        </div>
+        <div className="sm:w-48 sm:flex-none">
+          <SmartSelect
+            value={filters.type}
+            onChange={(value) => setFilters((f) => ({ ...f, type: value }))}
+            options={analysisTypeOptions}
+            placeholder={dict.filterByType}
+          />
+        </div>
+      </div>
 
       <div className="flex justify-start mb-4">
         <Button

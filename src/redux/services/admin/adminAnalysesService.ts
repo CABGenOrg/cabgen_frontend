@@ -6,7 +6,12 @@ import {
   AnalysisTSVDownloadInput,
   AnalysisResponse,
   AnalysisResult,
+  AnalysisFilters,
 } from "../analyses/analysesService";
+
+export type AdminAnalysisFilters = AnalysisFilters & {
+  username?: string;
+};
 
 export type AdminAnalysisResponse = AnalysisResponse;
 
@@ -32,8 +37,18 @@ export type AdminAnalysisUpdateInput = {
 
 const analysesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAdminAnalyses: builder.query<AnalysisResponse[], string>({
-      query: (lang) => requestConfig(ADMIN_ENDPOINTS.ANALYSES, "GET"),
+    getAdminAnalyses: builder.query<AnalysisResponse[], AdminAnalysisFilters>({
+      query: (filters = {}) => {
+        const params = new URLSearchParams();
+        if (filters.originCode) params.append("originCode", filters.originCode);
+        if (filters.type) params.append("type", filters.type);
+        if (filters.username) params.append("username", filters.username);
+        const qs = params.toString();
+        const url = qs
+          ? `${ADMIN_ENDPOINTS.ANALYSES}?${qs}`
+          : ADMIN_ENDPOINTS.ANALYSES;
+        return requestConfig(url, "GET");
+      },
       transformResponse: (res: ApiResponse<AnalysisResponse[]>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Analyses"],

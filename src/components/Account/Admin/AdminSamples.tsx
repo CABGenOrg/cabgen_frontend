@@ -187,7 +187,7 @@ const AdminSamples = () => {
         onAction={() => setModal({ type: "add" })}
       />
 
-      <SearchInput onSearch={setDebouncedSearch} />
+      <SearchInput onSearch={setDebouncedSearch} placeholder={adminDict.search} />
 
       <DataTable
         data={data}

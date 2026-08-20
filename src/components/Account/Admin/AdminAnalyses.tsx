@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { Search, Eye, Pencil, Trash2, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +10,7 @@ import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import IconButton from "@/components/General/IconButton";
+import { SmartSelect } from "@/components/General/SmartSelect";
 import { downloadPostFile } from "@/utils/downloadFile";
 import { ADMIN_ENDPOINTS } from "@/redux/services/admin/adminEndpoints";
 import { useLanguage } from "@/redux/LanguageContext";
@@ -19,6 +20,8 @@ import {
   useDeleteAdminAnalysisMutation,
 } from "@/redux/services/admin/adminAnalysesService";
 import type { AnalysisResponse } from "@/redux/services/analyses/analysesService";
+import { useGetEnumSelectOptionsQuery } from "@/redux/services/select_options/selectOptionsService";
+import { input_class } from "@/styles/tailwind_classes";
 import AdminAnalysisModal from "./AdminAnalysisModal";
 
 const columnHelper = createColumnHelper<AnalysisResponse>();
@@ -47,8 +50,30 @@ const AdminAnalyses = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
+  const [filters, setFilters] = useState<{
+    originCode: string;
+    type: string;
+    username: string;
+  }>({ originCode: "", type: "", username: "" });
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const handleFilterChange = (key: string, value: string) => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setFilters((f) => ({ ...f, [key]: value }));
+    }, 300);
+  };
+
+  const { data: enumOptions, isLoading: loadingEnums } =
+    useGetEnumSelectOptionsQuery();
+  const analysisTypeOptions = (enumOptions?.analysis_types ?? []).map((opt) => ({
+    value: opt.value,
+    label:
+      (analysisTypeDict as Record<string, string>)[opt.value.toLowerCase()] ??
+      opt.label,
+  }));
+
   const { data = [], isLoading: loadingAnalyses } = useGetAdminAnalysesQuery(
-    lang,
+    filters,
     { pollingInterval: 15000 },
   );
   const [deleteAnalysis, { isLoading: deleting, error: deleteError }] =
@@ -238,6 +263,35 @@ const AdminAnalyses = () => {
         actionLabel={analysisDict.newAnalysis}
         onAction={() => setModal({ type: "add" })}
       />
+
+      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+          <input
+            type="text"
+            placeholder={analysisDict.filterBySample}
+            className={`${input_class} pl-9`}
+            onChange={(e) => handleFilterChange("originCode", e.target.value)}
+          />
+        </div>
+        <div className="sm:w-48 sm:flex-none">
+          <SmartSelect
+            value={filters.type}
+            onChange={(value) => setFilters((f) => ({ ...f, type: value }))}
+            options={analysisTypeOptions}
+            placeholder={analysisDict.filterByType}
+          />
+        </div>
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+          <input
+            type="text"
+            placeholder={analysisDict.filterByUsername}
+            className={`${input_class} pl-9`}
+            onChange={(e) => handleFilterChange("username", e.target.value)}
+          />
+        </div>
+      </div>
 
       <div className="flex justify-start mb-4">
         <Button

@@ -112,7 +112,7 @@ const AdminLaboratories = () => {
         onAction={() => setModal({ type: "add" })}
       />
 
-      <SearchInput onSearch={setDebouncedSearch} />
+      <SearchInput onSearch={setDebouncedSearch} placeholder={dict.search} />
 
       <DataTable
         data={data}
