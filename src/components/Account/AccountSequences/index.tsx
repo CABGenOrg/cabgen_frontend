@@ -5,6 +5,7 @@ import { Upload, Pencil, Trash2, Dna, Eye } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
+import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import IconButton from "@/components/General/IconButton";
 import { useLanguage } from "@/redux/LanguageContext";
@@ -39,7 +40,8 @@ const AccountSequences = () => {
 
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingSamples } = useGetSamplesQuery(lang);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const { data = [], isLoading: loadingSamples } = useGetSamplesQuery(debouncedSearch);
   const [deleteSample, { isLoading: deleting, error: deleteError }] =
     useDeleteSampleMutation();
 
@@ -181,6 +183,8 @@ const AccountSequences = () => {
         actionLabel={dict.newSample}
         onAction={() => setModal({ type: "add" })}
       />
+
+      <SearchInput onSearch={setDebouncedSearch} />
 
       <DataTable
         data={data}

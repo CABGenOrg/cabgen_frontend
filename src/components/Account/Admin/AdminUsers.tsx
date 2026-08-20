@@ -13,7 +13,6 @@ import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetUsersQuery,
-  useGetUsersByInputQuery,
   useDeleteUserMutation,
   useActivateUserMutation,
   useDeactivateUserMutation,
@@ -43,11 +42,7 @@ const AdminUsers = () => {
   const closeModal = () => setModal({ type: null });
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data: fullData = [], isLoading: loadingUsers } = useGetUsersQuery();
-  const { data: searchData = [] } = useGetUsersByInputQuery(debouncedSearch, {
-    skip: !debouncedSearch,
-  });
-  const data = debouncedSearch ? searchData : fullData;
+  const { data = [], isLoading: loadingUsers } = useGetUsersQuery(debouncedSearch);
   const [deleteUser, { isLoading: deleting, error: deleteError }] =
     useDeleteUserMutation();
   const [activateUser, { isLoading: togglingActive }] =

@@ -42,23 +42,14 @@ export type AdminUserUpdateInput = {
 
 const adminUsersService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUsers: builder.query<AdminUserResponse[], void>({
-      query: () => requestConfig(ADMIN_ENDPOINTS.USERS, "GET"),
-      transformResponse: (res: ApiResponse<AdminUserResponse[]>) => res.data,
-      transformErrorResponse: (res) => handleError(res),
-      providesTags: ["Users"],
-    }),
-    getUsersByInput: builder.query<AdminUserResponse[], string>({
-      query: (input) => {
+    getUsers: builder.query<AdminUserResponse[], string>({
+      query: (input = "") => {
         const params = new URLSearchParams();
         if (input) params.append("input", input);
-
-        const queryString = params.toString();
-
-        const url = queryString
-          ? `${ADMIN_ENDPOINTS.USERS}?${queryString}`
+        const qs = params.toString();
+        const url = qs
+          ? `${ADMIN_ENDPOINTS.USERS}?${qs}`
           : ADMIN_ENDPOINTS.USERS;
-
         return requestConfig(url, "GET");
       },
       transformResponse: (res: ApiResponse<AdminUserResponse[]>) => res.data,
@@ -105,7 +96,6 @@ const adminUsersService = apiSlice.injectEndpoints({
 
 export const {
   useGetUsersQuery,
-  useGetUsersByInputQuery,
   useGetUserByIDQuery,
   useCreateUserMutation,
   useUpdateUserMutation,

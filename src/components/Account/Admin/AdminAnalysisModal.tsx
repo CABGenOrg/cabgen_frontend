@@ -526,7 +526,7 @@ const AdminAnalysisModal: React.FC<AdminAnalysisModalProps> = ({
   const { data: enumOptions, error: enumError } =
     useGetEnumSelectOptionsQuery();
   const { data: samples, error: samplesError } = useGetAdminSamplesQuery(lang);
-  const { data: users, error: usersError } = useGetUsersQuery();
+  const { data: users, error: usersError } = useGetUsersQuery("");
 
   const loadFailed = !!(enumError || samplesError || usersError);
 

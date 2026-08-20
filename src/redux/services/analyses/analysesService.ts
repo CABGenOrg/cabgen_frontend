@@ -3,6 +3,11 @@ import { requestConfig } from "../../../utils/handleRequest";
 import handleError from "@/utils/handleError";
 import { ANALYSES_ENDPOINTS } from "./analysesEndpoints";
 
+export type ToolVersion = {
+  name: string;
+  version: string;
+};
+
 export type AnalysisResult = {
   coverage: number;
   completeness: string;
@@ -17,6 +22,7 @@ export type AnalysisResult = {
   acquired_resistance: string[];
   vfdb: string[];
   plasmid: string[];
+  versions: ToolVersion[];
 };
 
 export type AnalysisResponse = {

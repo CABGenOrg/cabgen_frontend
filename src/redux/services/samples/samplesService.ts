@@ -45,7 +45,15 @@ export type SampleInput = {
 const samplesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getSamples: builder.query<SampleResponse[], string>({
-      query: (lang) => requestConfig(SAMPLES_ENDPOINTS.DEFAULT, "GET"),
+      query: (input = "") => {
+        const params = new URLSearchParams();
+        if (input) params.append("input", input);
+        const qs = params.toString();
+        const url = qs
+          ? `${SAMPLES_ENDPOINTS.DEFAULT}?${qs}`
+          : SAMPLES_ENDPOINTS.DEFAULT;
+        return requestConfig(url, "GET");
+      },
       transformResponse: (res: ApiResponse<SampleResponse[]>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Samples"],

@@ -5,6 +5,7 @@ import { Dna, Pencil, Trash2, Upload, Eye } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
+import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import IconButton from "@/components/General/IconButton";
 import { useLanguage } from "@/redux/LanguageContext";
@@ -13,6 +14,7 @@ import {
   useGetAdminSamplesQuery,
   useDeleteAdminSampleMutation,
 } from "@/redux/services/admin/adminSamplesService";
+import { useGetSamplesQuery } from "@/redux/services/samples/samplesService";
 import type { SampleResponse } from "@/redux/services/samples/samplesService";
 import AdminSampleModal from "./AdminSampleModal";
 import AdminUploadFormModal from "./AdminUploadFormModal";
@@ -36,7 +38,12 @@ const AdminSamples = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
-  const { data = [], isLoading: loadingSamples } = useGetAdminSamplesQuery(lang);
+  const { data: fullData = [], isLoading: loadingSamples } = useGetAdminSamplesQuery(lang);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const { data: searchData = [] } = useGetSamplesQuery(debouncedSearch, {
+    skip: !debouncedSearch,
+  });
+  const data = debouncedSearch ? searchData : fullData;
   const [deleteSample, { isLoading: deleting, error: deleteError }] =
     useDeleteAdminSampleMutation();
 
@@ -179,6 +186,8 @@ const AdminSamples = () => {
         actionLabel={adminDict.newSample}
         onAction={() => setModal({ type: "add" })}
       />
+
+      <SearchInput onSearch={setDebouncedSearch} />
 
       <DataTable
         data={data}

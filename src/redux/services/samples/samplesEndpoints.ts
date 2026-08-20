@@ -1,3 +1,3 @@
 export const SAMPLES_ENDPOINTS = {
-  DEFAULT: "/samples"
+  DEFAULT: "/samples",
 } as const;

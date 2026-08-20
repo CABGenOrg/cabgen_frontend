@@ -82,7 +82,7 @@ const AccountAnalysis = () => {
 
   const { data: enumOptions, isLoading: loadingEnums } =
     useGetEnumSelectOptionsQuery();
-  const { data: samples, isLoading: loadingSamples } = useGetSamplesQuery(lang);
+  const { data: samples, isLoading: loadingSamples } = useGetSamplesQuery("");
 
   const createSchema = useMemo(
     () =>
