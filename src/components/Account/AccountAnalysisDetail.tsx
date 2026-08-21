@@ -6,6 +6,7 @@ import { ArrowLeft, Download, ExternalLink } from "lucide-react";
 import { section_btn } from "@/styles/tailwind_classes";
 import { downloadGetFile, openGetFile } from "@/utils/downloadFile";
 import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import Loading from "@/components/General/Loading";
@@ -21,7 +22,7 @@ const formatValue = (value: unknown): string => {
 
 const MetricsSection: React.FC<{
   title: string;
-  rows: { label: string; value: unknown }[];
+  rows: { label: string; value: unknown; description?: string }[];
 }> = ({ title, rows }) => (
   <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-6 min-w-0">
     <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
@@ -29,12 +30,23 @@ const MetricsSection: React.FC<{
     </div>
     <table className="w-full text-sm min-w-full">
       <tbody>
-        {rows.map(({ label, value }) => {
+        {rows.map(({ label, value, description }) => {
           const formatted = formatValue(value);
           return (
             <tr key={label} className="border-b border-gray-100 last:border-0">
               <th className="px-4 py-3 text-left font-medium text-gray-500 sm:whitespace-nowrap bg-gray-50/50 w-1/3">
-                {label}
+                {description ? (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="cursor-help text-cabgen-200 hover:text-cabgen-300">
+                          {label}
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">{description}</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                ) : label}
               </th>
               <td className="px-4 py-3 text-gray-900 break-words min-w-0">
                 {formatted || "—"}
@@ -63,6 +75,7 @@ const AccountAnalysisDetail = () => {
   const dict = AccountDict.analyses;
   const detailDict = dict.detail;
   const metricsDict = detailDict.metrics;
+  const desc = metricsDict.desc;
   const analysisTypeDict = AccountDict.option.analysis_type;
 
   const [downloadError, setDownloadError] = useState<string | null>(null);
@@ -98,11 +111,13 @@ const AccountAnalysisDetail = () => {
               m.completeness != null
                 ? `${Number(m.completeness).toFixed(2)}%`
                 : "—",
+            description: desc.completeness,
           },
           {
             label: metricsDict.n50,
             value:
               m.n50 != null ? `${Number(m.n50).toLocaleString(lang)} bp` : "—",
+            description: desc.n50,
           },
           {
             label: metricsDict.genomeSize,
@@ -110,11 +125,13 @@ const AccountAnalysisDetail = () => {
               m.genome_size != null
                 ? `${Number(m.genome_size).toLocaleString(lang)} bp`
                 : "—",
+            description: desc.genomeSize,
           },
           {
             label: metricsDict.coverage,
             value:
               m.coverage != null ? `${Number(m.coverage).toFixed(2)}x` : "—",
+            description: desc.coverage,
           },
           {
             label: metricsDict.contamination,
@@ -122,33 +139,35 @@ const AccountAnalysisDetail = () => {
               m.contamination != null
                 ? `${Number(m.contamination).toFixed(2)}%`
                 : "—",
+            description: desc.contamination,
           },
         ],
         speciesRows: [
-          { label: metricsDict.identifiedSpecies, value: m.primary_species },
+          { label: metricsDict.identifiedSpecies, value: m.primary_species, description: desc.identifiedSpecies },
           {
             label: metricsDict.secondarySpecies,
             value: m.secondary_species || "—",
+            description: desc.secondarySpecies,
           },
-          { label: metricsDict.mlst, value: translateMlst(m.mlst) },
+          { label: metricsDict.mlst, value: translateMlst(m.mlst), description: desc.mlst },
         ],
         virulenceRows: [
           {
             label: metricsDict.acquiredResistance,
             value: m.acquired_resistance,
+            description: desc.acquiredResistance,
           },
-          { label: metricsDict.poliMutations, value: m.poli_mutations },
-          { label: metricsDict.otherMutations, value: m.other_mutations },
-          { label: metricsDict.plasmid, value: m.plasmid },
-          { label: metricsDict.vfdb, value: m.vfdb },
+          { label: metricsDict.poliMutations, value: m.poli_mutations, description: desc.poliMutations },
+          { label: metricsDict.otherMutations, value: m.other_mutations, description: desc.otherMutations },
+          { label: metricsDict.plasmid, value: m.plasmid, description: desc.plasmid },
+          { label: metricsDict.vfdb, value: m.vfdb, description: desc.vfdb },
         ],
         versionsRows: (m.versions ?? []).map((v) => ({
           label: v.name,
           value: v.version,
         })),
       };
-    }, [analysis?.metrics, metricsDict, lang]);
-  console.log(analysis?.metrics?.versions);
+    }, [analysis?.metrics, metricsDict, desc, lang]);
   const statusLabel =
     (dict.statusValues as Record<string, string>)[
       analysis?.status.toLowerCase() ?? ""
