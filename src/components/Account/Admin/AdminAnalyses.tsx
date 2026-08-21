@@ -227,7 +227,7 @@ const AdminAnalyses = () => {
               label={analysisDict.view}
               icon={<Eye size={18} />}
               onClick={() =>
-                router.push(`/account/analysis/${info.row.original.id}`)
+                router.push(`/account/analysis/${info.row.original.id}?from=admin`)
               }
             />
             <IconButton

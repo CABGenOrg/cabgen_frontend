@@ -2,7 +2,6 @@
 
 import React from "react";
 import { X } from "lucide-react";
-import FocusTrap from "focus-trap-react";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
@@ -38,28 +37,26 @@ const Modal: React.FC<{
 
   if (!open) return null;
   return (
-    <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
-        onClick={(e) => {
-          if (e.target === e.currentTarget) onClose();
-        }}
-      >
-        <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-          <div className="flex items-center justify-between px-6 py-4 border-b">
-            <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-            <button
-              onClick={onClose}
-              className="h-10 w-10 inline-flex items-center justify-center rounded-lg hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
-              aria-label={close}
-            >
-              <X size={20} />
-            </button>
-          </div>
-          <div className="px-6 py-4">{children}</div>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between px-6 py-4 border-b">
+          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+          <button
+            onClick={onClose}
+            className="h-10 w-10 inline-flex items-center justify-center rounded-lg hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 transition-colors"
+            aria-label={close}
+          >
+            <X size={20} />
+          </button>
         </div>
+        <div className="px-6 py-4">{children}</div>
       </div>
-    </FocusTrap>
+    </div>
   );
 };
 

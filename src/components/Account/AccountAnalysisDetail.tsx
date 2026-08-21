@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Download, ExternalLink } from "lucide-react";
 import { section_btn } from "@/styles/tailwind_classes";
 import { downloadGetFile, openGetFile } from "@/utils/downloadFile";
@@ -51,7 +51,11 @@ const AccountAnalysisDetail = () => {
   const router = useRouter();
   const lang = useLanguage();
   const params = useParams();
+  const searchParams = useSearchParams();
   const id = params.id as string;
+  const backPath = searchParams.get("from") === "admin"
+    ? "/account/admin/analyses"
+    : "/account/analysis";
 
   const {
     dictionary: { Account: AccountDict, Errors },
@@ -174,7 +178,7 @@ const AccountAnalysisDetail = () => {
     return (
       <div className="w-full">
         <button
-          onClick={() => router.push("/account/analysis")}
+          onClick={() => router.push(backPath)}
           className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-cabgen-200 mb-4"
         >
           <ArrowLeft size={16} /> {detailDict.back}
@@ -187,7 +191,7 @@ const AccountAnalysisDetail = () => {
   return (
     <div className="w-full">
       <button
-        onClick={() => router.push("/account/analysis")}
+        onClick={() => router.push(backPath)}
         className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-cabgen-200 mb-4"
       >
         <ArrowLeft size={16} /> {detailDict.back}
