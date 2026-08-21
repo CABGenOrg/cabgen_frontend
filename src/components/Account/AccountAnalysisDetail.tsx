@@ -75,6 +75,12 @@ const AccountAnalysisDetail = () => {
 
   const { genomicRows, speciesRows, virulenceRows, versionsRows } =
     useMemo(() => {
+      const translateMlst = (val: string | null | undefined): string => {
+        if (!val) return "—";
+        if (val === "Not available for this species") return metricsDict.mlstNotAvailable;
+        if (val.includes("(New ST)")) return val.replace("(New ST)", metricsDict.mlstNewST);
+        return val;
+      };
       if (!analysis?.metrics) {
         return {
           genomicRows: [],
@@ -124,7 +130,7 @@ const AccountAnalysisDetail = () => {
             label: metricsDict.secondarySpecies,
             value: m.secondary_species || "—",
           },
-          { label: metricsDict.mlst, value: m.mlst },
+          { label: metricsDict.mlst, value: translateMlst(m.mlst) },
         ],
         virulenceRows: [
           {

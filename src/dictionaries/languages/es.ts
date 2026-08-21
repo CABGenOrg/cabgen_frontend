@@ -373,6 +373,8 @@ const es = {
 identifiedSpecies: "Especie Identificada",
           secondarySpecies: "Especie Secundaria",
           mlst: "MLST",
+          mlstNewST: "(Nuevo ST)",
+          mlstNotAvailable: "No disponible para esta especie",
           poliMutations: "Mutaciones Polimixina",
           otherMutations: "Otras Mutaciones",
           acquiredResistance: "Resistencia Adquirida",

@@ -365,6 +365,8 @@ const pt = {
 identifiedSpecies: "Espécie Identificada",
           secondarySpecies: "Espécie Secundária",
           mlst: "MLST",
+          mlstNewST: "(Novo ST)",
+          mlstNotAvailable: "Não disponível para esta espécie",
           poliMutations: "Mutações Polimixina",
           otherMutations: "Outras Mutações",
           acquiredResistance: "Resistência Adquirida",

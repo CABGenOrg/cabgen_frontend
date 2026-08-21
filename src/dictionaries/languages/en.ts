@@ -373,6 +373,8 @@ const en = {
 identifiedSpecies: "Identified Species",
           secondarySpecies: "Secondary Species",
           mlst: "MLST",
+          mlstNewST: "(New ST)",
+          mlstNotAvailable: "Not available for this species",
           poliMutations: "Polymyxin Mutations",
           otherMutations: "Other Mutations",
           acquiredResistance: "Acquired Resistance",
