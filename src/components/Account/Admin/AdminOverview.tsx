@@ -42,7 +42,7 @@ const STATUS_COLORS: Record<string, string> = {
   failed: "#F87171",
 };
 
-const BAR_COLORS = ["#0A6354", "#59A5D8", "#34B290", "#F59E0B", "#8B5CF6"];
+const BAR_COLORS = ["#0A6354", "#59A5D8", "#34B290", "#F59E0B", "#8B5CF6", "#EC4899", "#14B8A6", "#F97316", "#6366F1", "#84CC16", "#A855F7"];
 
 const StatCard: React.FC<{
   icon: React.ReactNode;
@@ -111,21 +111,26 @@ const AdminOverview = () => {
 
   const countryData = (metrics?.top_countries ?? [])
     .filter((c) => c.count > 0)
-    .slice(0, 5)
+    .slice(0, 10)
     .map((c, i) => ({
       name: c.country,
       value: c.count,
       fill: BAR_COLORS[i % BAR_COLORS.length],
     }));
 
-  const speciesData = (metrics?.species_breakdown ?? [])
-    .filter((s) => s.count > 0)
-    .slice(0, 5)
-    .map((s, i) => ({
+  const allSpecies = (metrics?.species_breakdown ?? []).filter((s) => s.count > 0);
+  const top10Species = allSpecies.slice(0, 10);
+  const othersCount = allSpecies.slice(10).reduce((sum, s) => sum + s.count, 0);
+  const speciesData = [
+    ...top10Species.map((s, i) => ({
       name: s.species,
       value: s.count,
       fill: BAR_COLORS[i % BAR_COLORS.length],
-    }));
+    })),
+    ...(othersCount > 0
+      ? [{ name: overviewDict.others, value: othersCount, fill: BAR_COLORS[10] }]
+      : []),
+  ];
 
   const cards = [
     {

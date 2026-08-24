@@ -31,9 +31,9 @@ const COLORS = {
   type: ["#0A6354", "#59A5D8", "#34B290"],
 };
 
-const BAR_COLORS = ["#0A6354", "#59A5D8", "#34B290", "#F59E0B", "#8B5CF6"];
+const BAR_COLORS = ["#0A6354", "#59A5D8", "#34B290", "#F59E0B", "#8B5CF6", "#EC4899", "#14B8A6", "#F97316", "#6366F1", "#84CC16", "#A855F7"];
 
-const topSpecies = (analyses: { status: string; metrics?: { primary_species?: string } | null }[]) => {
+const topSpecies = (analyses: { status: string; metrics?: { primary_species?: string } | null }[], othersLabel: string) => {
   const counts: Record<string, number> = {};
   let total = 0;
   analyses.forEach((a) => {
@@ -44,10 +44,10 @@ const topSpecies = (analyses: { status: string; metrics?: { primary_species?: st
   });
   const sorted = Object.entries(counts)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 5);
+    .slice(0, 10);
   const topTotal = sorted.reduce((sum, [, v]) => sum + v, 0);
   if (total > topTotal) {
-    sorted.push(["Other", total - topTotal]);
+    sorted.push([othersLabel, total - topTotal]);
   }
   return sorted.map(([name, value], i) => ({ name, value, fill: BAR_COLORS[i % BAR_COLORS.length] }));
 };
@@ -131,7 +131,7 @@ const Overview = () => {
     }));
   }, [analyses, analysisTypeDict]);
 
-  const speciesData = useMemo(() => topSpecies(analyses), [analyses]);
+  const speciesData = useMemo(() => topSpecies(analyses, overviewDict.others ?? "Other"), [analyses, overviewDict.others]);
 
   if (authLoading || analysesLoading || samplesLoading) return <Loading />;
 
