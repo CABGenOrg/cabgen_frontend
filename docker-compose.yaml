@@ -12,7 +12,7 @@ services:
       - "traefik.docker.network=proxy-network"
       - "traefik.http.routers.nextjs-frontend.rule=Host(`${FRONTEND_HOST}`)"
       - "traefik.http.routers.nextjs-frontend.entrypoints=websecure"
-      - "traefik.http.routers.nextjs-frontend.tls.certresolver=mycertresolver"
+      - "traefik.http.routers.nextjs-frontend.tls=true"
       - "traefik.http.services.nextjs-frontend.loadbalancer.server.port=${PORT}"
 
 networks:
