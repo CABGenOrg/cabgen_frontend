@@ -13,6 +13,7 @@ services:
       - "traefik.http.routers.nextjs-frontend.rule=Host(`${FRONTEND_HOST}`)"
       - "traefik.http.routers.nextjs-frontend.entrypoints=websecure"
       - "traefik.http.routers.nextjs-frontend.tls=true"
+      - "traefik.http.routers.nextjs-frontend.middlewares=crowdsec-bouncer@docker,anubis-auth@docker" 
       - "traefik.http.services.nextjs-frontend.loadbalancer.server.port=${PORT}"
 
 networks:
