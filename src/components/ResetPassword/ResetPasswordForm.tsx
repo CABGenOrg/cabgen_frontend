@@ -6,7 +6,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   section_btn,
-  input_class,
   label_class,
 } from "@/styles/tailwind_classes";
 import CustomLink from "../General/CustomLink";
@@ -21,6 +20,7 @@ import {
   FormField,
 } from "../ui/form";
 import Message from "../General/Message";
+import PasswordInput from "../General/PasswordInput";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
@@ -99,12 +99,7 @@ const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
                   <span className="text-red-500 ml-0.5">*</span>
                 </FormLabel>
                 <FormControl>
-                  <input
-                    type="password"
-                    className={input_class}
-                    autoComplete="new-password"
-                    {...field}
-                  />
+                  <PasswordInput field={field} autoComplete="new-password" />
                 </FormControl>
                 <FormMessage className="text-red-600" />
               </FormItem>
@@ -120,12 +115,7 @@ const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
                   <span className="text-red-500 ml-0.5">*</span>
                 </FormLabel>
                 <FormControl>
-                  <input
-                    type="password"
-                    className={input_class}
-                    autoComplete="new-password"
-                    {...field}
-                  />
+                  <PasswordInput field={field} autoComplete="new-password" />
                 </FormControl>
                 <FormMessage className="text-red-600" />
               </FormItem>

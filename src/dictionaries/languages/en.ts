@@ -250,6 +250,10 @@ const en = {
     termLink: "Terms of Use",
     imageCredits: "Image Credit",
   },
+  General: {
+    showPassword: "Show password",
+    hidePassword: "Hide password",
+  },
   Errors: {
     internalServer: "Service unavailable, please try again later.",
     downloadError: "Failed to download file. Please try again.",

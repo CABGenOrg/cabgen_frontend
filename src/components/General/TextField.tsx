@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/form";
 import { input_class, label_class } from "@/styles/tailwind_classes";
 import { useLanguage } from "@/redux/LanguageContext";
+import PasswordInput from "./PasswordInput";
 
 const TextField: React.FC<{
   name: string;
@@ -29,12 +30,16 @@ const TextField: React.FC<{
             {required && <span className="text-red-500 ml-0.5">*</span>}
           </FormLabel>
           <FormControl>
-            <input
-              type={type}
-              lang={type === "date" ? lang : undefined}
-              className={input_class}
-              {...field}
-            />
+            {type === "password" ? (
+              <PasswordInput field={field} />
+            ) : (
+              <input
+                type={type}
+                lang={type === "date" ? lang : undefined}
+                className={input_class}
+                {...field}
+              />
+            )}
           </FormControl>
           <FormMessage className="text-red-600" />
         </FormItem>

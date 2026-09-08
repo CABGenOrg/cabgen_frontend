@@ -253,6 +253,10 @@ const pt = {
     termLink: "Termos de Uso",
     imageCredits: "Créditos das Imagens",
   },
+  General: {
+    showPassword: "Mostrar senha",
+    hidePassword: "Ocultar senha",
+  },
   Errors: {
     internalServer: "Serviço indisponível, tente novamente mais tarde.",
     downloadError: "Erro ao baixar arquivo. Tente novamente.",

@@ -260,6 +260,10 @@ const es = {
     termLink: "Terminos de Uso",
     imageCredits: "Crédito de Imagen",
   },
+  General: {
+    showPassword: "Mostrar contraseña",
+    hidePassword: "Ocultar contraseña",
+  },
   Errors: {
     internalServer:
       "Servicio no disponible, por favor inténtelo de nuevo más tarde.",

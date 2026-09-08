@@ -23,6 +23,7 @@ import {
   FormField,
 } from "../ui/form";
 import Message from "../General/Message";
+import PasswordInput from "../General/PasswordInput";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
@@ -103,11 +104,9 @@ const LoginForm = () => {
                         <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
-                        <input
-                          type="password"
-                          className={input_class}
+                        <PasswordInput
+                          field={field}
                           autoComplete="current-password"
-                          {...field}
                         />
                       </FormControl>
                       <FormMessage className="text-red-600" />

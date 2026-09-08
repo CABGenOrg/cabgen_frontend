@@ -31,6 +31,7 @@ import { useGetCountriesQuery } from "@/redux/services/countries/countriesServic
 import { useRegisterMutation } from "@/redux/services/auth/authService";
 import Loading from "../General/Loading";
 import Message from "../General/Message";
+import PasswordInput from "../General/PasswordInput";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
 const RegisterForm = () => {
@@ -302,12 +303,7 @@ const RegisterForm = () => {
                         <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
-                        <input
-                          type="password"
-                          className={input_class}
-                          autoComplete="new-password"
-                          {...field}
-                        />
+                        <PasswordInput field={field} autoComplete="new-password" />
                       </FormControl>
                       <FormMessage className="text-red-600" />
                     </FormItem>
@@ -325,12 +321,7 @@ const RegisterForm = () => {
                         <span className="text-red-500 ml-0.5">*</span>
                       </FormLabel>
                       <FormControl>
-                        <input
-                          type="password"
-                          className={input_class}
-                          autoComplete="new-password"
-                          {...field}
-                        />
+                        <PasswordInput field={field} autoComplete="new-password" />
                       </FormControl>
                       <FormMessage className="text-red-600" />
                     </FormItem>

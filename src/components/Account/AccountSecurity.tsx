@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Shield } from "lucide-react";
 import { input_class, label_class } from "@/styles/tailwind_classes";
+import PasswordInput from "@/components/General/PasswordInput";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
 import {
@@ -232,11 +233,7 @@ const AccountSecurity = () => {
                       {dict.currentPassword}
                     </FormLabel>
                     <FormControl>
-                      <input
-                        type="password"
-                        className={input_class}
-                        {...field}
-                      />
+                      <PasswordInput field={field} />
                     </FormControl>
                     <FormMessage className="text-red-600" />
                   </FormItem>
@@ -251,11 +248,7 @@ const AccountSecurity = () => {
                       {dict.newPassword}
                     </FormLabel>
                     <FormControl>
-                      <input
-                        type="password"
-                        className={input_class}
-                        {...field}
-                      />
+                      <PasswordInput field={field} />
                     </FormControl>
                     <FormMessage className="text-red-600" />
                   </FormItem>
@@ -270,11 +263,7 @@ const AccountSecurity = () => {
                       {dict.confirmPassword}
                     </FormLabel>
                     <FormControl>
-                      <input
-                        type="password"
-                        className={input_class}
-                        {...field}
-                      />
+                      <PasswordInput field={field} />
                     </FormControl>
                     <FormMessage className="text-red-600" />
                   </FormItem>
