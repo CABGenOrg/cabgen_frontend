@@ -47,20 +47,15 @@ const languageMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
       const search = request.nextUrl.search;
 
       if (locale === i18n.defaultLocale) {
-        // Keep URL without prefix but render as /{locale}{pathname} — set locale header and continue chain so auth runs
-        request.headers.set("x-locale", locale);
-        try {
-          request.cookies.set("NEXT_LOCALE", locale);
-        } catch {}
-        request.nextUrl.pathname = `/${locale}${pathname}`;
-        const res = (await next(request, _next)) as NextResponse ?? NextResponse.next();
-        try {
-          if ("cookies" in res) (res as NextResponse).cookies.set("NEXT_LOCALE", locale, { path: "/", sameSite: "lax" });
-        } catch {}
-        try {
-          res.headers.set("x-locale", locale);
-        } catch {}
-        return res as NextResponse;
+        const newURL = new URL(`/${locale}${pathname}${search}`, request.url);
+        const requestHeaders = new Headers(request.headers);
+        requestHeaders.set("x-locale", locale);
+        const res = NextResponse.rewrite(newURL, {
+          request: { headers: requestHeaders },
+        });
+        res.cookies.set("NEXT_LOCALE", locale, { path: "/", sameSite: "lax" });
+        res.headers.set("x-locale", locale);
+        return res;
       }
 
       const newURL = new URL(
@@ -98,30 +93,7 @@ const languageMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
       return NextResponse.redirect(newURL);
     }
 
-    // Path has locale prefix (e.g. /en/..., /es/...), expose it to server components via header + request cookie
-    const localeFromPath = pathname.split("/")[1];
-    const hasLocalePrefix = (i18n.locales as readonly string[]).includes(localeFromPath);
-    if (hasLocalePrefix) {
-      try {
-        request.headers.set("x-locale", localeFromPath);
-      } catch {}
-      try {
-        request.cookies.set("NEXT_LOCALE", localeFromPath);
-      } catch {}
-    }
-
-    const rawResponse = await next(request, _next);
-    const response = (rawResponse as NextResponse) ?? NextResponse.next();
-    // Persist locale for future requests
-    if (hasLocalePrefix && "cookies" in response) {
-      try {
-        (response as NextResponse).cookies.set("NEXT_LOCALE", localeFromPath, { path: "/", sameSite: "lax" });
-      } catch {}
-      try {
-        response.headers.set("x-locale", localeFromPath);
-      } catch {}
-    }
-    return response as NextResponse;
+    return next(request, _next);
   };
 };
 
