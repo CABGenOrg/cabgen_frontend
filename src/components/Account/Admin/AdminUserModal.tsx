@@ -26,6 +26,7 @@ import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { emptyToNull } from "@/utils/zodHelpers";
 import { getChangedFields } from "@/utils/getChangedFields";
+import { input_class, label_class } from "@/styles/tailwind_classes";
 
 const AdminUserModalBody: React.FC<{
   open: boolean;
@@ -128,6 +129,17 @@ const AdminUserModalBody: React.FC<{
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
+            {isEdit && initial && (
+              <div className="sm:col-span-2">
+                <label className={label_class}>{dict.id}</label>
+                <input
+                  type="text"
+                  readOnly
+                  value={initial.id}
+                  className={`${input_class} bg-gray-100 cursor-default`}
+                />
+              </div>
+            )}
             <TextField name="name" label={dict.name} form={form} required />
             <TextField
               name="username"
