@@ -257,6 +257,14 @@ const pt = {
     showPassword: "Mostrar senha",
     hidePassword: "Ocultar senha",
   },
+  ErrorPages: {
+    errorTitle: "Algo deu errado",
+    errorDescription: "Ocorreu um erro inesperado. Tente novamente.",
+    retry: "Tentar novamente",
+    notFoundTitle: "Página não encontrada",
+    notFoundDescription: "A página que você procura não existe ou foi movida.",
+    backHome: "Voltar para o início",
+  },
   Errors: {
     internalServer: "Serviço indisponível, tente novamente mais tarde.",
     downloadError: "Erro ao baixar arquivo. Tente novamente.",

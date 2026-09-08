@@ -254,6 +254,15 @@ const en = {
     showPassword: "Show password",
     hidePassword: "Hide password",
   },
+  ErrorPages: {
+    errorTitle: "Something went wrong",
+    errorDescription: "An unexpected error occurred. Please try again.",
+    retry: "Try again",
+    notFoundTitle: "Page not found",
+    notFoundDescription:
+      "The page you are looking for does not exist or has been moved.",
+    backHome: "Back to home",
+  },
   Errors: {
     internalServer: "Service unavailable, please try again later.",
     downloadError: "Failed to download file. Please try again.",

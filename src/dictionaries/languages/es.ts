@@ -264,6 +264,15 @@ const es = {
     showPassword: "Mostrar contraseña",
     hidePassword: "Ocultar contraseña",
   },
+  ErrorPages: {
+    errorTitle: "Algo salió mal",
+    errorDescription: "Ocurrió un error inesperado. Intente de nuevo.",
+    retry: "Intentar de nuevo",
+    notFoundTitle: "Página no encontrada",
+    notFoundDescription:
+      "La página que buscas no existe o fue movida.",
+    backHome: "Volver al inicio",
+  },
   Errors: {
     internalServer:
       "Servicio no disponible, por favor inténtelo de nuevo más tarde.",
