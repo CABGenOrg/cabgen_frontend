@@ -6,9 +6,9 @@ import blockedURLsMiddleware from "./middlewares/blockedURLsMiddleware";
 
 const middlewares = [
   blockedURLsMiddleware,
-  languageMiddleware,
-  maintenanceMiddleware,
   authMiddleware,
+  maintenanceMiddleware,
+  languageMiddleware,
 ];
 const middleware = chain(middlewares);
 export default middleware;

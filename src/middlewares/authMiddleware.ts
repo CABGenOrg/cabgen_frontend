@@ -17,20 +17,20 @@ const authMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
     const loginURL = new URL("/login", request.url);
     const userURL = new URL("/account", request.url);
 
-    const responseNext = NextResponse.next();
     const responseRedirect = (url: URL) => NextResponse.redirect(url);
 
-    if (!accessToken && !refreshToken) {
-      if (accountRegex.test(request.nextUrl.pathname)) {
-        return responseRedirect(loginURL);
-      } else {
-        return responseNext;
-      }
+    if (
+      !accessToken &&
+      !refreshToken &&
+      accountRegex.test(request.nextUrl.pathname)
+    ) {
+      return responseRedirect(loginURL);
     }
 
     if (
-      loginRegex.test(request.nextUrl.pathname) ||
-      registerRegex.test(request.nextUrl.pathname)
+      accessToken &&
+      (loginRegex.test(request.nextUrl.pathname) ||
+        registerRegex.test(request.nextUrl.pathname))
     ) {
       return responseRedirect(userURL);
     }
