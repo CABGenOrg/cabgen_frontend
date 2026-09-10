@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import {
   Users,
@@ -16,24 +17,27 @@ import {
   MessageSquare,
   ChartNoAxesCombined,
 } from "lucide-react";
-import {
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-} from "recharts";
 import PageHeader from "@/components/General/PageHeader";
 import Loading from "@/components/General/Loading";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { useGetAdminMetricsQuery } from "@/redux/services/admin/adminMetricsService";
+
+const AdminOverviewCharts = dynamic(
+  () => import("./AdminOverviewCharts"),
+  {
+    loading: () => (
+      <div className="grid lg:grid-cols-2 gap-6 mb-6">
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className="bg-white rounded-lg shadow-md border border-gray-100 p-5 h-[362px] animate-pulse"
+          />
+        ))}
+      </div>
+    ),
+  },
+);
 
 const STATUS_COLORS: Record<string, string> = {
   pending: "#FCD34D",
@@ -57,16 +61,6 @@ const StatCard: React.FC<{
       <p className="text-3xl font-semibold text-gray-900">{value}</p>
       <p className="text-sm text-gray-500">{label}</p>
     </div>
-  </div>
-);
-
-const ChartCard: React.FC<{ title: string; children: React.ReactNode }> = ({
-  title,
-  children,
-}) => (
-  <div className="bg-white rounded-lg shadow-md border border-gray-100 p-5">
-    <h2 className="text-lg font-semibold text-gray-900 mb-4">{title}</h2>
-    <div className="h-[300px] md:h-[350px]">{children}</div>
   </div>
 );
 
@@ -200,65 +194,17 @@ const AdminOverview = () => {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6 mb-6">
-        <ChartCard title={overviewDict.analysesByStatus}>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={statusData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                innerRadius="50%"
-                outerRadius="80%"
-                paddingAngle={2}
-                label={({ name, percent }) =>
-                  `${name} ${(percent * 100).toFixed(0)}%`
-                }
-              >
-                {statusData.map((entry, i) => (
-                  <Cell key={`cell-${i}`} fill={entry.fill} />
-                ))}
-              </Pie>
-              <Tooltip formatter={(value: number, name: string) => [value, name]} />
-              <Legend iconType="circle" />
-            </PieChart>
-          </ResponsiveContainer>
-        </ChartCard>
-
-        <ChartCard title={overviewDict.topCountries}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={countryData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
-              <XAxis type="number" allowDecimals={false} />
-              <YAxis dataKey="name" type="category" width={90} tick={{ fontSize: 12 }} />
-              <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, overviewDict.count]} />
-              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                {countryData.map((entry, i) => (
-                  <Cell key={`cell-${i}`} fill={entry.fill} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartCard>
-
-        <ChartCard title={overviewDict.speciesBreakdown}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={speciesData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
-              <XAxis type="number" allowDecimals={false} />
-              <YAxis dataKey="name" type="category" width={110} tick={{ fontSize: 12 }} />
-              <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, overviewDict.count]} />
-              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                {speciesData.map((entry, i) => (
-                  <Cell key={`cell-${i}`} fill={entry.fill} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartCard>
-      </div>
+      <AdminOverviewCharts
+        statusData={statusData}
+        countryData={countryData}
+        speciesData={speciesData}
+        titles={{
+          analysesByStatus: overviewDict.analysesByStatus,
+          topCountries: overviewDict.topCountries,
+          speciesBreakdown: overviewDict.speciesBreakdown,
+          count: overviewDict.count,
+        }}
+      />
     </div>
   );
 };

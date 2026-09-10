@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo } from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
@@ -9,19 +10,19 @@ import Loading from "../General/Loading";
 import { User2, LayoutDashboard, Dna, Search, CheckCircle } from "lucide-react";
 import { useGetAnalysesQuery } from "@/redux/services/analyses/analysesService";
 import { useGetSamplesQuery } from "@/redux/services/samples/samplesService";
-import {
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-} from "recharts";
+
+const OverviewCharts = dynamic(() => import("./OverviewCharts"), {
+  loading: () => (
+    <div className="grid lg:grid-cols-2 gap-6 mb-6">
+      {[0, 1, 2].map((i) => (
+        <div
+          key={i}
+          className="bg-white rounded-lg shadow-md border border-gray-100 p-5 h-[362px] animate-pulse"
+        />
+      ))}
+    </div>
+  ),
+});
 
 const COLORS = {
   pending: "#FCD34D",
@@ -69,16 +70,6 @@ const StatCard: React.FC<{
       <p className="text-3xl font-semibold text-gray-900">{value}</p>
       <p className="text-sm text-gray-500">{label}</p>
     </div>
-  </div>
-);
-
-const ChartCard: React.FC<{ title: string; children: React.ReactNode }> = ({
-  title,
-  children,
-}) => (
-  <div className="bg-white rounded-lg shadow-md border border-gray-100 p-5">
-    <h2 className="text-lg font-semibold text-gray-900 mb-4">{title}</h2>
-    <div className="h-[300px] md:h-[350px]">{children}</div>
   </div>
 );
 
@@ -179,78 +170,17 @@ const Overview = () => {
         />
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6 mb-6">
-        <ChartCard title={overviewDict.byStatus}>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={statusData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                innerRadius="50%"
-                outerRadius="80%"
-                paddingAngle={2}
-                label={({ name, percent }) =>
-                  `${name} ${(percent * 100).toFixed(0)}%`
-                }
-              >
-                {statusData.map((entry, i) => (
-                  <Cell key={`cell-${i}`} fill={entry.fill} />
-                ))}
-              </Pie>
-              <Tooltip
-                formatter={(value: number, name: string) => [value, name]}
-              />
-              <Legend iconType="circle" />
-            </PieChart>
-          </ResponsiveContainer>
-        </ChartCard>
-
-        <ChartCard title={overviewDict.byType}>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={typeData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius="80%"
-                paddingAngle={2}
-                label={({ name, percent }) =>
-                  `${name} ${(percent * 100).toFixed(0)}%`
-                }
-              >
-                {typeData.map((entry, i) => (
-                  <Cell key={`cell-${i}`} fill={entry.fill} />
-                ))}
-              </Pie>
-              <Tooltip
-                formatter={(value: number, name: string) => [value, name]}
-              />
-              <Legend iconType="circle" />
-            </PieChart>
-          </ResponsiveContainer>
-        </ChartCard>
-
-        <ChartCard title={overviewDict.topSpecies}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={speciesData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
-              <XAxis type="number" allowDecimals={false} />
-              <YAxis dataKey="name" type="category" width={110} tick={{ fontSize: 12 }} />
-              <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, overviewDict.count]} />
-              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                {speciesData.map((entry, i) => (
-                  <Cell key={`cell-${i}`} fill={entry.fill} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartCard>
-      </div>
+      <OverviewCharts
+        statusData={statusData}
+        typeData={typeData}
+        speciesData={speciesData}
+        titles={{
+          byStatus: overviewDict.byStatus,
+          byType: overviewDict.byType,
+          topSpecies: overviewDict.topSpecies,
+          count: overviewDict.count,
+        }}
+      />
     </div>
   );
 };

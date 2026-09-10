@@ -13,7 +13,7 @@ const isInMaintenance = process.env.BACKEND_MAINTENANCE === "true";
 
 const maintenanceMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
-    const homeURL = buildURLWithLanguage(request, "/home");
+    const homeURL = buildURLWithLanguage(request, "/");
     const maintenanceURL = buildURLWithLanguage(request, "/maintenance");
 
     const responseRedirect = (url: URL) => NextResponse.redirect(url);
