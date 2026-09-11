@@ -149,8 +149,7 @@ const es = {
       roleRodolpho: "Investigador en UERJ.",
       roleClaudio:
         "Responsable de gestionar las actividades de laboratorio de LAPIH y la liofilización y almacenamiento de muestras bacterianas.",
-      roleNicolas:
-        "Responsable del desarrollo de la nueva versión del front-end de CABGen.",
+      roleNicolas: "Responsable del desarrollo de la nueva versión de CABGen.",
     },
     AboutContact: {
       sectionTitle: "¿Quieres saber más? ¡Contáctanos!",
