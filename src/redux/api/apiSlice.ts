@@ -56,7 +56,14 @@ const forceLogoutAndRedirect = async (
     extraOptions,
   );
   if (typeof window !== "undefined") {
-    window.location.href = "/login";
+    document.cookie = "AccessCookie=; Path=/; Max-Age=0";
+    document.cookie = "RefreshCookie=; Path=/; Max-Age=0";
+    /*
+     ?expired=1 tells authMiddleware the tokens are dead — it must not
+     bounce /login back to /account (otherwise an infinite redirect loop
+     happens when the logout request also failed to clear the cookies).
+    */
+    window.location.href = "/login?expired=1";
   }
 };
 

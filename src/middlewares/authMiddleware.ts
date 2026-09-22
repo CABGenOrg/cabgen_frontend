@@ -16,6 +16,11 @@ const authMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
     const refreshToken = request.cookies.get("RefreshCookie")?.value;
     const loginURL = new URL("/login", request.url);
     const userURL = new URL("/account", request.url);
+    /* 
+    ?expired=1 comes from apiSlice's forceLogoutAndRedirect — the client knows
+     the tokens are dead (refresh failed), so /login must not bounce to /account. 
+    */
+    const isExpiredFlag = request.nextUrl.searchParams.get("expired") === "1";
 
     const responseRedirect = (url: URL) => NextResponse.redirect(url);
 
@@ -29,6 +34,7 @@ const authMiddleware: MiddlewareFactory = (next: NextMiddleware) => {
 
     if (
       accessToken &&
+      !isExpiredFlag &&
       (loginRegex.test(request.nextUrl.pathname) ||
         registerRegex.test(request.nextUrl.pathname))
     ) {
