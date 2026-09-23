@@ -16,13 +16,15 @@ export function SmartSelect({
   onChange,
   options,
   placeholder,
+  searchable,
 }: {
   value: string;
   onChange: (value: string) => void;
   options: ComboboxOption[];
   placeholder: string;
+  searchable?: boolean;
 }) {
-  if (options.length > VIRTUALIZE_THRESHOLD) {
+  if (searchable || options.length > VIRTUALIZE_THRESHOLD) {
     return (
       <Combobox
         value={value}

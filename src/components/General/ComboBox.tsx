@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { List, type RowComponentProps } from "react-window";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
+import { useLanguage } from "@/redux/LanguageContext";
+import { getTranslateClient } from "@/lib/getTranslateClient";
 
 export type ComboboxOption = { value: string; label: string };
 
@@ -28,6 +30,7 @@ function Row({
   onSelect,
 }: RowComponentProps<RowProps>) {
   const opt = filtered[index];
+  if (!opt) return null;
   return (
     <div
       style={style}
@@ -36,11 +39,13 @@ function Row({
     >
       <Check
         className={cn(
-          "mr-2 h-4 w-4",
+          "mr-2 h-4 w-4 shrink-0",
           value === opt.value ? "opacity-100" : "opacity-0",
         )}
       />
-      {opt.label}
+      <span title={opt.label} className="truncate flex-1 min-w-0">
+        {opt.label}
+      </span>
     </div>
   );
 }
@@ -56,14 +61,27 @@ export function Combobox({
   options: ComboboxOption[];
   placeholder: string;
 }) {
+  const lang = useLanguage();
+  const noResults = getTranslateClient(lang).dictionary.General.noResults;
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
 
   const filtered = useMemo(() => {
-    if (!search) return options;
+    const seen = new Set<string>();
+    const unique = options.filter((o) => {
+      if (seen.has(o.value)) return false;
+      seen.add(o.value);
+      return true;
+    });
+    if (!search) return unique;
     const q = search.toLowerCase();
-    return options.filter((o) => o.label.toLowerCase().includes(q));
+    return unique.filter((o) => o.label.toLowerCase().includes(q));
   }, [search, options]);
+
+  const rowKey = useCallback(
+    (index: number, data: RowProps) => data.filtered[index]?.value ?? index,
+    [],
+  );
 
   const selectedLabel = options.find((o) => o.value === value)?.label;
 
@@ -99,18 +117,16 @@ export function Combobox({
           />
         </div>
         {filtered.length === 0 ? (
-          <p className="p-4 text-sm text-gray-400 text-center">
-            Nenhum resultado
-          </p>
+          <p className="p-4 text-sm text-gray-400 text-center">{noResults}</p>
         ) : (
-          <div style={{ height: 260 }}>
-            <List
-              rowComponent={Row}
-              rowCount={filtered.length}
-              rowHeight={32}
-              rowProps={{ filtered, value, onSelect: handleSelect }}
-            />
-          </div>
+          <List
+            style={{ height: Math.min(filtered.length * 32, 260) }}
+            rowComponent={Row}
+            rowCount={filtered.length}
+            rowHeight={32}
+            rowKey={rowKey}
+            rowProps={{ filtered, value, onSelect: handleSelect }}
+          />
         )}
       </PopoverContent>
     </Popover>

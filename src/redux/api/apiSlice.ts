@@ -127,5 +127,6 @@ export const apiSlice = createApi({
     "Analyses",
     "Tickets",
     "Metrics",
+    "Audit",
   ],
 });

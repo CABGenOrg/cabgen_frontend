@@ -20,6 +20,7 @@ import AdminMicroorganisms from "@/components/Account/Admin/AdminMicroorganisms"
 import AdminTickets from "@/components/Account/Admin/AdminTickets";
 import AdminSamples from "@/components/Account/Admin/AdminSamples";
 import AdminAnalyses from "@/components/Account/Admin/AdminAnalyses";
+import AdminAudit from "@/components/Account/Admin/AdminAudit";
 import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { i18n } from "@/i18n/i18n.config";
@@ -46,6 +47,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       "/account/admin/tickets": dictionary.Account.admin.tickets,
       "/account/admin/samples": dictionary.Account.admin.allSamples,
       "/account/admin/analyses": dictionary.Account.admin.allAnalyses,
+      "/account/admin/audit": dictionary.Account.admin.audit.title,
       "/account/admin": dictionary.Account.admin.overview.title,
       "/account/analysis": dictionary.Account.analyses.title,
       "/account/sequences": dictionary.Account.sequences.title,
@@ -85,6 +87,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       { link: "/account/admin/tickets", component: <AdminTickets /> },
       { link: "/account/admin/samples", component: <AdminSamples /> },
       { link: "/account/admin/analyses", component: <AdminAnalyses /> },
+      { link: "/account/admin/audit", component: <AdminAudit /> },
       { link: "/account/admin", component: <AdminOverview /> },
       { link: "/account/analysis/", component: <AccountAnalysisDetail /> },
       { link: "/account/analysis", component: <AccountAnalysis /> },

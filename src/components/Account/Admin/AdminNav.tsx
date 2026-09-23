@@ -13,6 +13,7 @@ import {
   MessageSquare,
   Dna,
   Search,
+  ScrollText,
 } from "lucide-react";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
@@ -44,6 +45,7 @@ const adminTabs = [
   { icon: MessageSquare, href: "/account/admin/tickets", dictKey: "tickets" },
   { icon: Dna, href: "/account/admin/samples", dictKey: "allSamples" },
   { icon: Search, href: "/account/admin/analyses", dictKey: "allAnalyses" },
+  { icon: ScrollText, href: "/account/admin/audit", dictKey: "audit" },
 ] as const;
 
 const AdminNav = () => {
@@ -59,7 +61,8 @@ const AdminNav = () => {
     <nav className="flex justify-center gap-1 p-2 mb-4 bg-gray-50 rounded-lg border border-gray-100 overflow-x-auto">
       {adminTabs.map(({ icon: Icon, href, dictKey }) => {
         const active = pathname.includes(href);
-        const label = dict[dictKey];
+        const label =
+          dictKey === "audit" ? dict.audit.title : dict[dictKey];
         return (
           <button
             key={href}

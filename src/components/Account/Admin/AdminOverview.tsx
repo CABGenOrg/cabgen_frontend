@@ -15,6 +15,7 @@ import {
   HeartPulse,
   Microscope,
   MessageSquare,
+  ScrollText,
   ChartNoAxesCombined,
 } from "lucide-react";
 import PageHeader from "@/components/General/PageHeader";
@@ -85,6 +86,7 @@ const AdminOverview = () => {
     { icon: <MessageSquare size={24} />, title: dict.tickets, href: "/account/admin/tickets" },
     { icon: <Dna size={24} />, title: dict.allSamples, href: "/account/admin/samples" },
     { icon: <Search size={24} />, title: dict.allAnalyses, href: "/account/admin/analyses" },
+    { icon: <ScrollText size={24} />, title: dict.audit.title, href: "/account/admin/audit" },
   ];
 
   const { data: metrics, isLoading } = useGetAdminMetricsQuery();
