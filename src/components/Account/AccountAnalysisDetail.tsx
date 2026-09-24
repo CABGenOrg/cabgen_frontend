@@ -12,6 +12,8 @@ import { getTranslateClient } from "@/lib/getTranslateClient";
 import Loading from "@/components/General/Loading";
 import Message from "@/components/General/Message";
 import { useGetAdminAnalysisByIDQuery } from "@/redux/services/admin/adminAnalysesService";
+import { useGetAnalysisByIDQuery } from "@/redux/services/analyses/analysesService";
+import { useAuth } from "@/redux/AuthContext";
 import { ANALYSES_ENDPOINTS } from "@/redux/services/analyses/analysesEndpoints";
 
 const formatValue = (value: unknown): string => {
@@ -80,11 +82,19 @@ const AccountAnalysisDetail = () => {
 
   const [downloadError, setDownloadError] = useState<string | null>(null);
 
-  const {
-    data: analysis,
-    isLoading,
-    error,
-  } = useGetAdminAnalysisByIDQuery([id, lang]);
+  const { user, isLoading: authLoading } = useAuth();
+  const isAdmin = user?.user_role === "Admin";
+
+  const adminQuery = useGetAdminAnalysisByIDQuery([id, lang], {
+    skip: authLoading || !isAdmin,
+  });
+  const userQuery = useGetAnalysisByIDQuery([id, lang], {
+    skip: authLoading || isAdmin,
+  });
+
+  const { data: analysis } = isAdmin ? adminQuery : userQuery;
+  const error = isAdmin ? adminQuery.error : userQuery.error;
+  const isLoading = authLoading || adminQuery.isLoading || userQuery.isLoading;
 
   const { genomicRows, speciesRows, virulenceRows, versionsRows } =
     useMemo(() => {
