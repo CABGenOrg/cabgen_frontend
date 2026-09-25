@@ -57,7 +57,7 @@ const AdminHealthServices = () => {
     () => [
       columnHelper.accessor("name", {
         header: dict.name,
-        size: 200,
+        size: 150,
         cell: (info) =>
           info.getValue() === "option.healthService.other"
             ? hsOther
@@ -65,7 +65,7 @@ const AdminHealthServices = () => {
       }),
       columnHelper.accessor("type", {
         header: dict.type,
-        size: 150,
+        size: 120,
         cell: (info) =>
           (dict.healthServiceTypeValues as Record<string, string>)[
             info.getValue()
@@ -73,11 +73,11 @@ const AdminHealthServices = () => {
       }),
       columnHelper.accessor("country", {
         header: dict.country,
-        size: 120,
+        size: 100,
       }),
       columnHelper.accessor("is_active", {
         header: dict.isActive,
-        size: 90,
+        size: 75,
         cell: (info) => {
           const active = info.getValue();
           return (
@@ -90,7 +90,7 @@ const AdminHealthServices = () => {
       columnHelper.display({
         id: "actions",
         header: dict.actions,
-        size: 100,
+        size: 85,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton

@@ -99,7 +99,7 @@ export function Combobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between font-normal text-black px-3.5 text-base 2xl:text-xl overflow-hidden"
+          className="w-full justify-between font-normal text-black px-3.5 text-base 2xl:text-lg overflow-hidden"
         >
           <span className="truncate min-w-0">
             {selectedLabel ?? placeholder}

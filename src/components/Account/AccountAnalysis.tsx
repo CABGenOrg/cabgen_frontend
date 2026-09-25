@@ -151,11 +151,11 @@ const AccountAnalysis = () => {
     () => [
       columnHelper.accessor("sample", {
         header: dict.sample,
-        size: 160,
+        size: 130,
         cell: (info) => (
           <span
             title={info.getValue()}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[160px]"
+            className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]"
           >
             {info.getValue() || "-"}
           </span>
@@ -163,7 +163,7 @@ const AccountAnalysis = () => {
       }),
       columnHelper.accessor("type", {
         header: dict.type,
-        size: 120,
+        size: 100,
         cell: (info) => {
           const v = info.getValue();
           const typeKey = v.toLowerCase();
@@ -172,7 +172,7 @@ const AccountAnalysis = () => {
       }),
       columnHelper.accessor("status", {
         header: dict.status,
-        size: 120,
+        size: 100,
         cell: (info) => {
           const v = info.getValue();
           const statusKey = v.toLowerCase();
@@ -191,7 +191,7 @@ const AccountAnalysis = () => {
         ? [
             columnHelper.accessor("step", {
               header: dict.step,
-              size: 120,
+              size: 100,
               cell: (info) => {
                 const status = info.row.original.status;
                 return status.toLowerCase() === "running"
@@ -203,20 +203,20 @@ const AccountAnalysis = () => {
         : []),
       columnHelper.accessor("started_at", {
         header: dict.startedAt,
-        size: 110,
+        size: 90,
         meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => formatDate(info.getValue(), lang),
       }),
       columnHelper.accessor("finished_at", {
         header: dict.finishedAt,
-        size: 110,
+        size: 90,
         meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => formatDate(info.getValue(), lang),
       }),
       columnHelper.accessor((row) => row.metrics?.completeness, {
         id: "completeness",
         header: dict.completeness,
-        size: 100,
+        size: 85,
         meta: { responsive: "hidden md:table-cell" },
         cell: (info) => {
           const v = info.getValue();
@@ -226,12 +226,12 @@ const AccountAnalysis = () => {
       columnHelper.accessor((row) => row.metrics?.primary_species, {
         id: "identifiedSpecies",
         header: dict.identifiedSpecies,
-        size: 160,
-        meta: { responsive: "hidden lg:table-cell" },
+        size: 130,
+        meta: { responsive: "hidden 2xl:table-cell" },
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[160px]"
+            className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]"
           >
             {info.getValue() || "-"}
           </span>
@@ -240,7 +240,7 @@ const AccountAnalysis = () => {
       columnHelper.display({
         id: "actions",
         header: dict.actions,
-        size: 110,
+        size: 90,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton
@@ -305,7 +305,7 @@ const AccountAnalysis = () => {
         onAction={() => setModal({ type: "add" })}
       />
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-4">
         <div className="relative flex-1">
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"

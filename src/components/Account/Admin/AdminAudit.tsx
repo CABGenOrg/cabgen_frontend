@@ -67,11 +67,11 @@ const AdminAudit = () => {
     () => [
       columnHelper.accessor("event", {
         header: auditDict.event,
-        size: 150,
+        size: 120,
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[150px]"
+            className="line-clamp-2 sm:truncate sm:block sm:max-w-[120px]"
           >
             {info.getValue() || "-"}
           </span>
@@ -79,11 +79,11 @@ const AdminAudit = () => {
       }),
       columnHelper.accessor("source", {
         header: auditDict.source,
-        size: 150,
+        size: 120,
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[150px]"
+            className="line-clamp-2 sm:truncate sm:block sm:max-w-[120px]"
           >
             {info.getValue() || "-"}
           </span>
@@ -91,16 +91,16 @@ const AdminAudit = () => {
       }),
       columnHelper.accessor("status", {
         header: auditDict.status,
-        size: 100,
+        size: 85,
         cell: (info) => info.getValue() ?? "-",
       }),
       columnHelper.accessor("username", {
         header: adminDict.user,
-        size: 150,
+        size: 120,
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[150px]"
+            className="line-clamp-2 sm:truncate sm:block sm:max-w-[120px]"
           >
             {info.getValue() || "-"}
           </span>
@@ -108,17 +108,17 @@ const AdminAudit = () => {
       }),
       columnHelper.accessor("created_at", {
         header: auditDict.date,
-        size: 110,
+        size: 90,
         cell: (info) => formatDate(info.getValue(), lang),
       }),
       columnHelper.accessor("metadata", {
         header: auditDict.metadata,
-        size: 200,
-        meta: { responsive: "hidden lg:table-cell" },
+        size: 150,
+        meta: { responsive: "hidden 2xl:table-cell" },
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[200px]"
+            className="line-clamp-2 sm:truncate sm:block sm:max-w-[150px]"
           >
             {info.getValue() || "-"}
           </span>
@@ -132,7 +132,7 @@ const AdminAudit = () => {
     <div className="w-full">
       <PageHeader icon={<ScrollText size={24} />} title={auditDict.title} />
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
           <input

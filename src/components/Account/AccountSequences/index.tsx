@@ -56,36 +56,36 @@ const AccountSequences = () => {
     () => [
       columnHelper.accessor("origin_code", {
         header: dict.originCode,
-        size: 140,
-        cell: (info) => <span title={info.getValue()} className="line-clamp-2 sm:truncate sm:block sm:max-w-[140px]">{info.getValue()}</span>,
+        size: 110,
+        cell: (info) => <span title={info.getValue()} className="line-clamp-2 sm:truncate sm:block sm:max-w-[110px]">{info.getValue()}</span>,
       }),
       columnHelper.accessor("microorganism", {
         header: dict.microorganism,
-        size: 160,
+        size: 130,
         meta: { responsive: "hidden sm:table-cell" },
-        cell: (info) => <span title={info.getValue()} className="line-clamp-2 sm:truncate sm:block sm:max-w-[160px]">{info.getValue()}</span>,
+        cell: (info) => <span title={info.getValue()} className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]">{info.getValue()}</span>,
       }),
       columnHelper.accessor("origin", {
         header: dict.origin,
-        size: 120,
+        size: 100,
         meta: { responsive: "hidden md:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[120px]">{info.getValue() || "-"}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[100px]">{info.getValue() || "-"}</span>,
       }),
       columnHelper.accessor("sample_source", {
         header: dict.sampleSource,
-        size: 120,
+        size: 100,
         meta: { responsive: "hidden md:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[120px]">{info.getValue() || "-"}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[100px]">{info.getValue() || "-"}</span>,
       }),
       columnHelper.accessor("sequencer", {
         header: dict.sequencer,
-        size: 140,
+        size: 110,
         meta: { responsive: "hidden md:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[140px]">{info.getValue() === "option.sequencer.other" ? sequencerOther : (info.getValue() || "-")}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[110px]">{info.getValue() === "option.sequencer.other" ? sequencerOther : (info.getValue() || "-")}</span>,
       }),
       columnHelper.accessor("collection_date", {
         header: dict.collectionDate,
-        size: 110,
+        size: 90,
         meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => {
           const v = info.getValue();
@@ -96,46 +96,46 @@ const AccountSequences = () => {
       }),
       columnHelper.accessor("country_code", {
         header: dict.country,
-        size: 80,
-        meta: { responsive: "hidden lg:table-cell" },
+        size: 65,
+        meta: { responsive: "hidden 2xl:table-cell" },
       }),
       columnHelper.accessor("city", {
         header: dict.city,
-        size: 130,
-        meta: { responsive: "hidden lg:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]">{info.getValue() === "Other" ? cityOther : (info.getValue() || "-")}</span>,
+        size: 105,
+        meta: { responsive: "hidden 2xl:table-cell" },
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[105px]">{info.getValue() === "Other" ? cityOther : (info.getValue() || "-")}</span>,
       }),
       columnHelper.accessor("fastq1", {
         header: dict.fastq1,
-        size: 100,
-        meta: { responsive: "hidden lg:table-cell" },
+        size: 85,
+        meta: { responsive: "hidden 2xl:table-cell" },
         cell: (info) => {
           const v = info.getValue() || "";
-          return <span title={v} className="line-clamp-2 sm:truncate sm:block sm:max-w-[100px]">{v.split("/").pop() || "-"}</span>;
+          return <span title={v} className="line-clamp-2 sm:truncate sm:block sm:max-w-[85px]">{v.split("/").pop() || "-"}</span>;
         },
       }),
       columnHelper.accessor("fastq2", {
         header: dict.fastq2,
-        size: 100,
-        meta: { responsive: "hidden lg:table-cell" },
+        size: 85,
+        meta: { responsive: "hidden 2xl:table-cell" },
         cell: (info) => {
           const v = info.getValue() || "";
-          return <span title={v} className="line-clamp-2 sm:truncate sm:block sm:max-w-[100px]">{v.split("/").pop() || "-"}</span>;
+          return <span title={v} className="line-clamp-2 sm:truncate sm:block sm:max-w-[85px]">{v.split("/").pop() || "-"}</span>;
         },
       }),
       columnHelper.accessor("fasta", {
         header: dict.fasta,
-        size: 100,
-        meta: { responsive: "hidden lg:table-cell" },
+        size: 85,
+        meta: { responsive: "hidden 2xl:table-cell" },
         cell: (info) => {
           const v = info.getValue() || "";
-          return <span title={v} className="line-clamp-2 sm:truncate sm:block sm:max-w-[100px]">{v.split("/").pop() || "-"}</span>;
+          return <span title={v} className="line-clamp-2 sm:truncate sm:block sm:max-w-[85px]">{v.split("/").pop() || "-"}</span>;
         },
       }),
       columnHelper.display({
         id: "actions",
         header: dict.actions,
-        size: 120,
+        size: 100,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton

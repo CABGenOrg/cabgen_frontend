@@ -81,7 +81,7 @@ const DataTable = <TData,>({
             {table.getHeaderGroups().map((hg) => (
               <tr key={hg.id} className="bg-gray-50">
                 {enableRowSelection && (
-                  <th className="px-4 py-3 w-10">
+                  <th className="px-3 py-2.5 w-10">
                     <Checkbox
                       aria-label="Select all"
                       checked={table.getIsAllPageRowsSelected()}
@@ -97,7 +97,7 @@ const DataTable = <TData,>({
                   return (
                     <th
                       key={h.id}
-                      className={`px-4 py-3 text-left font-semibold text-gray-500 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100 transition-colors ${h.column.columnDef.meta?.responsive ?? ""}`}
+                      className={`px-3 py-2.5 text-left font-semibold text-gray-500 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100 transition-colors ${h.column.columnDef.meta?.responsive ?? ""}`}
                       onClick={h.column.getToggleSortingHandler()}
                       style={{ width: h.getSize() }}
                     >
@@ -173,7 +173,7 @@ const DataTable = <TData,>({
                     }`}
                   >
                     {enableRowSelection && (
-                      <td className="px-4 py-3 w-10">
+                      <td className="px-3 py-2.5 w-10">
                         <Checkbox
                           aria-label="Select row"
                           checked={row.getIsSelected()}
@@ -189,7 +189,7 @@ const DataTable = <TData,>({
                       <td
                         key={cell.id}
                         style={{ width: cell.column.getSize() }}
-                        className={`px-4 py-3 cursor-default ${cell.column.columnDef.meta?.responsive ?? ""}`}
+                        className={`px-3 py-2.5 cursor-default ${cell.column.columnDef.meta?.responsive ?? ""}`}
                       >
                         {flexRender(
                           cell.column.columnDef.cell,

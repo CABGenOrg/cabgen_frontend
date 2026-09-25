@@ -108,7 +108,7 @@ const AdminTickets = () => {
     () => [
       columnHelper.accessor("name", {
         header: dict.name,
-        size: 150,
+        size: 120,
       }),
       columnHelper.accessor("email", {
         header: dict.email,
@@ -116,11 +116,11 @@ const AdminTickets = () => {
       }),
       columnHelper.accessor("subject", {
         header: dict.subject,
-        size: 200,
+        size: 150,
       }),
       columnHelper.accessor("status", {
         header: dict.status,
-        size: 110,
+        size: 90,
         cell: (info) => {
           const status = info.getValue();
           return (
@@ -133,12 +133,12 @@ const AdminTickets = () => {
       }),
       columnHelper.accessor("admin", {
         header: dict.adminLabel,
-        size: 150,
+        size: 120,
         cell: (info) => info.getValue() ?? "—",
       }),
       columnHelper.accessor("created_at", {
         header: dict.createdAt,
-        size: 120,
+        size: 100,
         cell: (info) =>
           new Date(info.getValue()).toLocaleDateString(
             lang === "pt" ? "pt-BR" : lang === "es" ? "es-ES" : "en-US",
@@ -147,7 +147,7 @@ const AdminTickets = () => {
       columnHelper.display({
         id: "actions",
         header: dict.actions,
-        size: 130,
+        size: 105,
         cell: (info) => {
           const ticket = info.row.original;
           return (

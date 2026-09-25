@@ -65,18 +65,18 @@ const AdminMicroorganisms = () => {
     () => [
       columnHelper.accessor("taxon", {
         header: dict.taxon,
-        size: 150,
+        size: 120,
         cell: (info) =>
           (dict.taxonValues as Record<string, string>)[info.getValue()] ??
           info.getValue(),
       }),
       columnHelper.accessor("species", {
         header: dict.species,
-        size: 200,
+        size: 150,
       }),
       columnHelper.accessor("variety", {
         header: dict.variety,
-        size: 150,
+        size: 120,
         cell: (info) =>
           info.getValue() === "option.microorganism.other"
             ? microOther
@@ -84,7 +84,7 @@ const AdminMicroorganisms = () => {
       }),
       columnHelper.accessor("is_active", {
         header: dict.isActive,
-        size: 90,
+        size: 75,
         cell: (info) => {
           const active = info.getValue();
           return (
@@ -97,7 +97,7 @@ const AdminMicroorganisms = () => {
       columnHelper.display({
         id: "actions",
         header: dict.actions,
-        size: 100,
+        size: 85,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton

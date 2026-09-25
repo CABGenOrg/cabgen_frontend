@@ -59,7 +59,7 @@ const BoxInfo = () => {
             className="2xl:h-3/5 sm:h-1/2 h-2/5 object-contain"
           />
 
-          <div className="text-center 2xl:text-xl md:text-lg text-lg mt-2 px-1">
+          <div className="text-center 2xl:text-lg md:text-lg text-lg mt-2 px-1">
             <span>{count} </span>
             <span>{description}</span>
           </div>

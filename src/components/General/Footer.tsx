@@ -37,13 +37,13 @@ const Footer = ({ lang }: { lang: Locale }) => {
             </CustomLink>
           ))}
         </div>
-        <div className="flex flex-col items-start font-light 2xl:text-xl text-base">
+        <div className="flex flex-col items-start font-light 2xl:text-lg text-base">
           {address.map(({ info }, idx) => (
             <div key={idx}>{info}</div>
           ))}
         </div>
       </div>
-      <div className="bg-cabgen-300 text-opacity-70 text-gray-600 text-center 2xl:text-xl sm:text-base text-sm px-1.5 py-3">
+      <div className="bg-cabgen-300 text-opacity-70 text-gray-600 text-center 2xl:text-lg sm:text-base text-sm px-1.5 py-3">
         Copyright ©{new Date().getFullYear()} All rights reserved | PROCC - FIOCRUZ
       </div>
     </footer>

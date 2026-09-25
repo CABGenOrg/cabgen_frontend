@@ -123,7 +123,7 @@ const LoginForm = () => {
               )}
               {isLoading && <Loading />}
             </div>
-            <div className="text-center 2xl:text-xl mt-3">
+            <div className="text-center 2xl:text-lg mt-3">
               <p>
                 {Login.formFooter1}
                 <CustomLink

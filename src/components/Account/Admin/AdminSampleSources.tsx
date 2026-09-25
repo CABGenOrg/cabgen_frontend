@@ -64,15 +64,15 @@ const AdminSampleSources = () => {
     () => [
       columnHelper.accessor("name", {
         header: dict.name,
-        size: 200,
+        size: 150,
       }),
       columnHelper.accessor("group", {
         header: dict.group,
-        size: 150,
+        size: 120,
       }),
       columnHelper.accessor("is_active", {
         header: dict.isActive,
-        size: 90,
+        size: 75,
         cell: (info) => {
           const active = info.getValue();
           return (
@@ -85,7 +85,7 @@ const AdminSampleSources = () => {
       columnHelper.display({
         id: "actions",
         header: dict.actions,
-        size: 100,
+        size: 85,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton

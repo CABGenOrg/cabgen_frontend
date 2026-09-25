@@ -8,11 +8,11 @@ type MsgTypes = (typeof msgTypes)[number];
 
 const msgTypesStyles = {
   error:
-    "bg-red-200 border-red-400 border-2 2xl:text-xl text-center py-2 mt-3 rounded-md",
+    "bg-red-200 border-red-400 border-2 2xl:text-lg text-center py-2 mt-3 rounded-md",
   warning:
-    "bg-yellow-200 border-yellow-400 border-2 2xl:text-xl text-center py-2 mt-3 rounded-md",
+    "bg-yellow-200 border-yellow-400 border-2 2xl:text-lg text-center py-2 mt-3 rounded-md",
   success:
-    "bg-green-200 border-green-400 border-2 2xl:text-xl text-center py-2 mt-3 rounded-md",
+    "bg-green-200 border-green-400 border-2 2xl:text-lg text-center py-2 mt-3 rounded-md",
   hidden: "hidden",
 };
 

@@ -117,11 +117,11 @@ const AdminAnalyses = () => {
     () => [
       columnHelper.accessor("sample", {
         header: analysisDict.sample,
-        size: 160,
+        size: 130,
         cell: (info) => (
           <span
             title={info.getValue()}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[160px]"
+            className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]"
           >
             {info.getValue() || "-"}
           </span>
@@ -129,11 +129,11 @@ const AdminAnalyses = () => {
       }),
       columnHelper.accessor("user", {
         header: adminDict.user,
-        size: 150,
+        size: 120,
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[150px]"
+            className="line-clamp-2 sm:truncate sm:block sm:max-w-[120px]"
           >
             {info.getValue() || "-"}
           </span>
@@ -141,7 +141,7 @@ const AdminAnalyses = () => {
       }),
       columnHelper.accessor("type", {
         header: analysisDict.type,
-        size: 120,
+        size: 100,
         cell: (info) => {
           const v = info.getValue();
           const typeKey = v.toLowerCase();
@@ -150,7 +150,7 @@ const AdminAnalyses = () => {
       }),
       columnHelper.accessor("status", {
         header: analysisDict.status,
-        size: 120,
+        size: 100,
         cell: (info) => {
           const v = info.getValue();
           const statusKey = v.toLowerCase();
@@ -170,7 +170,7 @@ const AdminAnalyses = () => {
         ? [
             columnHelper.accessor("step", {
               header: analysisDict.step,
-              size: 120,
+              size: 100,
               cell: (info) => {
                 const status = info.row.original.status;
                 return status.toLowerCase() === "running"
@@ -182,21 +182,21 @@ const AdminAnalyses = () => {
         : []),
       columnHelper.accessor("started_at", {
         header: analysisDict.startedAt,
-        size: 110,
+        size: 90,
         meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => formatDate(info.getValue(), lang),
       }),
       columnHelper.accessor("finished_at", {
         header: analysisDict.finishedAt,
-        size: 110,
+        size: 90,
         meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => formatDate(info.getValue(), lang),
       }),
       columnHelper.accessor((row) => row.metrics?.completeness, {
         id: "completeness",
         header: analysisDict.completeness,
-        size: 100,
-        meta: { responsive: "hidden md:table-cell" },
+        size: 85,
+        meta: { responsive: "hidden 2xl:table-cell" },
         cell: (info) => {
           const v = info.getValue();
           return v ? `${v}%` : "-";
@@ -205,12 +205,12 @@ const AdminAnalyses = () => {
       columnHelper.accessor((row) => row.metrics?.primary_species, {
         id: "identifiedSpecies",
         header: analysisDict.identifiedSpecies,
-        size: 160,
-        meta: { responsive: "hidden lg:table-cell" },
+        size: 130,
+        meta: { responsive: "hidden 2xl:table-cell" },
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[160px]"
+            className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]"
           >
             {info.getValue() || "-"}
           </span>
@@ -219,7 +219,7 @@ const AdminAnalyses = () => {
       columnHelper.display({
         id: "actions",
         header: adminDict.actions,
-        size: 110,
+        size: 90,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton
@@ -264,7 +264,7 @@ const AdminAnalyses = () => {
         onAction={() => setModal({ type: "add" })}
       />
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
           <input

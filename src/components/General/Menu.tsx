@@ -56,7 +56,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 shadow-md w-full h-24 bg-cabgen-400 text-white p-2">
+    <nav className="sticky top-0 z-50 shadow-md w-full h-20 bg-cabgen-400 text-white p-2">
       <div className="h-full w-full flex flex-row justify-between items-center px-4 2xl:px-16">
         {/* Logo */}
         <CustomLink href="/">
@@ -65,7 +65,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
             alt="FioCruz logo"
             width={500}
             height={250}
-            className="w-auto lg:h-16 h-14 cursor-pointer"
+            className="w-auto lg:h-12 h-10 cursor-pointer"
             priority={true}
           />
         </CustomLink>

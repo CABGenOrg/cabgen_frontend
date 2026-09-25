@@ -60,27 +60,27 @@ const AdminUsers = () => {
     () => [
       columnHelper.accessor("name", {
         header: dict.name,
-        size: 120,
+        size: 100,
       }),
       columnHelper.accessor("username", {
         header: dict.username,
-        size: 120,
+        size: 100,
       }),
       columnHelper.accessor("email", {
         header: dict.email,
-        size: 200,
+        size: 150,
       }),
       columnHelper.accessor("country", {
         header: dict.country,
-        size: 100,
+        size: 85,
       }),
       columnHelper.accessor("user_role", {
         header: dict.userRole,
-        size: 100,
+        size: 85,
       }),
       columnHelper.accessor("is_active", {
         header: dict.isActive,
-        size: 90,
+        size: 75,
         cell: (info) => {
           const active = info.getValue();
           return (
@@ -92,17 +92,17 @@ const AdminUsers = () => {
       }),
       columnHelper.accessor("activated_by", {
         header: dict.activatedBy,
-        size: 120,
+        size: 100,
       }),
       columnHelper.accessor("activated_on", {
         header: dict.activatedOn,
-        size: 110,
+        size: 90,
         cell: (info) => formatDate(info.getValue(), lang),
       }),
       columnHelper.display({
         id: "actions",
         header: dict.actions,
-        size: 100,
+        size: 85,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton

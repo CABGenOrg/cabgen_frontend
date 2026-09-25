@@ -157,7 +157,7 @@ const RegisterForm = () => {
                         value={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger className="text-black focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:outline-none 2xl:text-xl sm:text-base">
+                          <SelectTrigger className="text-black focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:outline-none 2xl:text-lg sm:text-base">
                             <SelectValue
                               placeholder={Register.countryFieldLabel}
                               className={input_class}
@@ -337,7 +337,7 @@ const RegisterForm = () => {
               )}
               {isLoading && <Loading />}
             </div>
-            <div className="text-center 2xl:text-xl mt-3">
+            <div className="text-center 2xl:text-lg mt-3">
               <p>
                 {Register.formFooter1}
                 <CustomLink

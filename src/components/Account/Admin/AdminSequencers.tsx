@@ -57,17 +57,17 @@ const AdminSequencers = () => {
     () => [
       columnHelper.accessor("brand", {
         header: dict.brand,
-        size: 150,
+        size: 120,
         cell: (info) => <span>{info.getValue() === "option.sequencer.other" ? sequencerOther : info.getValue()}</span>,
       }),
       columnHelper.accessor("model", {
         header: dict.model,
-        size: 200,
+        size: 150,
         cell: (info) => <span>{info.getValue() === "option.sequencer.other" ? sequencerOther : info.getValue()}</span>,
       }),
       columnHelper.accessor("is_active", {
         header: dict.isActive,
-        size: 90,
+        size: 75,
         cell: (info) => {
           const active = info.getValue();
           return (
@@ -80,7 +80,7 @@ const AdminSequencers = () => {
       columnHelper.display({
         id: "actions",
         header: dict.actions,
-        size: 100,
+        size: 85,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton
