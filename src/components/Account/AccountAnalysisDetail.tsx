@@ -15,6 +15,7 @@ import { useGetAdminAnalysisByIDQuery } from "@/redux/services/admin/adminAnalys
 import { useGetAnalysisByIDQuery } from "@/redux/services/analyses/analysesService";
 import { useAuth } from "@/redux/AuthContext";
 import { ANALYSES_ENDPOINTS } from "@/redux/services/analyses/analysesEndpoints";
+import { ADMIN_ENDPOINTS } from "@/redux/services/admin/adminEndpoints";
 
 const formatValue = (value: unknown): string => {
   if (value === undefined || value === null) return "";
@@ -188,17 +189,21 @@ const AccountAnalysisDetail = () => {
       analysis?.type.toLowerCase() ?? ""
     ] ?? analysis?.type;
 
+  const analysesBase = isAdmin
+    ? ADMIN_ENDPOINTS.ANALYSES
+    : ANALYSES_ENDPOINTS.DEFAULT;
+
   const zipPath =
     analysis?.results_zip_path && analysis?.status.toLowerCase() === "done"
-      ? `${ANALYSES_ENDPOINTS.DEFAULT}/${id}/download/zip`
+      ? `${analysesBase}/${id}/download/zip`
       : null;
 
   const fastqcReady = analysis?.status.toLowerCase() === "done";
   const fastqc1Path = fastqcReady
-    ? `${ANALYSES_ENDPOINTS.DEFAULT}/${id}/fastqc1`
+    ? `${analysesBase}/${id}/fastqc1`
     : null;
   const fastqc2Path = fastqcReady
-    ? `${ANALYSES_ENDPOINTS.DEFAULT}/${id}/fastqc2`
+    ? `${analysesBase}/${id}/fastqc2`
     : null;
 
   if (isLoading) {
