@@ -35,10 +35,12 @@ export function SmartSelect({
     );
   }
 
+  const selectedLabel = options.find((o) => o.value === value)?.label;
+
   return (
     <Select onValueChange={onChange} value={value}>
       <SelectTrigger className="text-black hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:outline-none px-3.5 text-base 2xl:text-lg">
-        <SelectValue placeholder={placeholder} />
+        <SelectValue placeholder={placeholder}>{selectedLabel}</SelectValue>
       </SelectTrigger>
       <SelectContent>
         {options.map((opt) => (
