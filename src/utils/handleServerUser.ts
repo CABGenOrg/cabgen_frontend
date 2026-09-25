@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { cookies } from "next/headers";
 import { baseUrl } from "@/utils/handleRequest";
 import { AUTH_ENDPOINTS } from "@/redux/services/auth/authEndpoints";
@@ -10,7 +11,7 @@ async function fetchMe(cookieHeader: string) {
   });
 }
 
-export async function getServerUser(): Promise<User | null> {
+export const getServerUser = cache(async (): Promise<User | null> => {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("AccessCookie")?.value;
   const refreshToken = cookieStore.get("RefreshCookie")?.value;
@@ -54,4 +55,4 @@ export async function getServerUser(): Promise<User | null> {
   } catch {
     return null;
   }
-}
+});

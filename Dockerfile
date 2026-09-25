@@ -4,10 +4,10 @@ WORKDIR /app
 # Dependencies
 COPY package*.json ./
 RUN npm ci
-# Source code
+
 COPY . .
-COPY .env .env
-# Compilation
+ARG NEXT_PUBLIC_API_URL=http://localhost:8080/api
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 RUN npm run build
 
 # Runtime
