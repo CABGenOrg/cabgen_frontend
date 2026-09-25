@@ -20,6 +20,7 @@ export type AdminUserResponse = {
   institution: string;
   created_at: Date;
   updated_at: Date;
+  language: string;
 };
 
 export type AdminUserInput = {
@@ -33,6 +34,7 @@ export type AdminUserInput = {
   interest?: string | null;
   role?: string | null;
   institution?: string | null;
+  language?: string | null;
 };
 
 export type AdminUserUpdateInput = {

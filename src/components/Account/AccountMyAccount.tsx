@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,14 +20,19 @@ import { section_btn, input_class, label_class } from "@/styles/tailwind_classes
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
 import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
+import {
+  useGetEnumSelectOptionsQuery,
+} from "@/redux/services/select_options/selectOptionsService";
 import { useGetProfileQuery, useUpdateProfileMutation } from "@/redux/services/users/usersService";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { emptyToNull } from "@/utils/zodHelpers";
 import { getChangedFields } from "@/utils/getChangedFields";
+import { i18n } from "@/i18n/i18n.config";
 
 const AccountMyAccount = () => {
   const lang = useLanguage();
+  const router = useRouter();
   const {
     dictionary: { Account: AccountDict, Errors },
   } = getTranslateClient(lang);
@@ -34,6 +40,7 @@ const AccountMyAccount = () => {
 
   const { data: profile, isLoading: loadingProfile, error: profileError } = useGetProfileQuery();
   const { data: countries } = useGetCountriesQuery(lang);
+  const { data: enumOptions } = useGetEnumSelectOptionsQuery();
   const [saved, setSaved] = useState(false);
 
   const [updateProfile, { isLoading: updating, error: updateError }] = useUpdateProfileMutation();
@@ -43,6 +50,13 @@ const AccountMyAccount = () => {
     label: c.name,
   })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
+  const languageOptions = (enumOptions?.languages ?? []).map((o) => ({
+    value: o.value,
+    label:
+      (AccountDict.option.language as Record<string, string>)[o.value] ??
+      o.label,
+  }));
+
   const profileSchema = z.object({
     name: emptyToNull,
     username: emptyToNull,
@@ -50,6 +64,7 @@ const AccountMyAccount = () => {
     institution: emptyToNull,
     role: emptyToNull,
     interest: emptyToNull,
+    language: emptyToNull,
   });
 
   type ProfileFormData = z.infer<typeof profileSchema>;
@@ -63,6 +78,7 @@ const AccountMyAccount = () => {
       institution: profile.institution ?? "",
       role: profile.role ?? "",
       interest: profile.interest ?? "",
+      language: profile.language ?? "",
     };
   }, [profile]);
 
@@ -76,12 +92,23 @@ const AccountMyAccount = () => {
       const changed = getChangedFields(profileValues ?? ({} as ProfileFormData), data);
       if (Object.keys(changed).length === 0) return;
       await updateProfile(changed as Record<string, string | null>).unwrap();
+      const newLang = data.language;
+      if (newLang && newLang !== lang) {
+        document.cookie = `NEXT_LOCALE=${newLang}; path=/; max-age=31536000`;
+        router.replace(
+          newLang === i18n.defaultLocale
+            ? "/account/my-account"
+            : `/${newLang}/account/my-account`,
+        );
+        router.refresh();
+        return;
+      }
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch {}
   };
 
-  if (loadingProfile || !countries) {
+  if (loadingProfile || !countries || !enumOptions) {
     return (
       <div className="flex justify-center py-16">
         <Loading />
@@ -218,6 +245,24 @@ const AccountMyAccount = () => {
                     <FormLabel className={label_class}>{dict.interest}</FormLabel>
                     <FormControl>
                       <input className={input_class} {...field} value={field.value ?? ""} />
+                    </FormControl>
+                    <FormMessage className="text-red-600" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="language"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={label_class}>{dict.language}</FormLabel>
+                    <FormControl>
+                      <SmartSelect
+                        value={field.value ?? ""}
+                        onChange={field.onChange}
+                        options={languageOptions}
+                        placeholder={dict.selectPlaceholder}
+                      />
                     </FormControl>
                     <FormMessage className="text-red-600" />
                   </FormItem>

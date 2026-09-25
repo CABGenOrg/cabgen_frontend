@@ -13,6 +13,7 @@ export type UserResponse = {
   interest: string;
   role: string;
   institution: string;
+  language: string | null;
 };
 
 export type UserInput = {
@@ -22,6 +23,7 @@ export type UserInput = {
   interest?: string | null;
   role?: string | null;
   institution?: string | null;
+  language?: string | null;
 };
 
 export type UpdatePasswordInput = {

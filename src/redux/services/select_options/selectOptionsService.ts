@@ -14,6 +14,7 @@ export type EnumSelectsResponse = {
   genders: SelectOption[];
   health_service_types: SelectOption[];
   analysis_types: SelectOption[];
+  languages: SelectOption[];
 };
 
 export type FormSelectsResponse = {
