@@ -107,7 +107,7 @@ const AdminAnalyses = () => {
       await downloadPostFile(
         ADMIN_ENDPOINTS.ANALYSES_DOWNLOAD_BATCH_TSVS,
         { ids: selectedIds },
-        "analyses.tsv",
+        `analyses-${new Date().toISOString().slice(0, 10)}.tsv`,
       );
     } catch {}
     setDownloading(false);

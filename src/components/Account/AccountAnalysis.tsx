@@ -290,7 +290,7 @@ const AccountAnalysis = () => {
       await downloadPostFile(
         ANALYSES_ENDPOINTS.DOWNLOAD_BATCH_TSVS,
         { ids: selectedIds },
-        "analyses.tsv",
+        `analyses-${new Date().toISOString().slice(0, 10)}.tsv`,
       );
     } catch {}
     setDownloading(false);

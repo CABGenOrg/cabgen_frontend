@@ -262,9 +262,10 @@ const AccountAnalysisDetail = () => {
             type="button"
             onClick={() => {
               setDownloadError(null);
-              downloadGetFile(zipPath, "results.zip").catch(() =>
-                setDownloadError(Errors.downloadError),
-              );
+              downloadGetFile(
+                zipPath,
+                `${(analysis?.sample ?? "results").replace(/[\/\\]/g, "-")}.zip`,
+              ).catch(() => setDownloadError(Errors.downloadError));
             }}
             className={`${section_btn} inline-flex items-center justify-center gap-1.5 shrink-0`}
           >
