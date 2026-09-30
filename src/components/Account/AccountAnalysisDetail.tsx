@@ -223,7 +223,11 @@ const AccountAnalysisDetail = () => {
         >
           <ArrowLeft size={16} /> {detailDict.back}
         </button>
-        <Message msg={error ? String(error) : detailDict.title} type="error" />
+        <Message
+          msg={error ? String(error) : detailDict.title}
+          type="error"
+          timeout={false}
+        />
       </div>
     );
   }
@@ -277,7 +281,7 @@ const AccountAnalysisDetail = () => {
 
       {analysis.error_message && (
         <div className="mb-5">
-          <Message msg={analysis.error_message} type="error" />
+          <Message msg={analysis.error_message} type="error" timeout={false} />
         </div>
       )}
 
