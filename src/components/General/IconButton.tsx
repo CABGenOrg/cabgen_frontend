@@ -22,7 +22,7 @@ const IconButton = ({
       type="button"
       aria-label={label}
       className={cn(
-        "h-10 w-10 inline-flex items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2",
+        "h-8 w-8 sm:h-10 sm:w-10 inline-flex items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2",
         variant === "primary" &&
           "bg-cabgen-400 text-white hover:bg-cabgen-300 focus-visible:ring-cabgen-200",
         variant === "ghost" &&
