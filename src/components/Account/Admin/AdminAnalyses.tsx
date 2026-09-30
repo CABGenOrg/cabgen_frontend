@@ -34,9 +34,6 @@ const formatDate = (value: Date | string | null | undefined, lang: string) => {
     : d.toLocaleDateString(lang, { timeZone: "UTC" });
 };
 
-// Elapsed minutes: finished_at - started_at when done/failed, now - started_at
-// while running (refreshed by the 15s polling). Timezone safe — both dates are
-// UTC ISO, the diff is timezone-independent.
 const formatDuration = (
   startedAt: Date | string | null | undefined,
   finishedAt: Date | string | null | undefined,

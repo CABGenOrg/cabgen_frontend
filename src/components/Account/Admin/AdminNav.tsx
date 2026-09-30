@@ -59,9 +59,6 @@ const AdminNav = () => {
 
   return (
     <nav className="flex flex-wrap justify-center gap-1 p-2 mb-4 bg-gray-50 rounded-lg border border-gray-100">
-      {/* flex-wrap instead of overflow-x-auto: justify-center + scroll clips the
-          left overflow forever (classic flexbox bug) — wrapping keeps all 11
-          tabs visible on phones (2-3 rows) and a single centered row on desktop. */}
       {adminTabs.map(({ icon: Icon, href, dictKey }) => {
         const active = pathname.includes(href);
         const label =

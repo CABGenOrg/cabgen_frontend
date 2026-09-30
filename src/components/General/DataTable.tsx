@@ -76,10 +76,6 @@ const DataTable = <TData,>({
         ref={tableContainerRef}
         className="overflow-auto max-h-[min(600px,70vh)]"
       >
-        {/* table-fixed: header (auto layout) and virtualized rows (fixed layout)
-            used different column-width algorithms and misaligned — fixing the
-            table layout makes th/td widths exact and identical, and the table
-            grows to max(container, sum of sizes) for proper horizontal scroll. */}
         <table className="w-full table-fixed text-sm">
           <thead className="sticky top-0 z-10">
             {table.getHeaderGroups().map((hg) => (
