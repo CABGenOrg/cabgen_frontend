@@ -34,6 +34,24 @@ const formatDate = (value: Date | string | null | undefined, lang: string) => {
     : d.toLocaleDateString(lang, { timeZone: "UTC" });
 };
 
+// Elapsed minutes: finished_at - started_at when done/failed, now - started_at
+// while running (refreshed by the 15s polling). Timezone safe — both dates are
+// UTC ISO, the diff is timezone-independent.
+const formatDuration = (
+  startedAt: Date | string | null | undefined,
+  finishedAt: Date | string | null | undefined,
+): string => {
+  if (!startedAt) return "-";
+  const start = new Date(startedAt);
+  const end = finishedAt ? new Date(finishedAt) : new Date();
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) return "-";
+  const mins = Math.max(
+    0,
+    Math.round((end.getTime() - start.getTime()) / 60000),
+  );
+  return `${mins} min`;
+};
+
 const AdminAnalyses = () => {
   const router = useRouter();
   const lang = useLanguage();
@@ -186,11 +204,16 @@ const AdminAnalyses = () => {
         meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => formatDate(info.getValue(), lang),
       }),
-      columnHelper.accessor("finished_at", {
-        header: analysisDict.finishedAt,
+      columnHelper.display({
+        id: "totalTime",
+        header: analysisDict.totalTime,
         size: 90,
         meta: { responsive: "hidden sm:table-cell" },
-        cell: (info) => formatDate(info.getValue(), lang),
+        cell: (info) =>
+          formatDuration(
+            info.row.original.started_at,
+            info.row.original.finished_at,
+          ),
       }),
       columnHelper.accessor((row) => row.metrics?.completeness, {
         id: "completeness",

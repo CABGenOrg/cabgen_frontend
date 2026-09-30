@@ -346,6 +346,7 @@ const en = {
       status: "Status",
       startedAt: "Started",
       finishedAt: "Finished",
+      totalTime: "Total Time",
       completeness: "Completeness",
       genomeSize: "Genome Size",
       n50: "N50",

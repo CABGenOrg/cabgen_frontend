@@ -345,6 +345,7 @@ const es = {
       status: "Estado",
       startedAt: "Inicio",
       finishedAt: "Fin",
+      totalTime: "Tiempo Total",
       completeness: "Completitud",
       genomeSize: "Tamaño del Genoma",
       n50: "N50",

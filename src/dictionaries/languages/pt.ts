@@ -336,6 +336,7 @@ const pt = {
       status: "Estado",
       startedAt: "Início",
       finishedAt: "Fim",
+      totalTime: "Tempo Total",
       completeness: "Completude",
       genomeSize: "Tamanho do Genoma",
       n50: "N50",
