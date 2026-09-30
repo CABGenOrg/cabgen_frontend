@@ -49,6 +49,7 @@ const formatDuration = (
     0,
     Math.round((end.getTime() - start.getTime()) / 60000),
   );
+  if (mins === 0) return "< 1 min";
   return `${mins} min`;
 };
 
