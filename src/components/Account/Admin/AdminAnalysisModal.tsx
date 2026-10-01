@@ -58,6 +58,7 @@ type EditFormData = {
     completeness?: string | null;
     contamination?: string | null;
     genome_size?: string | null;
+    contigs?: string | null;
     n50?: string | null;
     primary_species?: string | null;
     secondary_species?: string | null;
@@ -85,6 +86,7 @@ const STRING_KEYS = [
   "completeness",
   "contamination",
   "genome_size",
+  "contigs",
   "n50",
   "primary_species",
   "secondary_species",
@@ -177,6 +179,7 @@ const AdminAnalysisModalBody: React.FC<
         completeness: m.completeness ?? "",
         contamination: m.contamination ?? "",
         genome_size: m.genome_size ?? "",
+        contigs: m.contigs ?? "",
         n50: m.n50 ?? "",
         primary_species: m.primary_species ?? "",
         secondary_species: m.secondary_species ?? "",
@@ -310,6 +313,11 @@ const AdminAnalysisModalBody: React.FC<
               <TextField
                 name="metrics.n50"
                 label={analysisDict.detail.metrics.n50}
+                form={editForm}
+              />
+              <TextField
+                name="metrics.contigs"
+                label={analysisDict.detail.metrics.contigs}
                 form={editForm}
               />
               <TextField

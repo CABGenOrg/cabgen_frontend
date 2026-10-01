@@ -13,6 +13,7 @@ export type AnalysisResult = {
   completeness: string;
   contamination: string;
   genome_size: string;
+  contigs: string;
   n50: string;
   primary_species: string;
   secondary_species: string;

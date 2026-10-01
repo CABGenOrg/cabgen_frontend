@@ -139,6 +139,12 @@ const AccountAnalysisDetail = () => {
             description: desc.genomeSize,
           },
           {
+            label: metricsDict.contigs,
+            value:
+              m.contigs != null ? Number(m.contigs).toLocaleString(lang) : "—",
+            description: desc.contigs,
+          },
+          {
             label: metricsDict.coverage,
             value:
               m.coverage != null ? `${Number(m.coverage).toFixed(2)}x` : "—",
