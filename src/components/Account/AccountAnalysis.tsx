@@ -244,16 +244,6 @@ const AccountAnalysis = () => {
           return v ? `${v}%` : "-";
         },
       }),
-      columnHelper.accessor((row) => row.metrics?.contigs, {
-        id: "contigs",
-        header: dict.contigs,
-        size: 90,
-        meta: { responsive: "hidden 2xl:table-cell" },
-        cell: (info) => {
-          const v = info.getValue();
-          return v ? Number(v).toLocaleString(lang) : "-";
-        },
-      }),
       columnHelper.accessor((row) => row.metrics?.primary_species, {
         id: "identifiedSpecies",
         header: dict.identifiedSpecies,
