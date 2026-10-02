@@ -102,7 +102,7 @@ const SampleFormModalBody: React.FC<
     collection_date: z.string().min(1, dict.validation.required),
     run_number: z.string().min(1, dict.validation.required),
     run_date: z.string().min(1, dict.validation.required),
-    city: emptyToNull.optional(),
+    city: z.string().min(1, dict.validation.required),
     origin_code: z.string().min(1, dict.validation.required),
     gender: emptyToNull.optional(),
     date_of_birth: emptyToNull.optional(),
@@ -371,6 +371,7 @@ const SampleFormModalBody: React.FC<
               form={form}
               options={cityOptions}
               placeholder={dict.selectPlaceholder}
+              required
             />
           </div>
 

@@ -86,7 +86,7 @@ const AdminSampleModalBody: React.FC<
     collection_date: z.string().min(1, adminDict.validation.required),
     run_number: z.string().min(1, adminDict.validation.required),
     run_date: z.string().min(1, adminDict.validation.required),
-    city: emptyToNull.optional(),
+    city: z.string().min(1, adminDict.validation.required),
     origin_code: z.string().min(1, adminDict.validation.required),
     gender: emptyToNull.optional(),
     date_of_birth: emptyToNull.optional(),
@@ -316,6 +316,7 @@ const AdminSampleModalBody: React.FC<
               form={form}
               options={cityOptions}
               placeholder={adminDict.selectPlaceholder}
+              required
             />
           </div>
 
