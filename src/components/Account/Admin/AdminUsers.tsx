@@ -90,6 +90,18 @@ const AdminUsers = () => {
           );
         },
       }),
+      columnHelper.accessor("is_part_of_network", {
+        header: dict.network,
+        size: 85,
+        cell: (info) => {
+          const inNetwork = info.getValue();
+          return (
+            <Badge variant={inNetwork ? "done" : "failed"}>
+              {inNetwork ? dict.activeValues.yes : dict.activeValues.no}
+            </Badge>
+          );
+        },
+      }),
       columnHelper.accessor("activated_by", {
         header: dict.activatedBy,
         size: 100,

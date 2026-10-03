@@ -8,7 +8,7 @@ export type AdminSampleInput = {
   collection_date: string;
   run_number: string;
   run_date: string;
-  city?: string | null;
+  city: string;
   origin_code: string;
   gender?: string | null;
   date_of_birth?: string | null;

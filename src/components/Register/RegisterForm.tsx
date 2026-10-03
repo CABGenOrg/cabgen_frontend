@@ -63,6 +63,7 @@ const RegisterForm = () => {
       interest: z.string(),
       role: z.string(),
       institution: z.string(),
+      is_part_of_network: z.string().min(1, Register.networkFieldValidation),
     })
     .superRefine(({ email, confirm_email }, ctx) => {
       if (email !== confirm_email) {
@@ -98,6 +99,7 @@ const RegisterForm = () => {
       confirm_email: "",
       password: "",
       confirm_password: "",
+      is_part_of_network: "",
     },
   });
 
@@ -105,7 +107,11 @@ const RegisterForm = () => {
   const [register, { data, isLoading, error, isSuccess }] = useRegisterMutation();
 
   const onSubmit: SubmitHandler<FormData> = async (registerData) => {
-    await register(registerData);
+    const { is_part_of_network, ...rest } = registerData;
+    await register({
+      ...rest,
+      is_part_of_network: is_part_of_network === "yes",
+    });
   };
 
   return (
@@ -197,6 +203,55 @@ const RegisterForm = () => {
               />
               <FormField
                 control={form.control}
+                name="is_part_of_network"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>
+                        {Register.networkField}
+                        <span className="text-red-500 ml-0.5">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <div
+                          role="group"
+                          className="inline-flex rounded-md border border-gray-300 overflow-hidden"
+                        >
+                          <button
+                            type="button"
+                            aria-pressed={field.value === "yes"}
+                            onClick={() => field.onChange("yes")}
+                            className={`px-5 py-2 text-base transition-colors ${
+                              field.value === "yes"
+                                ? "bg-cabgen-200 text-white"
+                                : "bg-white text-gray-700 hover:bg-gray-100"
+                            }`}
+                          >
+                            {Register.networkYes}
+                          </button>
+                          <button
+                            type="button"
+                            aria-pressed={field.value === "no"}
+                            onClick={() => field.onChange("no")}
+                            className={`px-5 py-2 text-base border-l border-gray-300 transition-colors ${
+                              field.value === "no"
+                                ? "bg-cabgen-200 text-white"
+                                : "bg-white text-gray-700 hover:bg-gray-100"
+                            }`}
+                          >
+                            {Register.networkNo}
+                          </button>
+                        </div>
+                      </FormControl>
+                      <p className="text-xs text-gray-500">
+                        {Register.networkHint}
+                      </p>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
                 name="interest"
                 render={({ field }) => {
                   return (
@@ -220,23 +275,6 @@ const RegisterForm = () => {
                     <FormItem>
                       <FormLabel className={label_class}>
                         {Register.institutionField}
-                      </FormLabel>
-                      <FormControl>
-                        <input type="text" className={input_class} {...field} />
-                      </FormControl>
-                      <FormMessage className="text-red-600" />
-                    </FormItem>
-                  );
-                }}
-              />
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormLabel className={label_class}>
-                        {Register.roleField}
                       </FormLabel>
                       <FormControl>
                         <input type="text" className={input_class} {...field} />
@@ -322,6 +360,23 @@ const RegisterForm = () => {
                       </FormLabel>
                       <FormControl>
                         <PasswordInput field={field} autoComplete="new-password" />
+                      </FormControl>
+                      <FormMessage className="text-red-600" />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className={label_class}>
+                        {Register.roleField}
+                      </FormLabel>
+                      <FormControl>
+                        <input type="text" className={input_class} {...field} />
                       </FormControl>
                       <FormMessage className="text-red-600" />
                     </FormItem>

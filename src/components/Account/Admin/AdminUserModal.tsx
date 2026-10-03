@@ -65,6 +65,7 @@ const AdminUserModalBody: React.FC<{
     interest: emptyToNull.optional(),
     role: emptyToNull.optional(),
     institution: emptyToNull.optional(),
+    is_part_of_network: z.boolean(),
   });
 
   type UserFormData = z.infer<typeof userSchema>;
@@ -81,6 +82,7 @@ const AdminUserModalBody: React.FC<{
       interest: initial.interest ?? "",
       role: initial.role ?? "",
       institution: initial.institution ?? "",
+      is_part_of_network: initial.is_part_of_network ?? false,
     };
   }, [initial]);
 
@@ -178,6 +180,17 @@ const AdminUserModalBody: React.FC<{
               label={dict.institution}
               form={form}
             />
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="is_part_of_network"
+                className="h-4 w-4 rounded border-gray-300 text-cabgen-200 focus:ring-cabgen-200"
+                {...form.register("is_part_of_network")}
+              />
+              <label htmlFor="is_part_of_network" className="text-gray-900">
+                {dict.isPartOfNetwork}
+              </label>
+            </div>
           </div>
 
           {error && (

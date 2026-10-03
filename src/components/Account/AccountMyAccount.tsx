@@ -158,6 +158,22 @@ const AccountMyAccount = () => {
                 </span>
               </p>
             </div>
+            <div>
+              <span className="text-sm text-gray-500">{dict.network}</span>
+              <p>
+                <span
+                  className={`inline-block px-2.5 py-0.5 rounded-full text-base font-medium ${
+                    profile.is_part_of_network
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {profile.is_part_of_network
+                    ? AccountDict.admin.activeValues.yes
+                    : AccountDict.admin.activeValues.no}
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       )}

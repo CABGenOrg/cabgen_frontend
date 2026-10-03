@@ -9,6 +9,7 @@ export type UserResponse = {
   email: string;
   country_code: string;
   country: string;
+  is_part_of_network: boolean;
   user_role: string;
   interest: string;
   role: string;
@@ -20,6 +21,7 @@ export type UserInput = {
   name: string;
   username: string;
   country_code: string;
+  is_part_of_network?: boolean;
   interest?: string | null;
   role?: string | null;
   institution?: string | null;

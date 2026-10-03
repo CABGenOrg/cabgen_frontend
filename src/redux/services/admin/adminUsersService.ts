@@ -12,6 +12,7 @@ export type AdminUserResponse = {
   country: string;
   user_role: string;
   is_active: boolean;
+  is_part_of_network: boolean;
   created_by: string;
   activated_by: string;
   activated_on: Date;
@@ -31,6 +32,7 @@ export type AdminUserInput = {
   country_code: string;
   user_role: string;
   is_active: boolean;
+  is_part_of_network: boolean;
   interest?: string | null;
   role?: string | null;
   institution?: string | null;

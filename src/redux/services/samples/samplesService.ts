@@ -30,7 +30,7 @@ export type SampleInput = {
   collection_date: Date;
   run_number: string;
   run_date: Date;
-  city?: string  | null;
+  city: string;
   gender?: string  | null;
   date_of_birth?: Date  | null;
   country_code: string;
