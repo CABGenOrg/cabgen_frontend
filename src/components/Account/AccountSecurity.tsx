@@ -19,6 +19,7 @@ import PasswordInput from "@/components/General/PasswordInput";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
 import {
+  useGetProfileQuery,
   useDeleteProfileMutation,
   useUpdatePasswordMutation,
   useRequestEmailUpdateMutation,
@@ -26,6 +27,7 @@ import {
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import Modal from "@/components/General/Modal";
+import CustomLink from "@/components/General/CustomLink";
 
 const AccountSecurity = () => {
   const lang = useLanguage();
@@ -36,6 +38,8 @@ const AccountSecurity = () => {
 
   const [deleteProfile, { isLoading: deleting, error: deleteError }] =
     useDeleteProfileMutation();
+  const { data: profile } = useGetProfileQuery();
+  const isNetworkMember = profile?.is_part_of_network === true;
 
   const [
     updatePassword,
@@ -347,15 +351,29 @@ const AccountSecurity = () => {
               />
             </svg>
           </div>
-          <div>
-            <p className="text-gray-900 font-medium mb-1">
-              {dict.deleteAccount}
-            </p>
-            <p className="text-gray-500 text-sm">{dict.deleteConfirm}</p>
-          </div>
+          {isNetworkMember ? (
+            <div className="flex flex-col gap-3">
+              <p className="text-gray-900 font-medium">
+                {dict.deleteNetworkImportanceTitle}
+              </p>
+              <p className="text-gray-500 text-sm">
+                {dict.deleteNetworkImportance}
+              </p>
+              <p className="text-gray-500 text-sm">
+                {dict.deleteNetworkBlocked}
+              </p>
+            </div>
+          ) : (
+            <div>
+              <p className="text-gray-900 font-medium mb-1">
+                {dict.deleteAccount}
+              </p>
+              <p className="text-gray-500 text-sm">{dict.deleteConfirm}</p>
+            </div>
+          )}
         </div>
 
-        {deleteError && (
+        {!isNetworkMember && deleteError && (
           <div className="mt-4">
             <Message
               msg={
@@ -373,7 +391,14 @@ const AccountSecurity = () => {
           <Button variant="outline" onClick={() => setShowDeleteModal(false)}>
             {dict.cancel}
           </Button>
-          {deleting ? (
+          {isNetworkMember ? (
+            <CustomLink
+              href="/contact"
+              className="bg-cabgen-200 hover:bg-cabgen-100 rounded-lg py-2 px-6 text-base text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:ring-offset-2 inline-flex items-center"
+            >
+              {dict.contact}
+            </CustomLink>
+          ) : deleting ? (
             <Loading />
           ) : (
             <Button variant="destructive" onClick={handleDelete}>

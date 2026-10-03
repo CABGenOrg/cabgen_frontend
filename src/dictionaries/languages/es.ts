@@ -605,6 +605,12 @@ const es = {
       deleteAccount: "Eliminar Cuenta",
       deleteAccountDescription: "Eliminar permanentemente su cuenta y todos los datos asociados. Esta acción no se puede deshacer.",
       deleteConfirm: "¿Está seguro? Esta acción no se puede deshacer.",
+      deleteNetworkImportanceTitle: "Tus muestras y análisis son esenciales",
+      deleteNetworkImportance:
+        "Las muestras y análisis que compartes son esenciales para la vigilancia de la resistencia antimicrobiana (RAM) y para el control de la propagación de bacterias multirresistentes en Brasil.",
+      deleteNetworkBlocked:
+        "Tu cuenta es parte de la Red Genómica. Para eliminar tu cuenta, contacta a un administrador.",
+      contact: "Contacto",
       cancel: "Cancelar",
       delete: "Eliminar",
       currentPassword: "Contraseña Actual",

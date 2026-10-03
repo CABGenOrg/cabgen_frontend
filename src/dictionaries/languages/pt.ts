@@ -596,6 +596,12 @@ const pt = {
       deleteAccount: "Excluir Conta",
       deleteAccountDescription: "Excluir permanentemente sua conta e todos os dados associados. Esta ação não pode ser desfeita.",
       deleteConfirm: "Tem certeza? Esta ação não pode ser desfeita.",
+      deleteNetworkImportanceTitle: "Suas amostras e análises são essenciais",
+      deleteNetworkImportance:
+        "As amostras e análises que você compartilha são essenciais para a vigilância da resistência antimicrobiana e para o controle da disseminação de bactérias multirresistentes no Brasil.",
+      deleteNetworkBlocked:
+        "Sua conta faz parte da Rede Genômica. Para excluir sua conta, entre em contato com um administrador.",
+      contact: "Contato",
       cancel: "Cancelar",
       delete: "Excluir",
       currentPassword: "Senha Atual",

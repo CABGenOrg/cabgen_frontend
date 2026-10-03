@@ -606,6 +606,12 @@ const en = {
       deleteAccount: "Delete Account",
       deleteAccountDescription: "Permanently delete your account and all associated data. This action cannot be undone.",
       deleteConfirm: "Are you sure? This action cannot be undone.",
+      deleteNetworkImportanceTitle: "Your samples and analyses are essential",
+      deleteNetworkImportance:
+        "The samples and analyses you share are essential for antimicrobial resistance (AMR) surveillance and for controlling the spread of multidrug-resistant bacteria in Brazil.",
+      deleteNetworkBlocked:
+        "Your account is part of the Genomic Network. To delete your account, please contact an administrator.",
+      contact: "Contact",
       cancel: "Cancel",
       delete: "Delete",
       currentPassword: "Current Password",
