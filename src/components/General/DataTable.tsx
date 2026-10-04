@@ -78,10 +78,9 @@ const DataTable = <TData,>({
   const virtualRows = rowVirtualizer.getVirtualItems();
   const totalSize = rowVirtualizer.getTotalSize();
 
-  // Sem dados (ou durante o loading) os ths não recebem width: em table-fixed,
-  // colunas sem width na primeira row dividem igualmente o espaço restante →
-  // header preenche 100% e é imune a colunas display:none. Com dados, px exatos
-  // no header = px exatos das rows virtualizadas (tableLayout: fixed) → alinhado.
+  // Vazio/loading: table-auto preenche o header na largura toda (não há corpo
+  // para alinhar). Com dados: table-fixed — px idênticos aos das rows
+  // virtualizadas (tableLayout: fixed) → alinhamento por construção.
   const isEmpty = rows.length === 0;
 
   return (
@@ -90,7 +89,7 @@ const DataTable = <TData,>({
         ref={tableContainerRef}
         className="overflow-auto max-h-[min(600px,70vh)]"
       >
-        <table className="w-full table-fixed text-sm">
+        <table className={`w-full text-sm ${isEmpty ? "table-auto" : "table-fixed"}`}>
           <thead className="sticky top-0 z-10">
             {table.getHeaderGroups().map((hg) => (
               <tr key={hg.id} className="bg-gray-50">
@@ -113,11 +112,9 @@ const DataTable = <TData,>({
                       key={h.id}
                       className={`px-2 py-2.5 sm:px-3 text-left font-semibold text-gray-500 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100 transition-colors ${h.column.columnDef.meta?.responsive ?? ""}`}
                       onClick={h.column.getToggleSortingHandler()}
-                      style={isEmpty ? undefined : { width: h.getSize() }}
+                      style={{ width: h.getSize() }}
                     >
-                      <span
-                        className={`inline-flex items-center gap-1 ${isEmpty ? "min-w-0 overflow-hidden" : ""}`}
-                      >
+                      <span className="inline-flex items-center gap-1">
                         {flexRender(
                           h.column.columnDef.header,
                           h.getContext(),
