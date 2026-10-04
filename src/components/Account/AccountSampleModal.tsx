@@ -23,7 +23,7 @@ const formatDate = (value: unknown, lang: string): string => {
 
 const SampleSection: React.FC<{
   title: string;
-  rows: { label: string; value: unknown }[];
+  rows: { label: string; value: unknown; variant?: "green" | "red" }[];
 }> = ({ title, rows }) => (
   <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-4 min-w-0">
     <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
@@ -31,7 +31,7 @@ const SampleSection: React.FC<{
     </div>
     <table className="w-full text-sm min-w-full">
       <tbody>
-        {rows.map(({ label, value }) => {
+        {rows.map(({ label, value, variant }) => {
           const formatted = formatValue(value);
           return (
             <tr
@@ -42,7 +42,19 @@ const SampleSection: React.FC<{
                 {label}
               </th>
               <td className="px-4 py-3 text-gray-900 break-words min-w-0">
-                {formatted || "—"}
+                {variant ? (
+                  <span
+                    className={`inline-block px-2.5 py-0.5 rounded-full text-base font-medium ${
+                      variant === "green"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-700"
+                    }`}
+                  >
+                    {formatted || "—"}
+                  </span>
+                ) : (
+                  formatted || "—"
+                )}
               </td>
             </tr>
           );
@@ -101,6 +113,13 @@ const AccountSampleModal = ({
           { label: dict.collectionDate, value: formatDate(sample?.collection_date, lang) },
           { label: dict.runNumber, value: sample?.run_number },
           { label: dict.runDate, value: formatDate(sample?.run_date, lang) },
+          {
+            label: dict.network,
+            value: sample?.in_network
+              ? AccountDict.admin.activeValues.yes
+              : AccountDict.admin.activeValues.no,
+            variant: sample?.in_network ? "green" : "red",
+          },
         ]}
       />
 

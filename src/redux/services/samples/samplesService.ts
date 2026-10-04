@@ -12,6 +12,7 @@ export type SampleResponse = {
   city: string;
   gender: string;
   date_of_birth: Date;
+  in_network: boolean;
   fastq1: string;
   fastq2: string;
   fasta: string;
@@ -31,8 +32,9 @@ export type SampleInput = {
   run_number: string;
   run_date: Date;
   city: string;
-  gender?: string  | null;
-  date_of_birth?: Date  | null;
+  gender?: string | null;
+  date_of_birth?: Date | null;
+  in_network: boolean;
   country_code: string;
   origin: string;
   sample_source: string;

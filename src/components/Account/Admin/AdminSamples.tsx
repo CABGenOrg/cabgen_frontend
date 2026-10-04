@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { Dna, Pencil, Trash2, Upload, Eye } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
+import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
 import SearchInput from "@/components/General/SearchInput";
@@ -60,6 +61,18 @@ const AdminSamples = () => {
         header: seqDict.originCode,
         size: 110,
         cell: (info) => <span title={info.getValue()} className="line-clamp-2 sm:truncate sm:block sm:max-w-[110px]">{info.getValue()}</span>,
+      }),
+      columnHelper.accessor("in_network", {
+        header: adminDict.network,
+        size: 85,
+        cell: (info) => {
+          const inNetwork = info.getValue();
+          return (
+            <Badge variant={inNetwork ? "done" : "failed"}>
+              {inNetwork ? adminDict.activeValues.yes : adminDict.activeValues.no}
+            </Badge>
+          );
+        },
       }),
       columnHelper.accessor("user", {
         header: adminDict.user,

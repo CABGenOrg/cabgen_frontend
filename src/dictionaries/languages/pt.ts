@@ -317,6 +317,13 @@ const pt = {
       fasta: "Fasta",
       actions: "Ações",
       viewSample: "Ver Amostra",
+      network: "Rede Genômica",
+      isPartOfNetwork: "Deseja incluir essa amostra na rede genômica?",
+      networkYes: "Sim",
+      networkNo: "Não",
+      networkHint:
+        "As amostras incluídas na rede são apresentadas no Dashboard mensal de vigilância, contribuindo para o monitoramento da resistência antimicrobiana no Brasil.",
+      networkValidation: "Responda se deseja incluir a amostra na rede genômica.",
       detail: {
         back: "Voltar",
         title: "Detalhes da Amostra",

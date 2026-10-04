@@ -327,6 +327,13 @@ const en = {
       fasta: "Fasta",
       actions: "Actions",
       viewSample: "View Sample",
+      network: "Genomic Network",
+      isPartOfNetwork: "Do you want to include this sample in the genomic network?",
+      networkYes: "Yes",
+      networkNo: "No",
+      networkHint:
+        "Samples included in the network are presented in the monthly surveillance Dashboard, contributing to antimicrobial resistance monitoring in Brazil.",
+      networkValidation: "Please answer whether you want to include the sample in the genomic network.",
       detail: {
         back: "Back",
         title: "Sample Details",

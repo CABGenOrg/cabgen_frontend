@@ -12,6 +12,7 @@ export type AdminSampleInput = {
   origin_code: string;
   gender?: string | null;
   date_of_birth?: string | null;
+  in_network: boolean;
   country_code: string;
   user_id: string;
   origin_id: string;
@@ -47,13 +48,18 @@ const adminSamplesService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       invalidatesTags: ["Samples"],
     }),
-    updateAdminSample: builder.mutation<SampleResponse, AdminSampleUpdateInput>({
-      query: ({ id, data }) =>
-        requestConfig(`${ADMIN_ENDPOINTS.SAMPLES}/${id}`, "PUT", data),
-      transformResponse: (res: ApiResponse<SampleResponse>) => res.data,
-      transformErrorResponse: (res) => handleError(res),
-      invalidatesTags: (_r, _e, { id }) => [{ type: "Samples", id }, "Samples"],
-    }),
+    updateAdminSample: builder.mutation<SampleResponse, AdminSampleUpdateInput>(
+      {
+        query: ({ id, data }) =>
+          requestConfig(`${ADMIN_ENDPOINTS.SAMPLES}/${id}`, "PUT", data),
+        transformResponse: (res: ApiResponse<SampleResponse>) => res.data,
+        transformErrorResponse: (res) => handleError(res),
+        invalidatesTags: (_r, _e, { id }) => [
+          { type: "Samples", id },
+          "Samples",
+        ],
+      },
+    ),
     deleteAdminSample: builder.mutation<string, string>({
       query: (id) =>
         requestConfig(`${ADMIN_ENDPOINTS.SAMPLES}/${id}`, "DELETE"),

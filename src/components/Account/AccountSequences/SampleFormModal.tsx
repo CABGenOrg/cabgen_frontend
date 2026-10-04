@@ -4,8 +4,16 @@ import React, { useMemo } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { label_class } from "@/styles/tailwind_classes";
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormField,
+  FormMessage,
+} from "@/components/ui/form";
 import TextField from "@/components/General/TextField";
 import SelectField from "@/components/General/SelectField";
 import Message from "@/components/General/Message";
@@ -104,6 +112,7 @@ const SampleFormModalBody: React.FC<
     run_date: z.string().min(1, dict.validation.required),
     city: z.string().min(1, dict.validation.required),
     origin_code: z.string().min(1, dict.validation.required),
+    in_network: z.string().min(1, dict.networkValidation),
     gender: emptyToNull.optional(),
     date_of_birth: emptyToNull.optional(),
     country_code: z.string().min(1, dict.validation.required),
@@ -205,6 +214,7 @@ const SampleFormModalBody: React.FC<
       run_date: dateStr(initial.run_date),
       city: getVal(cityOptions, initial.city),
       origin_code: initial.origin_code ?? "",
+      in_network: initial.in_network === true ? "yes" : "no",
       gender: getVal(genderOptions, initial.gender),
       date_of_birth: dateStr(initial.date_of_birth),
       country_code: getVal(countryOptions, initial.country_code),
@@ -249,12 +259,19 @@ const SampleFormModalBody: React.FC<
           data,
         );
         if (Object.keys(changed).length === 0) return;
+        const payload = { ...changed } as Record<string, unknown>;
+        if ("in_network" in payload) {
+          payload.in_network = (payload.in_network as string) === "yes";
+        }
         await updateSample({
           id: initial.id,
-          data: changed as unknown as SampleInput,
+          data: payload as unknown as SampleInput,
         }).unwrap();
       } else {
-        await createSample(data as unknown as SampleInput).unwrap();
+        await createSample({
+          ...(data as unknown as SampleInput),
+          in_network: data.in_network === "yes",
+        }).unwrap();
       }
       form.reset();
       onClose();
@@ -372,6 +389,51 @@ const SampleFormModalBody: React.FC<
               options={cityOptions}
               placeholder={dict.selectPlaceholder}
               required
+            />
+            <FormField
+              control={form.control}
+              name="in_network"
+              render={({ field }) => (
+                <FormItem className="sm:col-span-2 flex flex-col items-center text-center">
+                  <FormLabel className={label_class}>
+                    {dict.isPartOfNetwork}
+                    <span className="text-red-500 ml-0.5">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <div
+                      role="group"
+                      className="inline-flex rounded-md border border-gray-300 overflow-hidden"
+                    >
+                      <button
+                        type="button"
+                        aria-pressed={field.value === "yes"}
+                        onClick={() => field.onChange("yes")}
+                        className={`px-5 py-2 text-base transition-colors ${
+                          field.value === "yes"
+                            ? "bg-cabgen-200 text-white"
+                            : "bg-white text-gray-700 hover:bg-gray-100"
+                        }`}
+                      >
+                        {dict.networkYes}
+                      </button>
+                      <button
+                        type="button"
+                        aria-pressed={field.value === "no"}
+                        onClick={() => field.onChange("no")}
+                        className={`px-5 py-2 text-base border-l border-gray-300 transition-colors ${
+                          field.value === "no"
+                            ? "bg-cabgen-200 text-white"
+                            : "bg-white text-gray-700 hover:bg-gray-100"
+                        }`}
+                      >
+                        {dict.networkNo}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <p className="text-xs text-gray-500">{dict.networkHint}</p>
+                  <FormMessage className="text-red-600" />
+                </FormItem>
+              )}
             />
           </div>
 

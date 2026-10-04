@@ -326,6 +326,13 @@ const es = {
       fasta: "Fasta",
       actions: "Acciones",
       viewSample: "Ver Muestra",
+      network: "Red Genómica",
+      isPartOfNetwork: "¿Desea incluir esta muestra en la red genómica?",
+      networkYes: "Sí",
+      networkNo: "No",
+      networkHint:
+        "Las muestras incluidas en la red se presentan en el Dashboard mensual de vigilancia, contribuyendo al monitoreo de la resistencia antimicrobiana en Brasil.",
+      networkValidation: "Responda si desea incluir la muestra en la red genómica.",
       detail: {
         back: "Volver",
         title: "Detalles de la Muestra",
