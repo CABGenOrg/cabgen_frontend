@@ -76,7 +76,7 @@ const DataTable = <TData,>({
         ref={tableContainerRef}
         className="overflow-auto max-h-[min(600px,70vh)]"
       >
-        <table className="w-full table-fixed text-sm">
+        <table className="w-full table-auto text-sm">
           <thead className="sticky top-0 z-10">
             {table.getHeaderGroups().map((hg) => (
               <tr key={hg.id} className="bg-gray-50">
