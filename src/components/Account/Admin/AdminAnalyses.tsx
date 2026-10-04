@@ -158,6 +158,7 @@ const AdminAnalyses = () => {
       columnHelper.accessor("type", {
         header: analysisDict.type,
         size: 100,
+        meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => {
           const v = info.getValue();
           const typeKey = v.toLowerCase();
@@ -212,16 +213,6 @@ const AdminAnalyses = () => {
             info.row.original.started_at,
             info.row.original.finished_at,
           ),
-      }),
-      columnHelper.accessor((row) => row.metrics?.completeness, {
-        id: "completeness",
-        header: analysisDict.completeness,
-        size: 85,
-        meta: { responsive: "hidden 2xl:table-cell" },
-        cell: (info) => {
-          const v = info.getValue();
-          return v ? `${v}%` : "-";
-        },
       }),
       columnHelper.accessor((row) => row.metrics?.primary_species, {
         id: "identifiedSpecies",

@@ -80,7 +80,7 @@ const AdminMicroorganisms = () => {
         cell: (info) =>
           info.getValue() === "option.microorganism.other"
             ? microOther
-            : info.getValue(),
+            : info.getValue() || "-",
       }),
       columnHelper.accessor("is_active", {
         header: dict.isActive,

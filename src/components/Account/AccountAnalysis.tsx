@@ -180,6 +180,7 @@ const AccountAnalysis = () => {
       columnHelper.accessor("type", {
         header: dict.type,
         size: 100,
+        meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => {
           const v = info.getValue();
           const typeKey = v.toLowerCase();
@@ -233,16 +234,6 @@ const AccountAnalysis = () => {
             info.row.original.started_at,
             info.row.original.finished_at,
           ),
-      }),
-      columnHelper.accessor((row) => row.metrics?.completeness, {
-        id: "completeness",
-        header: dict.completeness,
-        size: 85,
-        meta: { responsive: "hidden md:table-cell" },
-        cell: (info) => {
-          const v = info.getValue();
-          return v ? `${v}%` : "-";
-        },
       }),
       columnHelper.accessor((row) => row.metrics?.primary_species, {
         id: "identifiedSpecies",

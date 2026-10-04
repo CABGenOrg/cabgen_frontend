@@ -22,12 +22,6 @@ import AdminUserModal from "./AdminUserModal";
 
 const columnHelper = createColumnHelper<AdminUserResponse>();
 
-const formatDate = (value: Date | string | undefined, lang: string) => {
-  if (!value) return "-";
-  const d = value instanceof Date ? value : new Date(value);
-  return isNaN(d.getTime()) ? "-" : d.toLocaleDateString(lang, { timeZone: "UTC" });
-};
-
 const AdminUsers = () => {
   const lang = useLanguage();
   const {
@@ -65,14 +59,7 @@ const AdminUsers = () => {
       columnHelper.accessor("username", {
         header: dict.username,
         size: 100,
-      }),
-      columnHelper.accessor("email", {
-        header: dict.email,
-        size: 150,
-      }),
-      columnHelper.accessor("country", {
-        header: dict.country,
-        size: 85,
+        meta: { responsive: "hidden sm:table-cell" },
       }),
       columnHelper.accessor("user_role", {
         header: dict.userRole,
@@ -105,11 +92,7 @@ const AdminUsers = () => {
       columnHelper.accessor("activated_by", {
         header: dict.activatedBy,
         size: 100,
-      }),
-      columnHelper.accessor("activated_on", {
-        header: dict.activatedOn,
-        size: 90,
-        cell: (info) => formatDate(info.getValue(), lang),
+        meta: { responsive: "hidden 2xl:table-cell" },
       }),
       columnHelper.display({
         id: "actions",
@@ -147,7 +130,7 @@ const AdminUsers = () => {
         ),
       }),
     ],
-    [dict, lang, togglingActive, activateUser, deactivateUser],
+    [dict, togglingActive, activateUser, deactivateUser],
   );
 
   return (

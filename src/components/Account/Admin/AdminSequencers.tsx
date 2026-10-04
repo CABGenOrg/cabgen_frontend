@@ -58,12 +58,12 @@ const AdminSequencers = () => {
       columnHelper.accessor("brand", {
         header: dict.brand,
         size: 120,
-        cell: (info) => <span>{info.getValue() === "option.sequencer.other" ? sequencerOther : info.getValue()}</span>,
+        cell: (info) => <span>{info.getValue() === "option.sequencer.other" ? sequencerOther : (info.getValue() || "-")}</span>,
       }),
       columnHelper.accessor("model", {
         header: dict.model,
         size: 150,
-        cell: (info) => <span>{info.getValue() === "option.sequencer.other" ? sequencerOther : info.getValue()}</span>,
+        cell: (info) => <span>{info.getValue() === "option.sequencer.other" ? sequencerOther : (info.getValue() || "-")}</span>,
       }),
       columnHelper.accessor("is_active", {
         header: dict.isActive,

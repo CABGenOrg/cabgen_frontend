@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { HeartPulse, Pencil, Trash2 } from "lucide-react";
+import { HeartPulse, Pencil, Trash2, Eye } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/General/PageHeader";
@@ -18,6 +18,7 @@ import {
 } from "@/redux/services/admin/adminHealthServicesService";
 import type { AdminHealthServiceTableResponse } from "@/redux/services/admin/adminHealthServicesService";
 import AdminHealthServiceModal from "./AdminHealthServiceModal";
+import AdminHealthServiceViewModal from "./AdminHealthServiceViewModal";
 
 const columnHelper = createColumnHelper<AdminHealthServiceTableResponse>();
 
@@ -30,7 +31,7 @@ const AdminHealthServices = () => {
   const hsOther = AccountDict.option?.healthService?.other ?? "Other";
 
   const [modal, setModal] = useState<{
-    type: "add" | "edit" | "delete" | null;
+    type: "add" | "edit" | "delete" | "view" | null;
     healthService?: AdminHealthServiceTableResponse;
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
@@ -61,7 +62,7 @@ const AdminHealthServices = () => {
         cell: (info) =>
           info.getValue() === "option.healthService.other"
             ? hsOther
-            : info.getValue(),
+            : info.getValue() || "-",
       }),
       columnHelper.accessor("type", {
         header: dict.type,
@@ -93,6 +94,13 @@ const AdminHealthServices = () => {
         size: 85,
         cell: (info) => (
           <div className="flex items-center gap-1.5">
+            <IconButton
+              label={dict.viewHealthService}
+              icon={<Eye size={18} />}
+              onClick={() =>
+                setModal({ type: "view", healthService: info.row.original })
+              }
+            />
             <IconButton
               label={dict.editHealthService}
               icon={<Pencil size={18} />}
@@ -141,6 +149,14 @@ const AdminHealthServices = () => {
           lang={lang}
           initial={modal.healthService}
           errorsDict={Errors}
+        />
+      )}
+
+      {modal.type === "view" && modal.healthService && (
+        <AdminHealthServiceViewModal
+          open
+          onClose={closeModal}
+          healthService={modal.healthService}
         />
       )}
 

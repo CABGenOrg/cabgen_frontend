@@ -61,7 +61,7 @@ const AdminLaboratories = () => {
         cell: (info) =>
           info.getValue() === "option.laboratory.other"
             ? labOther
-            : info.getValue(),
+            : info.getValue() || "-",
       }),
       columnHelper.accessor("abbreviation", {
         header: dict.abbreviation,

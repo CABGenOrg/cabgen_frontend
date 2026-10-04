@@ -113,10 +113,12 @@ const AdminTickets = () => {
       columnHelper.accessor("email", {
         header: dict.email,
         size: 180,
+        meta: { responsive: "hidden md:table-cell" },
       }),
       columnHelper.accessor("subject", {
         header: dict.subject,
         size: 150,
+        meta: { responsive: "hidden sm:table-cell" },
       }),
       columnHelper.accessor("status", {
         header: dict.status,
@@ -134,11 +136,13 @@ const AdminTickets = () => {
       columnHelper.accessor("admin", {
         header: dict.adminLabel,
         size: 120,
+        meta: { responsive: "hidden md:table-cell" },
         cell: (info) => info.getValue() ?? "—",
       }),
       columnHelper.accessor("created_at", {
         header: dict.createdAt,
         size: 100,
+        meta: { responsive: "hidden sm:table-cell" },
         cell: (info) =>
           new Date(info.getValue()).toLocaleDateString(
             lang === "pt" ? "pt-BR" : lang === "es" ? "es-ES" : "en-US",

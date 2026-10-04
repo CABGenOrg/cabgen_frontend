@@ -523,6 +523,7 @@ const es = {
       abbreviation: "Abreviatura",
       newHealthService: "Nuevo Servicio de Salud",
       editHealthService: "Editar Servicio de Salud",
+      viewHealthService: "Ver Servicio de Salud",
       createHealthService: "Crear Servicio de Salud",
       noHealthServices: "No se encontraron servicios de salud",
       showingHealthServices: "{count} servicios de salud",

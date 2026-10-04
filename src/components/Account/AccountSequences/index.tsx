@@ -58,7 +58,7 @@ const AccountSequences = () => {
       columnHelper.accessor("origin_code", {
         header: dict.originCode,
         size: 110,
-        cell: (info) => <span title={info.getValue()} className="line-clamp-2 sm:truncate sm:block sm:max-w-[110px]">{info.getValue()}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[110px]">{info.getValue() || "-"}</span>,
       }),
       columnHelper.accessor("in_network", {
         header: dict.network,
@@ -78,7 +78,7 @@ const AccountSequences = () => {
         header: dict.microorganism,
         size: 130,
         meta: { responsive: "hidden sm:table-cell" },
-        cell: (info) => <span title={info.getValue()} className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]">{info.getValue()}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]">{info.getValue() || "-"}</span>,
       }),
       columnHelper.accessor("origin", {
         header: dict.origin,
@@ -91,34 +91,6 @@ const AccountSequences = () => {
         size: 100,
         meta: { responsive: "hidden md:table-cell" },
         cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[100px]">{info.getValue() || "-"}</span>,
-      }),
-      columnHelper.accessor("sequencer", {
-        header: dict.sequencer,
-        size: 110,
-        meta: { responsive: "hidden md:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[110px]">{info.getValue() === "option.sequencer.other" ? sequencerOther : (info.getValue() || "-")}</span>,
-      }),
-      columnHelper.accessor("collection_date", {
-        header: dict.collectionDate,
-        size: 90,
-        meta: { responsive: "hidden sm:table-cell" },
-        cell: (info) => {
-          const v = info.getValue();
-          if (!v) return "-";
-          const d = v instanceof Date ? v : new Date(v);
-          return isNaN(d.getTime()) ? "-" : d.toLocaleDateString(lang, { timeZone: "UTC" });
-        },
-      }),
-      columnHelper.accessor("country_code", {
-        header: dict.country,
-        size: 65,
-        meta: { responsive: "hidden 2xl:table-cell" },
-      }),
-      columnHelper.accessor("city", {
-        header: dict.city,
-        size: 105,
-        meta: { responsive: "hidden 2xl:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[105px]">{info.getValue() === "Other" ? cityOther : (info.getValue() || "-")}</span>,
       }),
       columnHelper.accessor("fastq1", {
         header: dict.fastq1,
@@ -187,7 +159,7 @@ const AccountSequences = () => {
         ),
       }),
     ],
-    [dict, lang, cityOther, sequencerOther],
+    [dict],
   );
 
   return (

@@ -524,6 +524,7 @@ const en = {
       abbreviation: "Abbreviation",
       newHealthService: "New Health Service",
       editHealthService: "Edit Health Service",
+      viewHealthService: "View Health Service",
       createHealthService: "Create Health Service",
       noHealthServices: "No health services found",
       showingHealthServices: "{count} health services",

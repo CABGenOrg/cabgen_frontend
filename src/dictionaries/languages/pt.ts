@@ -514,6 +514,7 @@ const pt = {
       abbreviation: "Abreviação",
       newHealthService: "Novo Serviço de Saúde",
       editHealthService: "Editar Serviço de Saúde",
+      viewHealthService: "Visualizar Serviço de Saúde",
       createHealthService: "Criar Serviço de Saúde",
       noHealthServices: "Nenhum serviço de saúde encontrado",
       showingHealthServices: "{count} serviços de saúde",
