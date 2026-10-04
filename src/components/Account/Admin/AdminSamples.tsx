@@ -58,7 +58,7 @@ const AdminSamples = () => {
       columnHelper.accessor("origin_code", {
         header: seqDict.originCode,
         size: 110,
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[110px]">{info.getValue() || "-"}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block">{info.getValue() || "-"}</span>,
       }),
       columnHelper.accessor("in_network", {
         header: adminDict.network,
@@ -75,25 +75,25 @@ const AdminSamples = () => {
       columnHelper.accessor("user", {
         header: adminDict.user,
         size: 120,
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[120px]">{info.getValue() || "-"}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block">{info.getValue() || "-"}</span>,
       }),
       columnHelper.accessor("microorganism", {
         header: seqDict.microorganism,
         size: 130,
         meta: { responsive: "hidden sm:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]">{info.getValue() || "-"}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block">{info.getValue() || "-"}</span>,
       }),
       columnHelper.accessor("origin", {
         header: seqDict.origin,
         size: 100,
         meta: { responsive: "hidden md:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[100px]">{info.getValue() || "-"}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block">{info.getValue() || "-"}</span>,
       }),
       columnHelper.accessor("sample_source", {
         header: seqDict.sampleSource,
         size: 100,
         meta: { responsive: "hidden md:table-cell" },
-        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block sm:max-w-[100px]">{info.getValue() || "-"}</span>,
+        cell: (info) => <span title={info.getValue() || ""} className="line-clamp-2 sm:truncate sm:block">{info.getValue() || "-"}</span>,
       }),
       columnHelper.accessor("fastq1", {
         header: seqDict.fastq1,
@@ -101,7 +101,7 @@ const AdminSamples = () => {
         meta: { responsive: "hidden 2xl:table-cell" },
         cell: (info) => {
           const v = info.getValue() || "";
-          return <span title={v} className="line-clamp-2 sm:truncate sm:block sm:max-w-[85px]">{v.split("/").pop() || "-"}</span>;
+          return <span title={v} className="line-clamp-2 sm:truncate sm:block">{v.split("/").pop() || "-"}</span>;
         },
       }),
       columnHelper.accessor("fastq2", {
@@ -110,7 +110,7 @@ const AdminSamples = () => {
         meta: { responsive: "hidden 2xl:table-cell" },
         cell: (info) => {
           const v = info.getValue() || "";
-          return <span title={v} className="line-clamp-2 sm:truncate sm:block sm:max-w-[85px]">{v.split("/").pop() || "-"}</span>;
+          return <span title={v} className="line-clamp-2 sm:truncate sm:block">{v.split("/").pop() || "-"}</span>;
         },
       }),
       columnHelper.accessor("fasta", {
@@ -119,7 +119,7 @@ const AdminSamples = () => {
         meta: { responsive: "hidden 2xl:table-cell" },
         cell: (info) => {
           const v = info.getValue() || "";
-          return <span title={v} className="line-clamp-2 sm:truncate sm:block sm:max-w-[85px]">{v.split("/").pop() || "-"}</span>;
+          return <span title={v} className="line-clamp-2 sm:truncate sm:block">{v.split("/").pop() || "-"}</span>;
         },
       }),
       columnHelper.display({

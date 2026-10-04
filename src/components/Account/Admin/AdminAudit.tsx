@@ -71,7 +71,7 @@ const AdminAudit = () => {
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[120px]"
+            className="line-clamp-2 sm:truncate sm:block"
           >
             {info.getValue() || "-"}
           </span>
@@ -83,7 +83,7 @@ const AdminAudit = () => {
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[120px]"
+            className="line-clamp-2 sm:truncate sm:block"
           >
             {info.getValue() || "-"}
           </span>
@@ -100,7 +100,7 @@ const AdminAudit = () => {
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[120px]"
+            className="line-clamp-2 sm:truncate sm:block"
           >
             {info.getValue() || "-"}
           </span>
@@ -118,7 +118,7 @@ const AdminAudit = () => {
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[150px]"
+            className="line-clamp-2 sm:truncate sm:block"
           >
             {info.getValue() || "-"}
           </span>

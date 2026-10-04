@@ -137,7 +137,7 @@ const AdminAnalyses = () => {
         cell: (info) => (
           <span
             title={info.getValue()}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]"
+            className="line-clamp-2 sm:truncate sm:block"
           >
             {info.getValue() || "-"}
           </span>
@@ -149,7 +149,7 @@ const AdminAnalyses = () => {
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[120px]"
+            className="line-clamp-2 sm:truncate sm:block"
           >
             {info.getValue() || "-"}
           </span>
@@ -222,7 +222,7 @@ const AdminAnalyses = () => {
         cell: (info) => (
           <span
             title={info.getValue() || ""}
-            className="line-clamp-2 sm:truncate sm:block sm:max-w-[130px]"
+            className="line-clamp-2 sm:truncate sm:block"
           >
             {info.getValue() || "-"}
           </span>
