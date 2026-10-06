@@ -33,7 +33,7 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
   } = getTranslateClient(lang);
   const { user } = useAuth();
   const isAdmin = user?.user_role === "Admin";
-  const isAdminSection = pathname.startsWith("/account/admin/");
+  const isAdminSection = pathname.includes("/account/admin/");
 
   const sidebarLinks: SidebarLink[] = [
     {

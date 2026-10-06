@@ -81,7 +81,6 @@ const AccountSampleModal = ({
   } = getTranslateClient(lang);
   const dict = AccountDict.sequences;
   const detailDict = dict.detail;
-  const genderDict = AccountDict.option.gender;
   const optionDict = AccountDict.option;
 
   const translateOther = (
@@ -89,11 +88,6 @@ const AccountSampleModal = ({
     sentinel: string,
     translated: string,
   ): string => (value === sentinel ? translated : (value ?? ""));
-
-  const genderLabel =
-    (genderDict as Record<string, string>)[
-      sample?.gender?.toLowerCase() ?? ""
-    ] ?? sample?.gender;
 
   return (
     <Modal
@@ -128,20 +122,48 @@ const AccountSampleModal = ({
         rows={[
           { label: dict.origin, value: sample?.origin },
           { label: dict.sampleSource, value: sample?.sample_source },
-          { label: dict.microorganism, value: translateOther(sample?.microorganism, "option.microorganism.other", optionDict.microorganism.other) },
-          { label: dict.sequencer, value: translateOther(sample?.sequencer, "option.sequencer.other", optionDict.sequencer.other) },
-          { label: dict.laboratory, value: translateOther(sample?.laboratory, "option.laboratory.other", optionDict.laboratory.other) },
-          { label: dict.healthService, value: translateOther(sample?.health_service, "option.healthService.other", optionDict.healthService.other) },
+          {
+            label: dict.microorganism,
+            value: translateOther(
+              sample?.microorganism,
+              "option.microorganism.other",
+              optionDict.microorganism.other,
+            ),
+          },
+          {
+            label: dict.sequencer,
+            value: translateOther(
+              sample?.sequencer,
+              "option.sequencer.other",
+              optionDict.sequencer.other,
+            ),
+          },
+          {
+            label: dict.laboratory,
+            value: translateOther(
+              sample?.laboratory,
+              "option.laboratory.other",
+              optionDict.laboratory.other,
+            ),
+          },
+          {
+            label: dict.healthService,
+            value: translateOther(
+              sample?.health_service,
+              "option.healthService.other",
+              optionDict.healthService.other,
+            ),
+          },
         ]}
       />
 
       <SampleSection
         title={detailDict.personalInfo}
         rows={[
-          { label: dict.gender, value: genderLabel },
+          { label: dict.gender, value: sample?.gender },
           { label: dict.dateOfBirth, value: formatDate(sample?.date_of_birth, lang) },
           { label: dict.country, value: sample?.country_code },
-          { label: dict.city, value: translateOther(sample?.city, "option.city.other", optionDict.city.other) },
+          { label: dict.city, value: translateOther(sample?.city, "Other", optionDict.city.other) },
           { label: dict.originCode, value: sample?.origin_code },
         ]}
       />

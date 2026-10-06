@@ -6,8 +6,8 @@ import { SelectOption } from "../select_options/selectOptionsService";
 
 const citiesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getCities: builder.query<SelectOption[], void>({
-      query: () => requestConfig(CITIES_ENDPOINTS.DEFAULT, "GET"),
+    getCities: builder.query<SelectOption[], string>({
+      query: (lang) => requestConfig(CITIES_ENDPOINTS.DEFAULT, "GET"),
       transformResponse: (res: ApiResponse<SelectOption[]>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Cities"],

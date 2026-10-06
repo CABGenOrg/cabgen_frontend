@@ -80,13 +80,8 @@ const AdminAnalyses = () => {
   };
 
   const { data: enumOptions, isLoading: loadingEnums } =
-    useGetEnumSelectOptionsQuery();
-  const analysisTypeOptions = (enumOptions?.analysis_types ?? []).map((opt) => ({
-    value: opt.value,
-    label:
-      (analysisTypeDict as Record<string, string>)[opt.value.toLowerCase()] ??
-      opt.label,
-  }));
+    useGetEnumSelectOptionsQuery(lang);
+  const analysisTypeOptions = enumOptions?.analysis_types ?? [];
 
   const { data = [], isLoading: loadingAnalyses } = useGetAdminAnalysesQuery(
     filters,

@@ -22,7 +22,6 @@ import { useGetCountriesQuery } from "@/redux/services/countries/countriesServic
 import { useGetCitiesQuery } from "@/redux/services/cities/citiesService";
 import {
   useGetFormSelectOptionsQuery,
-  useGetEnumSelectOptionsQuery,
 } from "@/redux/services/select_options/selectOptionsService";
 import {
   useCreateSampleMutation,
@@ -33,9 +32,11 @@ import type {
   SampleInput,
 } from "@/redux/services/samples/samplesService";
 import { getTranslateClient } from "@/lib/getTranslateClient";
+import type { Locale } from "@/i18n/i18n.config";
 import Modal from "@/components/General/Modal";
 import { emptyToNull } from "@/utils/zodHelpers";
 import { getChangedFields } from "@/utils/getChangedFields";
+import { translateSentinel } from "@/utils/translateSentinel";
 
 const dateStr = (d: Date | string | undefined) => {
   if (!d) return "";
@@ -45,15 +46,13 @@ const dateStr = (d: Date | string | undefined) => {
 };
 
 const getVal = (
-  opts: { value: string; label: string; rawLabel?: string }[],
+  opts: { value: string; label: string }[],
   searchVal: string | null | undefined,
 ) => {
   if (!searchVal) return "";
   const matchByValue = opts.find((o) => o.value === searchVal);
   if (matchByValue) return matchByValue.value;
-  const matchByLabel = opts.find(
-    (o) => o.label === searchVal || o.rawLabel === searchVal,
-  );
+  const matchByLabel = opts.find((o) => o.label === searchVal);
   if (matchByLabel) return matchByLabel.value;
   return searchVal;
 };
@@ -65,11 +64,6 @@ type SampleFormModalProps = {
   dict: ReturnType<
     typeof getTranslateClient
   >["dictionary"]["Account"]["sequences"];
-  genderDict: Record<string, string>;
-  labOther: string;
-  cityOther: string;
-  healthServiceOther: string;
-  sequencerOther: string;
   errorsDict: Record<string, string>;
   initial?: SampleResponse | null;
 };
@@ -85,26 +79,27 @@ const SampleFormModalBody: React.FC<
       sample_sources: { value: string; label: string }[];
       sequencers: { value: string; label: string }[];
       health_services: { value: string; label: string }[];
+      genders: { value: string; label: string }[];
     };
-    enumOptions: { genders: { value: string; label: string }[] };
   }
 > = ({
   open,
   onClose,
+  lang,
   dict,
-  genderDict,
-  labOther,
-  cityOther,
-  healthServiceOther,
-  sequencerOther,
   errorsDict,
   initial,
   countries,
   cities,
   formOptions,
-  enumOptions,
 }) => {
   const isEdit = !!initial;
+  const {
+    dictionary: { Account: AccountDict },
+  } = getTranslateClient(lang as Locale);
+  const seqOther = AccountDict.option.sequencer.other;
+  const labOther = AccountDict.option.laboratory.other;
+  const hsOther = AccountDict.option.healthService.other;
 
   const sampleSchema = z.object({
     collection_date: z.string().min(1, dict.validation.required),
@@ -126,41 +121,21 @@ const SampleFormModalBody: React.FC<
 
   type SampleFormData = z.infer<typeof sampleSchema>;
 
-  const genderOptions = (enumOptions.genders ?? []).map((g) => ({
-    ...g,
-    label: genderDict[g.value.toLowerCase()] ?? g.label,
-  }));
+  const genderOptions = formOptions.genders ?? [];
 
-  const laboratoryOptions = (formOptions.laboratories ?? [])
-    .map((o) => ({
-      ...o,
-      rawLabel: o.label,
-      label: o.label === "option.laboratory.other" ? labOther : o.label,
-    }))
-    .sort((a, b) =>
+  const laboratoryOptions = [...(formOptions.laboratories ?? [])].sort(
+    (a, b) =>
       a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
-    );
+  );
 
-  const cityOptions = (cities ?? [])
-    .map((o) => ({
-      ...o,
-      rawLabel: o.label,
-      label: o.label === "option.city.other" ? cityOther : o.label,
-    }))
-    .sort((a, b) =>
-      a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
-    );
+  const cityOptions = [...(cities ?? [])].sort((a, b) =>
+    a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
+  );
 
-  const healthServiceOptions = (formOptions.health_services ?? [])
-    .map((o) => ({
-      ...o,
-      rawLabel: o.label,
-      label:
-        o.label === "option.healthService.other" ? healthServiceOther : o.label,
-    }))
-    .sort((a, b) =>
+  const healthServiceOptions = [...(formOptions.health_services ?? [])].sort(
+    (a, b) =>
       a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
-    );
+  );
 
   const countryOptions = (countries ?? [])
     .map((c) => ({
@@ -200,11 +175,7 @@ const SampleFormModalBody: React.FC<
     [formOptions.sequencers],
   );
 
-  const sequencerOptions = sequencers.map((o) => ({
-    ...o,
-    rawLabel: o.label,
-    label: o.label === "option.sequencer.other" ? sequencerOther : o.label,
-  }));
+  const sequencerOptions = [...sequencers];
 
   const initialValues = useMemo(() => {
     if (!initial) return undefined;
@@ -221,9 +192,22 @@ const SampleFormModalBody: React.FC<
       origin_id: getVal(origins, initial.origin),
       sample_source_id: getVal(sampleSources, initial.sample_source),
       microorganism_id: getVal(microorganisms, initial.microorganism),
-      sequencer_id: getVal(sequencers, initial.sequencer),
-      laboratory_id: getVal(laboratoryOptions, initial.laboratory),
-      health_service_id: getVal(healthServiceOptions, initial.health_service),
+      sequencer_id: getVal(
+        sequencers,
+        translateSentinel(initial.sequencer, "option.sequencer.other", seqOther),
+      ),
+      laboratory_id: getVal(
+        laboratoryOptions,
+        translateSentinel(initial.laboratory, "option.laboratory.other", labOther),
+      ),
+      health_service_id: getVal(
+        healthServiceOptions,
+        translateSentinel(
+          initial.health_service,
+          "option.healthService.other",
+          hsOther,
+        ),
+      ),
     };
   }, [
     initial,
@@ -236,6 +220,9 @@ const SampleFormModalBody: React.FC<
     sequencers,
     laboratoryOptions,
     healthServiceOptions,
+    seqOther,
+    labOther,
+    hsOther,
   ]);
 
   const form = useForm<SampleFormData>({
@@ -482,26 +469,18 @@ const SampleFormModal: React.FC<SampleFormModalProps> = ({
   onClose,
   lang,
   dict,
-  genderDict,
-  labOther,
-  cityOther,
-  healthServiceOther,
-  sequencerOther,
   errorsDict,
   initial,
 }) => {
   const { data: countries, error: countriesError } = useGetCountriesQuery(lang);
-  const { data: cities, error: citiesError } = useGetCitiesQuery();
+  const { data: cities, error: citiesError } = useGetCitiesQuery(lang);
   const { data: formOptions, error: formOptionsError } =
     useGetFormSelectOptionsQuery(lang);
-  const { data: enumOptions, error: enumOptionsError } =
-    useGetEnumSelectOptionsQuery();
 
   const optionsLoadFailed = !!(
     countriesError ||
     citiesError ||
-    formOptionsError ||
-    enumOptionsError
+    formOptionsError
   );
 
   if (optionsLoadFailed) {
@@ -516,7 +495,7 @@ const SampleFormModal: React.FC<SampleFormModalProps> = ({
     );
   }
 
-  if (!countries || !cities || !formOptions || !enumOptions) {
+  if (!countries || !cities || !formOptions) {
     return (
       <Modal
         open={open}
@@ -536,17 +515,11 @@ const SampleFormModal: React.FC<SampleFormModalProps> = ({
       onClose={onClose}
       lang={lang}
       dict={dict}
-      genderDict={genderDict}
-      labOther={labOther}
-      cityOther={cityOther}
-      healthServiceOther={healthServiceOther}
-      sequencerOther={sequencerOther}
       errorsDict={errorsDict}
       initial={initial}
       countries={countries}
       cities={cities}
       formOptions={formOptions}
-      enumOptions={enumOptions}
     />
   );
 };

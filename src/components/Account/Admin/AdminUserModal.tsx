@@ -48,11 +48,6 @@ const AdminUserModalBody: React.FC<{
     label: c.name,
   }));
 
-  const roleOptionsTranslated = roleOptions.map((r) => ({
-    value: r.value,
-    label: (dict.roleValues as Record<string, string>)[r.value] ?? r.label,
-  }));
-
   const userSchema = z.object({
     name: z.string().min(1, dict.validation.required),
     username: z.string().min(1, dict.validation.required),
@@ -169,7 +164,7 @@ const AdminUserModalBody: React.FC<{
               name="user_role"
               label={dict.userRole}
               form={form}
-              options={roleOptionsTranslated}
+              options={roleOptions}
               placeholder={dict.selectPlaceholder}
               required
             />
@@ -242,13 +237,10 @@ const AdminUserModal: React.FC<{
 }> = ({ open, onClose, lang, initial, errorsDict }) => {
   const { data: countries, error: countriesError } = useGetCountriesQuery(lang);
   const { data: enumOptions, error: enumOptionsError } =
-    useGetEnumSelectOptionsQuery();
+    useGetEnumSelectOptionsQuery(lang);
 
   const loadFailed = !!(countriesError || enumOptionsError);
-  const roleOptions = (enumOptions?.roles ?? []).map((r) => ({
-    value: r.value,
-    label: r.label,
-  }));
+  const roleOptions = enumOptions?.roles ?? [];
 
   const isEdit = !!initial;
   const title = isEdit ? "Edit User" : "New User";

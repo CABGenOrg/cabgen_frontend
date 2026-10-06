@@ -59,7 +59,7 @@ const AdminAudit = () => {
   };
 
   const { data = [], isLoading } = useGetAuditQuery(filters);
-  const { data: options } = useGetAuditSelectOptionsQuery();
+  const { data: options } = useGetAuditSelectOptionsQuery(lang);
   const userOptions = options?.users ?? [];
   const eventOptions = options?.events ?? [];
 

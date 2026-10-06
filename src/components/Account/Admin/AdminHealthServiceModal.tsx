@@ -46,13 +46,6 @@ const AdminHealthServiceModalBody: React.FC<{
     label: c.name,
   }));
 
-  const typeOptionsTranslated = typeOptions.map((t) => ({
-    ...t,
-    label:
-      (dict.healthServiceTypeValues as Record<string, string>)[t.value] ??
-      t.label,
-  }));
-
   const healthServiceSchema = z.object({
     name: z.string().min(1, dict.validation.required),
     type: z.string().min(1, dict.validation.required),
@@ -131,7 +124,7 @@ const AdminHealthServiceModalBody: React.FC<{
               name="type"
               label={dict.type}
               form={form}
-              options={typeOptionsTranslated}
+              options={typeOptions}
               placeholder={dict.selectPlaceholder}
               required
             />
@@ -217,13 +210,10 @@ const AdminHealthServiceModal: React.FC<{
 }> = ({ open, onClose, lang, initial, errorsDict }) => {
   const { data: countries, error: countriesError } = useGetCountriesQuery(lang);
   const { data: enumOptions, error: enumOptionsError } =
-    useGetEnumSelectOptionsQuery();
+    useGetEnumSelectOptionsQuery(lang);
 
   const loadFailed = !!(countriesError || enumOptionsError);
-  const typeOptions = (enumOptions?.health_service_types ?? []).map((t) => ({
-    value: t.value,
-    label: t.label,
-  }));
+  const typeOptions = enumOptions?.health_service_types ?? [];
 
   const isEdit = !!initial;
   const title = isEdit ? "Edit Health Service" : "New Health Service";

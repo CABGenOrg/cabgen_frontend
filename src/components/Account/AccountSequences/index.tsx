@@ -28,11 +28,6 @@ const AccountSequences = () => {
     dictionary: { Account: AccountDict, Errors },
   } = getTranslateClient(lang);
   const dict = AccountDict.sequences;
-  const genderDict = AccountDict.option.gender;
-  const labOther = AccountDict.option.laboratory.other;
-  const cityOther = AccountDict.option.city.other;
-  const healthServiceOther = AccountDict.option.healthService.other;
-  const sequencerOther = AccountDict.option.sequencer.other;
 
   const [modal, setModal] = useState<{
     type: "add" | "edit" | "upload" | "delete" | "viewSample" | null;
@@ -187,11 +182,6 @@ const AccountSequences = () => {
           onClose={closeModal}
           lang={lang}
           dict={dict}
-          genderDict={genderDict}
-          labOther={labOther}
-          cityOther={cityOther}
-          healthServiceOther={healthServiceOther}
-          sequencerOther={sequencerOther}
           errorsDict={Errors}
         />
       )}
@@ -202,11 +192,6 @@ const AccountSequences = () => {
           onClose={closeModal}
           lang={lang}
           dict={dict}
-          genderDict={genderDict}
-          labOther={labOther}
-          cityOther={cityOther}
-          healthServiceOther={healthServiceOther}
-          sequencerOther={sequencerOther}
           errorsDict={Errors}
           initial={modal.sample}
         />

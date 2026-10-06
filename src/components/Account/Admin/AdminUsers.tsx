@@ -64,6 +64,9 @@ const AdminUsers = () => {
       columnHelper.accessor("user_role", {
         header: dict.userRole,
         size: 85,
+        cell: (info) =>
+          ((dict.roleValues as Record<string, string>)[info.getValue()] ??
+            info.getValue()) || "-",
       }),
       columnHelper.accessor("is_active", {
         header: dict.isActive,

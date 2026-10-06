@@ -21,6 +21,7 @@ import type {
 } from "@/redux/services/admin/adminMicroorganismsService";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
+import { useGetEnumSelectOptionsQuery } from "@/redux/services/select_options/selectOptionsService";
 import { getChangedFields } from "@/utils/getChangedFields";
 import { emptyToNull } from "@/utils/zodHelpers";
 
@@ -29,17 +30,14 @@ const AdminMicroorganismModalBody: React.FC<{
   onClose: () => void;
   initial?: AdminMicroorganismDetailResponse | null;
   errorsDict: Record<string, string>;
-}> = ({ open, onClose, initial, errorsDict }) => {
+  taxonOptions: { value: string; label: string }[];
+}> = ({ open, onClose, initial, errorsDict, taxonOptions }) => {
   const lang = useLanguage();
   const {
     dictionary: { Account: AccountDict },
   } = getTranslateClient(lang);
   const dict = AccountDict.admin;
   const isEdit = !!initial;
-
-  const taxonOptions = Object.entries(
-    (dict.taxonValues as Record<string, string>) ?? {},
-  ).map(([value, label]) => ({ value, label }));
 
   const microorganismSchema = z.object({
     taxon: z.string().min(1, dict.validation.required),
@@ -213,12 +211,40 @@ const AdminMicroorganismModal: React.FC<{
   initial?: AdminMicroorganismDetailResponse;
   errorsDict: Record<string, string>;
 }> = ({ open, onClose, initial, errorsDict }) => {
+  const lang = useLanguage();
+  const { data: enumOptions, error: enumOptionsError } =
+    useGetEnumSelectOptionsQuery(lang);
+
+  const taxonOptions = enumOptions?.taxons ?? [];
+
+  const isEdit = !!initial;
+  const title = isEdit ? "Edit Microorganism" : "New Microorganism";
+
+  if (enumOptionsError) {
+    return (
+      <Modal open={open} onClose={onClose} title={title}>
+        <Message msg={"Failed to load options"} type="error" />
+      </Modal>
+    );
+  }
+
+  if (!enumOptions) {
+    return (
+      <Modal open={open} onClose={onClose} title={title}>
+        <div className="flex justify-center py-8">
+          <Loading />
+        </div>
+      </Modal>
+    );
+  }
+
   return (
     <AdminMicroorganismModalBody
       open={open}
       onClose={onClose}
       initial={initial}
       errorsDict={errorsDict}
+      taxonOptions={taxonOptions}
     />
   );
 };

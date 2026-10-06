@@ -637,26 +637,16 @@ const pt = {
       },
     },
     option: {
-      gender: {
-        male: "Masculino",
-        female: "Feminino",
-        unspecified: "Não especificado",
+      analysis_type: {
+        fastqc: "Qualidade",
+        genome: "Genômica",
+        complete: "Completa",
       },
       laboratory: { other: "Outro" },
       city: { other: "Outra" },
       healthService: { other: "Outro" },
       sequencer: { other: "Outro" },
       microorganism: { other: "Outro" },
-      analysis_type: {
-        fastqc: "Qualidade",
-        genome: "Genômica",
-        complete: "Completa",
-      },
-      language: {
-        pt: "Português",
-        en: "English",
-        es: "Español",
-      },
     },
     overview: {
       title: "Conta",

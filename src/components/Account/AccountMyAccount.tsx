@@ -40,7 +40,7 @@ const AccountMyAccount = () => {
 
   const { data: profile, isLoading: loadingProfile, error: profileError } = useGetProfileQuery();
   const { data: countries } = useGetCountriesQuery(lang);
-  const { data: enumOptions } = useGetEnumSelectOptionsQuery();
+  const { data: enumOptions } = useGetEnumSelectOptionsQuery(lang);
   const [saved, setSaved] = useState(false);
 
   const [updateProfile, { isLoading: updating, error: updateError }] = useUpdateProfileMutation();
@@ -50,12 +50,7 @@ const AccountMyAccount = () => {
     label: c.name,
   })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
-  const languageOptions = (enumOptions?.languages ?? []).map((o) => ({
-    value: o.value,
-    label:
-      (AccountDict.option.language as Record<string, string>)[o.value] ??
-      o.label,
-  }));
+  const languageOptions = enumOptions?.languages ?? [];
 
   const profileSchema = z.object({
     name: emptyToNull,

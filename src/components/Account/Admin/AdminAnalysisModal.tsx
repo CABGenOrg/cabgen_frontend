@@ -536,23 +536,17 @@ const AdminAnalysisModal: React.FC<AdminAnalysisModalProps> = ({
     dictionary: { Account: AccountDict },
   } = getTranslateClient(lang);
   const analysisDict = AccountDict.analyses;
-  const analysisTypeDict = AccountDict.option.analysis_type;
   const adminDict = AccountDict.admin;
   const isEdit = !!initial;
 
   const { data: enumOptions, error: enumError } =
-    useGetEnumSelectOptionsQuery();
+    useGetEnumSelectOptionsQuery(lang);
   const { data: samples, error: samplesError } = useGetAdminSamplesQuery(lang);
   const { data: users, error: usersError } = useGetUsersQuery("");
 
   const loadFailed = !!(enumError || samplesError || usersError);
 
-  const typeOptions = (enumOptions?.analysis_types ?? []).map((opt) => ({
-    value: opt.value,
-    label:
-      (analysisTypeDict as Record<string, string>)[opt.value.toLowerCase()] ??
-      opt.label,
-  }));
+  const typeOptions = enumOptions?.analysis_types ?? [];
   const sampleOptions = (samples ?? []).map((s) => ({
     value: s.id,
     label: s.origin_code,

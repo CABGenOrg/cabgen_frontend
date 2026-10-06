@@ -647,26 +647,16 @@ const en = {
       },
     },
     option: {
-      gender: {
-        male: "Male",
-        female: "Female",
-        unspecified: "Unspecified",
+      analysis_type: {
+        fastqc: "Quality",
+        genome: "Genomic",
+        complete: "Complete",
       },
       laboratory: { other: "Other" },
       city: { other: "Other" },
       healthService: { other: "Other" },
       sequencer: { other: "Other" },
       microorganism: { other: "Other" },
-      analysis_type: {
-        fastqc: "Quality",
-        genome: "Genomic",
-        complete: "Complete",
-      },
-      language: {
-        pt: "Português",
-        en: "English",
-        es: "Español",
-      },
     },
   },
 };

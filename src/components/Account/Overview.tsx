@@ -144,7 +144,11 @@ const Overview = () => {
             <p className="text-lg font-medium">
               {overviewDict.welcome}, {user?.username}
             </p>
-            <p className="text-gray-500 truncate">{user?.user_role}</p>
+            <p className="text-gray-500 truncate">
+              {(AccountDict.admin.roleValues as Record<string, string>)[
+                user?.user_role ?? ""
+              ] ?? user?.user_role}
+            </p>
           </div>
         </div>
       </div>

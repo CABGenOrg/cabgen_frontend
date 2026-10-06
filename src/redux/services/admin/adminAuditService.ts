@@ -47,8 +47,10 @@ const auditService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Audit"],
     }),
-    getAuditSelectOptions: builder.query<AdminAuditSelectOptionsResponse, void>(
-      {
+    getAuditSelectOptions: builder.query<
+      AdminAuditSelectOptionsResponse,
+      string
+    >({
         query: () => requestConfig(ADMIN_ENDPOINTS.AUDIT_SELECT_OPTIONS, "GET"),
         transformResponse: (
           res: ApiResponse<AdminAuditSelectOptionsResponse>,

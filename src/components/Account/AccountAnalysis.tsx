@@ -108,7 +108,7 @@ const AccountAnalysis = () => {
     useCreateAnalysisMutation();
 
   const { data: enumOptions, isLoading: loadingEnums } =
-    useGetEnumSelectOptionsQuery();
+    useGetEnumSelectOptionsQuery(lang);
   const { data: samples, isLoading: loadingSamples } = useGetSamplesQuery("");
 
   const createSchema = useMemo(
@@ -125,14 +125,7 @@ const AccountAnalysis = () => {
     defaultValues: { type: "", sample_id: "" },
   });
 
-  const analysisTypeOptions = (enumOptions?.analysis_types ?? []).map(
-    (opt) => ({
-      value: opt.value,
-      label:
-        (analysisTypeDict as Record<string, string>)[opt.value.toLowerCase()] ??
-        opt.label,
-    }),
-  );
+  const analysisTypeOptions = enumOptions?.analysis_types ?? [];
   const sampleOptions = useMemo(
     () =>
       (samples ?? [])

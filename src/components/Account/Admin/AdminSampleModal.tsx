@@ -23,7 +23,6 @@ import { useGetCountriesQuery } from "@/redux/services/countries/countriesServic
 import { useGetCitiesQuery } from "@/redux/services/cities/citiesService";
 import {
   useGetFormSelectOptionsQuery,
-  useGetEnumSelectOptionsQuery,
 } from "@/redux/services/select_options/selectOptionsService";
 import {
   useCreateAdminSampleMutation,
@@ -37,6 +36,7 @@ import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { emptyToNull } from "@/utils/zodHelpers";
 import { getChangedFields } from "@/utils/getChangedFields";
+import { translateSentinel } from "@/utils/translateSentinel";
 
 const dateStr = (d: Date | string | undefined) => {
   if (!d) return "";
@@ -46,15 +46,13 @@ const dateStr = (d: Date | string | undefined) => {
 };
 
 const getVal = (
-  opts: { value: string; label: string; rawLabel?: string }[],
+  opts: { value: string; label: string }[],
   searchVal: string | null | undefined,
 ) => {
   if (!searchVal) return "";
   const matchByValue = opts.find((o) => o.value === searchVal);
   if (matchByValue) return matchByValue.value;
-  const matchByLabel = opts.find(
-    (o) => o.label === searchVal || o.rawLabel === searchVal,
-  );
+  const matchByLabel = opts.find((o) => o.label === searchVal);
   if (matchByLabel) return matchByLabel.value;
   return searchVal;
 };
@@ -77,17 +75,19 @@ const AdminSampleModalBody: React.FC<
       sample_sources: { value: string; label: string }[];
       sequencers: { value: string; label: string }[];
       health_services: { value: string; label: string }[];
+      genders: { value: string; label: string }[];
     };
-    enumOptions: { genders: { value: string; label: string }[] };
   }
-> = ({ open, onClose, errorsDict, initial, countries, cities, formOptions, enumOptions }) => {
+> = ({ open, onClose, errorsDict, initial, countries, cities, formOptions }) => {
   const lang = useLanguage();
   const {
     dictionary: { Account: AccountDict },
   } = getTranslateClient(lang);
   const adminDict = AccountDict.admin;
   const seqDict = AccountDict.sequences;
-  const genderDict: Record<string, string> = AccountDict.option.gender;
+  const seqOther = AccountDict.option.sequencer.other;
+  const labOther = AccountDict.option.laboratory.other;
+  const hsOther = AccountDict.option.healthService.other;
   const isEdit = !!initial;
 
   const sampleSchema = z.object({
@@ -110,35 +110,13 @@ const AdminSampleModalBody: React.FC<
 
   type SampleFormData = z.infer<typeof sampleSchema>;
 
-  const genderOptions = (enumOptions.genders ?? []).map((g) => ({
-    ...g,
-    label: genderDict[g.value.toLowerCase()] ?? g.label,
-  }));
+  const genderOptions = formOptions.genders ?? [];
 
-  const laboratoryOptions = (formOptions.laboratories ?? []).map((o) => ({
-    ...o,
-    rawLabel: o.label,
-    label:
-      o.label === "option.laboratory.other"
-        ? AccountDict.option.laboratory.other
-        : o.label,
-  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+  const laboratoryOptions = [...(formOptions.laboratories ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
-  const cityOptions = (cities ?? []).map((o) => ({
-    ...o,
-    rawLabel: o.label,
-    label:
-      o.label === "option.city.other" ? AccountDict.option.city.other : o.label,
-  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+  const cityOptions = [...(cities ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
-  const healthServiceOptions = (formOptions.health_services ?? []).map((o) => ({
-    ...o,
-    rawLabel: o.label,
-    label:
-      o.label === "option.healthService.other"
-        ? AccountDict.option.healthService.other
-        : o.label,
-  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+  const healthServiceOptions = [...(formOptions.health_services ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
   const countryOptions = (countries ?? []).map((c) => ({
     value: c.code,
@@ -150,11 +128,7 @@ const AdminSampleModalBody: React.FC<
   const sampleSources = useMemo(() => [...(formOptions.sample_sources ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.sample_sources]);
   const sequencers = useMemo(() => [...(formOptions.sequencers ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.sequencers]);
 
-  const sequencerOptions = sequencers.map((o) => ({
-    ...o,
-    rawLabel: o.label,
-    label: o.label === "option.sequencer.other" ? AccountDict.option.sequencer.other : o.label,
-  }));
+  const sequencerOptions = [...sequencers];
 
   const initialValues = useMemo(() => {
     if (!initial) return undefined;
@@ -171,9 +145,22 @@ const AdminSampleModalBody: React.FC<
       origin_id: getVal(origins, initial.origin),
       sample_source_id: getVal(sampleSources, initial.sample_source),
       microorganism_id: getVal(microorganisms, initial.microorganism),
-      sequencer_id: getVal(sequencers, initial.sequencer),
-      laboratory_id: getVal(laboratoryOptions, initial.laboratory),
-      health_service_id: getVal(healthServiceOptions, initial.health_service),
+      sequencer_id: getVal(
+        sequencers,
+        translateSentinel(initial.sequencer, "option.sequencer.other", seqOther),
+      ),
+      laboratory_id: getVal(
+        laboratoryOptions,
+        translateSentinel(initial.laboratory, "option.laboratory.other", labOther),
+      ),
+      health_service_id: getVal(
+        healthServiceOptions,
+        translateSentinel(
+          initial.health_service,
+          "option.healthService.other",
+          hsOther,
+        ),
+      ),
     };
   }, [
     initial,
@@ -181,11 +168,14 @@ const AdminSampleModalBody: React.FC<
     genderOptions,
     countryOptions,
     origins,
-    microorganisms,
     sampleSources,
+    microorganisms,
     sequencers,
     laboratoryOptions,
     healthServiceOptions,
+    seqOther,
+    labOther,
+    hsOther,
   ]);
 
   const form = useForm<SampleFormData>({
@@ -435,17 +425,14 @@ const AdminSampleModal: React.FC<AdminSampleModalProps> = ({
   const adminDict = AccountDict.admin;
   const title = initial ? adminDict.editSample : adminDict.newSample;
   const { data: countries, error: countriesError } = useGetCountriesQuery(lang);
-  const { data: cities, error: citiesError } = useGetCitiesQuery();
+  const { data: cities, error: citiesError } = useGetCitiesQuery(lang);
   const { data: formOptions, error: formOptionsError } =
     useGetFormSelectOptionsQuery(lang);
-  const { data: enumOptions, error: enumOptionsError } =
-    useGetEnumSelectOptionsQuery();
 
   const optionsLoadFailed = !!(
     countriesError ||
     citiesError ||
-    formOptionsError ||
-    enumOptionsError
+    formOptionsError
   );
 
   if (optionsLoadFailed) {
@@ -456,7 +443,7 @@ const AdminSampleModal: React.FC<AdminSampleModalProps> = ({
     );
   }
 
-  if (!countries || !cities || !formOptions || !enumOptions) {
+  if (!countries || !cities || !formOptions) {
     return (
       <Modal open={open} onClose={onClose} title={title}>
         <div className="flex justify-center py-8">
@@ -475,7 +462,6 @@ const AdminSampleModal: React.FC<AdminSampleModalProps> = ({
       countries={countries}
       cities={cities}
       formOptions={formOptions}
-      enumOptions={enumOptions}
     />
   );
 };
