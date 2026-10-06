@@ -85,7 +85,8 @@ const Overview = () => {
   const analysisTypeDict = AccountDict.option.analysis_type;
 
   const { data: analyses = [], isLoading: analysesLoading } = useGetAnalysesQuery({});
-  const { data: samples = [], isLoading: samplesLoading } = useGetSamplesQuery("");
+  const { data: samples = [], isLoading: samplesLoading } =
+    useGetSamplesQuery({ input: "", lang });
 
   const statusData = useMemo(() => {
     const counts: Record<string, number> = {};

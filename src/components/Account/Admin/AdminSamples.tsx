@@ -39,9 +39,12 @@ const AdminSamples = () => {
 
   const { data: fullData = [], isLoading: loadingSamples } = useGetAdminSamplesQuery(lang);
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data: searchData = [] } = useGetSamplesQuery(debouncedSearch, {
-    skip: !debouncedSearch,
-  });
+  const { data: searchData = [] } = useGetSamplesQuery(
+    { input: debouncedSearch, lang },
+    {
+      skip: !debouncedSearch,
+    },
+  );
   const data = debouncedSearch ? searchData : fullData;
   const [deleteSample, { isLoading: deleting, error: deleteError }] =
     useDeleteAdminSampleMutation();

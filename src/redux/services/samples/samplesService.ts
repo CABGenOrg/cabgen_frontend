@@ -46,8 +46,11 @@ export type SampleInput = {
 
 const samplesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getSamples: builder.query<SampleResponse[], string>({
-      query: (input = "") => {
+    getSamples: builder.query<
+      SampleResponse[],
+      { input?: string; lang: string }
+    >({
+      query: ({ input = "" }) => {
         const params = new URLSearchParams();
         if (input) params.append("input", input);
         const qs = params.toString();

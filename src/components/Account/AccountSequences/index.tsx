@@ -37,7 +37,10 @@ const AccountSequences = () => {
   const closeModal = () => setModal({ type: null });
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data = [], isLoading: loadingSamples } = useGetSamplesQuery(debouncedSearch);
+  const { data = [], isLoading: loadingSamples } = useGetSamplesQuery({
+    input: debouncedSearch,
+    lang,
+  });
   const [deleteSample, { isLoading: deleting, error: deleteError }] =
     useDeleteSampleMutation();
 
