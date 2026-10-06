@@ -12,6 +12,7 @@ import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import IconButton from "@/components/General/IconButton";
 import { SmartSelect } from "@/components/General/SmartSelect";
 import { downloadPostFile } from "@/utils/downloadFile";
+import { toast } from "@/hooks/use-toast";
 import { ADMIN_ENDPOINTS } from "@/redux/services/admin/adminEndpoints";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
@@ -101,6 +102,7 @@ const AdminAnalyses = () => {
 
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
   const [downloading, setDownloading] = useState(false);
+  const [downloadingDashboard, setDownloadingDashboard] = useState(false);
 
   const selectedIds = useMemo(
     () =>
@@ -120,8 +122,25 @@ const AdminAnalyses = () => {
         { ids: selectedIds },
         `analyses-${new Date().toISOString().slice(0, 10)}.tsv`,
       );
-    } catch {}
+    } catch {
+      toast({ description: Errors.downloadError, variant: "destructive" });
+    }
     setDownloading(false);
+  };
+
+  const handleDownloadDashboardTsv = async () => {
+    if (downloadingDashboard) return;
+    setDownloadingDashboard(true);
+    try {
+      await downloadPostFile(
+        ADMIN_ENDPOINTS.ANALYSES_DOWNLOAD_DASHBOARD_TSV,
+        null,
+        `cabgen_dashboard_${new Date().toISOString().slice(0, 10)}.tsv`,
+      );
+    } catch {
+      toast({ description: Errors.downloadError, variant: "destructive" });
+    }
+    setDownloadingDashboard(false);
   };
 
   const columns = useMemo(
@@ -300,7 +319,7 @@ const AdminAnalyses = () => {
         </div>
       </div>
 
-      <div className="flex justify-start mb-4">
+      <div className="flex justify-start gap-3 mb-4">
         <Button
           variant="outline"
           disabled={selectedIds.length === 0 || downloading}
@@ -310,6 +329,15 @@ const AdminAnalyses = () => {
           <Download size={16} />
           {adminDict.downloadTsv}
           {selectedIds.length > 0 && ` (${selectedIds.length})`}
+        </Button>
+        <Button
+          variant="outline"
+          disabled={downloadingDashboard}
+          onClick={handleDownloadDashboardTsv}
+          className="flex items-center gap-1.5"
+        >
+          <Download size={16} />
+          {adminDict.downloadDashboardTsv}
         </Button>
       </div>
 

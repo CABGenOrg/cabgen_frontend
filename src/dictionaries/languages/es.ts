@@ -581,6 +581,7 @@ const es = {
       noAnalyses: "No se encontraron análisis",
       showingAnalyses: "{count} análisis",
       downloadTsv: "Descargar TSV",
+      downloadDashboardTsv: "Descargar dashboard TSV",
       metrics: "Métricas",
       resultsZipPath: "Ruta del ZIP de Resultados",
     },

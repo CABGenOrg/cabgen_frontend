@@ -20,6 +20,7 @@ import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
 import { SmartSelect } from "@/components/General/SmartSelect";
 import { downloadPostFile } from "@/utils/downloadFile";
+import { toast } from "@/hooks/use-toast";
 import { ANALYSES_ENDPOINTS } from "@/redux/services/analyses/analysesEndpoints";
 import {
   Form,
@@ -300,7 +301,9 @@ const AccountAnalysis = () => {
         { ids: selectedIds },
         `analyses-${new Date().toISOString().slice(0, 10)}.tsv`,
       );
-    } catch {}
+    } catch {
+      toast({ description: Errors.downloadError, variant: "destructive" });
+    }
     setDownloading(false);
   };
 

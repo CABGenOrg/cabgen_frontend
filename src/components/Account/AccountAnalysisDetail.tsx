@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Download, ExternalLink } from "lucide-react";
 import { section_btn } from "@/styles/tailwind_classes";
 import { downloadGetFile, openGetFile } from "@/utils/downloadFile";
+import { toast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { useLanguage } from "@/redux/LanguageContext";
@@ -80,8 +81,6 @@ const AccountAnalysisDetail = () => {
   const metricsDict = detailDict.metrics;
   const desc = metricsDict.desc;
   const analysisTypeDict = AccountDict.option.analysis_type;
-
-  const [downloadError, setDownloadError] = useState<string | null>(null);
 
   const { user, isLoading: authLoading } = useAuth();
   const isAdmin = user?.user_role === "Admin";
@@ -271,11 +270,15 @@ const AccountAnalysisDetail = () => {
           <button
             type="button"
             onClick={() => {
-              setDownloadError(null);
               downloadGetFile(
                 zipPath,
                 `${(analysis?.sample ?? "results").replace(/[\/\\]/g, "-")}.zip`,
-              ).catch(() => setDownloadError(Errors.downloadError));
+              ).catch(() =>
+                toast({
+                  description: Errors.downloadError,
+                  variant: "destructive",
+                }),
+              );
             }}
             className={`${section_btn} inline-flex items-center justify-center gap-1.5 shrink-0`}
           >
@@ -291,12 +294,6 @@ const AccountAnalysisDetail = () => {
         </div>
       )}
 
-      {downloadError && (
-        <div className="mb-5">
-          <Message msg={downloadError} type="error" />
-        </div>
-      )}
-
       <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-6">
         <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
           <h2 className="font-semibold text-gray-900">{detailDict.fastqc}</h2>
@@ -306,9 +303,11 @@ const AccountAnalysisDetail = () => {
             <button
               type="button"
               onClick={() => {
-                setDownloadError(null);
                 openGetFile(fastqc1Path).catch(() =>
-                  setDownloadError(Errors.viewError),
+                  toast({
+                    description: Errors.viewError,
+                    variant: "destructive",
+                  }),
                 );
               }}
               className="inline-flex items-center gap-1.5 text-cabgen-200 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"
@@ -323,9 +322,11 @@ const AccountAnalysisDetail = () => {
             <button
               type="button"
               onClick={() => {
-                setDownloadError(null);
                 openGetFile(fastqc2Path).catch(() =>
-                  setDownloadError(Errors.viewError),
+                  toast({
+                    description: Errors.viewError,
+                    variant: "destructive",
+                  }),
                 );
               }}
               className="inline-flex items-center gap-1.5 text-cabgen-200 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"

@@ -582,6 +582,7 @@ const en = {
       noAnalyses: "No analyses found",
       showingAnalyses: "{count} analyses",
       downloadTsv: "Download TSV",
+      downloadDashboardTsv: "Download dashboard TSV",
       metrics: "Metrics",
       resultsZipPath: "Results ZIP Path",
     },

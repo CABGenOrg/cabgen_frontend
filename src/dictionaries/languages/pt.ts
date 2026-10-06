@@ -572,6 +572,7 @@ const pt = {
       noAnalyses: "Nenhuma análise encontrada",
       showingAnalyses: "{count} análises",
       downloadTsv: "Baixar TSV",
+      downloadDashboardTsv: "Baixar dashboard TSV",
       metrics: "Métricas",
       resultsZipPath: "Caminho do ZIP de Resultados",
     },

@@ -54,7 +54,8 @@ const analysesService = apiSlice.injectEndpoints({
       providesTags: ["Analyses"],
     }),
     getAdminAnalysisByID: builder.query<AnalysisResponse, [string, string]>({
-      query: ([id, lang]) => requestConfig(`${ADMIN_ENDPOINTS.ANALYSES}/${id}`, "GET"),
+      query: ([id, lang]) =>
+        requestConfig(`${ADMIN_ENDPOINTS.ANALYSES}/${id}`, "GET"),
       transformResponse: (res: ApiResponse<AnalysisResponse>) => res.data,
       transformErrorResponse: (res) => handleError(res),
       providesTags: (_r, _e, [id]) => [{ type: "Analyses", id }],
