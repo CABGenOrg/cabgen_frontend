@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Dna, Pencil, Trash2, Upload, Eye } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
@@ -37,15 +37,32 @@ const AdminSamples = () => {
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
 
-  const { data: fullData = [], isLoading: loadingSamples } = useGetAdminSamplesQuery(lang);
+  const [page, setPage] = useState(1);
+  const { data: fullPaged, isLoading: loadingSamples } =
+    useGetAdminSamplesQuery({ lang, page });
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data: searchData = [] } = useGetSamplesQuery(
-    { input: debouncedSearch, lang },
+  const { data: searchPaged, isLoading: searchLoading } = useGetSamplesQuery(
+    { input: debouncedSearch, lang, page },
     {
       skip: !debouncedSearch,
     },
   );
+  const fullData = fullPaged?.data ?? [];
+  const searchData = searchPaged?.data ?? [];
   const data = debouncedSearch ? searchData : fullData;
+  const totalPages =
+    (debouncedSearch ? searchPaged : fullPaged)?.total_pages ?? 1;
+  const tableLoading = debouncedSearch ? searchLoading : loadingSamples;
+
+  const handleSearch = (value: string) => {
+    setPage(1);
+    setDebouncedSearch(value);
+  };
+
+  useEffect(() => {
+    if (!tableLoading && data.length === 0 && page > totalPages)
+      setPage(Math.max(1, totalPages));
+  }, [tableLoading, data.length, page, totalPages]);
   const [deleteSample, { isLoading: deleting, error: deleteError }] =
     useDeleteAdminSampleMutation();
 
@@ -173,14 +190,17 @@ const AdminSamples = () => {
         onAction={() => setModal({ type: "add" })}
       />
 
-      <SearchInput onSearch={setDebouncedSearch} placeholder={adminDict.search} />
+      <SearchInput onSearch={handleSearch} placeholder={adminDict.search} />
 
       <DataTable
         data={data}
         columns={columns}
-        loading={loadingSamples}
+        loading={tableLoading}
         emptyMessage={adminDict.noSamples}
         countLabel={adminDict.showingSamples}
+        page={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
       />
 
       {(modal.type === "add" || modal.type === "edit") && (

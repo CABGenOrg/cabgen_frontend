@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { Search, Eye, Pencil, Trash2, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -74,11 +74,18 @@ const AdminAnalyses = () => {
     type: string;
     username: string;
   }>({ originCode: "", type: "", username: "" });
+  const [page, setPage] = useState(1);
+  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
+  const resetPaging = () => {
+    setPage(1);
+    setRowSelection({});
+  };
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const handleFilterChange = (key: string, value: string) => {
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
       setFilters((f) => ({ ...f, [key]: value }));
+      resetPaging();
     }, 300);
   };
 
@@ -86,10 +93,17 @@ const AdminAnalyses = () => {
     useGetEnumSelectOptionsQuery(lang);
   const analysisTypeOptions = enumOptions?.analysis_types ?? [];
 
-  const { data = [], isLoading: loadingAnalyses } = useGetAdminAnalysesQuery(
-    filters,
+  const { data: paged, isLoading: loadingAnalyses } = useGetAdminAnalysesQuery(
+    { ...filters, page },
     { pollingInterval: 15000 },
   );
+  const data = paged?.data ?? [];
+  const totalPages = paged?.total_pages ?? 1;
+
+  useEffect(() => {
+    if (!loadingAnalyses && data.length === 0 && page > totalPages)
+      setPage(Math.max(1, totalPages));
+  }, [loadingAnalyses, data.length, page, totalPages]);
 
   const seenUsers = useRef(new Set<string>());
   data.forEach((a) => a.user && seenUsers.current.add(a.user));
@@ -111,7 +125,6 @@ const AdminAnalyses = () => {
 
   const hasRunning = data.some((a) => a.status.toLowerCase() === "running");
 
-  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
   const [downloading, setDownloading] = useState(false);
   const [downloadingDashboard, setDownloadingDashboard] = useState(false);
 
@@ -314,7 +327,10 @@ const AdminAnalyses = () => {
         <div className="sm:w-48 sm:flex-none">
           <SmartSelect
             value={filters.type}
-            onChange={(value) => setFilters((f) => ({ ...f, type: value }))}
+            onChange={(value) => {
+              setFilters((f) => ({ ...f, type: value }));
+              resetPaging();
+            }}
             options={analysisTypeOptions}
             placeholder={analysisDict.filterByType}
           />
@@ -322,12 +338,13 @@ const AdminAnalyses = () => {
         <div className="sm:w-48 sm:flex-none">
           <SmartSelect
             value={filters.username}
-            onChange={(value) =>
+            onChange={(value) => {
               setFilters((f) => ({
                 ...f,
                 username: value === ALL_USERNAME ? "" : value,
-              }))
-            }
+              }));
+              resetPaging();
+            }}
             options={usernameOptions}
             placeholder={analysisDict.filterByUsername}
             searchable
@@ -370,6 +387,12 @@ const AdminAnalyses = () => {
         rowSelection={rowSelection}
         onRowSelectionChange={setRowSelection}
         maxSelection={50}
+        page={page}
+        totalPages={totalPages}
+        onPageChange={(p) => {
+          setPage(p);
+          setRowSelection({});
+        }}
       />
 
       {(modal.type === "add" || modal.type === "edit") && (

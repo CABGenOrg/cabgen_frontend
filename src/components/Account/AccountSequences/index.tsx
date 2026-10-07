@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Upload, Pencil, Trash2, Dna, Eye } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
@@ -37,10 +37,24 @@ const AccountSequences = () => {
   const closeModal = () => setModal({ type: null });
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data = [], isLoading: loadingSamples } = useGetSamplesQuery({
+  const [page, setPage] = useState(1);
+  const { data: paged, isLoading: loadingSamples } = useGetSamplesQuery({
     input: debouncedSearch,
     lang,
+    page,
   });
+  const data = paged?.data ?? [];
+  const totalPages = paged?.total_pages ?? 1;
+
+  const handleSearch = (value: string) => {
+    setPage(1);
+    setDebouncedSearch(value);
+  };
+
+  useEffect(() => {
+    if (!loadingSamples && data.length === 0 && page > totalPages)
+      setPage(Math.max(1, totalPages));
+  }, [loadingSamples, data.length, page, totalPages]);
   const [deleteSample, { isLoading: deleting, error: deleteError }] =
     useDeleteSampleMutation();
 
@@ -169,7 +183,7 @@ const AccountSequences = () => {
         onAction={() => setModal({ type: "add" })}
       />
 
-      <SearchInput onSearch={setDebouncedSearch} placeholder={dict.search} />
+      <SearchInput onSearch={handleSearch} placeholder={dict.search} />
 
       <DataTable
         data={data}
@@ -177,6 +191,9 @@ const AccountSequences = () => {
         loading={loadingSamples}
         emptyMessage={dict.noResults}
         countLabel={dict.showing}
+        page={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
       />
 
       {modal.type === "add" && (

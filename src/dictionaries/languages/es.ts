@@ -271,6 +271,11 @@ const es = {
     noResults: "Sin resultados",
     toggleToDark: "Activar modo oscuro",
     toggleToLight: "Activar modo claro",
+    pagination: {
+      previous: "Página anterior",
+      next: "Página siguiente",
+      page: "Página {page} de {total}",
+    },
   },
   ErrorPages: {
     errorTitle: "Algo salió mal",

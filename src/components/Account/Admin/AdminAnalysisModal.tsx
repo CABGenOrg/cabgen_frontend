@@ -541,8 +541,14 @@ const AdminAnalysisModal: React.FC<AdminAnalysisModalProps> = ({
 
   const { data: enumOptions, error: enumError } =
     useGetEnumSelectOptionsQuery(lang);
-  const { data: samples, error: samplesError } = useGetAdminSamplesQuery(lang);
-  const { data: users, error: usersError } = useGetUsersQuery("");
+  const { data: samplesPaged, error: samplesError } = useGetAdminSamplesQuery({
+    lang,
+  });
+  const { data: usersPaged, error: usersError } = useGetUsersQuery({
+    input: "",
+  });
+  const samples = samplesPaged?.data;
+  const users = usersPaged?.data;
 
   const loadFailed = !!(enumError || samplesError || usersError);
 

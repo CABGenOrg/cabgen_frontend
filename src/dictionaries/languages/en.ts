@@ -261,6 +261,11 @@ const en = {
     noResults: "No results",
     toggleToDark: "Enable dark mode",
     toggleToLight: "Enable light mode",
+    pagination: {
+      previous: "Previous page",
+      next: "Next page",
+      page: "Page {page} of {total}",
+    },
   },
   ErrorPages: {
     errorTitle: "Something went wrong",

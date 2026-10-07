@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { Eye, Trash2, Search, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -91,18 +91,30 @@ const AccountAnalysis = () => {
     originCode: "",
     type: "",
   });
+  const [page, setPage] = useState(1);
+  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const handleFilterChange = (key: string, value: string) => {
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
       setFilters((f) => ({ ...f, [key]: value }));
+      setPage(1);
+      setRowSelection({});
     }, 300);
   };
 
-  const { data = [], isLoading: loadingAnalyses } = useGetAnalysesQuery(
-    filters,
+  const { data: paged, isLoading: loadingAnalyses } = useGetAnalysesQuery(
+    { ...filters, page },
     { pollingInterval: 15000 },
   );
+  const data = paged?.data ?? [];
+  const totalPages = paged?.total_pages ?? 1;
+
+  useEffect(() => {
+    if (!loadingAnalyses && data.length === 0 && page > totalPages)
+      setPage(Math.max(1, totalPages));
+  }, [loadingAnalyses, data.length, page, totalPages]);
+
   const [deleteAnalysis, { isLoading: deleting, error: deleteError }] =
     useDeleteAnalysisMutation();
   const [createAnalysis, { isLoading: creating, error: createError }] =
@@ -110,10 +122,12 @@ const AccountAnalysis = () => {
 
   const { data: enumOptions, isLoading: loadingEnums } =
     useGetEnumSelectOptionsQuery(lang);
-  const { data: samples, isLoading: loadingSamples } = useGetSamplesQuery({
-    input: "",
-    lang,
-  });
+  const { data: samplesPaged, isLoading: loadingSamples } =
+    useGetSamplesQuery({
+      input: "",
+      lang,
+    });
+  const samples = samplesPaged?.data;
 
   const createSchema = useMemo(
     () =>
@@ -280,7 +294,6 @@ const AccountAnalysis = () => {
 
   const isBusy = deleting || creating || loadingEnums || loadingSamples;
 
-  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
   const [downloading, setDownloading] = useState(false);
 
   const selectedIds = useMemo(
@@ -332,7 +345,11 @@ const AccountAnalysis = () => {
         <div className="sm:w-48 sm:flex-none">
           <SmartSelect
             value={filters.type}
-            onChange={(value) => setFilters((f) => ({ ...f, type: value }))}
+            onChange={(value) => {
+              setFilters((f) => ({ ...f, type: value }));
+              setPage(1);
+              setRowSelection({});
+            }}
             options={analysisTypeOptions}
             placeholder={dict.filterByType}
           />
@@ -365,6 +382,12 @@ const AccountAnalysis = () => {
         rowSelection={rowSelection}
         onRowSelectionChange={setRowSelection}
         maxSelection={50}
+        page={page}
+        totalPages={totalPages}
+        onPageChange={(p) => {
+          setPage(p);
+          setRowSelection({});
+        }}
       />
 
       {modal.type === "add" && (

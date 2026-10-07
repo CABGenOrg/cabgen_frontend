@@ -264,6 +264,11 @@ const pt = {
     noResults: "Nenhum resultado",
     toggleToDark: "Ativar modo escuro",
     toggleToLight: "Ativar modo claro",
+    pagination: {
+      previous: "Página anterior",
+      next: "Próxima página",
+      page: "Página {page} de {total}",
+    },
   },
   ErrorPages: {
     errorTitle: "Algo deu errado",

@@ -1,4 +1,4 @@
-import { apiSlice, ApiResponse, ApiMessage } from "../../api/apiSlice";
+import { apiSlice, ApiResponse, ApiMessage, Paged } from "../../api/apiSlice";
 import { requestConfig } from "../../../utils/handleRequest";
 import handleError from "@/utils/handleError";
 import { ADMIN_ENDPOINTS } from "./adminEndpoints";
@@ -37,19 +37,25 @@ export type AdminAnalysisUpdateInput = {
 
 const analysesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAdminAnalyses: builder.query<AnalysisResponse[], AdminAnalysisFilters>({
+    getAdminAnalyses: builder.query<
+      Paged<AnalysisResponse[]>,
+      AdminAnalysisFilters
+    >({
       query: (filters = {}) => {
         const params = new URLSearchParams();
         if (filters.originCode) params.append("originCode", filters.originCode);
         if (filters.type) params.append("type", filters.type);
         if (filters.username) params.append("username", filters.username);
+        if (filters.page) params.append("page", String(filters.page));
         const qs = params.toString();
         const url = qs
           ? `${ADMIN_ENDPOINTS.ANALYSES}?${qs}`
           : ADMIN_ENDPOINTS.ANALYSES;
         return requestConfig(url, "GET");
       },
-      transformResponse: (res: ApiResponse<AnalysisResponse[]>) => res.data,
+      transformResponse: (res: ApiResponse<AnalysisResponse[]>): Paged<
+        AnalysisResponse[]
+      > => ({ data: res.data, total_pages: res.total_pages ?? 1 }),
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Analyses"],
     }),

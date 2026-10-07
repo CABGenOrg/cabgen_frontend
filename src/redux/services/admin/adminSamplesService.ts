@@ -1,4 +1,9 @@
-import { apiSlice, ApiResponse, ApiMessage } from "../../api/apiSlice";
+import {
+  apiSlice,
+  ApiResponse,
+  ApiMessage,
+  Paged,
+} from "../../api/apiSlice";
 import { requestConfig } from "../../../utils/handleRequest";
 import handleError from "@/utils/handleError";
 import { ADMIN_ENDPOINTS } from "./adminEndpoints";
@@ -30,9 +35,22 @@ export type AdminSampleUpdateInput = {
 
 const adminSamplesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAdminSamples: builder.query<SampleResponse[], string>({
-      query: (lang) => requestConfig(ADMIN_ENDPOINTS.SAMPLES, "GET"),
-      transformResponse: (res: ApiResponse<SampleResponse[]>) => res.data,
+    getAdminSamples: builder.query<
+      Paged<SampleResponse[]>,
+      { lang: string; page?: number }
+    >({
+      query: ({ page }) => {
+        const params = new URLSearchParams();
+        if (page) params.append("page", String(page));
+        const qs = params.toString();
+        const url = qs
+          ? `${ADMIN_ENDPOINTS.SAMPLES}?${qs}`
+          : ADMIN_ENDPOINTS.SAMPLES;
+        return requestConfig(url, "GET");
+      },
+      transformResponse: (res: ApiResponse<SampleResponse[]>): Paged<
+        SampleResponse[]
+      > => ({ data: res.data, total_pages: res.total_pages ?? 1 }),
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Samples"],
     }),

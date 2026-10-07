@@ -30,7 +30,8 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-export type ApiResponse<T> = { data: T };
+export type ApiResponse<T> = { data: T; total_pages?: number };
+export type Paged<T> = { data: T; total_pages: number };
 export type ApiMessage = { message: string };
 export type ApiError = { error: string };
 

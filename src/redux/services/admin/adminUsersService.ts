@@ -1,4 +1,9 @@
-import { apiSlice, ApiResponse, ApiMessage } from "../../api/apiSlice";
+import {
+  apiSlice,
+  ApiResponse,
+  ApiMessage,
+  Paged,
+} from "../../api/apiSlice";
 import { requestConfig } from "../../../utils/handleRequest";
 import handleError from "@/utils/handleError";
 import { ADMIN_ENDPOINTS } from "./adminEndpoints";
@@ -46,17 +51,23 @@ export type AdminUserUpdateInput = {
 
 const adminUsersService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUsers: builder.query<AdminUserResponse[], string>({
-      query: (input = "") => {
+    getUsers: builder.query<
+      Paged<AdminUserResponse[]>,
+      { input?: string; page?: number }
+    >({
+      query: ({ input = "", page } = {}) => {
         const params = new URLSearchParams();
         if (input) params.append("input", input);
+        if (page) params.append("page", String(page));
         const qs = params.toString();
         const url = qs
           ? `${ADMIN_ENDPOINTS.USERS}?${qs}`
           : ADMIN_ENDPOINTS.USERS;
         return requestConfig(url, "GET");
       },
-      transformResponse: (res: ApiResponse<AdminUserResponse[]>) => res.data,
+      transformResponse: (res: ApiResponse<AdminUserResponse[]>): Paged<
+        AdminUserResponse[]
+      > => ({ data: res.data, total_pages: res.total_pages ?? 1 }),
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Users"],
     }),

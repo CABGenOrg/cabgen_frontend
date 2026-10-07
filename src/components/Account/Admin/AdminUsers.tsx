@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Users, Pencil, Trash2, Power } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
@@ -36,7 +36,23 @@ const AdminUsers = () => {
   const closeModal = () => setModal({ type: null });
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data = [], isLoading: loadingUsers } = useGetUsersQuery(debouncedSearch);
+  const [page, setPage] = useState(1);
+  const { data: paged, isLoading: loadingUsers } = useGetUsersQuery({
+    input: debouncedSearch,
+    page,
+  });
+  const data = paged?.data ?? [];
+  const totalPages = paged?.total_pages ?? 1;
+
+  const handleSearch = (value: string) => {
+    setPage(1);
+    setDebouncedSearch(value);
+  };
+
+  useEffect(() => {
+    if (!loadingUsers && data.length === 0 && page > totalPages)
+      setPage(Math.max(1, totalPages));
+  }, [loadingUsers, data.length, page, totalPages]);
   const [deleteUser, { isLoading: deleting, error: deleteError }] =
     useDeleteUserMutation();
   const [activateUser, { isLoading: togglingActive }] =
@@ -145,7 +161,7 @@ const AdminUsers = () => {
         onAction={() => setModal({ type: "add" })}
       />
 
-      <SearchInput onSearch={setDebouncedSearch} placeholder={dict.search} />
+      <SearchInput onSearch={handleSearch} placeholder={dict.search} />
 
       <DataTable
         data={data}
@@ -153,6 +169,9 @@ const AdminUsers = () => {
         loading={loadingUsers}
         emptyMessage={dict.noResults}
         countLabel={dict.showing}
+        page={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
       />
 
       {(modal.type === "add" || modal.type === "edit") && (

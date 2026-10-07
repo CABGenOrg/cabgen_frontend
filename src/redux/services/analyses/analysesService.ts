@@ -1,4 +1,4 @@
-import { apiSlice, ApiResponse, ApiMessage } from "../../api/apiSlice";
+import { apiSlice, ApiResponse, ApiMessage, Paged } from "../../api/apiSlice";
 import { requestConfig } from "../../../utils/handleRequest";
 import handleError from "@/utils/handleError";
 import { ANALYSES_ENDPOINTS } from "./analysesEndpoints";
@@ -56,22 +56,26 @@ export type AnalysisTSVDownloadInput = {
 export type AnalysisFilters = {
   originCode?: string;
   type?: string;
+  page?: number;
 };
 
 const analysesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAnalyses: builder.query<AnalysisResponse[], AnalysisFilters>({
+    getAnalyses: builder.query<Paged<AnalysisResponse[]>, AnalysisFilters>({
       query: (filters = {}) => {
         const params = new URLSearchParams();
         if (filters.originCode) params.append("originCode", filters.originCode);
         if (filters.type) params.append("type", filters.type);
+        if (filters.page) params.append("page", String(filters.page));
         const qs = params.toString();
         const url = qs
           ? `${ANALYSES_ENDPOINTS.DEFAULT}?${qs}`
           : ANALYSES_ENDPOINTS.DEFAULT;
         return requestConfig(url, "GET");
       },
-      transformResponse: (res: ApiResponse<AnalysisResponse[]>) => res.data,
+      transformResponse: (res: ApiResponse<AnalysisResponse[]>): Paged<
+        AnalysisResponse[]
+      > => ({ data: res.data, total_pages: res.total_pages ?? 1 }),
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Analyses"],
     }),

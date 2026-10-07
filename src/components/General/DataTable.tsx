@@ -13,6 +13,7 @@ import {
 import { useState, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import Loading from "./Loading";
+import Pagination from "./Pagination";
 import { Checkbox } from "@/components/ui/checkbox";
 
 interface DataTableProps<TData> {
@@ -25,6 +26,9 @@ interface DataTableProps<TData> {
   rowSelection?: RowSelectionState;
   onRowSelectionChange?: OnChangeFn<RowSelectionState>;
   maxSelection?: number;
+  page?: number;
+  totalPages?: number;
+  onPageChange?: (page: number) => void;
 }
 
 const DataTable = <TData,>({
@@ -37,6 +41,9 @@ const DataTable = <TData,>({
   rowSelection,
   onRowSelectionChange,
   maxSelection,
+  page,
+  totalPages,
+  onPageChange,
 }: DataTableProps<TData>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -217,9 +224,19 @@ const DataTable = <TData,>({
           </tbody>
         </table>
       </div>
-      {data.length > 0 && (
-        <div className="px-4 py-2.5 border-t border-border bg-muted/50 text-sm text-muted-foreground">
-          {countLabel.replace("{count}", String(data.length))}
+      {(data.length > 0 || onPageChange) && (
+        <div className="px-4 py-2.5 border-t border-border bg-muted/50 text-sm text-muted-foreground flex items-center justify-between gap-3">
+          {data.length > 0 && (
+            <span>{countLabel.replace("{count}", String(data.length))}</span>
+          )}
+          {onPageChange && page !== undefined && totalPages !== undefined && (
+            <Pagination
+              page={page}
+              totalPages={totalPages}
+              onChange={onPageChange}
+              disabled={loading}
+            />
+          )}
         </div>
       )}
     </div>

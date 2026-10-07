@@ -1,4 +1,4 @@
-import { apiSlice, ApiResponse, ApiMessage } from "../../api/apiSlice";
+import { apiSlice, ApiResponse, ApiMessage, Paged } from "../../api/apiSlice";
 import { requestConfig } from "../../../utils/handleRequest";
 import handleError from "@/utils/handleError";
 import { SAMPLES_ENDPOINTS } from "./samplesEndpoints";
@@ -47,19 +47,22 @@ export type SampleInput = {
 const samplesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getSamples: builder.query<
-      SampleResponse[],
-      { input?: string; lang: string }
+      Paged<SampleResponse[]>,
+      { input?: string; lang: string; page?: number }
     >({
-      query: ({ input = "" }) => {
+      query: ({ input = "", page }) => {
         const params = new URLSearchParams();
         if (input) params.append("input", input);
+        if (page) params.append("page", String(page));
         const qs = params.toString();
         const url = qs
           ? `${SAMPLES_ENDPOINTS.DEFAULT}?${qs}`
           : SAMPLES_ENDPOINTS.DEFAULT;
         return requestConfig(url, "GET");
       },
-      transformResponse: (res: ApiResponse<SampleResponse[]>) => res.data,
+      transformResponse: (res: ApiResponse<SampleResponse[]>): Paged<
+        SampleResponse[]
+      > => ({ data: res.data, total_pages: res.total_pages ?? 1 }),
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Samples"],
     }),
