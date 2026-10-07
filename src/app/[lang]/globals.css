@@ -94,6 +94,11 @@
   border-color: hsl(var(--border)) !important;
   color: hsl(var(--popover-foreground)) !important;
 }
+.dark .recharts-legend-item-text,
+.dark .recharts-cartesian-axis-tick-value,
+.dark .recharts-pie-label-text {
+  fill: hsl(var(--foreground));
+}
 
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
