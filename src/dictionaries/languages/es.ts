@@ -375,6 +375,7 @@ const es = {
       filterBySample: "Buscar por Muestra",
       filterByType: "Filtrar por Tipo",
       filterByUsername: "Filtrar por Usuario",
+      filterAll: "Todos",
       deleteConfirm: "¿Está seguro de que desea eliminar este análisis?",
       createAnalysis: "Crear Análisis",
       selectType: "Seleccionar tipo",

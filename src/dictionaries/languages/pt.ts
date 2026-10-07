@@ -366,6 +366,7 @@ const pt = {
       filterBySample: "Buscar por Amostra",
       filterByType: "Filtrar por Tipo",
       filterByUsername: "Filtrar por Usuário",
+      filterAll: "Todos",
       deleteConfirm: "Tem certeza de que deseja excluir esta análise?",
       createAnalysis: "Criar Análise",
       selectType: "Selecionar tipo",

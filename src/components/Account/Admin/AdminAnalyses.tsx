@@ -27,6 +27,8 @@ import AdminAnalysisModal from "./AdminAnalysisModal";
 
 const columnHelper = createColumnHelper<AnalysisResponse>();
 
+const ALL_USERNAME = "__all__";
+
 const formatDate = (value: Date | string | null | undefined, lang: string) => {
   if (!value) return "-";
   const d = value instanceof Date ? value : new Date(value);
@@ -88,6 +90,15 @@ const AdminAnalyses = () => {
     filters,
     { pollingInterval: 15000 },
   );
+
+  const seenUsers = useRef(new Set<string>());
+  data.forEach((a) => a.user && seenUsers.current.add(a.user));
+  const usernameOptions = [
+    { label: analysisDict.filterAll, value: ALL_USERNAME },
+    ...[...seenUsers.current]
+      .sort((a, b) => a.localeCompare(b))
+      .map((u) => ({ label: u, value: u })),
+  ];
   const [deleteAnalysis, { isLoading: deleting, error: deleteError }] =
     useDeleteAdminAnalysisMutation();
 
@@ -308,13 +319,18 @@ const AdminAnalyses = () => {
             placeholder={analysisDict.filterByType}
           />
         </div>
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-          <input
-            type="text"
+        <div className="sm:w-48 sm:flex-none">
+          <SmartSelect
+            value={filters.username}
+            onChange={(value) =>
+              setFilters((f) => ({
+                ...f,
+                username: value === ALL_USERNAME ? "" : value,
+              }))
+            }
+            options={usernameOptions}
             placeholder={analysisDict.filterByUsername}
-            className={`${input_class} pl-9`}
-            onChange={(e) => handleFilterChange("username", e.target.value)}
+            searchable
           />
         </div>
       </div>

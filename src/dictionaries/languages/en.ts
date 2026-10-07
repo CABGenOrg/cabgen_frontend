@@ -376,6 +376,7 @@ const en = {
       filterBySample: "Search by Sample",
       filterByType: "Filter by Type",
       filterByUsername: "Filter by Username",
+      filterAll: "All",
       deleteConfirm: "Are you sure you want to delete this analysis?",
       createAnalysis: "Create Analysis",
       selectType: "Select type",
