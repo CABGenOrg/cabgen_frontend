@@ -45,15 +45,15 @@ const AdminHealthServiceViewModal = ({
 
   return (
     <Modal open={open} onClose={onClose} title={name || dict.viewHealthService}>
-      <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-4 min-w-0">
+      <div className="bg-card rounded-lg shadow-md border border-border overflow-x-auto mb-4 min-w-0">
         <table className="w-full text-sm min-w-full">
           <tbody>
             {rows.map(({ label, value, variant }) => (
-              <tr key={label} className="border-b border-gray-100 last:border-0">
-                <th className="px-4 py-3 text-left font-medium text-gray-500 sm:whitespace-nowrap bg-gray-50/50 w-1/3">
+              <tr key={label} className="border-b border-border last:border-0">
+                <th className="px-4 py-3 text-left font-medium text-muted-foreground sm:whitespace-nowrap bg-muted/50 w-1/3">
                   {label}
                 </th>
-                <td className="px-4 py-3 text-gray-900 break-words min-w-0">
+                <td className="px-4 py-3 text-foreground break-words min-w-0">
                   {variant ? (
                     <span
                       className={`inline-block px-2.5 py-0.5 rounded-full text-base font-medium ${

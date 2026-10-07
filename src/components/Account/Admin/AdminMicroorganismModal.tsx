@@ -156,10 +156,10 @@ const AdminMicroorganismModalBody: React.FC<{
               <input
                 type="checkbox"
                 id="is_active"
-                className="h-4 w-4 rounded border-gray-300 text-cabgen-200 focus:ring-cabgen-200"
+                className="h-4 w-4 rounded border-border text-cabgen-200 dark:text-cabgen-300 focus:ring-cabgen-200"
                 {...form.register("is_active")}
               />
-              <label htmlFor="is_active" className="text-gray-900">
+              <label htmlFor="is_active" className="text-foreground">
                 {dict.isActive}
               </label>
             </div>

@@ -60,8 +60,8 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --border: 217.2 32.6% 28%;
+    --input: 217.2 32.6% 28%;
     --ring: 212.7 26.8% 83.9%;
   }
 }
@@ -80,6 +80,19 @@
     background-color: #34B290;
     color: white;
   }
+}
+
+.dark .recharts-cartesian-grid line,
+.dark .recharts-cartesian-axis line {
+  stroke: hsl(var(--border));
+}
+.dark .recharts-tooltip-cursor {
+  fill: hsl(var(--muted));
+}
+.dark .recharts-default-tooltip {
+  background: hsl(var(--popover)) !important;
+  border-color: hsl(var(--border)) !important;
+  color: hsl(var(--popover-foreground)) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

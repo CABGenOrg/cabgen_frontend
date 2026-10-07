@@ -205,7 +205,7 @@ const AdminTickets = () => {
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 ${
               statusFilter === filter.value
                 ? "bg-cabgen-200 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                : "bg-muted text-foreground hover:bg-accent"
             }`}
           >
             {(dict.filterValues as Record<string, string>)[filter.label] ??
@@ -235,7 +235,7 @@ const AdminTickets = () => {
                   modal.ticket.status
                 ] ?? modal.ticket.status}
               </Badge>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-muted-foreground">
                 {new Date(modal.ticket.created_at).toLocaleDateString(
                   lang === "pt" ? "pt-BR" : lang === "es" ? "es-ES" : "en-US",
                 )}
@@ -265,7 +265,7 @@ const AdminTickets = () => {
             </div>
             <div className="border-t pt-3">
               <p className="font-semibold mb-1">{dict.message}:</p>
-              <p className="text-gray-700 whitespace-pre-wrap">
+              <p className="text-foreground whitespace-pre-wrap">
                 {modal.ticket.message}
               </p>
             </div>

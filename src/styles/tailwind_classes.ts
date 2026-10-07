@@ -10,8 +10,8 @@ export const section_btn =
 export const form_spacing =
   "w-full my-3 mx-auto flex flex-col justify-center items-center";
 export const form_title =
-  "font-semibold 2xl:text-4xl md:text-4xl text-2xl text-center tracking-tight text-gray-800";
+  "font-semibold 2xl:text-4xl md:text-4xl text-2xl text-center tracking-tight text-foreground";
 export const input_class =
-  "block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-cabgen-200 focus:outline-none 2xl:text-lg sm:text-base sm:leading-6";
+  "block w-full rounded-md border border-border px-3.5 py-2 bg-background text-foreground shadow-sm placeholder:text-muted-foreground focus:ring-2 focus:ring-cabgen-200 focus:outline-none 2xl:text-lg sm:text-base sm:leading-6";
 export const label_class =
-  "block 2xl:text-xl text-lg font-light tracking-wider leading-6 text-gray-900";
+  "block 2xl:text-xl text-lg font-light tracking-wider leading-6 text-foreground";

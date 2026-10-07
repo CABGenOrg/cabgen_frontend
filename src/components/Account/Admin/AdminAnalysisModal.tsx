@@ -286,7 +286,7 @@ const AdminAnalysisModalBody: React.FC<
                 label={adminDict.message}
                 form={editForm}
               />
-              <p className="sm:col-span-2 text-sm font-semibold text-cabgen-600 uppercase tracking-wide border-b border-gray-100 pb-1 mt-2">
+              <p className="sm:col-span-2 text-sm font-semibold text-cabgen-600 dark:text-cabgen-300 uppercase tracking-wide border-b border-border pb-1 mt-2">
                 {adminDict.metrics}
               </p>
               <TextField

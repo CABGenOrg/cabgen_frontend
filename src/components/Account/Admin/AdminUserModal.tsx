@@ -133,7 +133,7 @@ const AdminUserModalBody: React.FC<{
                   type="text"
                   readOnly
                   value={initial.id}
-                  className={`${input_class} bg-gray-100 cursor-default`}
+                  className={`${input_class} bg-muted cursor-default`}
                 />
               </div>
             )}
@@ -179,10 +179,10 @@ const AdminUserModalBody: React.FC<{
               <input
                 type="checkbox"
                 id="is_part_of_network"
-                className="h-4 w-4 rounded border-gray-300 text-cabgen-200 focus:ring-cabgen-200"
+                className="h-4 w-4 rounded border-border text-cabgen-200 dark:text-cabgen-300 focus:ring-cabgen-200"
                 {...form.register("is_part_of_network")}
               />
-              <label htmlFor="is_part_of_network" className="text-gray-900">
+              <label htmlFor="is_part_of_network" className="text-foreground">
                 {dict.isPartOfNetwork}
               </label>
             </div>

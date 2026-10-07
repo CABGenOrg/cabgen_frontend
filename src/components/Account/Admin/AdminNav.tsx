@@ -58,7 +58,7 @@ const AdminNav = () => {
   const dict = AccountDict.admin;
 
   return (
-    <nav className="flex flex-wrap justify-center gap-1 p-2 mb-4 bg-gray-50 rounded-lg border border-gray-100">
+    <nav className="flex flex-wrap justify-center gap-1 p-2 mb-4 bg-muted/50 rounded-lg border border-border">
       {adminTabs.map(({ icon: Icon, href, dictKey }) => {
         const active = pathname.includes(href);
         const label =
@@ -74,7 +74,7 @@ const AdminNav = () => {
             className={`h-10 w-10 inline-flex items-center justify-center rounded-md transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 ${
               active
                 ? "bg-cabgen-200 text-white ring-2 ring-cabgen-200 ring-offset-1"
-                : "text-gray-600 hover:bg-gray-200"
+                : "text-muted-foreground hover:bg-accent"
             }`}
           >
             <Icon size={18} />

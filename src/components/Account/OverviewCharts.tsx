@@ -21,8 +21,8 @@ const ChartCard: React.FC<{ title: string; children: React.ReactNode }> = ({
   title,
   children,
 }) => (
-  <div className="bg-white rounded-lg shadow-md border border-gray-100 p-5">
-    <h2 className="text-lg font-semibold text-gray-900 mb-4">{title}</h2>
+  <div className="bg-card rounded-lg shadow-md border border-border p-5">
+    <h2 className="text-lg font-semibold text-foreground mb-4">{title}</h2>
     <div className="h-[300px] md:h-[350px]">{children}</div>
   </div>
 );

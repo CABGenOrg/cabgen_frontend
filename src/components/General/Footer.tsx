@@ -28,7 +28,7 @@ const Footer = ({ lang }: { lang: Locale }) => {
         <div className="flex flex-col items-center sm:items-start font-light 2xl:text-2xl sm:text-xl text-base">
           {links.map(({ name, url }, idx) => (
             <CustomLink
-              className="hover:text-black"
+              className="hover:text-foreground"
               href={url}
               key={idx}
               disabled
@@ -43,7 +43,7 @@ const Footer = ({ lang }: { lang: Locale }) => {
           ))}
         </div>
       </div>
-      <div className="bg-cabgen-300 text-opacity-70 text-gray-600 text-center 2xl:text-lg sm:text-base text-sm px-1.5 py-3">
+      <div className="bg-cabgen-300 text-opacity-70 text-muted-foreground text-center 2xl:text-lg sm:text-base text-sm px-1.5 py-3">
         Copyright ©{new Date().getFullYear()} All rights reserved | PROCC - FIOCRUZ
       </div>
     </footer>

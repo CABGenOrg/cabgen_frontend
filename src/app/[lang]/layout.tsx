@@ -9,6 +9,7 @@ import { LanguageProvider } from "@/redux/LanguageContext";
 import { AuthProvider } from "@/redux/AuthContext";
 import Layout from "@/components/General/Layout";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "next-themes";
 import { getServerUser } from "@/utils/handleServerUser";
 
 const futura = localFont({
@@ -78,11 +79,9 @@ const RootLayout = async ({
   const { lang } = (await params) as { lang: Locale };
 
   return (
-    <html lang={lang}>
-      <body
-        className={`${futura.className} flex flex-col min-h-screen`}
-        suppressHydrationWarning
-      >
+    <html lang={lang} suppressHydrationWarning>
+      <body className={`${futura.className} flex flex-col min-h-screen`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         <StoreProvider>
           <AuthProvider initialUser={initialUser}>
             <LanguageProvider lang={lang}>
@@ -95,6 +94,7 @@ const RootLayout = async ({
             </LanguageProvider>
           </AuthProvider>
         </StoreProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

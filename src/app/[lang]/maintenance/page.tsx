@@ -45,7 +45,7 @@ const Maintenance = async ({
               {Maintenance.sectionTitle}
             </h2>
           </div>
-          <p className="bg-slate-50 p-5 rounded-lg xl:text-2xl md:text-xl text-base text-justify xl:w-[55%] lg:w-[65%] md:w-[75%] sm:w-[85%] mx-3 w-auto">
+          <p className="bg-muted/50 p-5 rounded-lg xl:text-2xl md:text-xl text-base text-justify xl:w-[55%] lg:w-[65%] md:w-[75%] sm:w-[85%] mx-3 w-auto">
             {Maintenance.sectionDescription}
           </p>
         </div>

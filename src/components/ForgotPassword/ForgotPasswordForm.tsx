@@ -52,7 +52,7 @@ const ForgotPasswordForm = () => {
   };
 
   return (
-    <div className="mx-5 py-10 px-5 2xl:w-[30%] lg:w-[40%] md:w-[60%] bg-slate-200 rounded-lg">
+    <div className="mx-5 py-10 px-5 2xl:w-[30%] lg:w-[40%] md:w-[60%] bg-muted rounded-lg">
       <div className="flex flex-col justify-center items-center py-6 sm:px-8 px-2">
         <div className="flex flex-row justify-center items-center">
           <OptimizedImage
@@ -62,7 +62,7 @@ const ForgotPasswordForm = () => {
           />
         </div>
         <h1 className="text-xl font-semibold mb-2">{ForgotPassword.title}</h1>
-        <p className="text-center text-sm text-gray-600 mb-6">
+        <p className="text-center text-sm text-muted-foreground mb-6">
           {ForgotPassword.description}
         </p>
         {isSuccess ? (

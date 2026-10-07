@@ -28,22 +28,22 @@ const MetricsSection: React.FC<{
   title: string;
   rows: { label: string; value: unknown; description?: string }[];
 }> = ({ title, rows }) => (
-  <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-6 min-w-0">
-    <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
-      <h2 className="font-semibold text-gray-900">{title}</h2>
+  <div className="bg-card rounded-lg shadow-md border border-border overflow-x-auto mb-6 min-w-0">
+    <div className="px-4 py-3 border-b border-border bg-muted/50">
+      <h2 className="font-semibold text-foreground">{title}</h2>
     </div>
     <table className="w-full text-sm min-w-full">
       <tbody>
         {rows.map(({ label, value, description }) => {
           const formatted = formatValue(value);
           return (
-            <tr key={label} className="border-b border-gray-100 last:border-0">
-              <th className="px-4 py-3 text-left font-medium text-gray-500 sm:whitespace-nowrap bg-gray-50/50 w-1/3">
+            <tr key={label} className="border-b border-border last:border-0">
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground sm:whitespace-nowrap bg-muted/50 w-1/3">
                 {description ? (
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <span className="cursor-help text-cabgen-200 hover:text-cabgen-300">
+                        <span className="cursor-help text-cabgen-200 dark:text-cabgen-300 hover:text-cabgen-300">
                           {label}
                         </span>
                       </TooltipTrigger>
@@ -52,7 +52,7 @@ const MetricsSection: React.FC<{
                   </TooltipProvider>
                 ) : label}
               </th>
-              <td className="px-4 py-3 text-gray-900 break-words min-w-0">
+              <td className="px-4 py-3 text-foreground break-words min-w-0">
                 {formatted || "—"}
               </td>
             </tr>
@@ -224,7 +224,7 @@ const AccountAnalysisDetail = () => {
       <div className="w-full">
         <button
           onClick={() => router.push(backPath)}
-          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-cabgen-200 mb-4"
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-cabgen-200 dark:hover:text-cabgen-300 mb-4"
         >
           <ArrowLeft size={16} /> {detailDict.back}
         </button>
@@ -241,7 +241,7 @@ const AccountAnalysisDetail = () => {
     <div className="w-full">
       <button
         onClick={() => router.push(backPath)}
-        className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-cabgen-200 mb-4"
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-cabgen-200 dark:hover:text-cabgen-300 mb-4"
       >
         <ArrowLeft size={16} /> {detailDict.back}
       </button>
@@ -251,7 +251,7 @@ const AccountAnalysisDetail = () => {
           <h1 className="text-2xl font-semibold">
             {analysis.sample || detailDict.title}
           </h1>
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>{typeLabel}</span>
             <Badge
               variant={
@@ -294,9 +294,9 @@ const AccountAnalysisDetail = () => {
         </div>
       )}
 
-      <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-x-auto mb-6">
-        <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
-          <h2 className="font-semibold text-gray-900">{detailDict.fastqc}</h2>
+      <div className="bg-card rounded-lg shadow-md border border-border overflow-x-auto mb-6">
+        <div className="px-4 py-3 border-b border-border bg-muted/50">
+          <h2 className="font-semibold text-foreground">{detailDict.fastqc}</h2>
         </div>
         <div className="p-4 flex flex-col sm:flex-row gap-3">
           {fastqc1Path && analysis.fastqc1 ? (
@@ -310,13 +310,13 @@ const AccountAnalysisDetail = () => {
                   }),
                 );
               }}
-              className="inline-flex items-center gap-1.5 text-cabgen-200 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"
+              className="inline-flex items-center gap-1.5 text-cabgen-200 dark:text-cabgen-300 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"
             >
               <ExternalLink size={16} />
               {detailDict.fastqc1}
             </button>
           ) : (
-            <span className="text-gray-400">{detailDict.fastqc1} —</span>
+            <span className="text-muted-foreground">{detailDict.fastqc1} —</span>
           )}
           {fastqc2Path && analysis.fastqc2 ? (
             <button
@@ -329,13 +329,13 @@ const AccountAnalysisDetail = () => {
                   }),
                 );
               }}
-              className="inline-flex items-center gap-1.5 text-cabgen-200 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"
+              className="inline-flex items-center gap-1.5 text-cabgen-200 dark:text-cabgen-300 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"
             >
               <ExternalLink size={16} />
               {detailDict.fastqc2}
             </button>
           ) : (
-            <span className="text-gray-400">{detailDict.fastqc2} —</span>
+            <span className="text-muted-foreground">{detailDict.fastqc2} —</span>
           )}
         </div>
       </div>

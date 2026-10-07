@@ -120,7 +120,7 @@ const AccountMyAccount = () => {
       ? "bg-blue-100 text-blue-700"
       : profile?.user_role === "Collaborator"
         ? "bg-green-100 text-green-700"
-        : "bg-cabgen-100/20 text-cabgen-700";
+        : "bg-cabgen-100/20 text-cabgen-700 dark:text-cabgen-300";
 
   const roleLabel =
     profile?.user_role === "Admin"
@@ -139,14 +139,14 @@ const AccountMyAccount = () => {
       </h1>
 
       {profile && (
-        <div className="bg-white rounded-lg shadow-md border border-gray-100 p-6 mb-6">
+        <div className="bg-card rounded-lg shadow-md border border-border p-6 mb-6">
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <span className="text-sm text-gray-500">{dict.email}</span>
+              <span className="text-sm text-muted-foreground">{dict.email}</span>
               <p className="font-medium">{profile.email}</p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">{dict.role}</span>
+              <span className="text-sm text-muted-foreground">{dict.role}</span>
               <p>
                 <span className={`inline-block px-2.5 py-0.5 rounded-full text-base font-medium ${roleBadge}`}>
                   {roleLabel}
@@ -154,7 +154,7 @@ const AccountMyAccount = () => {
               </p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">{dict.network}</span>
+              <span className="text-sm text-muted-foreground">{dict.network}</span>
               <p>
                 <span
                   className={`inline-block px-2.5 py-0.5 rounded-full text-base font-medium ${
@@ -173,7 +173,7 @@ const AccountMyAccount = () => {
         </div>
       )}
 
-      <div className="bg-white rounded-lg shadow-md border border-gray-100 p-6">
+      <div className="bg-card rounded-lg shadow-md border border-border p-6">
         <h2 className="text-lg font-medium mb-4">{dict.editProfile}</h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>

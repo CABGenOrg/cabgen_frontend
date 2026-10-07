@@ -115,7 +115,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="mx-5 py-5 px-3 2xl:w-[40%] lg:w-[60%] md:w-[75%] bg-slate-200 rounded-lg">
+    <div className="mx-5 py-5 px-3 2xl:w-[40%] lg:w-[60%] md:w-[75%] bg-muted rounded-lg">
       <div className="flex flex-col justify-center items-center py-6 sm:px-8 px-2">
         <div className="flex flex-row justify-center items-center">
           <OptimizedImage
@@ -163,7 +163,7 @@ const RegisterForm = () => {
                         value={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger className="text-black focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:outline-none 2xl:text-lg sm:text-base">
+                          <SelectTrigger className="text-foreground focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:outline-none 2xl:text-lg sm:text-base">
                             <SelectValue
                               placeholder={Register.countryFieldLabel}
                               className={input_class}
@@ -214,7 +214,7 @@ const RegisterForm = () => {
                       <FormControl>
                         <div
                           role="group"
-                          className="inline-flex rounded-md border border-gray-300 overflow-hidden"
+                          className="inline-flex rounded-md border border-border overflow-hidden"
                         >
                           <button
                             type="button"
@@ -223,7 +223,7 @@ const RegisterForm = () => {
                             className={`px-5 py-2 text-base transition-colors ${
                               field.value === "yes"
                                 ? "bg-cabgen-200 text-white"
-                                : "bg-white text-gray-700 hover:bg-gray-100"
+                                : "bg-card text-foreground hover:bg-accent"
                             }`}
                           >
                             {Register.networkYes}
@@ -232,17 +232,17 @@ const RegisterForm = () => {
                             type="button"
                             aria-pressed={field.value === "no"}
                             onClick={() => field.onChange("no")}
-                            className={`px-5 py-2 text-base border-l border-gray-300 transition-colors ${
+                            className={`px-5 py-2 text-base border-l border-border transition-colors ${
                               field.value === "no"
                                 ? "bg-cabgen-200 text-white"
-                                : "bg-white text-gray-700 hover:bg-gray-100"
+                                : "bg-card text-foreground hover:bg-accent"
                             }`}
                           >
                             {Register.networkNo}
                           </button>
                         </div>
                       </FormControl>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-muted-foreground">
                         {Register.networkHint}
                       </p>
                       <FormMessage className="text-red-600" />

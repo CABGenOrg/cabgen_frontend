@@ -29,6 +29,7 @@
     "lucide-react": "^0.468.0",
     "negotiator": "^0.6.4",
     "next": "^15.3.3",
+    "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^19.0.0",

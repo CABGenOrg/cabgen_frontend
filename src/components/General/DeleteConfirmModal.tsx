@@ -35,8 +35,8 @@ const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
         <Trash2 size={20} className="text-red-600" />
       </div>
       <div>
-        <p className="text-gray-900 font-medium mb-1">{dict.delete}</p>
-        <p className="text-gray-500 text-sm">
+        <p className="text-foreground font-medium mb-1">{dict.delete}</p>
+        <p className="text-muted-foreground text-sm">
           {dict.deleteConfirm.replace("{name}", entityName)}
         </p>
       </div>

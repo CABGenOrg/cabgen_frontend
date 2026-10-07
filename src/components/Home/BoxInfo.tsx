@@ -51,7 +51,7 @@ const BoxInfo = () => {
         return (
         <div
           key={idx}
-          className="flex flex-col justify-center items-center bg-slate-400 p-2 rounded-xl 2xl:h-64 2xl:w-64 sm:h-48 sm:w-52 h-44 w-36"
+          className="flex flex-col justify-center items-center bg-muted p-2 rounded-xl 2xl:h-64 2xl:w-64 sm:h-48 sm:w-52 h-44 w-36"
         >
           <OptimizedImage
             src={image}

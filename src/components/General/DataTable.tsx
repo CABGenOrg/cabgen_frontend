@@ -84,7 +84,7 @@ const DataTable = <TData,>({
   const isEmpty = rows.length === 0;
 
   return (
-    <div className="bg-white rounded-lg shadow-md border border-gray-100">
+    <div className="bg-card rounded-lg shadow-md border border-border">
       <div
         ref={tableContainerRef}
         className="overflow-auto max-h-[min(600px,70vh)]"
@@ -92,7 +92,7 @@ const DataTable = <TData,>({
         <table className={`w-full text-sm ${isEmpty ? "table-auto" : "table-fixed"}`}>
           <thead className="sticky top-0 z-10">
             {table.getHeaderGroups().map((hg) => (
-              <tr key={hg.id} className="bg-gray-50">
+              <tr key={hg.id} className="bg-muted/50">
                 {enableRowSelection && (
                   <th className="px-2 py-2.5 sm:px-3 w-10">
                     <Checkbox
@@ -110,7 +110,7 @@ const DataTable = <TData,>({
                   return (
                     <th
                       key={h.id}
-                      className={`px-2 py-2.5 sm:px-3 text-left font-semibold text-gray-500 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100 transition-colors ${h.column.columnDef.meta?.responsive ?? ""}`}
+                      className={`px-2 py-2.5 sm:px-3 text-left font-semibold text-muted-foreground whitespace-nowrap cursor-pointer select-none hover:bg-accent transition-colors ${h.column.columnDef.meta?.responsive ?? ""}`}
                       onClick={h.column.getToggleSortingHandler()}
                       style={{ width: h.getSize() }}
                     >
@@ -120,7 +120,7 @@ const DataTable = <TData,>({
                           h.getContext(),
                         )}
                         {sorted && (
-                          <span className="text-cabgen-200">
+                          <span className="text-cabgen-200 dark:text-cabgen-300">
                             {sorted === "asc" ? "\u2191" : "\u2193"}
                           </span>
                         )}
@@ -146,7 +146,7 @@ const DataTable = <TData,>({
             ) : rows.length === 0 ? (
               <tr>
                 <td colSpan={99} className="py-16 text-center">
-                  <div className="flex flex-col items-center gap-2 text-gray-400">
+                  <div className="flex flex-col items-center gap-2 text-muted-foreground">
                     <svg
                       className="w-12 h-12"
                       fill="none"
@@ -181,7 +181,7 @@ const DataTable = <TData,>({
                       display: "table",
                       tableLayout: "fixed",
                     }}
-                    className={`border-b border-gray-100 odd:bg-gray-50/30 hover:bg-gray-100/50 transition-colors ${
+                    className={`border-b border-border odd:bg-muted/30 hover:bg-accent/50 transition-colors ${
                       row.getIsSelected() ? "bg-cabgen-100/10" : ""
                     }`}
                   >
@@ -218,7 +218,7 @@ const DataTable = <TData,>({
         </table>
       </div>
       {data.length > 0 && (
-        <div className="px-4 py-2.5 border-t border-gray-100 bg-gray-50/50 text-sm text-gray-500">
+        <div className="px-4 py-2.5 border-t border-border bg-muted/50 text-sm text-muted-foreground">
           {countLabel.replace("{count}", String(data.length))}
         </div>
       )}

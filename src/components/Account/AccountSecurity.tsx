@@ -138,9 +138,9 @@ const AccountSecurity = () => {
         </span>
       </h1>
 
-      <div className="bg-white rounded-lg shadow-md border border-gray-100 p-6 mb-6">
+      <div className="bg-card rounded-lg shadow-md border border-border p-6 mb-6">
         <h2 className="text-lg font-medium mb-1">{dict.changeEmail}</h2>
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm text-muted-foreground mb-4">
           {dict.changeEmailDescription}
         </p>
         {emailRequested ? (
@@ -220,9 +220,9 @@ const AccountSecurity = () => {
         )}
       </div>
 
-      <div className="bg-white rounded-lg shadow-md border border-gray-100 p-6 mb-6">
+      <div className="bg-card rounded-lg shadow-md border border-border p-6 mb-6">
         <h2 className="text-lg font-medium mb-1">{dict.changePassword}</h2>
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm text-muted-foreground mb-4">
           {dict.changePasswordDescription}
         </p>
         <Form {...passwordForm}>
@@ -311,11 +311,11 @@ const AccountSecurity = () => {
         </Form>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md border border-red-200 p-6">
+      <div className="bg-card rounded-lg shadow-md border border-red-200 p-6">
         <h2 className="text-lg font-medium mb-1 text-red-600">
           {dict.deleteAccount}
         </h2>
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm text-muted-foreground mb-4">
           {dict.deleteAccountDescription}
         </p>
 
@@ -353,22 +353,22 @@ const AccountSecurity = () => {
           </div>
           {isNetworkMember ? (
             <div className="flex flex-col gap-3">
-              <p className="text-gray-900 font-medium">
+              <p className="text-foreground font-medium">
                 {dict.deleteNetworkImportanceTitle}
               </p>
-              <p className="text-gray-500 text-sm">
+              <p className="text-muted-foreground text-sm">
                 {dict.deleteNetworkImportance}
               </p>
-              <p className="text-gray-500 text-sm">
+              <p className="text-muted-foreground text-sm">
                 {dict.deleteNetworkBlocked}
               </p>
             </div>
           ) : (
             <div>
-              <p className="text-gray-900 font-medium mb-1">
+              <p className="text-foreground font-medium mb-1">
                 {dict.deleteAccount}
               </p>
-              <p className="text-gray-500 text-sm">{dict.deleteConfirm}</p>
+              <p className="text-muted-foreground text-sm">{dict.deleteConfirm}</p>
             </div>
           )}
         </div>

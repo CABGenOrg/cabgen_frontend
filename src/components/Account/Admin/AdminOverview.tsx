@@ -32,7 +32,7 @@ const AdminOverviewCharts = dynamic(
         {[0, 1, 2].map((i) => (
           <div
             key={i}
-            className="bg-white rounded-lg shadow-md border border-gray-100 p-5 h-[362px] animate-pulse"
+            className="bg-card rounded-lg shadow-md border border-border p-5 h-[362px] animate-pulse"
           />
         ))}
       </div>
@@ -54,13 +54,13 @@ const StatCard: React.FC<{
   value: number;
   label: string;
 }> = ({ icon, value, label }) => (
-  <div className="bg-white rounded-lg shadow-md border border-gray-100 p-5 flex items-center gap-4">
+  <div className="bg-card rounded-lg shadow-md border border-border p-5 flex items-center gap-4">
     <div className="w-12 h-12 rounded-full bg-cabgen-100 flex items-center justify-center text-white shrink-0">
       {icon}
     </div>
     <div>
-      <p className="text-3xl font-semibold text-gray-900">{value}</p>
-      <p className="text-sm text-gray-500">{label}</p>
+      <p className="text-3xl font-semibold text-foreground">{value}</p>
+      <p className="text-sm text-muted-foreground">{label}</p>
     </div>
   </div>
 );
@@ -170,19 +170,19 @@ const AdminOverview = () => {
           <div
             key={card.title}
             onClick={() => router.push(card.href)}
-            className="bg-white rounded-lg shadow-md border border-gray-100 p-5 flex items-center gap-4 cursor-pointer hover:bg-gray-50 transition-colors"
+            className="bg-card rounded-lg shadow-md border border-border p-5 flex items-center gap-4 cursor-pointer hover:bg-muted/50 transition-colors"
           >
             <div className="w-12 h-12 rounded-full bg-cabgen-100 flex items-center justify-center text-white shrink-0">
               {card.icon}
             </div>
             <div>
-              <p className="text-lg font-semibold text-gray-900">{card.title}</p>
+              <p className="text-lg font-semibold text-foreground">{card.title}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="border-t border-gray-200 pt-6 mt-2 mb-6">
+      <div className="border-t border-border pt-6 mt-2 mb-6">
         <h2 className="text-2xl font-semibold flex items-center gap-2 mb-4">
           <ChartNoAxesCombined size={24} className="text-cabgen-400" />
           <span className="bg-gradient-to-r from-cabgen-700 to-cabgen-400 bg-clip-text text-transparent">

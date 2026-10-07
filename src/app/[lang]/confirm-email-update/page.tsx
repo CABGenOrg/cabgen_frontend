@@ -29,7 +29,7 @@ const ConfirmEmailUpdate = () => {
 
   return (
     <div className={`${form_spacing} flex-1`}>
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md border border-gray-100 p-8 text-center">
+      <div className="max-w-md w-full bg-card rounded-lg shadow-md border border-border p-8 text-center">
         <h1 className="text-2xl font-semibold mb-4">
           {dict.confirmEmailTitle}
         </h1>
@@ -37,7 +37,7 @@ const ConfirmEmailUpdate = () => {
         {isLoading && (
           <div className="flex flex-col items-center gap-3">
             <Loading />
-            <p className="text-gray-500">{dict.confirmEmailLoading}</p>
+            <p className="text-muted-foreground">{dict.confirmEmailLoading}</p>
           </div>
         )}
 
@@ -46,7 +46,7 @@ const ConfirmEmailUpdate = () => {
             <Message msg={dict.confirmEmailSuccess} type="success" />
             <Link
               href={`/${lang}/account/security`}
-              className="text-cabgen-200 hover:text-cabgen-300 underline"
+              className="text-cabgen-200 dark:text-cabgen-300 hover:text-cabgen-300 underline"
             >
               {dict.backToSecurity}
             </Link>
@@ -67,7 +67,7 @@ const ConfirmEmailUpdate = () => {
             />
             <Link
               href={`/${lang}/account/security`}
-              className="text-cabgen-200 hover:text-cabgen-300 underline"
+              className="text-cabgen-200 dark:text-cabgen-300 hover:text-cabgen-300 underline"
             >
               {dict.backToSecurity}
             </Link>

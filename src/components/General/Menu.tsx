@@ -14,6 +14,7 @@ import {
   LogoutIcon,
 } from "@/components/Images/index";
 import LanguageSelector from "./LanguageSelector";
+import ThemeToggle from "./ThemeToggle";
 import { MenuIcon, XIcon } from "lucide-react";
 import {
   Tooltip,
@@ -79,7 +80,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
                     <CustomLink
                       href={link}
                       lang={lang}
-                      className="fill-white hover:fill-cabgen-300"
+                      className="fill-white dark:fill-black hover:fill-cabgen-300"
                     >
                       {icon}
                     </CustomLink>
@@ -98,7 +99,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
                       <CustomLink
                         href="/account"
                         lang={lang}
-                        className="fill-white hover:fill-cabgen-300"
+                        className="fill-white dark:fill-black hover:fill-cabgen-300"
                       >
                         <AccountIcon />
                       </CustomLink>
@@ -113,7 +114,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
                     <li>
                       <button
                         onClick={handleLogout}
-                        className="fill-white hover:fill-cabgen-300 cursor-pointer"
+                        className="fill-white dark:fill-black hover:fill-cabgen-300 cursor-pointer"
                       >
                         <LogoutIcon />
                       </button>
@@ -131,7 +132,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
                     <CustomLink
                       href="/login"
                       lang={lang}
-                      className="fill-white hover:fill-cabgen-300"
+                      className="fill-white dark:fill-black hover:fill-cabgen-300"
                     >
                       <LoginIcon />
                     </CustomLink>
@@ -141,11 +142,14 @@ const Menu = ({ lang }: { lang: Locale }) => {
               </Tooltip>
             </TooltipProvider>
           )}
-          <LanguageSelector />
+          <div className="flex items-center gap-1">
+            <LanguageSelector />
+            <ThemeToggle />
+          </div>
         </ul>
         {/* Menu Icon */}
         <div onClick={handleMenu} className="md:hidden cursor-pointer pl-24">
-          <MenuIcon className="h-9 w-9" />
+          <MenuIcon className="h-9 w-9 text-white dark:text-black" />
         </div>
       </div>
       {/* Hidden Menu */}
@@ -167,7 +171,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
             />
           </CustomLink>
           <div onClick={handleMenu} className="cursor-pointer">
-            <XIcon className="w-9 h-9 text-white" />
+            <XIcon className="w-9 h-9 text-white dark:text-black" />
           </div>
         </div>
         <div className="flex-col py-3">
@@ -176,7 +180,7 @@ const Menu = ({ lang }: { lang: Locale }) => {
               <CustomLink href={link} key={idx}>
                 <li
                   onClick={() => setMenuOpen(false)}
-                  className="flex flex-row justify-start items-center gap-2 fill-white text-white hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
+                  className="flex flex-row justify-start items-center gap-2 fill-white dark:fill-black text-white dark:text-black hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
                 >
                   {icon} {name}
                 </li>
@@ -187,14 +191,14 @@ const Menu = ({ lang }: { lang: Locale }) => {
                 <CustomLink href="/account">
                   <li
                     onClick={() => setMenuOpen(false)}
-                    className="flex flex-row justify-start items-center gap-2 fill-white text-white hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
+                    className="flex flex-row justify-start items-center gap-2 fill-white dark:fill-black text-white dark:text-black hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
                   >
                     <AccountIcon /> {Navbar.account}
                   </li>
                 </CustomLink>
                 <li
                   onClick={handleLogout}
-                  className="flex flex-row justify-start items-center gap-2 fill-white text-white hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
+                  className="flex flex-row justify-start items-center gap-2 fill-white dark:fill-black text-white dark:text-black hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
                 >
                   <LogoutIcon /> {Navbar.logout}
                 </li>
@@ -203,13 +207,16 @@ const Menu = ({ lang }: { lang: Locale }) => {
               <CustomLink href="/login">
                 <li
                   onClick={() => setMenuOpen(false)}
-                  className="flex flex-row justify-start items-center gap-2 fill-white text-white hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
+                  className="flex flex-row justify-start items-center gap-2 fill-white dark:fill-black text-white dark:text-black hover:text-cabgen-300 hover:fill-cabgen-300 h-12 py-2 cursor-pointer"
                 >
                   <LoginIcon /> {Navbar.login}
                 </li>
               </CustomLink>
             )}
-            <LanguageSelector />
+            <div className="flex items-center gap-1">
+              <LanguageSelector />
+              <ThemeToggle />
+            </div>
           </ul>
         </div>
       </div>

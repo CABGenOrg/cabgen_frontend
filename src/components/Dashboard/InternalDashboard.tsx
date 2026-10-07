@@ -50,7 +50,7 @@ const InternalDashboard = ({ lang }: { lang: Locale }) => {
 
   return (
     <>
-      <h4 className="text-gray-400 text-center md:text-base text-xs mb-7 mt-2 text-opacity-65">
+      <h4 className="text-muted-foreground text-center md:text-base text-xs mb-7 mt-2 text-opacity-65">
         {Dashboard.lastUpdateWarning} {dashboardData.last_update}
       </h4>
       <Map data={dashboardData.data} lang={lang} />

@@ -262,6 +262,8 @@ const pt = {
     showPassword: "Mostrar senha",
     hidePassword: "Ocultar senha",
     noResults: "Nenhum resultado",
+    toggleToDark: "Ativar modo escuro",
+    toggleToLight: "Ativar modo claro",
   },
   ErrorPages: {
     errorTitle: "Algo deu errado",

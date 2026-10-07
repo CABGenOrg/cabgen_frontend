@@ -147,17 +147,17 @@ const UploadFormModal: React.FC<{
           ${
             files[key]
               ? "border-cabgen-200 bg-cabgen-200/5"
-              : "border-gray-300 hover:border-cabgen-300 bg-gray-50"
+              : "border-border hover:border-cabgen-300 bg-muted/50"
           }
         `}
       >
         <span
-          className={`text-sm truncate ${files[key] ? "text-gray-900 font-medium" : "text-gray-400"}`}
+          className={`text-sm truncate ${files[key] ? "text-foreground font-medium" : "text-muted-foreground"}`}
         >
           {files[key]?.name ??
             (key === "fasta" ? ".fasta" : ".fastq|.fastq.gz")}
         </span>
-        <span className="text-xs shrink-0 px-2 py-1 rounded bg-white border border-gray-200 text-gray-500">
+        <span className="text-xs shrink-0 px-2 py-1 rounded bg-card border border-border text-muted-foreground">
           {files[key]
             ? `${(files[key]!.size / 1024).toFixed(0)} KB`
             : dict.selectPlaceholder}
@@ -188,16 +188,16 @@ const UploadFormModal: React.FC<{
         </div>
 
         {phase === "compressing" && (
-          <p className="mt-4 text-sm text-gray-500">{dict.compressing}</p>
+          <p className="mt-4 text-sm text-muted-foreground">{dict.compressing}</p>
         )}
 
         {phase === "uploading" && (
           <div className="mt-4">
-            <div className="flex justify-between text-sm text-gray-500 mb-1">
+            <div className="flex justify-between text-sm text-muted-foreground mb-1">
               <span>{dict.uploading}</span>
               <span>{progress}%</span>
             </div>
-            <div className="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+            <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
               <div
                 className="h-full bg-cabgen-200 transition-all duration-150"
                 style={{ width: `${progress}%` }}

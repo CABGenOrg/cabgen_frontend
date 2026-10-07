@@ -389,7 +389,7 @@ const SampleFormModalBody: React.FC<
                   <FormControl>
                     <div
                       role="group"
-                      className="inline-flex rounded-md border border-gray-300 overflow-hidden"
+                      className="inline-flex rounded-md border border-border overflow-hidden"
                     >
                       <button
                         type="button"
@@ -398,7 +398,7 @@ const SampleFormModalBody: React.FC<
                         className={`px-5 py-2 text-base transition-colors ${
                           field.value === "yes"
                             ? "bg-cabgen-200 text-white"
-                            : "bg-white text-gray-700 hover:bg-gray-100"
+                            : "bg-card text-foreground hover:bg-accent"
                         }`}
                       >
                         {dict.networkYes}
@@ -407,17 +407,17 @@ const SampleFormModalBody: React.FC<
                         type="button"
                         aria-pressed={field.value === "no"}
                         onClick={() => field.onChange("no")}
-                        className={`px-5 py-2 text-base border-l border-gray-300 transition-colors ${
+                        className={`px-5 py-2 text-base border-l border-border transition-colors ${
                           field.value === "no"
                             ? "bg-cabgen-200 text-white"
-                            : "bg-white text-gray-700 hover:bg-gray-100"
+                            : "bg-card text-foreground hover:bg-accent"
                         }`}
                       >
                         {dict.networkNo}
                       </button>
                     </div>
                   </FormControl>
-                  <p className="text-xs text-gray-500">{dict.networkHint}</p>
+                  <p className="text-xs text-muted-foreground">{dict.networkHint}</p>
                   <FormMessage className="text-red-600" />
                 </FormItem>
               )}

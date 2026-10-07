@@ -259,6 +259,8 @@ const en = {
     showPassword: "Show password",
     hidePassword: "Hide password",
     noResults: "No results",
+    toggleToDark: "Enable dark mode",
+    toggleToLight: "Enable light mode",
   },
   ErrorPages: {
     errorTitle: "Something went wrong",

@@ -34,7 +34,7 @@ function Row({
   return (
     <div
       style={style}
-      className="flex items-center px-3 text-sm cursor-pointer hover:bg-gray-100"
+      className="flex items-center px-3 text-sm cursor-pointer hover:bg-accent"
       onClick={() => onSelect(opt.value)}
     >
       <Check
@@ -99,7 +99,7 @@ export function Combobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between font-normal text-black px-3.5 text-base 2xl:text-lg overflow-hidden"
+          className="w-full justify-between font-normal text-foreground px-3.5 text-base 2xl:text-lg overflow-hidden"
         >
           <span className="truncate min-w-0">
             {selectedLabel ?? placeholder}
@@ -117,7 +117,7 @@ export function Combobox({
           />
         </div>
         {filtered.length === 0 ? (
-          <p className="p-4 text-sm text-gray-400 text-center">{noResults}</p>
+          <p className="p-4 text-sm text-muted-foreground text-center">{noResults}</p>
         ) : (
           <List
             style={{ height: Math.min(filtered.length * 32, 260) }}

@@ -96,13 +96,13 @@ const LanguageSelector = () => {
       onValueChange={changeLanguageURL}
       value={Array.isArray(language) ? language[0] : language}
     >
-      <SelectTrigger className="w-[138px] text-black focus-visible:ring-transparent">
+      <SelectTrigger className="w-[138px] text-foreground focus-visible:ring-transparent">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {languages.map(({ flag, name, value }, idx) => (
           <SelectItem key={idx} value={value}>
-            <div className="text-black flex gap-2 flex-row justify-center items-center">
+            <div className="text-foreground flex gap-2 flex-row justify-center items-center">
               {flag}
               {name}
             </div>

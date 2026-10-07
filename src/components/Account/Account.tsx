@@ -70,7 +70,7 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
 
   return (
     <div className="flex flex-col md:flex-row gap-3 md:gap-5 flex-1">
-      <div className="md:hidden sticky top-0 z-20 flex items-center px-4 py-3 bg-white border-b">
+      <div className="md:hidden sticky top-0 z-20 flex items-center px-4 py-3 bg-card border-b">
         <button
           type="button"
           onClick={() => setMobileMenuOpen(true)}

@@ -18,7 +18,7 @@ export default function GlobalError({
             Something went wrong
           </span>
         </h1>
-        <p className="text-gray-500 mb-6 max-w-md">
+        <p className="text-muted-foreground mb-6 max-w-md">
           An unexpected error occurred. Please try again.
         </p>
         <button

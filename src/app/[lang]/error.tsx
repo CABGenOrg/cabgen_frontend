@@ -28,7 +28,7 @@ const ErrorPage = ({
           {errorDict.errorTitle}
         </span>
       </h1>
-      <p className="text-gray-500 mb-6 max-w-md">{errorDict.errorDescription}</p>
+      <p className="text-muted-foreground mb-6 max-w-md">{errorDict.errorDescription}</p>
       <button type="button" className={section_btn} onClick={reset}>
         {errorDict.retry}
       </button>

@@ -46,7 +46,7 @@ const NotFound = async ({
         404
       </p>
       <h1 className="text-2xl font-semibold mb-3">{errorDict.notFoundTitle}</h1>
-      <p className="text-gray-500 mb-6 max-w-md">{errorDict.notFoundDescription}</p>
+      <p className="text-muted-foreground mb-6 max-w-md">{errorDict.notFoundDescription}</p>
       <Link href={`/${resolvedLang}`} className={section_btn}>
         {errorDict.backHome}
       </Link>

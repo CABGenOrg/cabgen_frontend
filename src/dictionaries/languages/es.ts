@@ -269,6 +269,8 @@ const es = {
     showPassword: "Mostrar contraseña",
     hidePassword: "Ocultar contraseña",
     noResults: "Sin resultados",
+    toggleToDark: "Activar modo oscuro",
+    toggleToLight: "Activar modo claro",
   },
   ErrorPages: {
     errorTitle: "Algo salió mal",

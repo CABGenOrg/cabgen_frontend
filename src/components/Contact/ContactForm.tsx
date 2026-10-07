@@ -67,7 +67,7 @@ const ContactForm = () => {
   }, [isSuccess, error, form]);
 
   return (
-    <div className="mx-5 py-6 px-3 2xl:w-[45%] lg:w-[55%] md:w-[70%] bg-slate-200 rounded-lg">
+    <div className="mx-5 py-6 px-3 2xl:w-[45%] lg:w-[55%] md:w-[70%] bg-muted rounded-lg">
       <div className="flex flex-col justify-center items-center py-6 sm:px-8 px-2">
         <div className="flex flex-row justify-center items-center">
           <OptimizedImage
@@ -77,7 +77,7 @@ const ContactForm = () => {
           />
         </div>
         <div className="my-3">
-          <p className="mt-2 text-lg leading-8 text-gray-600 text-center font-light tracking-wider">
+          <p className="mt-2 text-lg leading-8 text-muted-foreground text-center font-light tracking-wider">
             {Contact.formSubtitle}
           </p>
         </div>
