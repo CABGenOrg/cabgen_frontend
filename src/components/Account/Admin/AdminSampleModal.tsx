@@ -19,7 +19,7 @@ import TextField from "@/components/General/TextField";
 import SelectField from "@/components/General/SelectField";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
-import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
+import { useGetCountriesQuery, type Country } from "@/redux/services/countries/countriesService";
 import { useGetCitiesQuery } from "@/redux/services/cities/citiesService";
 import {
   useGetFormSelectOptionsQuery,
@@ -66,7 +66,7 @@ type AdminSampleModalProps = {
 
 const AdminSampleModalBody: React.FC<
   AdminSampleModalProps & {
-    countries: { code: string; name: string }[];
+    countries: Country[];
     cities: { value: string; label: string }[];
     formOptions: {
       laboratories: { value: string; label: string }[];
@@ -118,10 +118,7 @@ const AdminSampleModalBody: React.FC<
 
   const healthServiceOptions = [...(formOptions.health_services ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
-  const countryOptions = (countries ?? []).map((c) => ({
-    value: c.code,
-    label: c.name,
-  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+  const countryOptions = [...(countries ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
   const origins = useMemo(() => [...(formOptions.origins ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.origins]);
   const microorganisms = useMemo(() => [...(formOptions.microorganisms ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" })), [formOptions.microorganisms]);

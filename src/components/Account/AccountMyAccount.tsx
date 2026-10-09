@@ -45,10 +45,7 @@ const AccountMyAccount = () => {
 
   const [updateProfile, { isLoading: updating, error: updateError }] = useUpdateProfileMutation();
 
-  const countryOptions = (countries ?? []).map((c) => ({
-    value: c.code,
-    label: c.name,
-  })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+  const countryOptions = [...(countries ?? [])].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
   const languageOptions = enumOptions?.languages ?? [];
 

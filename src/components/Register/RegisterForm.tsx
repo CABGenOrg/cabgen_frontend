@@ -171,9 +171,9 @@ const RegisterForm = () => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className={input_class}>
-                          {countries.map(({ code, name }) => (
-                            <SelectItem key={code} value={code}>
-                              {name}
+                          {countries.map(({ value, label }) => (
+                            <SelectItem key={value} value={value}>
+                              {label}
                             </SelectItem>
                           ))}
                         </SelectContent>

@@ -11,7 +11,7 @@ import TextField from "@/components/General/TextField";
 import SelectField from "@/components/General/SelectField";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
-import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
+import { useGetCountriesQuery, type Country } from "@/redux/services/countries/countriesService";
 import { useGetEnumSelectOptionsQuery } from "@/redux/services/select_options/selectOptionsService";
 import {
   useCreateUserMutation,
@@ -33,7 +33,7 @@ const AdminUserModalBody: React.FC<{
   onClose: () => void;
   initial?: AdminUserResponse | null;
   errorsDict: Record<string, string>;
-  countries: { code: string; name: string }[];
+  countries: Country[];
   roleOptions: { value: string; label: string }[];
 }> = ({ open, onClose, initial, errorsDict, countries, roleOptions }) => {
   const lang = useLanguage();
@@ -43,10 +43,7 @@ const AdminUserModalBody: React.FC<{
   const dict = AccountDict.admin;
   const isEdit = !!initial;
 
-  const countryOptions = (countries ?? []).map((c) => ({
-    value: c.code,
-    label: c.name,
-  }));
+  const countryOptions = countries ?? [];
 
   const userSchema = z.object({
     name: z.string().min(1, dict.validation.required),

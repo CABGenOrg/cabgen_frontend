@@ -2,8 +2,9 @@ import { apiSlice, ApiResponse } from "../../api/apiSlice";
 import { requestConfig } from "../../../utils/handleRequest";
 import { COUNTRIES_ENDPOINTS } from "./countriesEndpoints";
 import handleError from "@/utils/handleError";
+import { SelectOption } from "../select_options/selectOptionsService";
 
-export type Country = { code: string; name: string };
+export type Country = SelectOption;
 
 const countriesService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

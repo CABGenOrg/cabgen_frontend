@@ -11,7 +11,7 @@ import TextField from "@/components/General/TextField";
 import SelectField from "@/components/General/SelectField";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
-import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
+import { useGetCountriesQuery, type Country } from "@/redux/services/countries/countriesService";
 import { useGetEnumSelectOptionsQuery } from "@/redux/services/select_options/selectOptionsService";
 import {
   useCreateHealthServiceMutation,
@@ -31,7 +31,7 @@ const AdminHealthServiceModalBody: React.FC<{
   onClose: () => void;
   initial?: AdminHealthServiceTableResponse | null;
   errorsDict: Record<string, string>;
-  countries: { code: string; name: string }[];
+  countries: Country[];
   typeOptions: { value: string; label: string }[];
 }> = ({ open, onClose, initial, errorsDict, countries, typeOptions }) => {
   const lang = useLanguage();
@@ -41,10 +41,7 @@ const AdminHealthServiceModalBody: React.FC<{
   const dict = AccountDict.admin;
   const isEdit = !!initial;
 
-  const countryOptions = (countries ?? []).map((c) => ({
-    value: c.code,
-    label: c.name,
-  }));
+  const countryOptions = countries ?? [];
 
   const healthServiceSchema = z.object({
     name: z.string().min(1, dict.validation.required),
