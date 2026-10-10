@@ -309,6 +309,12 @@ const en = {
       newSample: "New Sample",
       editSample: "Edit Sample",
       uploadSequences: "Upload Sequences",
+      downloadTemplate: "Download template",
+      uploadTable: "Upload table",
+      uploadTableTitle: "Upload sample metadata table",
+      uploadTableHint:
+        "Single .xlsx file up to 50 MB. Download the template to check the expected format.",
+      uploadTableFile: "Spreadsheet (.xlsx)",
       deleteConfirm: "Are you sure you want to delete {name}? This action cannot be undone.",
       cancel: "Cancel",
       save: "Save",

@@ -78,6 +78,16 @@ const adminSamplesService = apiSlice.injectEndpoints({
         ],
       },
     ),
+    createAdminSamplesFromTable: builder.mutation<string, FormData>({
+      query: (fd) => ({
+        url: `${ADMIN_ENDPOINTS.SAMPLES}/table`,
+        method: "POST",
+        body: fd,
+      }),
+      transformResponse: (res: ApiMessage) => res.message,
+      transformErrorResponse: (res) => handleError(res),
+      invalidatesTags: ["Samples"],
+    }),
     deleteAdminSample: builder.mutation<string, string>({
       query: (id) =>
         requestConfig(`${ADMIN_ENDPOINTS.SAMPLES}/${id}`, "DELETE"),
@@ -94,4 +104,5 @@ export const {
   useCreateAdminSampleMutation,
   useUpdateAdminSampleMutation,
   useDeleteAdminSampleMutation,
+  useCreateAdminSamplesFromTableMutation,
 } = adminSamplesService;

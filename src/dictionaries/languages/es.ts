@@ -308,6 +308,12 @@ const es = {
       newSample: "Nueva Muestra",
       editSample: "Editar Muestra",
       uploadSequences: "Subir Secuencias",
+      downloadTemplate: "Descargar plantilla",
+      uploadTable: "Subir tabla",
+      uploadTableTitle: "Subir tabla de metadatos de muestras",
+      uploadTableHint:
+        "Archivo .xlsx de hasta 50 MB. Descargue la plantilla para verificar el formato esperado.",
+      uploadTableFile: "Hoja de cálculo (.xlsx)",
       deleteConfirm: "¿Está seguro de que desea eliminar {name}? Esta acción no se puede deshacer.",
       cancel: "Cancelar",
       save: "Guardar",

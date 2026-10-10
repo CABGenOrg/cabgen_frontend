@@ -1,19 +1,26 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { Upload, Pencil, Trash2, Dna, Eye } from "lucide-react";
+import { Upload, Pencil, Trash2, Dna, Eye, Download } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
 import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import IconButton from "@/components/General/IconButton";
+import Message from "@/components/General/Message";
+import UploadTableModal from "@/components/General/UploadTableModal";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
+import { toast } from "@/hooks/use-toast";
+import { downloadGetFile } from "@/utils/downloadFile";
+import { SAMPLES_ENDPOINTS } from "@/redux/services/samples/samplesEndpoints";
 import {
   useGetSamplesQuery,
   useDeleteSampleMutation,
+  useCreateSamplesFromTableMutation,
 } from "@/redux/services/samples/samplesService";
 import type { SampleResponse } from "@/redux/services/samples/samplesService";
 import SampleFormModal from "./SampleFormModal";
@@ -30,7 +37,7 @@ const AccountSequences = () => {
   const dict = AccountDict.sequences;
 
   const [modal, setModal] = useState<{
-    type: "add" | "edit" | "upload" | "delete" | "viewSample" | null;
+    type: "add" | "edit" | "upload" | "delete" | "viewSample" | "table" | null;
     sample?: SampleResponse;
   }>({ type: null });
 
@@ -55,6 +62,33 @@ const AccountSequences = () => {
     if (!loadingSamples && data.length === 0 && page > totalPages)
       setPage(Math.max(1, totalPages));
   }, [loadingSamples, data.length, page, totalPages]);
+
+  const [createSamplesFromTable] = useCreateSamplesFromTableMutation();
+  const [downloadingTemplate, setDownloadingTemplate] = useState(false);
+  const [tableMsg, setTableMsg] = useState<{ text: string; n: number } | null>(
+    null,
+  );
+
+  const handleDownloadTemplate = async () => {
+    setDownloadingTemplate(true);
+    try {
+      await downloadGetFile(
+        SAMPLES_ENDPOINTS.TEMPLATE,
+        "cabgen_samples_template.xlsx",
+      );
+    } catch {
+      toast({ description: Errors.downloadError, variant: "destructive" });
+    } finally {
+      setDownloadingTemplate(false);
+    }
+  };
+
+  const handleTableSubmit = async (fd: FormData) => {
+    const msg = await createSamplesFromTable(fd).unwrap();
+    setTableMsg((prev) => ({ text: msg, n: (prev?.n ?? 0) + 1 }));
+    return msg;
+  };
+
   const [deleteSample, { isLoading: deleting, error: deleteError }] =
     useDeleteSampleMutation();
 
@@ -183,6 +217,32 @@ const AccountSequences = () => {
         onAction={() => setModal({ type: "add" })}
       />
 
+      <div className="flex flex-wrap gap-3 mb-4">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={handleDownloadTemplate}
+          disabled={downloadingTemplate}
+        >
+          <Download size={16} className="mr-2" />
+          {dict.downloadTemplate}
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={() => setModal({ type: "table" })}
+        >
+          <Upload size={16} className="mr-2" />
+          {dict.uploadTable}
+        </Button>
+      </div>
+
+      {tableMsg && (
+        <Message key={tableMsg.n} msg={tableMsg.text} type="success" />
+      )}
+
       <SearchInput onSearch={handleSearch} placeholder={dict.search} />
 
       <DataTable
@@ -233,6 +293,24 @@ const AccountSequences = () => {
           open
           onClose={closeModal}
           sample={modal.sample}
+        />
+      )}
+
+      {modal.type === "table" && (
+        <UploadTableModal
+          open
+          onClose={closeModal}
+          onSubmit={handleTableSubmit}
+          errorsDict={Errors}
+          dict={{
+            title: dict.uploadTableTitle,
+            hint: dict.uploadTableHint,
+            fileLabel: dict.uploadTableFile,
+            required: dict.validation.required,
+            cancel: dict.cancel,
+            submit: dict.upload,
+            selectPlaceholder: dict.selectPlaceholder,
+          }}
         />
       )}
 

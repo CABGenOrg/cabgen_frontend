@@ -1,21 +1,29 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { Dna, Pencil, Trash2, Upload, Eye } from "lucide-react";
+import { Dna, Pencil, Trash2, Upload, Eye, Download } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import PageHeader from "@/components/General/PageHeader";
 import DataTable from "@/components/General/DataTable";
 import SearchInput from "@/components/General/SearchInput";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import IconButton from "@/components/General/IconButton";
+import Message from "@/components/General/Message";
+import UploadTableModal from "@/components/General/UploadTableModal";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
+import { toast } from "@/hooks/use-toast";
+import { downloadGetFile } from "@/utils/downloadFile";
+import { ADMIN_ENDPOINTS } from "@/redux/services/admin/adminEndpoints";
 import {
   useGetAdminSamplesQuery,
   useDeleteAdminSampleMutation,
+  useCreateAdminSamplesFromTableMutation,
 } from "@/redux/services/admin/adminSamplesService";
 import { useGetSamplesQuery } from "@/redux/services/samples/samplesService";
+import { useGetUsersQuery } from "@/redux/services/admin/adminUsersService";
 import type { SampleResponse } from "@/redux/services/samples/samplesService";
 import AdminSampleModal from "./AdminSampleModal";
 import AdminUploadFormModal from "./AdminUploadFormModal";
@@ -32,7 +40,7 @@ const AdminSamples = () => {
   const seqDict = AccountDict.sequences;
 
   const [modal, setModal] = useState<{
-    type: "add" | "edit" | "upload" | "delete" | "viewSample" | null;
+    type: "add" | "edit" | "upload" | "delete" | "viewSample" | "table" | null;
     sample?: SampleResponse;
   }>({ type: null });
   const closeModal = () => setModal({ type: null });
@@ -63,6 +71,45 @@ const AdminSamples = () => {
     if (!tableLoading && data.length === 0 && page > totalPages)
       setPage(Math.max(1, totalPages));
   }, [tableLoading, data.length, page, totalPages]);
+
+  const { data: usersPaged } = useGetUsersQuery({ input: "" });
+  const users = usersPaged?.data;
+  const userOptions = useMemo(
+    () =>
+      (users ?? [])
+        .map((u) => ({ value: u.id, label: u.name }))
+        .sort((a, b) =>
+          a.label.localeCompare(b.label, undefined, { sensitivity: "base" }),
+        ),
+    [users],
+  );
+
+  const [createAdminSamplesFromTable] = useCreateAdminSamplesFromTableMutation();
+  const [downloadingTemplate, setDownloadingTemplate] = useState(false);
+  const [tableMsg, setTableMsg] = useState<{ text: string; n: number } | null>(
+    null,
+  );
+
+  const handleDownloadTemplate = async () => {
+    setDownloadingTemplate(true);
+    try {
+      await downloadGetFile(
+        `${ADMIN_ENDPOINTS.SAMPLES}/download/template`,
+        "cabgen_samples_template.xlsx",
+      );
+    } catch {
+      toast({ description: Errors.downloadError, variant: "destructive" });
+    } finally {
+      setDownloadingTemplate(false);
+    }
+  };
+
+  const handleTableSubmit = async (fd: FormData) => {
+    const msg = await createAdminSamplesFromTable(fd).unwrap();
+    setTableMsg((prev) => ({ text: msg, n: (prev?.n ?? 0) + 1 }));
+    return msg;
+  };
+
   const [deleteSample, { isLoading: deleting, error: deleteError }] =
     useDeleteAdminSampleMutation();
 
@@ -190,6 +237,32 @@ const AdminSamples = () => {
         onAction={() => setModal({ type: "add" })}
       />
 
+      <div className="flex flex-wrap gap-3 mb-4">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={handleDownloadTemplate}
+          disabled={downloadingTemplate}
+        >
+          <Download size={16} className="mr-2" />
+          {seqDict.downloadTemplate}
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={() => setModal({ type: "table" })}
+        >
+          <Upload size={16} className="mr-2" />
+          {seqDict.uploadTable}
+        </Button>
+      </div>
+
+      {tableMsg && (
+        <Message key={tableMsg.n} msg={tableMsg.text} type="success" />
+      )}
+
       <SearchInput onSearch={handleSearch} placeholder={adminDict.search} />
 
       <DataTable
@@ -226,6 +299,26 @@ const AdminSamples = () => {
           open
           onClose={closeModal}
           sample={modal.sample}
+        />
+      )}
+
+      {modal.type === "table" && (
+        <UploadTableModal
+          open
+          onClose={closeModal}
+          onSubmit={handleTableSubmit}
+          errorsDict={Errors}
+          dict={{
+            title: seqDict.uploadTableTitle,
+            hint: seqDict.uploadTableHint,
+            fileLabel: seqDict.uploadTableFile,
+            required: seqDict.validation.required,
+            cancel: seqDict.cancel,
+            submit: seqDict.upload,
+            selectPlaceholder: seqDict.selectPlaceholder,
+            userLabel: adminDict.user,
+            userOptions,
+          }}
         />
       )}
 

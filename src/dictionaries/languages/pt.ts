@@ -299,6 +299,12 @@ const pt = {
       newSample: "Nova Amostra",
       editSample: "Editar Amostra",
       uploadSequences: "Enviar Sequências",
+      downloadTemplate: "Baixar template",
+      uploadTable: "Enviar tabela",
+      uploadTableTitle: "Enviar tabela de metadados das amostras",
+      uploadTableHint:
+        "Arquivo .xlsx com até 50 MB. Baixe o template para conferir o formato esperado.",
+      uploadTableFile: "Planilha (.xlsx)",
       deleteConfirm: "Tem certeza de que deseja excluir {name}? Esta ação não pode ser desfeita.",
       cancel: "Cancelar",
       save: "Salvar",

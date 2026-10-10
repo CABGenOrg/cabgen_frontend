@@ -88,6 +88,16 @@ const samplesService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       invalidatesTags: (_r, _e, { id }) => [{ type: "Samples", id }, "Samples"],
     }),
+    createSamplesFromTable: builder.mutation<string, FormData>({
+      query: (fd) => ({
+        url: SAMPLES_ENDPOINTS.TABLE,
+        method: "POST",
+        body: fd,
+      }),
+      transformResponse: (res: ApiMessage) => res.message,
+      transformErrorResponse: (res) => handleError(res),
+      invalidatesTags: ["Samples"],
+    }),
     deleteSample: builder.mutation<string, string>({
       query: (id) =>
         requestConfig(`${SAMPLES_ENDPOINTS.DEFAULT}/${id}`, "DELETE"),
@@ -104,4 +114,5 @@ export const {
   useCreateSampleMutation,
   useUpdateSampleMutation,
   useDeleteSampleMutation,
+  useCreateSamplesFromTableMutation,
 } = samplesService;
