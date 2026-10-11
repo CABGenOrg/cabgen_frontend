@@ -99,7 +99,7 @@ const DataTable = <TData,>({
         <table className={`w-full text-sm ${isEmpty ? "table-auto" : "table-fixed"}`}>
           <thead className="sticky top-0 z-10">
             {table.getHeaderGroups().map((hg) => (
-              <tr key={hg.id} className="bg-muted/50">
+              <tr key={hg.id} className="bg-muted">
                 {enableRowSelection && (
                   <th className="px-2 py-2.5 sm:px-3 w-10">
                     <Checkbox
