@@ -24,7 +24,7 @@ export type AnalysisTypeMetric = {
   type: string;
   count: number;
   avg_duration_seconds: number;
-  p99_duration_seconds: number;
+  p95_duration_seconds: number;
 };
 
 export type AdminMetricsResponse = {

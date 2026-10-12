@@ -40,7 +40,7 @@ const AdminOverviewCharts = ({
   countryData: ChartDatum[];
   speciesData: ChartDatum[];
   typeData: ChartDatum[];
-  durationData: { name: string; avg: number; p99: number }[];
+  durationData: { name: string; avg: number; p95: number }[];
   fmtMin: (v: number) => string;
   titles: {
     analysesByStatus: string;
@@ -50,7 +50,7 @@ const AdminOverviewCharts = ({
     analysesByType: string;
     duration: string;
     avgDuration: string;
-    p99Duration: string;
+    p95Duration: string;
   };
 }) => (
   <div className="grid lg:grid-cols-2 gap-6 mb-6">
@@ -138,17 +138,17 @@ const AdminOverviewCharts = ({
             cursor={{ fill: "#f3f4f6" }}
             formatter={(val: number, name: string) => [
               fmtMin(Number(val)),
-              name === "avg" ? titles.avgDuration : titles.p99Duration,
+              name === "avg" ? titles.avgDuration : titles.p95Duration,
             ]}
           />
           <Legend
             formatter={(value: string) =>
-              value === "avg" ? titles.avgDuration : titles.p99Duration
+              value === "avg" ? titles.avgDuration : titles.p95Duration
             }
             iconType="circle"
           />
           <Bar dataKey="avg" name="avg" fill="#0A6354" radius={[4, 4, 0, 0]} />
-          <Bar dataKey="p99" name="p99" fill="#F59E0B" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="p95" name="p95" fill="#F59E0B" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </ChartCard>

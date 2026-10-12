@@ -461,7 +461,7 @@ const en = {
         analysesByType: "Analyses by Type",
         duration: "Analysis Duration (min)",
         avgDuration: "Average duration",
-        p99Duration: "P99 duration",
+        p95Duration: "P95 duration",
       },
       search: "Search...",
       users: "Users",

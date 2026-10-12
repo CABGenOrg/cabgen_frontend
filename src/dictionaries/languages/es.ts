@@ -460,7 +460,7 @@ const es = {
         analysesByType: "Análisis por Tipo",
         duration: "Duración de Análisis (min)",
         avgDuration: "Duración promedio",
-        p99Duration: "Duración P99",
+        p95Duration: "Duración P95",
       },
       search: "Buscar...",
       users: "Usuarios",

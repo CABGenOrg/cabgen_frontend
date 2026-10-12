@@ -138,14 +138,14 @@ const AdminOverview = () => {
     (t) => t.count > 0,
   );
   const typeData = byType.map((t, i) => ({
-    name: analysisTypeDict[t.type] ?? t.type,
+    name: analysisTypeDict[t.type.toLowerCase()] ?? t.type,
     value: t.count,
     fill: BAR_COLORS[i % BAR_COLORS.length],
   }));
   const durationData = byType.map((t) => ({
-    name: analysisTypeDict[t.type] ?? t.type,
+    name: analysisTypeDict[t.type.toLowerCase()] ?? t.type,
     avg: t.avg_duration_seconds / 60,
-    p99: t.p99_duration_seconds / 60,
+    p95: t.p95_duration_seconds / 60,
   }));
 
   const cards = [
@@ -231,7 +231,7 @@ const AdminOverview = () => {
           analysesByType: overviewDict.analysesByType,
           duration: overviewDict.duration,
           avgDuration: overviewDict.avgDuration,
-          p99Duration: overviewDict.p99Duration,
+          p95Duration: overviewDict.p95Duration,
         }}
       />
     </div>
