@@ -109,13 +109,15 @@ const AccountSequences = () => {
       columnHelper.accessor("in_network", {
         header: dict.network,
         size: 85,
+        meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => {
           const inNetwork = info.getValue();
           return (
             <Badge variant={inNetwork ? "done" : "failed"}>
               {inNetwork
                 ? AccountDict.admin.activeValues.yes
-                : AccountDict.admin.activeValues.no}
+                : AccountDict.admin.activeValues.no
+              }
             </Badge>
           );
         },

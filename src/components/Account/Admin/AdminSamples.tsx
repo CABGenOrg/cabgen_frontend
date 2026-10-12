@@ -130,6 +130,7 @@ const AdminSamples = () => {
       columnHelper.accessor("in_network", {
         header: adminDict.network,
         size: 85,
+        meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => {
           const inNetwork = info.getValue();
           return (

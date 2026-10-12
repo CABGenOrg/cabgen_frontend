@@ -99,6 +99,7 @@ const AdminUsers = () => {
       columnHelper.accessor("is_part_of_network", {
         header: dict.network,
         size: 85,
+        meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => {
           const inNetwork = info.getValue();
           return (

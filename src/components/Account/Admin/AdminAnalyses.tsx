@@ -352,7 +352,7 @@ const AdminAnalyses = () => {
         </div>
       </div>
 
-      <div className="flex justify-start gap-3 mb-4">
+      <div className="flex flex-wrap justify-start gap-3 mb-4">
         <Button
           variant="outline"
           disabled={selectedIds.length === 0 || downloading}
