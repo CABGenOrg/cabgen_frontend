@@ -29,7 +29,7 @@ const AdminOverviewCharts = dynamic(
   {
     loading: () => (
       <div className="grid lg:grid-cols-2 gap-6 mb-6">
-        {[0, 1, 2].map((i) => (
+        {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
             className="bg-card rounded-lg shadow-md border border-border p-5 h-[362px] animate-pulse"
@@ -39,6 +39,8 @@ const AdminOverviewCharts = dynamic(
     ),
   },
 );
+
+const fmtMin = (v: number) => (v < 1 ? "<1" : String(Math.round(v)));
 
 const STATUS_COLORS: Record<string, string> = {
   pending: "#FCD34D",
@@ -128,6 +130,24 @@ const AdminOverview = () => {
       : []),
   ];
 
+  const analysisTypeDict = AccountDict.option.analysis_type as Record<
+    string,
+    string
+  >;
+  const byType = (metrics?.analyses_by_type ?? []).filter(
+    (t) => t.count > 0,
+  );
+  const typeData = byType.map((t, i) => ({
+    name: analysisTypeDict[t.type] ?? t.type,
+    value: t.count,
+    fill: BAR_COLORS[i % BAR_COLORS.length],
+  }));
+  const durationData = byType.map((t) => ({
+    name: analysisTypeDict[t.type] ?? t.type,
+    avg: t.avg_duration_seconds / 60,
+    p99: t.p99_duration_seconds / 60,
+  }));
+
   const cards = [
     {
       icon: <Dna size={24} />,
@@ -200,11 +220,18 @@ const AdminOverview = () => {
         statusData={statusData}
         countryData={countryData}
         speciesData={speciesData}
+        typeData={typeData}
+        durationData={durationData}
+        fmtMin={fmtMin}
         titles={{
           analysesByStatus: overviewDict.analysesByStatus,
           topCountries: overviewDict.topCountries,
           speciesBreakdown: overviewDict.speciesBreakdown,
           count: overviewDict.count,
+          analysesByType: overviewDict.analysesByType,
+          duration: overviewDict.duration,
+          avgDuration: overviewDict.avgDuration,
+          p99Duration: overviewDict.p99Duration,
         }}
       />
     </div>

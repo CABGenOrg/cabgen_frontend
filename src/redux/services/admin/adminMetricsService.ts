@@ -20,6 +20,13 @@ export type SpeciesMetric = {
   count: number;
 };
 
+export type AnalysisTypeMetric = {
+  type: string;
+  count: number;
+  avg_duration_seconds: number;
+  p99_duration_seconds: number;
+};
+
 export type AdminMetricsResponse = {
   total_samples: number;
   total_countries: number;
@@ -28,6 +35,7 @@ export type AdminMetricsResponse = {
   total_users: number;
   total_analyses: number;
   analyses_by_status: AnalysesByStatus;
+  analyses_by_type: AnalysisTypeMetric[];
   top_countries: CountryMetric[];
   species_breakdown: SpeciesMetric[];
 };

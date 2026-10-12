@@ -31,16 +31,26 @@ const AdminOverviewCharts = ({
   statusData,
   countryData,
   speciesData,
+  typeData,
+  durationData,
+  fmtMin,
   titles,
 }: {
   statusData: ChartDatum[];
   countryData: ChartDatum[];
   speciesData: ChartDatum[];
+  typeData: ChartDatum[];
+  durationData: { name: string; avg: number; p99: number }[];
+  fmtMin: (v: number) => string;
   titles: {
     analysesByStatus: string;
     topCountries: string;
     speciesBreakdown: string;
     count: string;
+    analysesByType: string;
+    duration: string;
+    avgDuration: string;
+    p99Duration: string;
   };
 }) => (
   <div className="grid lg:grid-cols-2 gap-6 mb-6">
@@ -98,6 +108,47 @@ const AdminOverviewCharts = ({
               <Cell key={`cell-${i}`} fill={entry.fill} />
             ))}
           </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
+    <ChartCard title={titles.analysesByType}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={typeData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
+          <XAxis type="number" allowDecimals={false} />
+          <YAxis dataKey="name" type="category" width={90} tick={{ fontSize: 12 }} />
+          <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, titles.count]} />
+          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+            {typeData.map((entry, i) => (
+              <Cell key={`cell-${i}`} fill={entry.fill} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
+    <ChartCard title={titles.duration}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={durationData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
+          <XAxis type="number" tickFormatter={(v: number) => fmtMin(v)} />
+          <YAxis dataKey="name" type="category" width={90} tick={{ fontSize: 12 }} />
+          <Tooltip
+            cursor={{ fill: "#f3f4f6" }}
+            formatter={(val: number, name: string) => [
+              fmtMin(Number(val)),
+              name === "avg" ? titles.avgDuration : titles.p99Duration,
+            ]}
+          />
+          <Legend
+            formatter={(value: string) =>
+              value === "avg" ? titles.avgDuration : titles.p99Duration
+            }
+            iconType="circle"
+          />
+          <Bar dataKey="avg" name="avg" fill="#0A6354" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="p99" name="p99" fill="#F59E0B" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </ChartCard>
