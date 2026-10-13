@@ -235,17 +235,28 @@ const AccountAnalysis = () => {
         meta: { responsive: "hidden sm:table-cell" },
         cell: (info) => formatDate(info.getValue(), lang),
       }),
-      columnHelper.display({
-        id: "totalTime",
-        header: dict.totalTime,
-        size: 90,
-        meta: { responsive: "hidden sm:table-cell" },
-        cell: (info) =>
-          formatDuration(
-            info.row.original.started_at,
-            info.row.original.finished_at,
-          ),
-      }),
+      columnHelper.accessor(
+        (row) => {
+          if (!row.started_at) return -1;
+          const start = new Date(row.started_at).getTime();
+          if (isNaN(start)) return -1;
+          const end = row.finished_at
+            ? new Date(row.finished_at).getTime()
+            : Date.now();
+          return end - start;
+        },
+        {
+          id: "totalTime",
+          header: dict.totalTime,
+          size: 90,
+          meta: { responsive: "hidden sm:table-cell" },
+          cell: (info) =>
+            formatDuration(
+              info.row.original.started_at,
+              info.row.original.finished_at,
+            ),
+        },
+      ),
       columnHelper.accessor((row) => row.metrics?.primary_species, {
         id: "identifiedSpecies",
         header: dict.identifiedSpecies,
