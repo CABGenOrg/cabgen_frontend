@@ -559,7 +559,7 @@ const AdminAnalysisModal: React.FC<AdminAnalysisModalProps> = ({
   })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
   const userOptions = (users ?? []).map((u) => ({
     value: u.id,
-    label: u.name,
+    label: u.username,
   })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
   const statusOptions = Object.entries(analysisDict.statusValues).map(
     ([value, label]) => ({ value, label }),
