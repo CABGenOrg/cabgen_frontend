@@ -175,7 +175,7 @@ const AdminOverview = () => {
     .filter((g) => g.count > 0)
     .slice(0, 10)
     .map((g, i) => ({
-      name: g.gene,
+      name: g.gene.split(" ")[0],
       value: g.count,
       fill: BAR_COLORS[i % BAR_COLORS.length],
     }));

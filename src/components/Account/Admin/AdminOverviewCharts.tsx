@@ -147,7 +147,7 @@ const AdminOverviewCharts = ({
           <YAxis dataKey="name" type="category" width={70} tick={{ fontSize: 12 }} />
           <Tooltip
             cursor={{ fill: "#f3f4f6" }}
-            formatter={(val: number, name: string) => [fmtMin(Number(val)), name]}
+            formatter={(val: number) => [fmtMin(Number(val))]}
           />
           <Bar dataKey="value" radius={[4, 4, 0, 0]}>
             {queueData.map((entry, i) => (
