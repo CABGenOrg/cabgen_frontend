@@ -25,6 +25,8 @@ import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetAdminMetricsQuery,
   type NetworkMetric,
+  type MonthMetric,
+  type QueueWaitMetric,
 } from "@/redux/services/admin/adminMetricsService";
 
 const AdminOverviewCharts = dynamic(
@@ -32,7 +34,7 @@ const AdminOverviewCharts = dynamic(
   {
     loading: () => (
       <div className="grid lg:grid-cols-2 gap-6 mb-6">
-        {[0, 1, 2, 3].map((i) => (
+        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
           <div
             key={i}
             className="bg-card rounded-lg shadow-md border border-border p-5 h-[362px] animate-pulse"
@@ -63,7 +65,7 @@ const StatCard: React.FC<{
     <div className="w-12 h-12 rounded-full bg-cabgen-100 flex items-center justify-center text-white shrink-0">
       {icon}
     </div>
-    <div>
+    <div className="min-w-0">
       <p className="text-3xl font-semibold text-foreground">{value}</p>
       <p className="text-sm text-muted-foreground">{label}</p>
     </div>
@@ -169,6 +171,43 @@ const AdminOverview = () => {
   const samplesNetworkData = networkData(metrics?.samples_by_network);
   const usersNetworkData = networkData(metrics?.users_by_network);
 
+  const geneData = (metrics?.top_resistance_genes ?? [])
+    .filter((g) => g.count > 0)
+    .slice(0, 10)
+    .map((g, i) => ({
+      name: g.gene,
+      value: g.count,
+      fill: BAR_COLORS[i % BAR_COLORS.length],
+    }));
+
+  const formatMonth = (m: MonthMetric) => {
+    const d = new Date(`${m.month}-01T00:00:00Z`);
+    return isNaN(d.getTime())
+      ? m.month
+      : d.toLocaleDateString(lang, {
+          month: "short",
+          year: "2-digit",
+          timeZone: "UTC",
+        });
+  };
+  const monthData = (metrics?.samples_by_month ?? [])
+    .filter((m) => m.count > 0)
+    .map((m) => ({ name: formatMonth(m), value: m.count }));
+  const queueData = metrics?.queue_wait
+    ? [
+        {
+          name: overviewDict.avgWait,
+          value: metrics.queue_wait.avg_seconds / 60,
+          fill: "#0A6354",
+        },
+        {
+          name: "P95",
+          value: metrics.queue_wait.p95_seconds / 60,
+          fill: "#F59E0B",
+        },
+      ]
+    : [];
+
   const cards = [
     {
       icon: <Dna size={24} />,
@@ -239,22 +278,29 @@ const AdminOverview = () => {
 
       <AdminOverviewCharts
         statusData={statusData}
-        countryData={countryData}
-        speciesData={speciesData}
         typeData={typeData}
         durationData={durationData}
+        queueData={queueData}
+        countryData={countryData}
+        speciesData={speciesData}
+        geneData={geneData}
+        monthData={monthData}
         samplesNetworkData={samplesNetworkData}
         usersNetworkData={usersNetworkData}
         fmtMin={fmtMin}
         titles={{
           analysesByStatus: overviewDict.analysesByStatus,
-          topCountries: overviewDict.topCountries,
-          speciesBreakdown: overviewDict.speciesBreakdown,
           count: overviewDict.count,
           analysesByType: overviewDict.analysesByType,
           duration: overviewDict.duration,
           avgDuration: overviewDict.avgDuration,
           p95Duration: overviewDict.p95Duration,
+          queueWait: overviewDict.queueWait,
+          avgWait: overviewDict.avgWait,
+          topCountries: overviewDict.topCountries,
+          speciesBreakdown: overviewDict.speciesBreakdown,
+          topResistanceGenes: overviewDict.topResistanceGenes,
+          samplesByMonth: overviewDict.samplesByMonth,
           samplesInNetwork: overviewDict.samplesInNetwork,
           usersInNetwork: overviewDict.usersInNetwork,
         }}

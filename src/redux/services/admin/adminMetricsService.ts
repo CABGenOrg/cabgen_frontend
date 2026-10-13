@@ -32,6 +32,21 @@ export type NetworkMetric = {
   out_network: number;
 };
 
+export type GeneMetric = {
+  gene: string;
+  count: number;
+};
+
+export type MonthMetric = {
+  month: string;
+  count: number;
+};
+
+export type QueueWaitMetric = {
+  avg_seconds: number;
+  p95_seconds: number;
+};
+
 export type AdminMetricsResponse = {
   total_samples: number;
   total_countries: number;
@@ -43,6 +58,9 @@ export type AdminMetricsResponse = {
   samples_by_network: NetworkMetric;
   analyses_by_status: AnalysesByStatus;
   analyses_by_type: AnalysisTypeMetric[];
+  top_resistance_genes: GeneMetric[];
+  samples_by_month: MonthMetric[];
+  queue_wait: QueueWaitMetric;
   top_countries: CountryMetric[];
   species_breakdown: SpeciesMetric[];
 };

@@ -10,6 +10,8 @@ import {
   Legend,
   BarChart,
   Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -29,32 +31,42 @@ const ChartCard: React.FC<{ title: string; children: React.ReactNode }> = ({
 
 const AdminOverviewCharts = ({
   statusData,
-  countryData,
-  speciesData,
   typeData,
   durationData,
+  queueData,
+  countryData,
+  speciesData,
+  geneData,
+  monthData,
   samplesNetworkData,
   usersNetworkData,
   fmtMin,
   titles,
 }: {
   statusData: ChartDatum[];
-  countryData: ChartDatum[];
-  speciesData: ChartDatum[];
   typeData: ChartDatum[];
   durationData: { name: string; avg: number; p95: number }[];
+  queueData: ChartDatum[];
+  countryData: ChartDatum[];
+  speciesData: ChartDatum[];
+  geneData: ChartDatum[];
+  monthData: { name: string; value: number }[];
   samplesNetworkData: ChartDatum[];
   usersNetworkData: ChartDatum[];
   fmtMin: (v: number) => string;
   titles: {
     analysesByStatus: string;
-    topCountries: string;
-    speciesBreakdown: string;
     count: string;
     analysesByType: string;
     duration: string;
     avgDuration: string;
     p95Duration: string;
+    queueWait: string;
+    avgWait: string;
+    topCountries: string;
+    speciesBreakdown: string;
+    topResistanceGenes: string;
+    samplesByMonth: string;
     samplesInNetwork: string;
     usersInNetwork: string;
   };
@@ -83,38 +95,6 @@ const AdminOverviewCharts = ({
           <Tooltip formatter={(value: number, name: string) => [value, name]} />
           <Legend iconType="circle" />
         </PieChart>
-      </ResponsiveContainer>
-    </ChartCard>
-
-    <ChartCard title={titles.topCountries}>
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={countryData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
-          <XAxis type="number" allowDecimals={false} />
-          <YAxis dataKey="name" type="category" width={90} tick={{ fontSize: 12 }} />
-          <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, titles.count]} />
-          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-            {countryData.map((entry, i) => (
-              <Cell key={`cell-${i}`} fill={entry.fill} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    </ChartCard>
-
-    <ChartCard title={titles.speciesBreakdown}>
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={speciesData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
-          <XAxis type="number" allowDecimals={false} />
-          <YAxis dataKey="name" type="category" width={110} tick={{ fontSize: 12 }} />
-          <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, titles.count]} />
-          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-            {speciesData.map((entry, i) => (
-              <Cell key={`cell-${i}`} fill={entry.fill} />
-            ))}
-          </Bar>
-        </BarChart>
       </ResponsiveContainer>
     </ChartCard>
 
@@ -156,6 +136,91 @@ const AdminOverviewCharts = ({
           <Bar dataKey="avg" name="avg" fill="#0A6354" radius={[4, 4, 0, 0]} />
           <Bar dataKey="p95" name="p95" fill="#F59E0B" radius={[4, 4, 0, 0]} />
         </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
+    <ChartCard title={titles.queueWait}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={queueData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
+          <XAxis type="number" tickFormatter={(v: number) => fmtMin(v)} />
+          <YAxis dataKey="name" type="category" width={70} tick={{ fontSize: 12 }} />
+          <Tooltip
+            cursor={{ fill: "#f3f4f6" }}
+            formatter={(val: number, name: string) => [fmtMin(Number(val)), name]}
+          />
+          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+            {queueData.map((entry, i) => (
+              <Cell key={`cell-${i}`} fill={entry.fill} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
+    <ChartCard title={titles.topCountries}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={countryData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
+          <XAxis type="number" allowDecimals={false} />
+          <YAxis dataKey="name" type="category" width={90} tick={{ fontSize: 12 }} />
+          <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, titles.count]} />
+          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+            {countryData.map((entry, i) => (
+              <Cell key={`cell-${i}`} fill={entry.fill} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
+    <ChartCard title={titles.speciesBreakdown}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={speciesData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
+          <XAxis type="number" allowDecimals={false} />
+          <YAxis dataKey="name" type="category" width={110} tick={{ fontSize: 12 }} />
+          <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, titles.count]} />
+          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+            {speciesData.map((entry, i) => (
+              <Cell key={`cell-${i}`} fill={entry.fill} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
+    <ChartCard title={titles.topResistanceGenes}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={geneData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
+          <XAxis type="number" allowDecimals={false} />
+          <YAxis dataKey="name" type="category" width={110} tick={{ fontSize: 12 }} />
+          <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, titles.count]} />
+          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+            {geneData.map((entry, i) => (
+              <Cell key={`cell-${i}`} fill={entry.fill} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
+    <ChartCard title={titles.samplesByMonth}>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={monthData} margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+          <YAxis allowDecimals={false} width={40} tick={{ fontSize: 12 }} />
+          <Tooltip formatter={(val: number) => [val, titles.count]} />
+          <Line
+            type="monotone"
+            dataKey="value"
+            stroke="#0A6354"
+            strokeWidth={2}
+            dot={{ r: 3 }}
+          />
+        </LineChart>
       </ResponsiveContainer>
     </ChartCard>
 
