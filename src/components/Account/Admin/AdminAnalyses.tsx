@@ -18,6 +18,7 @@ import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetAdminAnalysesQuery,
+  useGetUsernamesQuery,
   useDeleteAdminAnalysisMutation,
 } from "@/redux/services/admin/adminAnalysesService";
 import type { AnalysisResponse } from "@/redux/services/analyses/analysesService";
@@ -105,13 +106,10 @@ const AdminAnalyses = () => {
       setPage(Math.max(1, totalPages));
   }, [loadingAnalyses, data.length, page, totalPages]);
 
-  const seenUsers = useRef(new Set<string>());
-  data.forEach((a) => a.user && seenUsers.current.add(a.user));
+  const { data: userSelectOptions } = useGetUsernamesQuery();
   const usernameOptions = [
     { label: analysisDict.filterAll, value: ALL_USERNAME },
-    ...[...seenUsers.current]
-      .sort((a, b) => a.localeCompare(b))
-      .map((u) => ({ label: u, value: u })),
+    ...(userSelectOptions ?? []),
   ];
   const [deleteAnalysis, { isLoading: deleting, error: deleteError }] =
     useDeleteAdminAnalysisMutation();

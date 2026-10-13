@@ -22,7 +22,10 @@ import PageHeader from "@/components/General/PageHeader";
 import Loading from "@/components/General/Loading";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
-import { useGetAdminMetricsQuery } from "@/redux/services/admin/adminMetricsService";
+import {
+  useGetAdminMetricsQuery,
+  type NetworkMetric,
+} from "@/redux/services/admin/adminMetricsService";
 
 const AdminOverviewCharts = dynamic(
   () => import("./AdminOverviewCharts"),
@@ -148,6 +151,24 @@ const AdminOverview = () => {
     p95: t.p95_duration_seconds / 60,
   }));
 
+  const networkData = (m?: NetworkMetric) =>
+    m
+      ? [
+          {
+            name: AccountDict.admin.activeValues.yes,
+            value: m.in_network,
+            fill: "#16a34a",
+          },
+          {
+            name: AccountDict.admin.activeValues.no,
+            value: m.out_network,
+            fill: "#dc2626",
+          },
+        ].filter((d) => d.value > 0)
+      : [];
+  const samplesNetworkData = networkData(metrics?.samples_by_network);
+  const usersNetworkData = networkData(metrics?.users_by_network);
+
   const cards = [
     {
       icon: <Dna size={24} />,
@@ -222,6 +243,8 @@ const AdminOverview = () => {
         speciesData={speciesData}
         typeData={typeData}
         durationData={durationData}
+        samplesNetworkData={samplesNetworkData}
+        usersNetworkData={usersNetworkData}
         fmtMin={fmtMin}
         titles={{
           analysesByStatus: overviewDict.analysesByStatus,
@@ -232,6 +255,8 @@ const AdminOverview = () => {
           duration: overviewDict.duration,
           avgDuration: overviewDict.avgDuration,
           p95Duration: overviewDict.p95Duration,
+          samplesInNetwork: overviewDict.samplesInNetwork,
+          usersInNetwork: overviewDict.usersInNetwork,
         }}
       />
     </div>

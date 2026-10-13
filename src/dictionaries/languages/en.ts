@@ -462,6 +462,8 @@ const en = {
         duration: "Analysis Duration (min)",
         avgDuration: "Average duration",
         p95Duration: "P95 duration",
+        samplesInNetwork: "Samples in the Genomic Network",
+        usersInNetwork: "Users in the Genomic Network",
       },
       search: "Search...",
       users: "Users",

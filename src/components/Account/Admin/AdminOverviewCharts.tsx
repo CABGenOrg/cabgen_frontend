@@ -33,6 +33,8 @@ const AdminOverviewCharts = ({
   speciesData,
   typeData,
   durationData,
+  samplesNetworkData,
+  usersNetworkData,
   fmtMin,
   titles,
 }: {
@@ -41,6 +43,8 @@ const AdminOverviewCharts = ({
   speciesData: ChartDatum[];
   typeData: ChartDatum[];
   durationData: { name: string; avg: number; p95: number }[];
+  samplesNetworkData: ChartDatum[];
+  usersNetworkData: ChartDatum[];
   fmtMin: (v: number) => string;
   titles: {
     analysesByStatus: string;
@@ -51,6 +55,8 @@ const AdminOverviewCharts = ({
     duration: string;
     avgDuration: string;
     p95Duration: string;
+    samplesInNetwork: string;
+    usersInNetwork: string;
   };
 }) => (
   <div className="grid lg:grid-cols-2 gap-6 mb-6">
@@ -150,6 +156,58 @@ const AdminOverviewCharts = ({
           <Bar dataKey="avg" name="avg" fill="#0A6354" radius={[4, 4, 0, 0]} />
           <Bar dataKey="p95" name="p95" fill="#F59E0B" radius={[4, 4, 0, 0]} />
         </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
+    <ChartCard title={titles.samplesInNetwork}>
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={samplesNetworkData}
+            dataKey="value"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            innerRadius="50%"
+            outerRadius="80%"
+            paddingAngle={2}
+            label={({ name, percent }) =>
+              `${name} ${(percent * 100).toFixed(0)}%`
+            }
+          >
+            {samplesNetworkData.map((entry, i) => (
+              <Cell key={`cell-${i}`} fill={entry.fill} />
+            ))}
+          </Pie>
+          <Tooltip formatter={(value: number, name: string) => [value, name]} />
+          <Legend iconType="circle" />
+        </PieChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
+    <ChartCard title={titles.usersInNetwork}>
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={usersNetworkData}
+            dataKey="value"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            innerRadius="50%"
+            outerRadius="80%"
+            paddingAngle={2}
+            label={({ name, percent }) =>
+              `${name} ${(percent * 100).toFixed(0)}%`
+            }
+          >
+            {usersNetworkData.map((entry, i) => (
+              <Cell key={`cell-${i}`} fill={entry.fill} />
+            ))}
+          </Pie>
+          <Tooltip formatter={(value: number, name: string) => [value, name]} />
+          <Legend iconType="circle" />
+        </PieChart>
       </ResponsiveContainer>
     </ChartCard>
   </div>

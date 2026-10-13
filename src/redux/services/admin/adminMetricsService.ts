@@ -27,6 +27,11 @@ export type AnalysisTypeMetric = {
   p95_duration_seconds: number;
 };
 
+export type NetworkMetric = {
+  in_network: number;
+  out_network: number;
+};
+
 export type AdminMetricsResponse = {
   total_samples: number;
   total_countries: number;
@@ -34,6 +39,8 @@ export type AdminMetricsResponse = {
   total_resistance_genes: number;
   total_users: number;
   total_analyses: number;
+  users_by_network: NetworkMetric;
+  samples_by_network: NetworkMetric;
   analyses_by_status: AnalysesByStatus;
   analyses_by_type: AnalysisTypeMetric[];
   top_countries: CountryMetric[];

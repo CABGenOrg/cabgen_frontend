@@ -452,6 +452,8 @@ const pt = {
         duration: "Duração das Análises (min)",
         avgDuration: "Duração média",
         p95Duration: "Duração P95",
+        samplesInNetwork: "Amostras na Rede Genômica",
+        usersInNetwork: "Usuários na Rede Genômica",
       },
       search: "Buscar...",
       users: "Usuários",

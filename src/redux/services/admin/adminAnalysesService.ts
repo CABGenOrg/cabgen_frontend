@@ -8,6 +8,7 @@ import {
   AnalysisResult,
   AnalysisFilters,
 } from "../analyses/analysesService";
+import { SelectOption } from "../select_options/selectOptionsService";
 
 export type AdminAnalysisFilters = AnalysisFilters & {
   username?: string;
@@ -59,6 +60,13 @@ const analysesService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       providesTags: ["Analyses"],
     }),
+    getUsernames: builder.query<SelectOption[], void>({
+      query: () => requestConfig(ADMIN_ENDPOINTS.USERNAMES, "GET"),
+      transformResponse: (res: ApiResponse<string[]>) =>
+        (res.data ?? []).map((u) => ({ label: u, value: u })),
+      transformErrorResponse: (res) => handleError(res),
+      providesTags: ["Users"],
+    }),
     getAdminAnalysisByID: builder.query<AnalysisResponse, [string, string]>({
       query: ([id, lang]) =>
         requestConfig(`${ADMIN_ENDPOINTS.ANALYSES}/${id}`, "GET"),
@@ -109,6 +117,7 @@ const analysesService = apiSlice.injectEndpoints({
 
 export const {
   useGetAdminAnalysesQuery,
+  useGetUsernamesQuery,
   useGetAdminAnalysisByIDQuery,
   useGetAdminAnalysisZipQuery,
   useGetAdminBatchAnalysisTSVsMutation,
