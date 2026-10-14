@@ -80,6 +80,10 @@ const AdminOverview = () => {
   } = getTranslateClient(lang);
   const dict = AccountDict.admin;
   const overviewDict = dict.overview;
+  const fmtDur = (v: number) =>
+    v < 1 || Math.round(v) === 1
+      ? `${v < 1 ? "<1" : "1"} ${overviewDict.minute}`
+      : `${Math.round(v)} ${overviewDict.minutes}`;
   const statusValues = AccountDict.analyses.statusValues;
 
   const navCards = [
@@ -190,9 +194,10 @@ const AdminOverview = () => {
           timeZone: "UTC",
         });
   };
-  const monthData = (metrics?.samples_by_month ?? [])
-    .filter((m) => m.count > 0)
-    .map((m) => ({ name: formatMonth(m), value: m.count }));
+  const monthData = (metrics?.samples_by_month ?? []).map((m) => ({
+    name: formatMonth(m),
+    value: m.count,
+  }));
   const queueData = metrics?.queue_wait
     ? [
         {
@@ -288,6 +293,7 @@ const AdminOverview = () => {
         samplesNetworkData={samplesNetworkData}
         usersNetworkData={usersNetworkData}
         fmtMin={fmtMin}
+        fmtDur={fmtDur}
         titles={{
           analysesByStatus: overviewDict.analysesByStatus,
           count: overviewDict.count,

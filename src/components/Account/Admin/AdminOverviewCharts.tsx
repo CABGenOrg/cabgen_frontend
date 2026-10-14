@@ -41,6 +41,7 @@ const AdminOverviewCharts = ({
   samplesNetworkData,
   usersNetworkData,
   fmtMin,
+  fmtDur,
   titles,
 }: {
   statusData: ChartDatum[];
@@ -54,6 +55,7 @@ const AdminOverviewCharts = ({
   samplesNetworkData: ChartDatum[];
   usersNetworkData: ChartDatum[];
   fmtMin: (v: number) => string;
+  fmtDur: (v: number) => string;
   titles: {
     analysesByStatus: string;
     count: string;
@@ -123,7 +125,7 @@ const AdminOverviewCharts = ({
           <Tooltip
             cursor={{ fill: "#f3f4f6" }}
             formatter={(val: number, name: string) => [
-              fmtMin(Number(val)),
+              fmtDur(Number(val)),
               name === "avg" ? titles.avgDuration : titles.p95Duration,
             ]}
           />
@@ -147,7 +149,7 @@ const AdminOverviewCharts = ({
           <YAxis dataKey="name" type="category" width={70} tick={{ fontSize: 12 }} />
           <Tooltip
             cursor={{ fill: "#f3f4f6" }}
-            formatter={(val: number) => [fmtMin(Number(val))]}
+            formatter={(val: number) => [fmtDur(Number(val))]}
           />
           <Bar dataKey="value" radius={[4, 4, 0, 0]}>
             {queueData.map((entry, i) => (

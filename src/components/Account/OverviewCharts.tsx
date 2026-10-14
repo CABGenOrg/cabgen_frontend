@@ -10,6 +10,8 @@ import {
   Legend,
   BarChart,
   Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -31,12 +33,32 @@ const OverviewCharts = ({
   statusData,
   typeData,
   speciesData,
+  geneData,
+  durationData,
+  monthData,
+  fmtMin,
+  fmtDur,
   titles,
 }: {
   statusData: ChartDatum[];
   typeData: ChartDatum[];
   speciesData: ChartDatum[];
-  titles: { byStatus: string; byType: string; topSpecies: string; count: string };
+  geneData: ChartDatum[];
+  durationData: { name: string; avg: number; p95: number }[];
+  monthData: { name: string; value: number }[];
+  fmtMin: (v: number) => string;
+  fmtDur: (v: number) => string;
+  titles: {
+    byStatus: string;
+    byType: string;
+    topSpecies: string;
+    count: string;
+    topResistanceGenes: string;
+    duration: string;
+    avgDuration: string;
+    p95Duration: string;
+    samplesByMonth: string;
+  };
 }) => (
   <div className="grid lg:grid-cols-2 gap-6 mb-6">
     <ChartCard title={titles.byStatus}>
@@ -94,6 +116,49 @@ const OverviewCharts = ({
       </ResponsiveContainer>
     </ChartCard>
 
+    <ChartCard title={titles.duration}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={durationData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
+          <XAxis type="number" tickFormatter={(v: number) => fmtMin(v)} />
+          <YAxis dataKey="name" type="category" width={90} tick={{ fontSize: 12 }} />
+          <Tooltip
+            cursor={{ fill: "#f3f4f6" }}
+            formatter={(val: number, name: string) => [
+              fmtDur(Number(val)),
+              name === "avg" ? titles.avgDuration : titles.p95Duration,
+            ]}
+          />
+          <Legend
+            formatter={(value: string) =>
+              value === "avg" ? titles.avgDuration : titles.p95Duration
+            }
+            iconType="circle"
+          />
+          <Bar dataKey="avg" name="avg" fill="#0A6354" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="p95" name="p95" fill="#F59E0B" radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
+    <ChartCard title={titles.samplesByMonth}>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={monthData} margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+          <YAxis allowDecimals={false} width={40} tick={{ fontSize: 12 }} />
+          <Tooltip formatter={(val: number) => [val, titles.count]} />
+          <Line
+            type="monotone"
+            dataKey="value"
+            stroke="#0A6354"
+            strokeWidth={2}
+            dot={{ r: 3 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
     <ChartCard title={titles.topSpecies}>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={speciesData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
@@ -103,6 +168,22 @@ const OverviewCharts = ({
           <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, titles.count]} />
           <Bar dataKey="value" radius={[4, 4, 0, 0]}>
             {speciesData.map((entry, i) => (
+              <Cell key={`cell-${i}`} fill={entry.fill} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
+
+    <ChartCard title={titles.topResistanceGenes}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={geneData} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
+          <XAxis type="number" allowDecimals={false} />
+          <YAxis dataKey="name" type="category" width={110} tick={{ fontSize: 12 }} />
+          <Tooltip cursor={{ fill: "#f3f4f6" }} formatter={(val: number) => [val, titles.count]} />
+          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+            {geneData.map((entry, i) => (
               <Cell key={`cell-${i}`} fill={entry.fill} />
             ))}
           </Bar>
