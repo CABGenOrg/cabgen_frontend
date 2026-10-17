@@ -15,10 +15,10 @@ import UploadTableModal from "@/components/General/UploadTableModal";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { toast } from "@/hooks/use-toast";
-import { downloadGetFile } from "@/utils/downloadFile";
-import { ADMIN_ENDPOINTS } from "@/redux/services/admin/adminEndpoints";
+import { saveBlob } from "@/utils/downloadFile";
 import {
   useGetAdminSamplesQuery,
+  useDownloadAdminTemplateMutation,
   useDeleteAdminSampleMutation,
   useCreateAdminSamplesFromTableMutation,
 } from "@/redux/services/admin/adminSamplesService";
@@ -85,22 +85,20 @@ const AdminSamples = () => {
   );
 
   const [createAdminSamplesFromTable] = useCreateAdminSamplesFromTableMutation();
-  const [downloadingTemplate, setDownloadingTemplate] = useState(false);
+  const [
+    downloadTemplate,
+    { isLoading: downloadingTemplate },
+  ] = useDownloadAdminTemplateMutation();
   const [tableMsg, setTableMsg] = useState<{ text: string; n: number } | null>(
     null,
   );
 
   const handleDownloadTemplate = async () => {
-    setDownloadingTemplate(true);
     try {
-      await downloadGetFile(
-        `${ADMIN_ENDPOINTS.SAMPLES}/download/template`,
-        "cabgen_samples_template.xlsx",
-      );
+      const blob = await downloadTemplate().unwrap();
+      saveBlob(blob, "cabgen_samples_template.xlsx");
     } catch {
       toast({ description: Errors.downloadError, variant: "destructive" });
-    } finally {
-      setDownloadingTemplate(false);
     }
   };
 

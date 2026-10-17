@@ -19,7 +19,7 @@ import { getTranslateClient } from "@/lib/getTranslateClient";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
 import { SmartSelect } from "@/components/General/SmartSelect";
-import { downloadPostFile } from "@/utils/downloadFile";
+import { saveBlob } from "@/utils/downloadFile";
 import { toast } from "@/hooks/use-toast";
 import { ANALYSES_ENDPOINTS } from "@/redux/services/analyses/analysesEndpoints";
 import {
@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/form";
 import {
   useGetAnalysesQuery,
+  useDownloadBatchAnalysisTSVsMutation,
   useDeleteAnalysisMutation,
   useCreateAnalysisMutation,
 } from "@/redux/services/analyses/analysesService";
@@ -305,7 +306,10 @@ const AccountAnalysis = () => {
 
   const isBusy = deleting || creating || loadingEnums || loadingSamples;
 
-  const [downloading, setDownloading] = useState(false);
+  const [
+    downloadBatchAnalysisTSVs,
+    { isLoading: downloading },
+  ] = useDownloadBatchAnalysisTSVsMutation();
 
   const selectedIds = useMemo(
     () =>
@@ -318,17 +322,12 @@ const AccountAnalysis = () => {
 
   const handleDownloadTsv = async () => {
     if (!selectedIds.length || downloading) return;
-    setDownloading(true);
     try {
-      await downloadPostFile(
-        ANALYSES_ENDPOINTS.DOWNLOAD_BATCH_TSVS,
-        { ids: selectedIds },
-        `analyses-${new Date().toISOString().slice(0, 10)}.tsv`,
-      );
+      const blob = await downloadBatchAnalysisTSVs({ ids: selectedIds }).unwrap();
+      saveBlob(blob, `analyses-${new Date().toISOString().slice(0, 10)}.tsv`);
     } catch {
       toast({ description: Errors.downloadError, variant: "destructive" });
     }
-    setDownloading(false);
   };
 
   return (

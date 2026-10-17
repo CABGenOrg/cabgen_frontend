@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Download, ExternalLink } from "lucide-react";
 import { section_btn } from "@/styles/tailwind_classes";
-import { downloadGetFile, openGetFile } from "@/utils/downloadFile";
+import { saveBlob, openBlob } from "@/utils/downloadFile";
 import { toast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
@@ -12,11 +12,17 @@ import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import Loading from "@/components/General/Loading";
 import Message from "@/components/General/Message";
-import { useGetAdminAnalysisByIDQuery } from "@/redux/services/admin/adminAnalysesService";
-import { useGetAnalysisByIDQuery } from "@/redux/services/analyses/analysesService";
+import {
+  useGetAdminAnalysisByIDQuery,
+  useLazyGetAdminAnalysisZipQuery,
+  useLazyGetAdminAnalysisFastQCQuery,
+} from "@/redux/services/admin/adminAnalysesService";
+import {
+  useGetAnalysisByIDQuery,
+  useLazyGetAnalysisZipQuery,
+  useLazyGetAnalysisFastQCQuery,
+} from "@/redux/services/analyses/analysesService";
 import { useAuth } from "@/redux/AuthContext";
-import { ANALYSES_ENDPOINTS } from "@/redux/services/analyses/analysesEndpoints";
-import { ADMIN_ENDPOINTS } from "@/redux/services/admin/adminEndpoints";
 
 const formatValue = (value: unknown): string => {
   if (value === undefined || value === null) return "";
@@ -91,6 +97,13 @@ const AccountAnalysisDetail = () => {
   const userQuery = useGetAnalysisByIDQuery([id, lang], {
     skip: authLoading || isAdmin,
   });
+
+  const [getAdminZip] = useLazyGetAdminAnalysisZipQuery();
+  const [getUserZip] = useLazyGetAnalysisZipQuery();
+  const [getAdminFastQC] = useLazyGetAdminAnalysisFastQCQuery();
+  const [getUserFastQC] = useLazyGetAnalysisFastQCQuery();
+  const getZip = isAdmin ? getAdminZip : getUserZip;
+  const getFastQC = isAdmin ? getAdminFastQC : getUserFastQC;
 
   const { data: analysis } = isAdmin ? adminQuery : userQuery;
   const error = isAdmin ? adminQuery.error : userQuery.error;
@@ -194,22 +207,9 @@ const AccountAnalysisDetail = () => {
       analysis?.type.toLowerCase() ?? ""
     ] ?? analysis?.type;
 
-  const analysesBase = isAdmin
-    ? ADMIN_ENDPOINTS.ANALYSES
-    : ANALYSES_ENDPOINTS.DEFAULT;
-
-  const zipPath =
-    analysis?.results_zip_path && analysis?.status.toLowerCase() === "done"
-      ? `${analysesBase}/${id}/download/zip`
-      : null;
-
+  const zipReady =
+    !!analysis?.results_zip_path && analysis?.status.toLowerCase() === "done";
   const fastqcReady = analysis?.status.toLowerCase() === "done";
-  const fastqc1Path = fastqcReady
-    ? `${analysesBase}/${id}/fastqc1`
-    : null;
-  const fastqc2Path = fastqcReady
-    ? `${analysesBase}/${id}/fastqc2`
-    : null;
 
   if (isLoading) {
     return (
@@ -266,19 +266,24 @@ const AccountAnalysisDetail = () => {
             </Badge>
           </div>
         </div>
-        {zipPath && (
+        {zipReady && (
           <button
             type="button"
             onClick={() => {
-              downloadGetFile(
-                zipPath,
-                `${(analysis?.sample ?? "results").replace(/[\/\\]/g, "-")}.zip`,
-              ).catch(() =>
-                toast({
-                  description: Errors.downloadError,
-                  variant: "destructive",
-                }),
-              );
+              getZip(id)
+                .unwrap()
+                .then((blob) =>
+                  saveBlob(
+                    blob,
+                    `${(analysis?.sample ?? "results").replace(/[\/\\]/g, "-")}.zip`,
+                  ),
+                )
+                .catch(() =>
+                  toast({
+                    description: Errors.downloadError,
+                    variant: "destructive",
+                  }),
+                );
             }}
             className={`${section_btn} inline-flex items-center justify-center gap-1.5 shrink-0`}
           >
@@ -299,16 +304,19 @@ const AccountAnalysisDetail = () => {
           <h2 className="font-semibold text-foreground">{detailDict.fastqc}</h2>
         </div>
         <div className="p-4 flex flex-col sm:flex-row gap-3">
-          {fastqc1Path && analysis.fastqc1 ? (
+          {fastqcReady && analysis.fastqc1 ? (
             <button
               type="button"
               onClick={() => {
-                openGetFile(fastqc1Path).catch(() =>
-                  toast({
-                    description: Errors.viewError,
-                    variant: "destructive",
-                  }),
-                );
+                getFastQC([id, "fastqc1"])
+                  .unwrap()
+                  .then(openBlob)
+                  .catch(() =>
+                    toast({
+                      description: Errors.viewError,
+                      variant: "destructive",
+                    }),
+                  );
               }}
               className="inline-flex items-center gap-1.5 text-cabgen-200 dark:text-cabgen-300 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"
             >
@@ -318,16 +326,19 @@ const AccountAnalysisDetail = () => {
           ) : (
             <span className="text-muted-foreground">{detailDict.fastqc1} —</span>
           )}
-          {fastqc2Path && analysis.fastqc2 ? (
+          {fastqcReady && analysis.fastqc2 ? (
             <button
               type="button"
               onClick={() => {
-                openGetFile(fastqc2Path).catch(() =>
-                  toast({
-                    description: Errors.viewError,
-                    variant: "destructive",
-                  }),
-                );
+                getFastQC([id, "fastqc2"])
+                  .unwrap()
+                  .then(openBlob)
+                  .catch(() =>
+                    toast({
+                      description: Errors.viewError,
+                      variant: "destructive",
+                    }),
+                  );
               }}
               className="inline-flex items-center gap-1.5 text-cabgen-200 dark:text-cabgen-300 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"
             >

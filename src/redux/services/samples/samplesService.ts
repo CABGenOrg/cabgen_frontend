@@ -98,6 +98,13 @@ const samplesService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       invalidatesTags: ["Samples"],
     }),
+    downloadTemplate: builder.mutation<Blob, void>({
+      query: () => ({
+        url: SAMPLES_ENDPOINTS.TEMPLATE,
+        method: "GET",
+        responseHandler: (res: Response) => res.blob(),
+      }),
+    }),
     deleteSample: builder.mutation<string, string>({
       query: (id) =>
         requestConfig(`${SAMPLES_ENDPOINTS.DEFAULT}/${id}`, "DELETE"),
@@ -115,4 +122,5 @@ export const {
   useUpdateSampleMutation,
   useDeleteSampleMutation,
   useCreateSamplesFromTableMutation,
+  useDownloadTemplateMutation,
 } = samplesService;

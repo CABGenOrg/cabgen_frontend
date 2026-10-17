@@ -74,24 +74,43 @@ const analysesService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       providesTags: (_r, _e, [id]) => [{ type: "Analyses", id }],
     }),
-    getAdminAnalysisZip: builder.query<void, string>({
-      query: (id) =>
-        requestConfig(`${ADMIN_ENDPOINTS.ANALYSES}/${id}/download/zip`, "GET"),
-      transformErrorResponse: (res) => handleError(res),
+    getAdminAnalysisZip: builder.query<Blob, string>({
+      query: (id) => ({
+        url: `${ADMIN_ENDPOINTS.ANALYSES}/${id}/download/zip`,
+        method: "GET",
+        responseHandler: (res: Response) => res.blob(),
+      }),
       providesTags: (_r, _e, id) => [{ type: "Analyses", id }],
     }),
-    getAdminBatchAnalysisTSVs: builder.mutation<void, AnalysisTSVDownloadInput>(
-      {
-        query: (data) =>
-          requestConfig(
-            ADMIN_ENDPOINTS.ANALYSES_DOWNLOAD_BATCH_TSVS,
-            "POST",
-            data,
-          ),
-        transformErrorResponse: (res) => handleError(res),
-        invalidatesTags: ["Analyses"],
-      },
-    ),
+    getAdminAnalysisFastQC: builder.query<Blob, [string, string]>({
+      query: ([id, report]) => ({
+        url: `${ADMIN_ENDPOINTS.ANALYSES}/${id}/${report}`,
+        method: "GET",
+        responseHandler: (res: Response) => res.blob(),
+      }),
+      providesTags: (_r, _e, [id]) => [{ type: "Analyses", id }],
+    }),
+    downloadAdminBatchAnalysisTSVs: builder.mutation<
+      Blob,
+      AnalysisTSVDownloadInput
+    >({
+      query: (data) => ({
+        url: ADMIN_ENDPOINTS.ANALYSES_DOWNLOAD_BATCH_TSVS,
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        responseHandler: (res: Response) => res.blob(),
+      }),
+    }),
+    downloadAdminDashboardTSVs: builder.mutation<Blob, void>({
+      query: () => ({
+        url: ADMIN_ENDPOINTS.ANALYSES_DOWNLOAD_DASHBOARD_TSV,
+        method: "POST",
+        body: JSON.stringify({}),
+        headers: { "Content-Type": "application/json" },
+        responseHandler: (res: Response) => res.blob(),
+      }),
+    }),
     createAdminAnalysis: builder.mutation<string, AdminAnalysisInput>({
       query: (data) => requestConfig(ADMIN_ENDPOINTS.ANALYSES, "POST", data),
       transformResponse: (res: ApiMessage) => res.message,
@@ -119,8 +138,10 @@ export const {
   useGetAdminAnalysesQuery,
   useGetUsernamesQuery,
   useGetAdminAnalysisByIDQuery,
-  useGetAdminAnalysisZipQuery,
-  useGetAdminBatchAnalysisTSVsMutation,
+  useLazyGetAdminAnalysisZipQuery,
+  useLazyGetAdminAnalysisFastQCQuery,
+  useDownloadAdminBatchAnalysisTSVsMutation,
+  useDownloadAdminDashboardTSVsMutation,
   useCreateAdminAnalysisMutation,
   useUpdateAdminAnalysisMutation,
   useDeleteAdminAnalysisMutation,

@@ -11,7 +11,7 @@ import DataTable from "@/components/General/DataTable";
 import DeleteConfirmModal from "@/components/General/DeleteConfirmModal";
 import IconButton from "@/components/General/IconButton";
 import { SmartSelect } from "@/components/General/SmartSelect";
-import { downloadPostFile } from "@/utils/downloadFile";
+import { saveBlob } from "@/utils/downloadFile";
 import { toast } from "@/hooks/use-toast";
 import { ADMIN_ENDPOINTS } from "@/redux/services/admin/adminEndpoints";
 import { useLanguage } from "@/redux/LanguageContext";
@@ -19,6 +19,8 @@ import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
   useGetAdminAnalysesQuery,
   useGetUsernamesQuery,
+  useDownloadAdminBatchAnalysisTSVsMutation,
+  useDownloadAdminDashboardTSVsMutation,
   useDeleteAdminAnalysisMutation,
 } from "@/redux/services/admin/adminAnalysesService";
 import type { AnalysisResponse } from "@/redux/services/analyses/analysesService";
@@ -123,8 +125,14 @@ const AdminAnalyses = () => {
 
   const hasRunning = data.some((a) => a.status.toLowerCase() === "running");
 
-  const [downloading, setDownloading] = useState(false);
-  const [downloadingDashboard, setDownloadingDashboard] = useState(false);
+  const [
+    downloadAdminBatchAnalysisTSVs,
+    { isLoading: downloading },
+  ] = useDownloadAdminBatchAnalysisTSVsMutation();
+  const [
+    downloadAdminDashboardTSVs,
+    { isLoading: downloadingDashboard },
+  ] = useDownloadAdminDashboardTSVsMutation();
 
   const selectedIds = useMemo(
     () =>
@@ -137,32 +145,27 @@ const AdminAnalyses = () => {
 
   const handleDownloadTsv = async () => {
     if (!selectedIds.length || downloading) return;
-    setDownloading(true);
     try {
-      await downloadPostFile(
-        ADMIN_ENDPOINTS.ANALYSES_DOWNLOAD_BATCH_TSVS,
-        { ids: selectedIds },
-        `analyses-${new Date().toISOString().slice(0, 10)}.tsv`,
-      );
+      const blob = await downloadAdminBatchAnalysisTSVs({
+        ids: selectedIds,
+      }).unwrap();
+      saveBlob(blob, `analyses-${new Date().toISOString().slice(0, 10)}.tsv`);
     } catch {
       toast({ description: Errors.downloadError, variant: "destructive" });
     }
-    setDownloading(false);
   };
 
   const handleDownloadDashboardTsv = async () => {
     if (downloadingDashboard) return;
-    setDownloadingDashboard(true);
     try {
-      await downloadPostFile(
-        ADMIN_ENDPOINTS.ANALYSES_DOWNLOAD_DASHBOARD_TSV,
-        null,
+      const blob = await downloadAdminDashboardTSVs().unwrap();
+      saveBlob(
+        blob,
         `cabgen_dashboard_${new Date().toISOString().slice(0, 10)}.tsv`,
       );
     } catch {
       toast({ description: Errors.downloadError, variant: "destructive" });
     }
-    setDownloadingDashboard(false);
   };
 
   const columns = useMemo(

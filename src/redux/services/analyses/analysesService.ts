@@ -86,20 +86,30 @@ const analysesService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       providesTags: (_r, _e, [id]) => [{ type: "Analyses", id }],
     }),
-    getAnalysisZip: builder.query<void, string>({
-      query: (id) =>
-        requestConfig(
-          `${ANALYSES_ENDPOINTS.DEFAULT}/${id}/download/zip`,
-          "GET",
-        ),
-      transformErrorResponse: (res) => handleError(res),
+    getAnalysisZip: builder.query<Blob, string>({
+      query: (id) => ({
+        url: `${ANALYSES_ENDPOINTS.DEFAULT}/${id}/download/zip`,
+        method: "GET",
+        responseHandler: (res: Response) => res.blob(),
+      }),
       providesTags: (_r, _e, id) => [{ type: "Analyses", id }],
     }),
-    getBatchAnalysisTSVs: builder.mutation<void, AnalysisTSVDownloadInput>({
-      query: (data) =>
-        requestConfig(ANALYSES_ENDPOINTS.DOWNLOAD_BATCH_TSVS, "POST", data),
-      transformErrorResponse: (res) => handleError(res),
-      invalidatesTags: ["Analyses"],
+    getAnalysisFastQC: builder.query<Blob, [string, string]>({
+      query: ([id, report]) => ({
+        url: `${ANALYSES_ENDPOINTS.DEFAULT}/${id}/${report}`,
+        method: "GET",
+        responseHandler: (res: Response) => res.blob(),
+      }),
+      providesTags: (_r, _e, [id]) => [{ type: "Analyses", id }],
+    }),
+    downloadBatchAnalysisTSVs: builder.mutation<Blob, AnalysisTSVDownloadInput>({
+      query: (data) => ({
+        url: ANALYSES_ENDPOINTS.DOWNLOAD_BATCH_TSVS,
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        responseHandler: (res: Response) => res.blob(),
+      }),
     }),
     createAnalysis: builder.mutation<string, AnalysisInput>({
       query: (data) => requestConfig(ANALYSES_ENDPOINTS.DEFAULT, "POST", data),
@@ -120,8 +130,9 @@ const analysesService = apiSlice.injectEndpoints({
 export const {
   useGetAnalysesQuery,
   useGetAnalysisByIDQuery,
-  useGetAnalysisZipQuery,
-  useGetBatchAnalysisTSVsMutation,
+  useLazyGetAnalysisZipQuery,
+  useLazyGetAnalysisFastQCQuery,
+  useDownloadBatchAnalysisTSVsMutation,
   useCreateAnalysisMutation,
   useDeleteAnalysisMutation,
 } = analysesService;

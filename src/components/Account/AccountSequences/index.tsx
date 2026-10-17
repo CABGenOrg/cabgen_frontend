@@ -15,10 +15,10 @@ import UploadTableModal from "@/components/General/UploadTableModal";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { toast } from "@/hooks/use-toast";
-import { downloadGetFile } from "@/utils/downloadFile";
-import { SAMPLES_ENDPOINTS } from "@/redux/services/samples/samplesEndpoints";
+import { saveBlob } from "@/utils/downloadFile";
 import {
   useGetSamplesQuery,
+  useDownloadTemplateMutation,
   useDeleteSampleMutation,
   useCreateSamplesFromTableMutation,
 } from "@/redux/services/samples/samplesService";
@@ -64,22 +64,20 @@ const AccountSequences = () => {
   }, [loadingSamples, data.length, page, totalPages]);
 
   const [createSamplesFromTable] = useCreateSamplesFromTableMutation();
-  const [downloadingTemplate, setDownloadingTemplate] = useState(false);
+  const [
+    downloadTemplate,
+    { isLoading: downloadingTemplate },
+  ] = useDownloadTemplateMutation();
   const [tableMsg, setTableMsg] = useState<{ text: string; n: number } | null>(
     null,
   );
 
   const handleDownloadTemplate = async () => {
-    setDownloadingTemplate(true);
     try {
-      await downloadGetFile(
-        SAMPLES_ENDPOINTS.TEMPLATE,
-        "cabgen_samples_template.xlsx",
-      );
+      const blob = await downloadTemplate().unwrap();
+      saveBlob(blob, "cabgen_samples_template.xlsx");
     } catch {
       toast({ description: Errors.downloadError, variant: "destructive" });
-    } finally {
-      setDownloadingTemplate(false);
     }
   };
 
