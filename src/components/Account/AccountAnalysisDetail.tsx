@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, Download, ExternalLink } from "lucide-react";
+import { ArrowLeft, Download, ExternalLink, Loader2 } from "lucide-react";
 import { section_btn } from "@/styles/tailwind_classes";
 import { saveBlob, openBlob } from "@/utils/downloadFile";
 import { toast } from "@/hooks/use-toast";
@@ -98,12 +98,18 @@ const AccountAnalysisDetail = () => {
     skip: authLoading || isAdmin,
   });
 
-  const [getAdminZip] = useLazyGetAdminAnalysisZipQuery();
-  const [getUserZip] = useLazyGetAnalysisZipQuery();
+  const [getAdminZip, { isLoading: adminZipLoading }] =
+    useLazyGetAdminAnalysisZipQuery();
+  const [getUserZip, { isLoading: userZipLoading }] =
+    useLazyGetAnalysisZipQuery();
   const [getAdminFastQC] = useLazyGetAdminAnalysisFastQCQuery();
   const [getUserFastQC] = useLazyGetAnalysisFastQCQuery();
   const getZip = isAdmin ? getAdminZip : getUserZip;
   const getFastQC = isAdmin ? getAdminFastQC : getUserFastQC;
+  const downloadingZip = adminZipLoading || userZipLoading;
+  const [openingFastqc, setOpeningFastqc] = useState<
+    "fastqc1" | "fastqc2" | null
+  >(null);
 
   const { data: analysis } = isAdmin ? adminQuery : userQuery;
   const error = isAdmin ? adminQuery.error : userQuery.error;
@@ -269,7 +275,9 @@ const AccountAnalysisDetail = () => {
         {zipReady && (
           <button
             type="button"
+            disabled={downloadingZip}
             onClick={() => {
+              if (downloadingZip) return;
               getZip(id)
                 .unwrap()
                 .then((blob) =>
@@ -285,10 +293,14 @@ const AccountAnalysisDetail = () => {
                   }),
                 );
             }}
-            className={`${section_btn} inline-flex items-center justify-center gap-1.5 shrink-0`}
+            className={`${section_btn} inline-flex items-center justify-center gap-1.5 shrink-0 disabled:opacity-50 disabled:cursor-not-allowed`}
           >
-            <Download size={18} />
-            {detailDict.downloadResults}
+            {downloadingZip ? (
+              <Loader2 size={18} className="animate-spin" />
+            ) : (
+              <Download size={18} />
+            )}
+            {downloadingZip ? detailDict.downloading : detailDict.downloadResults}
           </button>
         )}
       </div>
@@ -307,7 +319,10 @@ const AccountAnalysisDetail = () => {
           {fastqcReady && analysis.fastqc1 ? (
             <button
               type="button"
+              disabled={openingFastqc === "fastqc1"}
               onClick={() => {
+                if (openingFastqc) return;
+                setOpeningFastqc("fastqc1");
                 getFastQC([id, "fastqc1"])
                   .unwrap()
                   .then(openBlob)
@@ -316,11 +331,16 @@ const AccountAnalysisDetail = () => {
                       description: Errors.viewError,
                       variant: "destructive",
                     }),
-                  );
+                  )
+                  .finally(() => setOpeningFastqc(null));
               }}
-              className="inline-flex items-center gap-1.5 text-cabgen-200 dark:text-cabgen-300 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"
+              className="inline-flex items-center gap-1.5 text-cabgen-200 dark:text-cabgen-300 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <ExternalLink size={16} />
+              {openingFastqc === "fastqc1" ? (
+                <Loader2 size={16} className="animate-spin" />
+              ) : (
+                <ExternalLink size={16} />
+              )}
               {detailDict.fastqc1}
             </button>
           ) : (
@@ -329,7 +349,10 @@ const AccountAnalysisDetail = () => {
           {fastqcReady && analysis.fastqc2 ? (
             <button
               type="button"
+              disabled={openingFastqc === "fastqc2"}
               onClick={() => {
+                if (openingFastqc) return;
+                setOpeningFastqc("fastqc2");
                 getFastQC([id, "fastqc2"])
                   .unwrap()
                   .then(openBlob)
@@ -338,11 +361,16 @@ const AccountAnalysisDetail = () => {
                       description: Errors.viewError,
                       variant: "destructive",
                     }),
-                  );
+                  )
+                  .finally(() => setOpeningFastqc(null));
               }}
-              className="inline-flex items-center gap-1.5 text-cabgen-200 dark:text-cabgen-300 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0"
+              className="inline-flex items-center gap-1.5 text-cabgen-200 dark:text-cabgen-300 hover:text-cabgen-300 hover:underline cursor-pointer bg-transparent border-0 p-0 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <ExternalLink size={16} />
+              {openingFastqc === "fastqc2" ? (
+                <Loader2 size={16} className="animate-spin" />
+              ) : (
+                <ExternalLink size={16} />
+              )}
               {detailDict.fastqc2}
             </button>
           ) : (

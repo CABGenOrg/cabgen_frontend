@@ -405,6 +405,7 @@ const es = {
         fastqc1: "FastQC 1",
         fastqc2: "FastQC 2",
         downloadResults: "Descargar Resultados",
+        downloading: "Descargando…",
         metrics: {
           coverage: "Cobertura",
           completeness: "Completitud",

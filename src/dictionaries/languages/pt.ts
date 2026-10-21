@@ -396,6 +396,7 @@ const pt = {
         fastqc1: "FastQC 1",
         fastqc2: "FastQC 2",
         downloadResults: "Descarregar Resultados",
+        downloading: "Baixando…",
         metrics: {
           coverage: "Cobertura",
           completeness: "Completude",

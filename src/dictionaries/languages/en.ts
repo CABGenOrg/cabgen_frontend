@@ -413,6 +413,7 @@ const en = {
         fastqc1: "FastQC 1",
         fastqc2: "FastQC 2",
         downloadResults: "Download Results",
+        downloading: "Downloading…",
         metrics: {
           coverage: "Coverage",
           completeness: "Completeness",
