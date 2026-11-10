@@ -36,8 +36,8 @@ const WarningBanner = () => {
   const { data: health, isLoading } = useGetHealthQuery();
 
   const messageKey = useMemo(() => {
-    if (health?.status && health.status !== "ok") {
-      return health.status;
+    if (health?.message && health.message !== "ok") {
+      return health.message;
     }
     return process.env.NEXT_PUBLIC_WARNING_KEY || null;
   }, [health]);

@@ -4,7 +4,7 @@ import handleError from "@/utils/handleError";
 import { HEALTH_ENDPOINTS } from "./healthEndpoints";
 
 export type HealthResponse = {
-  status: string;
+  message: string;
 };
 
 const healthService = apiSlice.injectEndpoints({
