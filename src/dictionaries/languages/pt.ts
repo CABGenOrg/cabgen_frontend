@@ -10,11 +10,17 @@ const pt = {
     account: "Conta",
   },
   close: "Fechar",
+  warnings: {
+    developmentVersion:
+      "Esta é a versão de desenvolvimento. Acesse a {link}versão oficial{endLink}.",
+    platformInTesting:
+      "Plataforma em testes. Cadastros e dados podem ser perdidos.",
+    maintenance: "Manutenção programada. A plataforma pode ficar instável.",
+    adminOnly: "Apenas administradores podem acessar no momento.",
+    analysisDisabled:
+      "A criação de análises está temporariamente desabilitada.",
+  },
   Home: {
-    WarningBanner: {
-      title:
-        "Este site agora é apenas para fins de desenvolvimento. Visite nosso novo site em",
-    },
     Banner: {
       bannerTitle: "CABGen: Genômica Bacteriana Aplicada à Clínica",
     },

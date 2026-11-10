@@ -1,39 +1,61 @@
-import React from "react";
-import Link from "next/link";
-import { Locale } from "@/i18n/i18n.config";
-import { getTranslateServer } from "@/lib/getTranslateServer";
+"use client";
 
-const MARQUEE_COPIES = 7;
+import React, { useMemo } from "react";
+import { useGetHealthQuery } from "@/redux/services/health/healthService";
+import { useLanguage } from "@/redux/LanguageContext";
+import { getTranslateClient } from "@/lib/getTranslateClient";
 
-const WarningBanner = ({ lang }: { lang: Locale }) => {
-  const {
-    dictionary: { Home },
-  } = getTranslateServer(lang);
+const OFFICIAL_URL = process.env.NEXT_PUBLIC_OFFICIAL_URL || "#";
+
+const renderMessage = (message: string, url: string): React.ReactNode => {
+  const parts = message.split("{link}");
+  if (parts.length !== 2) return message;
+
+  const [before, rest] = parts;
+  const [linkText, after] = rest.split("{endLink}");
 
   return (
-    <div className="bg-red-600 text-white text-center py-4 px-4 md:px-8 overflow-hidden">
-      <div
-        className="flex w-max items-center whitespace-nowrap md:text-lg motion-reduce:animate-none animate-marquee"
-        style={
-          {
-            "--marquee-shift": `-${(100 / MARQUEE_COPIES).toFixed(4)}%`,
-          } as React.CSSProperties
-        }
+    <>
+      {before}
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline hover:text-yellow-400 transition-colors"
       >
-        {[...Array(MARQUEE_COPIES)].map((_, idx) => (
-          <div key={idx} className="flex items-center flex-shrink-0 pr-4">
-            <span className="mr-2">{Home.WarningBanner.title}</span>
-            <Link
-              href="https://cabgen.fiocruz.br"
-              className="flex items-center gap-1 hover:text-yellow-400 transition-colors"
-              passHref={true}
-              target="_blank"
-              aria-label="Acessar novo site"
-            >
-              <span className="underline">cabgen.fiocruz.br</span>
-            </Link>
-          </div>
-        ))}
+        {linkText}
+      </a>
+      {after}
+    </>
+  );
+};
+
+const WarningBanner = () => {
+  const lang = useLanguage();
+  const { dictionary } = getTranslateClient(lang);
+  const { data: health, isLoading } = useGetHealthQuery();
+
+  const messageKey = useMemo(() => {
+    if (health?.status && health.status !== "ok") {
+      return health.status;
+    }
+    return process.env.NEXT_PUBLIC_WARNING_KEY || null;
+  }, [health]);
+
+  if (isLoading || !messageKey) return null;
+
+  const warnings = dictionary.warnings as Record<string, string>;
+  const message = warnings[messageKey];
+  if (!message) return null;
+
+  return (
+    <div
+      className="bg-red-600 text-white text-center py-3 px-4"
+      role="alert"
+      aria-live="polite"
+    >
+      <div className="md:text-lg">
+        {renderMessage(message, OFFICIAL_URL)}
       </div>
     </div>
   );

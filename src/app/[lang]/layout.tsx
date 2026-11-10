@@ -8,6 +8,7 @@ import { i18n, type Locale } from "@/i18n/i18n.config";
 import { LanguageProvider } from "@/redux/LanguageContext";
 import { AuthProvider } from "@/redux/AuthContext";
 import Layout from "@/components/General/Layout";
+import WarningBanner from "@/components/Home/WarningBanner";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
 import { getServerUser } from "@/utils/handleServerUser";
@@ -83,6 +84,7 @@ const RootLayout = async ({
           <AuthProvider initialUser={initialUser}>
             <LanguageProvider lang={lang}>
               <Menu lang={lang} />
+              <WarningBanner />
               <main className="flex-1 flex flex-col">
                 <Layout>{children}</Layout>
               </main>

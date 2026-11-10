@@ -6,15 +6,11 @@ import GenomicSurveillance from "@/components/Home/GenomicSurveillance";
 import AntimicrobialResistance from "@/components/Home/AntimicrobialResistance";
 import Financiers from "@/components/Home/Financiers";
 import { Locale } from "@/i18n/i18n.config";
-import WarningBanner from "@/components/Home/WarningBanner";
-
-const showWarning = process.env.NEW_DOMAIN_WARNING === "true";
 
 const Home = async ({ params }: { params: Promise<{ lang: Locale }> }) => {
   const { lang } = await params;
   return (
     <>
-      {showWarning && <WarningBanner lang={lang} />}
       <Banner lang={lang} />
       <CabgenDescription lang={lang} />
       <Statistics lang={lang} />

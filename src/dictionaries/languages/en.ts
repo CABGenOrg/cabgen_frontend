@@ -10,11 +10,16 @@ const en = {
     account: "Account",
   },
   close: "Close",
+  warnings: {
+    developmentVersion:
+      "This is the development version. Access the {link}official version{endLink}.",
+    platformInTesting:
+      "Platform under testing. Registrations and data may be lost.",
+    maintenance: "Scheduled maintenance. The platform may be unstable.",
+    adminOnly: "Only administrators can log in at the moment.",
+    analysisDisabled: "Analysis creation is temporarily disabled.",
+  },
   Home: {
-    WarningBanner: {
-      title:
-        "This site is now for development purposes only. Visit our new website at",
-    },
     Banner: {
       bannerTitle: "CABGen: Bacterial Genomics Applied to Clinical Practice",
     },
