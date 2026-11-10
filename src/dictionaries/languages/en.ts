@@ -15,7 +15,7 @@ const en = {
       "This is the development version. Access the {link}official version{endLink}.",
     platformInTesting:
       "Platform under testing. Registrations and data may be lost.",
-    maintenance: "Scheduled maintenance. The platform may be unstable.",
+    maintenance: "Maintenance in progress. The platform may be unstable.",
     adminOnly: "Only administrators can log in at the moment.",
     analysisDisabled: "Analysis creation is temporarily disabled.",
   },

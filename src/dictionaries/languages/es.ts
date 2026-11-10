@@ -15,7 +15,7 @@ const es = {
       "Esta es la versión de desarrollo. Accede a la {link}versión oficial{endLink}.",
     platformInTesting:
       "Plataforma en pruebas. Los registros y datos pueden perderse.",
-    maintenance: "Mantenimiento programado. La plataforma puede estar inestable.",
+    maintenance: "Mantenimiento en curso. La plataforma puede estar inestable.",
     adminOnly: "Solo los administradores pueden acceder en este momento.",
     analysisDisabled:
       "La creación de análisis está temporalmente deshabilitada.",
