@@ -121,7 +121,10 @@ const SampleFormModalBody: React.FC<
 
   type SampleFormData = z.infer<typeof sampleSchema>;
 
-  const genderOptions = formOptions.genders ?? [];
+  const genderOptions = useMemo(
+    () => formOptions.genders ?? [],
+    [formOptions.genders],
+  );
 
   const laboratoryOptions = [...(formOptions.laboratories ?? [])].sort(
     (a, b) =>

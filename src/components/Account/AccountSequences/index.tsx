@@ -97,6 +97,7 @@ const AccountSequences = () => {
     } catch {}
   };
 
+  const activeValues = AccountDict.admin.activeValues;
   const columns = useMemo(
     () => [
       columnHelper.accessor("origin_code", {
@@ -113,8 +114,8 @@ const AccountSequences = () => {
           return (
             <Badge variant={inNetwork ? "done" : "failed"}>
               {inNetwork
-                ? AccountDict.admin.activeValues.yes
-                : AccountDict.admin.activeValues.no
+                ? activeValues.yes
+                : activeValues.no
               }
             </Badge>
           );
@@ -205,7 +206,7 @@ const AccountSequences = () => {
         ),
       }),
     ],
-    [dict],
+    [dict, activeValues],
   );
 
   return (

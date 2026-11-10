@@ -100,7 +100,7 @@ const AdminAnalyses = () => {
     { ...filters, page },
     { pollingInterval: 15000 },
   );
-  const data = paged?.data ?? [];
+  const data = useMemo(() => paged?.data ?? [], [paged]);
   const totalPages = paged?.total_pages ?? 1;
 
   useEffect(() => {
