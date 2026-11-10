@@ -58,9 +58,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
     title: "CABGen",
     description:
       "A Web Application for the Bioinformatic Analysis of Bacterial Genomes",
-    icons: {
-      icon: "/images/cabgen.ico",
-    },
   };
 }
 
