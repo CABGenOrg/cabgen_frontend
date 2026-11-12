@@ -19,7 +19,10 @@ import {
   ChartNoAxesCombined,
 } from "lucide-react";
 import PageHeader from "@/components/General/PageHeader";
-import Loading from "@/components/General/Loading";
+import {
+  AdminOverviewSkeleton,
+  ChartCardSkeleton,
+} from "@/components/General/Skeletons";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import {
@@ -33,12 +36,9 @@ const AdminOverviewCharts = dynamic(
   () => import("./AdminOverviewCharts"),
   {
     loading: () => (
-      <div className="grid lg:grid-cols-2 gap-6 mb-6">
-        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
-          <div
-            key={i}
-            className="bg-card rounded-lg shadow-md border border-border p-5 h-[362px] animate-pulse"
-          />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {Array.from({ length: 10 }).map((_, i) => (
+          <ChartCardSkeleton key={i} />
         ))}
       </div>
     ),
@@ -102,7 +102,7 @@ const AdminOverview = () => {
 
   const { data: metrics, isLoading } = useGetAdminMetricsQuery();
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <AdminOverviewSkeleton />;
 
   const statusData = metrics
     ? Object.entries(metrics.analyses_by_status ?? {})

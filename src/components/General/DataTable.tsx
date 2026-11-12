@@ -12,7 +12,7 @@ import {
 } from "@tanstack/react-table";
 import { useState, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import Loading from "./Loading";
+import { TableSkeleton } from "./Skeletons";
 import Pagination from "./Pagination";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -145,11 +145,7 @@ const DataTable = <TData,>({
             }}
           >
             {loading ? (
-              <tr>
-                <td colSpan={99} className="py-12 text-center">
-                  <Loading />
-                </td>
-              </tr>
+              <TableSkeleton columns={columns.length} />
             ) : rows.length === 0 ? (
               <tr>
                 <td colSpan={99} className="py-16 text-center">

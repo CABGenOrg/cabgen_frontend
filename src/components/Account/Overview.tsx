@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
-import Loading from "../General/Loading";
+import { OverviewSkeleton, ChartCardSkeleton } from "../General/Skeletons";
 import { User2, LayoutDashboard, Dna, Search, CheckCircle } from "lucide-react";
 import { useGetAnalysesQuery } from "@/redux/services/analyses/analysesService";
 import { useGetSamplesQuery } from "@/redux/services/samples/samplesService";
@@ -14,12 +14,9 @@ import { useGetUserMetricsQuery } from "@/redux/services/metrics/metricsService"
 
 const OverviewCharts = dynamic(() => import("./OverviewCharts"), {
   loading: () => (
-    <div className="grid lg:grid-cols-2 gap-6 mb-6">
-      {[0, 1, 2, 3, 4, 5].map((i) => (
-        <div
-          key={i}
-          className="bg-card rounded-lg shadow-md border border-border p-5 h-[362px] animate-pulse"
-        />
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <ChartCardSkeleton key={i} />
       ))}
     </div>
   ),
@@ -177,7 +174,7 @@ const Overview = () => {
   }, [metrics, lang]);
 
   if (authLoading || analysesLoading || samplesLoading || metricsLoading)
-    return <Loading />;
+    return <OverviewSkeleton />;
 
   return (
     <div>

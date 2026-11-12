@@ -2,7 +2,7 @@
 
 import React from "react";
 import OptimizedImage from "../General/OptimizedImage";
-import Loading from "../General/Loading";
+import { BoxInfoSkeleton } from "../General/Skeletons";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { useLanguage } from "@/redux/LanguageContext";
 import { useGetMetricsQuery } from "@/redux/services/metrics/metricsService";
@@ -42,7 +42,7 @@ const BoxInfo = () => {
     },
   ];
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <BoxInfoSkeleton />;
 
   return (
     <div className="grid lg:grid-cols-2 sm:grid-cols-1 grid-cols-2 content-around lg:gap-4 gap-2">
