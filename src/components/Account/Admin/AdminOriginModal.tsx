@@ -9,7 +9,7 @@ import { Form } from "@/components/ui/form";
 import Modal from "@/components/General/Modal";
 import TextField from "@/components/General/TextField";
 import Message from "@/components/General/Message";
-import Loading from "@/components/General/Loading";
+import LoadingButton from "@/components/General/LoadingButton";
 import {
   useGetOriginByIDQuery,
   useCreateOriginMutation,
@@ -154,17 +154,13 @@ const AdminOriginModalBody: React.FC<{
             >
               {dict.cancel}
             </Button>
-            {isLoading ? (
-              <Loading />
-            ) : (
-              <Button
-                type="submit"
-                variant="green"
-                className="px-6 py-2 text-base"
-              >
-                {isEdit ? dict.save : dict.createOrigin}
-              </Button>
-            )}
+            <LoadingButton
+              type="submit"
+              className="bg-green-600 hover:bg-green-700 rounded-lg px-6 py-2 text-base text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2"
+              loading={isLoading}
+            >
+              {isEdit ? dict.save : dict.createOrigin}
+            </LoadingButton>
           </div>
         </form>
       </Form>

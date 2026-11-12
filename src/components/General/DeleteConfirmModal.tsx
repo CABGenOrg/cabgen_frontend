@@ -3,7 +3,7 @@
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Modal from "./Modal";
-import Loading from "./Loading";
+import LoadingButton from "./LoadingButton";
 import Message from "./Message";
 
 interface DeleteConfirmModalProps {
@@ -52,13 +52,13 @@ const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
       >
         {dict.cancel}
       </Button>
-      {deleting ? (
-        <Loading />
-      ) : (
-        <Button variant="destructive" onClick={onDelete}>
-          {dict.delete}
-        </Button>
-      )}
+      <LoadingButton
+        className="bg-red-600 hover:bg-red-700 rounded-lg px-6 py-2 text-base text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2"
+        onClick={onDelete}
+        loading={deleting}
+      >
+        {dict.delete}
+      </LoadingButton>
     </div>
   </Modal>
 );

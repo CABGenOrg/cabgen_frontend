@@ -21,7 +21,7 @@ import OptimizedImage from "../General/OptimizedImage";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { useContactMutation } from "@/redux/services/contact/contactService";
-import Loading from "../General/Loading";
+import LoadingButton from "../General/LoadingButton";
 import Message from "../General/Message";
 
 const ContactForm = () => {
@@ -186,12 +186,13 @@ const ContactForm = () => {
               }}
             />
             <div className="flex justify-center items-center mt-4">
-              {!isLoading && (
-                <button className={section_btn} type="submit">
-                  {Contact.sendBtn}
-                </button>
-              )}
-              {isLoading && <Loading />}
+              <LoadingButton
+                className={section_btn}
+                type="submit"
+                loading={isLoading}
+              >
+                {Contact.sendBtn}
+              </LoadingButton>
             </div>
             {error && (
               <Message

@@ -18,6 +18,7 @@ import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
+import LoadingButton from "@/components/General/LoadingButton";
 import { SmartSelect } from "@/components/General/SmartSelect";
 import { saveBlob } from "@/utils/downloadFile";
 import { toast } from "@/hooks/use-toast";
@@ -476,17 +477,13 @@ const AccountAnalysis = () => {
                   >
                     {dict.cancel}
                   </Button>
-                  {creating ? (
-                    <Loading />
-                  ) : (
-                    <Button
-                      type="submit"
-                      variant="green"
-                      className="px-6 py-2 text-base"
-                    >
-                      {dict.createAnalysis}
-                    </Button>
-                  )}
+                  <LoadingButton
+                    type="submit"
+                    className="bg-green-600 hover:bg-green-700 rounded-lg px-6 py-2 text-base text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2"
+                    loading={creating}
+                  >
+                    {dict.createAnalysis}
+                  </LoadingButton>
                 </div>
               </form>
             </Form>

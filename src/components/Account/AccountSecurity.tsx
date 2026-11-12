@@ -17,7 +17,7 @@ import { Shield } from "lucide-react";
 import { input_class, label_class } from "@/styles/tailwind_classes";
 import PasswordInput from "@/components/General/PasswordInput";
 import Message from "@/components/General/Message";
-import Loading from "@/components/General/Loading";
+import LoadingButton from "@/components/General/LoadingButton";
 import {
   useGetProfileQuery,
   useDeleteProfileMutation,
@@ -204,16 +204,13 @@ const AccountSecurity = () => {
               )}
 
               <div className="flex justify-end mt-4">
-                {requestingEmail ? (
-                  <Loading />
-                ) : (
-                  <button
-                    type="submit"
-                    className="bg-cabgen-200 hover:bg-cabgen-100 rounded-lg py-2 px-6 text-base text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:ring-offset-2"
-                  >
-                    {dict.sendVerification}
-                  </button>
-                )}
+                <LoadingButton
+                  type="submit"
+                  className="bg-cabgen-200 hover:bg-cabgen-100 rounded-lg py-2 px-6 text-base text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:ring-offset-2"
+                  loading={requestingEmail}
+                >
+                  {dict.sendVerification}
+                </LoadingButton>
               </div>
             </form>
           </Form>
@@ -296,16 +293,13 @@ const AccountSecurity = () => {
             )}
 
             <div className="flex justify-end mt-4">
-              {updatingPassword ? (
-                <Loading />
-              ) : (
-                <button
-                  type="submit"
-                  className="bg-cabgen-200 hover:bg-cabgen-100 rounded-lg py-2 px-6 text-base text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:ring-offset-2"
-                >
-                  {dict.save}
-                </button>
-              )}
+              <LoadingButton
+                type="submit"
+                className="bg-cabgen-200 hover:bg-cabgen-100 rounded-lg py-2 px-6 text-base text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 focus-visible:ring-offset-2"
+                loading={updatingPassword}
+              >
+                {dict.save}
+              </LoadingButton>
             </div>
           </form>
         </Form>
@@ -398,12 +392,14 @@ const AccountSecurity = () => {
             >
               {dict.contact}
             </CustomLink>
-          ) : deleting ? (
-            <Loading />
           ) : (
-            <Button variant="destructive" onClick={handleDelete}>
+            <LoadingButton
+              className="bg-red-600 hover:bg-red-700 rounded-lg py-2 px-6 text-base text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2"
+              onClick={handleDelete}
+              loading={deleting}
+            >
               {dict.delete}
-            </Button>
+            </LoadingButton>
           )}
         </div>
       </Modal>

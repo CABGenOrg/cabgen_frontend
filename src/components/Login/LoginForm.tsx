@@ -13,7 +13,7 @@ import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
 import { useLoginMutation } from "@/redux/services/auth/authService";
 import { useRouter } from "next/navigation";
-import Loading from "../General/Loading";
+import LoadingButton from "../General/LoadingButton";
 import {
   Form,
   FormItem,
@@ -119,12 +119,13 @@ const LoginForm = () => {
               />
             </div>
             <div className="flex justify-center items-center mt-4">
-              {!isLoading && (
-                <button className={section_btn} type="submit">
-                  {Login.loginBtn}
-                </button>
-              )}
-              {isLoading && <Loading />}
+              <LoadingButton
+                className={section_btn}
+                type="submit"
+                loading={isLoading}
+              >
+                {Login.loginBtn}
+              </LoadingButton>
             </div>
             <div className="text-center 2xl:text-lg mt-3">
               <p>

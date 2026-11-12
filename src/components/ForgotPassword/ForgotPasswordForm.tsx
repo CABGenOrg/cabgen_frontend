@@ -12,7 +12,7 @@ import {
 import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
 import { useForgotPasswordMutation } from "@/redux/services/auth/authService";
-import Loading from "../General/Loading";
+import LoadingButton from "../General/LoadingButton";
 import {
   Form,
   FormItem,
@@ -92,12 +92,13 @@ const ForgotPasswordForm = () => {
                 )}
               />
               <div className="flex justify-center items-center mt-4">
-                {!isLoading && (
-                  <button className={section_btn} type="submit">
-                    {ForgotPassword.button}
-                  </button>
-                )}
-                {isLoading && <Loading />}
+                <LoadingButton
+                  className={section_btn}
+                  type="submit"
+                  loading={isLoading}
+                >
+                  {ForgotPassword.button}
+                </LoadingButton>
               </div>
               {error && (
                 <div className="mt-3">

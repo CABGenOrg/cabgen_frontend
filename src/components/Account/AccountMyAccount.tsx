@@ -19,6 +19,7 @@ import { SmartSelect } from "@/components/General/SmartSelect";
 import { section_btn, input_class, label_class } from "@/styles/tailwind_classes";
 import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
+import LoadingButton from "@/components/General/LoadingButton";
 import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
 import {
   useGetEnumSelectOptionsQuery,
@@ -294,13 +295,13 @@ const AccountMyAccount = () => {
             )}
 
             <div className="flex justify-end mt-6">
-              {updating ? (
-                <Loading />
-              ) : (
-                <button type="submit" className={section_btn}>
-                  {dict.save}
-                </button>
-              )}
+              <LoadingButton
+                type="submit"
+                className={section_btn}
+                loading={updating}
+              >
+                {dict.save}
+              </LoadingButton>
             </div>
           </form>
         </Form>

@@ -11,6 +11,7 @@ import {
 } from "@/styles/tailwind_classes";
 import CustomLink from "../General/CustomLink";
 import OptimizedImage from "../General/OptimizedImage";
+import LoadingButton from "../General/LoadingButton";
 import { useLanguage } from "@/redux/LanguageContext";
 import {
   Select,
@@ -29,7 +30,6 @@ import {
 } from "../ui/form";
 import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
 import { useRegisterMutation } from "@/redux/services/auth/authService";
-import Loading from "../General/Loading";
 import Message from "../General/Message";
 import PasswordInput from "../General/PasswordInput";
 import { getTranslateClient } from "@/lib/getTranslateClient";
@@ -388,12 +388,13 @@ const RegisterForm = () => {
               />
             </div>
             <div className="flex justify-center items-center mt-6">
-              {!isLoading && (
-                <button className={section_btn} type="submit">
-                  {Register.registerBtn}
-                </button>
-              )}
-              {isLoading && <Loading />}
+              <LoadingButton
+                className={section_btn}
+                type="submit"
+                loading={isLoading}
+              >
+                {Register.registerBtn}
+              </LoadingButton>
             </div>
             <div className="text-center 2xl:text-lg mt-3">
               <p>

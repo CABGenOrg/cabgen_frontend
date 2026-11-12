@@ -10,7 +10,7 @@ import {
 } from "@/styles/tailwind_classes";
 import CustomLink from "../General/CustomLink";
 import { useResetPasswordMutation } from "@/redux/services/auth/authService";
-import Loading from "../General/Loading";
+import LoadingButton from "../General/LoadingButton";
 import {
   Form,
   FormItem,
@@ -123,12 +123,13 @@ const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
           />
         </div>
         <div className="flex justify-center items-center mt-4">
-          {!isLoading && (
-            <button className={section_btn} type="submit">
-              {ResetPassword.button}
-            </button>
-          )}
-          {isLoading && <Loading />}
+          <LoadingButton
+            className={section_btn}
+            type="submit"
+            loading={isLoading}
+          >
+            {ResetPassword.button}
+          </LoadingButton>
         </div>
         {error && (
           <div className="mt-3">
