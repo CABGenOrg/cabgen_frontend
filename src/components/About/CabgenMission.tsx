@@ -18,7 +18,7 @@ const CabgenMission = ({ lang }: { lang: Locale }) => {
   } = getTranslateServer(lang);
 
   return (
-    <Section id="cabgen-mission" gray>
+    <Section id="cabgen-mission" gray animated>
       <div className={`grid lg:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-start">

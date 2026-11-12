@@ -76,6 +76,7 @@ const ContactForm = () => {
             width={400}
             height={200}
             sizes="(max-width: 640px) 66vw, 30vw"
+            priority
             className="object-cover sm:w-6/12 w-2/3 mb-5"
           />
         </div>

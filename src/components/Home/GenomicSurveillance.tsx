@@ -18,7 +18,7 @@ const GenomicSurveillance = ({ lang }: { lang: Locale }) => {
   } = getTranslateServer(lang);
 
   return (
-    <Section id="genomic-surveillance" gray>
+    <Section id="genomic-surveillance" gray animated>
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex justify-center items-center sm:order-first order-last">
           <OptimizedImage
@@ -27,6 +27,7 @@ const GenomicSurveillance = ({ lang }: { lang: Locale }) => {
             width={800}
             height={600}
             sizes="(max-width: 768px) 83vw, 50vw"
+            priority
             className={section_image}
           />
         </div>

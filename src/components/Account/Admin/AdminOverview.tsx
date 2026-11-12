@@ -61,7 +61,7 @@ const StatCard: React.FC<{
   value: number;
   label: string;
 }> = ({ icon, value, label }) => (
-  <div className="bg-card rounded-lg shadow-md border border-border p-5 flex items-center gap-4">
+  <div className="bg-card rounded-lg shadow-md border border-border p-5 flex items-center gap-4 animate-fade-in-up">
     <div className="w-12 h-12 rounded-full bg-cabgen-100 flex items-center justify-center text-white shrink-0">
       {icon}
     </div>
@@ -255,7 +255,7 @@ const AdminOverview = () => {
           <div
             key={card.title}
             onClick={() => router.push(card.href)}
-            className="bg-card rounded-lg shadow-md border border-border p-5 flex items-center gap-4 cursor-pointer hover:bg-muted/50 transition-colors"
+            className="bg-card rounded-lg shadow-md border border-border p-5 flex items-center gap-4 cursor-pointer hover:bg-muted/50 transition-colors animate-fade-in-up"
           >
             <div className="w-12 h-12 rounded-full bg-cabgen-100 flex items-center justify-center text-white shrink-0">
               {card.icon}

@@ -42,7 +42,7 @@ const StatCard: React.FC<{
 }> = ({ icon, value, label, onClick }) => (
   <div
     onClick={onClick}
-    className={`bg-card rounded-lg shadow-md border border-border p-5 flex items-center gap-4 ${onClick ? "cursor-pointer hover:bg-muted/50 transition-colors" : ""}`}
+    className={`bg-card rounded-lg shadow-md border border-border p-5 flex items-center gap-4 animate-fade-in-up ${onClick ? "cursor-pointer hover:bg-muted/50 transition-colors" : ""}`}
   >
     <div className="w-12 h-12 rounded-full bg-cabgen-100 flex items-center justify-center text-white shrink-0">
       {icon}
@@ -185,7 +185,7 @@ const Overview = () => {
         </span>
       </h1>
 
-      <div className="bg-card rounded-lg shadow-md p-6 mb-6">
+      <div className="bg-card rounded-lg shadow-md p-6 mb-6 animate-fade-in-up">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-full bg-cabgen-400 flex items-center justify-center shrink-0">
             <User2 size={32} className="text-white" />

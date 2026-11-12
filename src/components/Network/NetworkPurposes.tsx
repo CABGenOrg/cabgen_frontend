@@ -34,7 +34,7 @@ const NetworkPurposes = () => {
   ];
 
   return (
-    <Section id="network-purposes">
+    <Section id="network-purposes" animated>
       <div className={section_spacing}>
         <h2 className="text-center mb-3 md:text-3xl text-2xl">Contribuições</h2>
         <div className="grid grid-row sm:grid-cols-3 grid-cols-2 sm:gap-3 gap-2 xl:text-xl sm:text-lg text-sm font-light">

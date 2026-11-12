@@ -6,6 +6,7 @@ interface SectionParams {
   gray?: boolean;
   background?: string;
   className?: string;
+  animated?: boolean;
 }
 
 const Section = ({
@@ -14,6 +15,7 @@ const Section = ({
   children,
   background,
   className,
+  animated,
 }: SectionParams) => {
   return (
     <section
@@ -21,8 +23,8 @@ const Section = ({
       className={`w-full flex flex-col items-center py-6 md:py-10 lg:py-16 ${
         gray ? "bg-muted" : "bg-card"
       } ${background ? "bg-center bg-cover bg-no-repeat" : ""} ${
-        className ?? ""
-      }`}
+        animated ? "animate-fade-in-up" : ""
+      } ${className ?? ""}`}
       style={
         background
           ? {

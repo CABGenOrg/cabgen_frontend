@@ -18,7 +18,7 @@ const Statistics = ({ lang }: { lang: Locale }) => {
   } = getTranslateServer(lang);
 
   return (
-    <Section id="cagben-statistics">
+    <Section id="cagben-statistics" animated>
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-start">

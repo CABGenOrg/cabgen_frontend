@@ -17,7 +17,7 @@ const CabgenDescription = ({ lang }: { lang: Locale }) => {
   } = getTranslateServer(lang);
 
   return (
-    <Section id="cagben-description" gray>
+    <Section id="cagben-description" gray animated>
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex justify-center items-center sm:order-last order-first">
           <OptimizedImage
@@ -26,6 +26,7 @@ const CabgenDescription = ({ lang }: { lang: Locale }) => {
             width={600}
             height={300}
             sizes="(max-width: 768px) 83vw, 50vw"
+            priority
             className={section_image}
           />
         </div>

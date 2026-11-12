@@ -23,7 +23,7 @@ const ChartCard: React.FC<{ title: string; children: React.ReactNode }> = ({
   title,
   children,
 }) => (
-  <div className="bg-card rounded-lg shadow-md border border-border p-5">
+  <div className="bg-card rounded-lg shadow-md border border-border p-5 animate-fade-in-up">
     <h2 className="text-lg font-semibold text-foreground mb-4">{title}</h2>
     <div className="h-[300px] md:h-[350px]">{children}</div>
   </div>

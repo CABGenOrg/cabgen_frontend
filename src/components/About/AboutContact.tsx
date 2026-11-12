@@ -16,7 +16,7 @@ const AboutContact = ({ lang }: { lang: Locale }) => {
   } = getTranslateServer(lang);
 
   return (
-    <Section id="cabgen-contact" gray>
+    <Section id="cabgen-contact" gray animated>
       <div className={`grid md:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-start">

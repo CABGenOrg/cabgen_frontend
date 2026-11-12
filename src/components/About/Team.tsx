@@ -55,7 +55,7 @@ const Team = ({ lang }: { lang: Locale }) => {
     },
   ];
   return (
-    <Section id="cabgen team">
+    <Section id="cabgen team" animated>
       <div className={section_spacing}>
         <h2
           className={`${section_title} text-center 2xl:mb-7 mb-4 2xl:mt-4 mt-1`}

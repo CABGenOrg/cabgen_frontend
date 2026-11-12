@@ -14,7 +14,7 @@ const CabgenPipeline = ({ lang }: { lang: Locale }) => {
     dictionary: { About },
   } = getTranslateServer(lang);
   return (
-    <Section id="cabgen-pipeline">
+    <Section id="cabgen-pipeline" animated>
       <div className={section_spacing}>
         <h2 className="text-center mb-3 md:text-3xl text-2xl">
           <span className={`${section_subtitle} uppercase`}>

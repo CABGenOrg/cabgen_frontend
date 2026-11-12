@@ -34,7 +34,7 @@ const Financiers = ({ lang }: { lang: Locale }) => {
   ];
 
   return (
-    <Section id="financiers" gray>
+    <Section id="financiers" gray animated>
       <div
         className={`flex flex-col justify-center items-center ${section_spacing}`}
       >

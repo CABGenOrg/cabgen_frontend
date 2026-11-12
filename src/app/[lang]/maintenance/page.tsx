@@ -37,6 +37,7 @@ const Maintenance = async ({
             width={700}
             height={175}
             sizes="(max-width: 1280px) 55vw, 35vw"
+            priority
             className="xl:w-[35%] lg:w-[40%] md:w-[50%] sm:w-[55%] w-auto mb-16 mt-5 px-5"
           />
           <div className="flex flex-row justify-evenly items-center gap-3 xl:mb-16 mb-10">

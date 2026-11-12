@@ -11,7 +11,7 @@ const NetworkMap = ({ lang }: { lang: Locale }) => {
   } = getTranslateServer(lang);
 
   return (
-    <Section id="network-map">
+    <Section id="network-map" animated>
       <div className={`flex flex-col justify-center items-center w-full ${section_spacing}`}>
         <h2 className={`${section_title} text-center mb-10 mt-4`}>
           {Network.Map.sectionTitle}

@@ -58,6 +58,7 @@ const ForgotPasswordForm = () => {
           <OptimizedImage
             src="/Home/signature_cabgen_dark.png"
             alt="Cabgen logo"
+            priority
             className="object-cover sm:w-6/12 w-2/3 mb-5"
           />
         </div>

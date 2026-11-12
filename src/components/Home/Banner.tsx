@@ -14,6 +14,7 @@ const Banner = ({ lang }: { lang: Locale }) => {
       id="home-banner"
       background="/Home/source.png"
       className="xl:h-96 md:h-80 h-64"
+      animated
     >
       <div className="h-full flex items-center text-center">
         <h1

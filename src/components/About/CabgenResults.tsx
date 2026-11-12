@@ -14,7 +14,7 @@ const CabgenResults = ({ lang }: { lang: Locale }) => {
     dictionary: { About },
   } = getTranslateServer(lang);
   return (
-    <Section id="cabgen-pipeline" gray>
+    <Section id="cabgen-pipeline" gray animated>
       <div className={section_spacing}>
         <h2 className="text-center mb-3 md:text-3xl text-2xl">
           {lang === "en" ? (

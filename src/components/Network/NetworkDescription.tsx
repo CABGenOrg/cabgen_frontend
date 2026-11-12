@@ -17,7 +17,7 @@ const NetworkDescription = ({ lang }: { lang: Locale }) => {
   } = getTranslateServer(lang);
 
   return (
-    <Section id="network-description" gray>
+    <Section id="network-description" gray animated>
       <div className={`${section_spacing}`}>
         <div className="flex justify-center items-center">
           <OptimizedImage
