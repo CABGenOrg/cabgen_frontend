@@ -23,6 +23,9 @@ const CabgenDescription = ({ lang }: { lang: Locale }) => {
           <OptimizedImage
             src={"/Home/signature_cabgen_dark.png"}
             alt="cagben signature"
+            width={600}
+            height={300}
+            sizes="(max-width: 768px) 83vw, 50vw"
             className={section_image}
           />
         </div>

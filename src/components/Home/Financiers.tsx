@@ -43,7 +43,15 @@ const Financiers = ({ lang }: { lang: Locale }) => {
         </h2>
         <div className="flex flex-wrap justify-evenly items-center md:gap-3 gap-10">
           {logos.map(({ name, logo, size }, idx) => (
-            <OptimizedImage key={idx} src={logo} alt={name} className={size} />
+            <OptimizedImage
+              key={idx}
+              src={logo}
+              alt={name}
+              width={300}
+              height={150}
+              sizes="(max-width: 768px) 200px, 300px"
+              className={size}
+            />
           ))}
         </div>
       </div>

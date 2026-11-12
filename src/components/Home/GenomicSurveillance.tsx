@@ -24,6 +24,9 @@ const GenomicSurveillance = ({ lang }: { lang: Locale }) => {
           <OptimizedImage
             src={"/Home/rede_simbolo.png"}
             alt="genomic network symbol"
+            width={800}
+            height={600}
+            sizes="(max-width: 768px) 83vw, 50vw"
             className={section_image}
           />
         </div>

@@ -56,6 +56,9 @@ const BoxInfo = () => {
           <OptimizedImage
             src={image}
             alt={description}
+            width={200}
+            height={200}
+            sizes="(max-width: 768px) 120px, 200px"
             className="2xl:h-3/5 sm:h-1/2 h-2/5 object-contain"
           />
 

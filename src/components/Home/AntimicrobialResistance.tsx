@@ -72,6 +72,9 @@ const AntimicrobialResistance = ({ lang }: { lang: Locale }) => {
           <OptimizedImage
             src={"/Home/TeriExplicando2.png"}
             alt="bad bacteria"
+            width={800}
+            height={600}
+            sizes="(max-width: 768px) 83vw, 50vw"
             className={section_image}
           />
         </div>

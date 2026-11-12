@@ -23,6 +23,9 @@ const NetworkDescription = ({ lang }: { lang: Locale }) => {
           <OptimizedImage
             src={"/Network/logo_rede_dark.png"}
             alt="network dark logo"
+            width={700}
+            height={350}
+            sizes="(max-width: 768px) 100vw, 83vw"
             className="object-cover sm:w-5/6 w-auto"
           />
         </div>
@@ -35,6 +38,9 @@ const NetworkDescription = ({ lang }: { lang: Locale }) => {
           <OptimizedImage
             src={"/Network/curso_rede.jpeg"}
             alt="person pipetting into a plate"
+            width={800}
+            height={600}
+            sizes="(max-width: 768px) 83vw, 50vw"
             className={`${section_image} rounded-lg`}
           />
         </div>
@@ -70,6 +76,9 @@ const NetworkDescription = ({ lang }: { lang: Locale }) => {
           <OptimizedImage
             src={"/Network/capacitacao_rede.jpeg"}
             alt="people in a room"
+            width={800}
+            height={600}
+            sizes="(max-width: 768px) 83vw, 50vw"
             className={`${section_image} rounded-lg`}
           />
         </div>

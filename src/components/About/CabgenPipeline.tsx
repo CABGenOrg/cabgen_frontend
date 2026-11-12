@@ -23,8 +23,11 @@ const CabgenPipeline = ({ lang }: { lang: Locale }) => {
           <span className={section_title}>CABGen</span>
         </h2>
         <OptimizedImage
-          src="/About/cabgen_pipeline.png"
+          src="/About/cabgen_pipeline.svg"
           alt="cabgen pipeline"
+          width={1400}
+          height={700}
+          sizes="(max-width: 1024px) 100vw, 1024px"
           className="w-full max-w-5xl mx-auto"
         />
       </div>

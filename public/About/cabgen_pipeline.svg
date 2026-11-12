@@ -1,0 +1,991 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 1410 640"
+   role="img"
+   aria-labelledby="t d"
+   version="1.1"
+   id="svg61"
+   sodipodi:docname="fluxograma_pipeline_edit2.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   width="1410"
+   height="640"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:c2pa="http://c2pa.org/manifest">
+  <sodipodi:namedview
+     id="namedview61"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.65"
+     inkscape:cx="694.61538"
+     inkscape:cy="391.53846"
+     inkscape:window-width="1432"
+     inkscape:window-height="783"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g22" />
+  <title
+     id="t">Genome analysis pipeline</title>
+  <desc
+     id="d">From FASTQ or FASTA input to contigs, then coverage, assembly quality, species identification, resistance genes and mutations, all feeding a table report. MLST and annotation produce separate files.</desc>
+  <style
+     id="style1">
+:root{--bg:#ffffff;--tx:#1e293b;--mu:#64748b;--ln:#94a3b8;--inf:#f1f5f9;--ins:#94a3b8;--anf:#e0edff;--ans:#2f6fe4;--ouf:#dff5e6;--ous:#2e9e5b;--tbf:#1f7a47;--tbt:#ffffff}
+@media (prefers-color-scheme:dark){:root{--bg:#0f172a;--tx:#e2e8f0;--mu:#94a3b8;--ln:#64748b;--inf:#1e293b;--ins:#64748b;--anf:#1e3a6e;--ans:#6ea0ff;--ouf:#143d27;--ous:#4cc283;--tbf:#2e9e5b;--tbt:#ffffff}}
+text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;fill:var(--tx)}
+.t{font-size:14px;font-weight:600}
+.s{font-size:11.5px;fill:var(--mu)}
+.n{font-size:11px;fill:var(--mu);font-style:italic}
+.in{fill:var(--inf);stroke:var(--ins);stroke-width:1.5}
+.an{fill:var(--anf);stroke:var(--ans);stroke-width:1.5}
+.ou{fill:var(--ouf);stroke:var(--ous);stroke-width:1.5}
+.op{stroke-dasharray:6 4}
+.tb{fill:var(--tbf)}
+.l{fill:none;stroke:var(--ln);stroke-width:1.8}
+.tw{fill:var(--tbt);font-size:16px;font-weight:700}
+.tl{fill:var(--tbt);font-size:12px;opacity:.92}
+</style>
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="marker41"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path41" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker40"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path40" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker39"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path39" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker38"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path38" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker37"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path37" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker36"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path36" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker35"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path35" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker34"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path34" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker33"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path33" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker32"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path32" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker31"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path31" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker30"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path30" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker29"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path29" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker28"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path28" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker27"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path27" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker26"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path26" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="ArrowWide"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path25" />
+    </marker>
+    <marker
+       id="a"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto-start-reverse"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="var(--ln)"
+         id="path1" />
+    </marker>
+    <marker
+       id="a-2"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto-start-reverse"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="var(--ln)"
+         id="path1-4" />
+    </marker>
+    <marker
+       id="a-22"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto-start-reverse"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="var(--ln)"
+         id="path1-49" />
+    </marker>
+  </defs>
+  <rect
+     width="1410"
+     height="640"
+     fill="var(--bg)"
+     id="rect1"
+     x="0"
+     y="0"
+     style="display:inline;fill:#0a6354;fill-opacity:1" />
+  <!-- lines -->
+  <g
+     class="l"
+     marker-end="url(#a)"
+     id="g22">
+    <path
+       d="m 180,170 h 40"
+       id="path2"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker34)" />
+    <path
+       d="M 100,140 V 68 h 120"
+       id="path3"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker33)" />
+    <path
+       d="M 390,170 H 495 V 290"
+       id="path4"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker35)" />
+    <path
+       d="M 180,470 H 495 V 350"
+       id="path5"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker36)" />
+    <path
+       d="m 560,320 h 30"
+       marker-end="none"
+       id="path6"
+       style="stroke:#000000;stroke-opacity:1" />
+    <path
+       d="M 590,80 V 580"
+       marker-end="none"
+       id="path7"
+       style="stroke:#000000;stroke-opacity:1" />
+    <path
+       d="m 590,80 h 30"
+       id="path8"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker37)" />
+    <path
+       d="m 590,300 h 30"
+       id="path9"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker38)" />
+    <path
+       d="m 590,410 h 30"
+       id="path10"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker39)" />
+    <path
+       d="m 590,500 h 30"
+       id="path11"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker40)" />
+    <path
+       d="m 590,580 h 30"
+       id="path12"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker41)" />
+    <path
+       d="m 810,80 h 40"
+       id="path13"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker31)" />
+    <path
+       d="m 715,108 v 82 h 135"
+       id="path14"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker30)" />
+    <!-- to table report -->
+    <path
+       d="M 305,40 V 14 h 1005 v 16"
+       id="path17"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#ArrowWide)" />
+    <path
+       d="M 715,52 V 38 h 515"
+       id="path18"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#ArrowWide)" />
+    <path
+       d="m 1010,80 h 220"
+       id="path19"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker32)" />
+    <path
+       d="m 1010,190 h 220"
+       id="path20"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker29)" />
+    <path
+       d="m 810,300 h 420"
+       id="path21"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#ArrowWide)" />
+    <path
+       d="m 810,410 h 420"
+       id="path22"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker26)" />
+    <path
+       d="m 811,500 h 420"
+       id="path22-4"
+       style="stroke:#000000;stroke-opacity:1;marker-end:url(#marker27)" />
+    <path
+       d="m 810,579 h 420"
+       id="path22-4-7"
+       style="fill:#000400;fill-opacity:1;stroke:#000000;stroke-opacity:1;marker-end:url(#marker28)" />
+  </g>
+  <!-- inputs -->
+  <rect
+     class="in"
+     x="20"
+     y="140"
+     width="160"
+     height="60"
+     rx="10"
+     id="rect22"
+     style="fill:#34b290;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+  <text
+     class="t"
+     x="100"
+     y="166"
+     text-anchor="middle"
+     id="text22"
+     style="fill:#030000;fill-opacity:1"><tspan
+       style="fill:#030000;fill-opacity:1"
+       id="tspan1">FASTQ.gz</tspan></text>
+  <text
+     class="s"
+     x="100"
+     y="185"
+     text-anchor="middle"
+     id="text23"
+     style="fill:#000000;fill-opacity:1">paired-end reads</text>
+  <rect
+     class="in"
+     x="20"
+     y="440"
+     width="160"
+     height="60"
+     rx="10"
+     id="rect23"
+     style="fill:#34b290;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+  <text
+     class="t"
+     x="100"
+     y="466"
+     text-anchor="middle"
+     id="text24"
+     style="fill:#000000;fill-opacity:1">FASTA</text>
+  <text
+     class="s"
+     x="100"
+     y="485"
+     text-anchor="middle"
+     id="text25"
+     style="fill:#000000;fill-opacity:1">assembled contigs</text>
+  <!-- reads branch -->
+  <rect
+     class="an"
+     x="220"
+     y="40"
+     width="170"
+     height="56"
+     rx="10"
+     id="rect25"
+     style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+  <text
+     class="t"
+     x="305"
+     y="72.70285"
+     text-anchor="middle"
+     id="text26"
+     style="fill:#000000;fill-opacity:1">Coverage depth</text>
+  <rect
+     class="an"
+     x="220"
+     y="140"
+     width="170"
+     height="60"
+     rx="10"
+     id="rect26"
+     style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+  <text
+     class="t"
+     x="305"
+     y="166"
+     text-anchor="middle"
+     id="text27"
+     style="fill:#000000;fill-opacity:1">Assembly</text>
+  <text
+     class="s"
+     x="305"
+     y="185"
+     text-anchor="middle"
+     id="text28"
+     style="fill:#000000;fill-opacity:1">Unicycler</text>
+  <!-- contigs -->
+  <rect
+     class="in"
+     x="430"
+     y="290"
+     width="130"
+     height="60"
+     rx="10"
+     id="rect28"
+     style="fill:#34b290;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+  <text
+     class="t"
+     x="495"
+     y="316"
+     text-anchor="middle"
+     id="text29"
+     style="fill:#000000;fill-opacity:1">Contigs</text>
+  <text
+     class="s"
+     x="495"
+     y="335"
+     text-anchor="middle"
+     id="text30"
+     style="fill:#000000;fill-opacity:1">FASTA</text>
+  <!-- modules -->
+  <rect
+     class="an"
+     x="620"
+     y="52"
+     width="190"
+     height="56"
+     rx="10"
+     id="rect30"
+     style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+  <text
+     class="t"
+     x="715"
+     y="76"
+     text-anchor="middle"
+     id="text31"
+     style="fill:#000000;fill-opacity:1">Species identification</text>
+  <text
+     class="s"
+     x="715"
+     y="95"
+     text-anchor="middle"
+     id="text32"
+     style="fill:#000000;fill-opacity:1">Kraken2</text>
+  <rect
+     class="an op"
+     x="850"
+     y="52"
+     width="160"
+     height="56"
+     rx="10"
+     id="rect32"
+     style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-dasharray:6, 1.5;stroke-dashoffset:0;stroke-opacity:1" />
+  <text
+     class="t"
+     x="930"
+     y="76"
+     text-anchor="middle"
+     id="text33"
+     style="fill:#000000;fill-opacity:1">Subspecies</text>
+  <text
+     class="s"
+     x="930"
+     y="95"
+     text-anchor="middle"
+     id="text34"
+     style="fill:#000000;fill-opacity:1">fastANI</text>
+  <text
+     class="n"
+     x="930"
+     y="126"
+     text-anchor="middle"
+     id="text35"
+     style="fill:#000000;fill-opacity:1">species complex only</text>
+  <rect
+     class="an op"
+     x="850"
+     y="162"
+     width="160"
+     height="56"
+     rx="10"
+     id="rect35"
+     style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-dasharray:3, 1.5;stroke-dashoffset:0;stroke-opacity:1" />
+  <text
+     class="t"
+     x="930"
+     y="186"
+     text-anchor="middle"
+     id="text36"
+     style="fill:#000000;fill-opacity:1">Find mutations</text>
+  <text
+     class="s"
+     x="930"
+     y="205"
+     text-anchor="middle"
+     id="text37"
+     style="fill:#000000;fill-opacity:1">BLASTx + in-house script</text>
+  <text
+     class="n"
+     x="930"
+     y="236"
+     text-anchor="middle"
+     id="text38"
+     style="fill:#000000;fill-opacity:1">target species only</text>
+  <rect
+     class="an"
+     x="620"
+     y="272"
+     width="190"
+     height="56"
+     rx="10"
+     id="rect38"
+     style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+  <text
+     class="t"
+     x="715"
+     y="296"
+     text-anchor="middle"
+     id="text39"
+     style="font-size:12px;fill:#000000;fill-opacity:1">Resistance, virulence and</text>
+  <text
+     class="s"
+     x="715"
+     y="315"
+     text-anchor="middle"
+     id="text40"
+     style="fill:#000000;fill-opacity:1"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;font-family:system-ui, '-apple-system', 'Segoe UI', Roboto, sans-serif;-inkscape-font-specification:'system-ui, -apple-system, Segoe UI, Roboto, sans-serif Semi-Bold';fill:#000000;fill-opacity:1"
+   id="tspan69">plasmid genes</tspan> · ABRicate</text>
+  <rect
+     class="an"
+     x="620"
+     y="382"
+     width="190"
+     height="56"
+     rx="10"
+     id="rect40"
+     style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+  <text
+     class="t"
+     x="715"
+     y="406"
+     text-anchor="middle"
+     id="text41"
+     style="fill:#000000;fill-opacity:1">Assembly quality</text>
+  <text
+     class="s"
+     x="715"
+     y="425"
+     text-anchor="middle"
+     id="text42"
+     style="fill:#000000;fill-opacity:1">CheckM2</text>
+  <text
+     class="n"
+     x="718.0769"
+     y="451.38461"
+     text-anchor="middle"
+     id="text43"
+     style="fill:#000000;fill-opacity:1">contamination ≤ 5: one species</text>
+  <text
+     class="n"
+     x="715"
+     y="464.84616"
+     text-anchor="middle"
+     id="text44"
+     style="fill:#000000;fill-opacity:1">otherwise: two species</text>
+  <rect
+     class="an"
+     x="620"
+     y="472"
+     width="190"
+     height="56"
+     rx="10"
+     id="rect44"
+     style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+  <text
+     class="t"
+     x="715"
+     y="496"
+     text-anchor="middle"
+     id="text45"
+     style="fill:#000000;fill-opacity:1">MLST</text>
+  <text
+     class="s"
+     x="715"
+     y="515"
+     text-anchor="middle"
+     id="text46"
+     style="fill:#000000;fill-opacity:1">PubMLST</text>
+  <rect
+     class="an"
+     x="620"
+     y="552"
+     width="190"
+     height="56"
+     rx="10"
+     id="rect46"
+     style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+  <text
+     class="t"
+     x="715"
+     y="576"
+     text-anchor="middle"
+     id="text47"
+     style="fill:#000000;fill-opacity:1">Genome annotation</text>
+  <text
+     class="s"
+     x="715"
+     y="595"
+     text-anchor="middle"
+     id="text48"
+     style="fill:#000000;fill-opacity:1">Bakta</text>
+  <!-- side outputs -->
+  <!-- table report -->
+  <rect
+     class="tb"
+     x="1230"
+     y="30"
+     width="160"
+     height="589.23077"
+     rx="12"
+     id="rect50"
+     style="fill:#1cea96;fill-opacity:1;stroke-width:1.15722" />
+  <text
+     class="tw"
+     x="1310"
+     y="226"
+     text-anchor="middle"
+     id="text51"
+     style="fill:#010401;fill-opacity:1">Table report</text>
+  <text
+     class="tl"
+     x="1310"
+     y="256"
+     text-anchor="middle"
+     id="text52"
+     style="fill:#010401;fill-opacity:1">-Coverage depth;</text>
+  <text
+     class="tl"
+     x="1310"
+     y="276"
+     text-anchor="middle"
+     id="text53"
+     style="fill:#010401;fill-opacity:1">-Assembly quality metrics;</text>
+  <text
+     class="tl"
+     x="1310"
+     y="296"
+     text-anchor="middle"
+     id="text54"
+     style="fill:#010401;fill-opacity:1">-Specie;</text>
+  <text
+     class="tl"
+     x="1310"
+     y="316"
+     text-anchor="middle"
+     id="text55"
+     style="fill:#010401;fill-opacity:1">-Resistance, virulence,</text>
+  <text
+     class="tl"
+     x="1310"
+     y="332"
+     text-anchor="middle"
+     id="text56"
+     style="fill:#010401;fill-opacity:1">plasmid genes;</text>
+  <text
+     class="tl"
+     x="1310"
+     y="352"
+     text-anchor="middle"
+     id="text57"
+     style="fill:#010401;fill-opacity:1"><tspan
+       sodipodi:role="line"
+       x="1310"
+       y="352"
+       id="tspan68">-Resistamce mutations;</tspan></text>
+  <text
+     class="tl"
+     x="1310.0383"
+     y="371.24475"
+     text-anchor="middle"
+     id="text57-9"
+     style="font-size:12px;font-family:system-ui, '-apple-system', 'Segoe UI', Roboto, sans-serif;opacity:0.92;fill:#010401;fill-opacity:1"><tspan
+       sodipodi:role="line"
+       x="1310.0383"
+       y="371.24475"
+       id="tspan68-1">-MLST</tspan></text>
+  <!-- legend -->
+  <g
+     font-size="11px"
+     id="g61">
+    <rect
+       class="in"
+       x="20"
+       y="590"
+       width="14"
+       height="14"
+       rx="3"
+       id="rect57"
+       style="fill:#34b290;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+    <text
+       class="s"
+       x="40"
+       y="602"
+       id="text58"
+       style="fill:#000000;fill-opacity:1">Input</text>
+    <rect
+       class="an"
+       x="90"
+       y="590"
+       width="14"
+       height="14"
+       rx="3"
+       id="rect58"
+       style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+    <text
+       class="s"
+       x="110"
+       y="602"
+       id="text59"
+       style="fill:#000000;fill-opacity:1">Analysis</text>
+    <rect
+       class="an op"
+       x="180"
+       y="590"
+       width="14"
+       height="14"
+       rx="3"
+       id="rect59"
+       style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-dasharray:6, 1.5;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       class="s"
+       x="200"
+       y="602"
+       id="text60"
+       style="fill:#000000;fill-opacity:1">Conditional</text>
+    <rect
+       class="ou"
+       x="290"
+       y="590"
+       width="14"
+       height="14"
+       rx="3"
+       id="rect60"
+       style="fill:#1cea96;fill-opacity:1" />
+    <text
+       class="s"
+       x="310"
+       y="602"
+       id="text61"
+       style="fill:#000000;fill-opacity:1">Output file</text>
+  </g>
+  <metadata
+     id="metadata61">
+    <c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYToxZGIyMjBlYi0zMWZjLTQ0YzQtOTNmNS1jOTAwYmM2NWM0YjAAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaCezTu+mJ0kS+zb33sDqdRQAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDpkYjk1ODkyOS1mYjA0LTQxZGQtOTJhZS1mODE0NzdkZDkxNzZscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoHoOFVrNsBgv499Pet2cM4QAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggfsulxilg+UhmR8UHpQB4NHsVx+vcUXP1Ghv18M16In2kZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaFfWpq7Mlw2pE2PyN35Jeo0AAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYIHYW9BbusRycIZfXM7liO1ufGJ2ri61onqBV+9/RzcCvZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GRnGZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjFkYjIyMGViLTMxZmMtNDRjNC05M2Y1LWM5MDBiYzY1YzRiMC9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOmJhYmI5Yzc3LWE3Y2MtNDY1NS1hMTk5LTAwYjlmMzc0ZTg2ZXJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCB+y6XGKWD5SGZHxQelAHg0exXH69xRc/UaG/XwzXoifaJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggWKqmN8KseFIUgHGRDy2+PlS9kNKDxPHFFCC21KpoABuiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggWWhejy4IRAtnDd6SnwmB+GYUA934Tb1a336fnYV77950Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQEeEQVaGvCjOP+k864TjoaELMDtcCFmRHMGESwuSglC0MROCTds4KkEQ9Ebc6YRDeLauhYr2dr+IcRR/CrZvTSU=</c2pa:manifest>
+  </metadata>
+</svg>

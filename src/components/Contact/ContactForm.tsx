@@ -73,6 +73,9 @@ const ContactForm = () => {
           <OptimizedImage
             src="/Home/signature_cabgen_dark.png"
             alt="Cabgen logo"
+            width={400}
+            height={200}
+            sizes="(max-width: 640px) 66vw, 30vw"
             className="object-cover sm:w-6/12 w-2/3 mb-5"
           />
         </div>
