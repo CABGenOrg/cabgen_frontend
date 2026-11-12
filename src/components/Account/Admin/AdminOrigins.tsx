@@ -116,6 +116,7 @@ const AdminOrigins = () => {
         columns={columns}
         loading={loadingOrigins}
         emptyMessage={dict.noOrigins}
+        emptyTitle={dict.origins}
         countLabel={dict.showingOrigins}
       />
 

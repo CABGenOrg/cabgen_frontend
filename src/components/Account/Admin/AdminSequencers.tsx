@@ -129,6 +129,7 @@ const AdminSequencers = () => {
         columns={columns}
         loading={loadingSequencers}
         emptyMessage={dict.noSequencers}
+        emptyTitle={dict.sequencers}
         countLabel={dict.showingSequencers}
       />
 

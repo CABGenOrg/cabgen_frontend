@@ -200,6 +200,7 @@ const AdminAudit = () => {
         columns={columns}
         loading={isLoading}
         emptyMessage={auditDict.noAudit}
+        emptyTitle={auditDict.title}
         countLabel={auditDict.showingAudit}
       />
     </div>

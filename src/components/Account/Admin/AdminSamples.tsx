@@ -269,6 +269,7 @@ const AdminSamples = () => {
         columns={columns}
         loading={tableLoading}
         emptyMessage={adminDict.noSamples}
+        emptyTitle={adminDict.allSamples}
         countLabel={adminDict.showingSamples}
         page={page}
         totalPages={totalPages}

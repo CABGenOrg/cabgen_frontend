@@ -169,6 +169,7 @@ const AdminUsers = () => {
         columns={columns}
         loading={loadingUsers}
         emptyMessage={dict.noResults}
+        emptyTitle={dict.users}
         countLabel={dict.showing}
         page={page}
         totalPages={totalPages}

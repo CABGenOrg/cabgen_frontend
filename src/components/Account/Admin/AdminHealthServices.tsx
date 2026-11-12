@@ -139,6 +139,7 @@ const AdminHealthServices = () => {
         columns={columns}
         loading={loadingHealthServices}
         emptyMessage={dict.noHealthServices}
+        emptyTitle={dict.healthServices}
         countLabel={dict.showingHealthServices}
       />
 

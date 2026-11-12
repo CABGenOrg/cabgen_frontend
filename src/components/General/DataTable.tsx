@@ -13,6 +13,7 @@ import {
 import { useState, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { TableSkeleton } from "./Skeletons";
+import EmptyState from "./EmptyState";
 import Pagination from "./Pagination";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -22,6 +23,10 @@ interface DataTableProps<TData> {
   loading: boolean;
   emptyMessage: string;
   countLabel: string;
+  emptyTitle?: string;
+  emptyDescription?: string;
+  emptyAction?: React.ReactNode;
+  emptyIcon?: React.ReactNode;
   enableRowSelection?: boolean | ((row: any) => boolean);
   rowSelection?: RowSelectionState;
   onRowSelectionChange?: OnChangeFn<RowSelectionState>;
@@ -37,6 +42,10 @@ const DataTable = <TData,>({
   loading,
   emptyMessage,
   countLabel,
+  emptyTitle,
+  emptyDescription,
+  emptyAction,
+  emptyIcon,
   enableRowSelection = false,
   rowSelection,
   onRowSelectionChange,
@@ -148,23 +157,13 @@ const DataTable = <TData,>({
               <TableSkeleton columns={columns.length} />
             ) : rows.length === 0 ? (
               <tr>
-                <td colSpan={99} className="py-16 text-center">
-                  <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                    <svg
-                      className="w-12 h-12"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-                      />
-                    </svg>
-                    <span className="text-sm">{emptyMessage}</span>
-                  </div>
+                <td colSpan={99}>
+                  <EmptyState
+                    title={emptyTitle}
+                    description={emptyDescription ?? emptyMessage}
+                    action={emptyAction}
+                    icon={emptyIcon}
+                  />
                 </td>
               </tr>
             ) : (

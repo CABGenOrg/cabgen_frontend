@@ -391,6 +391,7 @@ const AdminAnalyses = () => {
         columns={columns}
         loading={loadingAnalyses}
         emptyMessage={adminDict.noAnalyses}
+        emptyTitle={adminDict.allAnalyses}
         countLabel={adminDict.showingAnalyses}
         enableRowSelection={(row) =>
           row.original.status.toLowerCase() === "done" &&

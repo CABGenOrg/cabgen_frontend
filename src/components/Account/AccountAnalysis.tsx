@@ -385,6 +385,7 @@ const AccountAnalysis = () => {
         columns={columns}
         loading={loadingAnalyses}
         emptyMessage={dict.noResults}
+        emptyTitle={dict.title}
         countLabel={dict.showing}
         enableRowSelection={(row) =>
           row.original.status.toLowerCase() === "done" &&

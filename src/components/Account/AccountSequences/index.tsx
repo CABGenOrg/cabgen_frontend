@@ -251,6 +251,7 @@ const AccountSequences = () => {
         columns={columns}
         loading={loadingSamples}
         emptyMessage={dict.noResults}
+        emptyTitle={dict.title}
         countLabel={dict.showing}
         page={page}
         totalPages={totalPages}

@@ -138,6 +138,7 @@ const AdminMicroorganisms = () => {
         columns={columns}
         loading={loadingMicroorganisms}
         emptyMessage={dict.noMicroorganisms}
+        emptyTitle={dict.microorganisms}
         countLabel={dict.showingMicroorganisms}
       />
 

@@ -119,6 +119,7 @@ const AdminLaboratories = () => {
         columns={columns}
         loading={loadingLaboratories}
         emptyMessage={dict.noLaboratories}
+        emptyTitle={dict.laboratories}
         countLabel={dict.showingLaboratories}
       />
 

@@ -219,6 +219,7 @@ const AdminTickets = () => {
         columns={columns}
         loading={loadingTickets}
         emptyMessage={dict.noTickets}
+        emptyTitle={dict.tickets}
         countLabel={dict.showingTickets}
       />
 

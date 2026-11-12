@@ -126,6 +126,7 @@ const AdminSampleSources = () => {
         columns={columns}
         loading={loadingSampleSources}
         emptyMessage={dict.noSampleSources}
+        emptyTitle={dict.sampleSources}
         countLabel={dict.showingSampleSources}
       />
 
