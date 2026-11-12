@@ -203,14 +203,14 @@ const AdminSamples = () => {
               }
             />
             <IconButton
-              label={seqDict.viewSample}
+              label={seqDict.view}
               icon={<Eye size={18} />}
               onClick={() =>
                 setModal({ type: "viewSample", sample: info.row.original })
               }
             />
             <IconButton
-              label={adminDict.editSample}
+              label={adminDict.edit}
               icon={<Pencil size={18} />}
               onClick={() => setModal({ type: "edit", sample: info.row.original })}
             />

@@ -293,7 +293,7 @@ const AdminAnalyses = () => {
               }
             />
             <IconButton
-              label={adminDict.editAnalysis}
+              label={adminDict.edit}
               icon={<Pencil size={18} />}
               onClick={() =>
                 setModal({ type: "edit", analysis: info.row.original })

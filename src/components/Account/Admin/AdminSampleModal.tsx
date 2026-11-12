@@ -223,7 +223,7 @@ const AdminSampleModalBody: React.FC<
     <Modal
       open={open}
       onClose={onClose}
-      title={isEdit ? adminDict.editSample : adminDict.newSample}
+      title={isEdit ? adminDict.edit : adminDict.newSample}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -420,7 +420,7 @@ const AdminSampleModal: React.FC<AdminSampleModalProps> = ({
     dictionary: { Account: AccountDict },
   } = getTranslateClient(lang);
   const adminDict = AccountDict.admin;
-  const title = initial ? adminDict.editSample : adminDict.newSample;
+  const title = initial ? adminDict.edit : adminDict.newSample;
   const { data: countries, error: countriesError } = useGetCountriesQuery(lang);
   const { data: cities, error: citiesError } = useGetCitiesQuery(lang);
   const { data: formOptions, error: formOptionsError } =

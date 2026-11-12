@@ -268,7 +268,7 @@ const SampleFormModalBody: React.FC<
     <Modal
       open={open}
       onClose={onClose}
-      title={isEdit ? dict.editSample : dict.newSample}
+      title={isEdit ? dict.edit : dict.newSample}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -483,7 +483,7 @@ const SampleFormModal: React.FC<SampleFormModalProps> = ({
       <Modal
         open={open}
         onClose={onClose}
-        title={initial ? dict.editSample : dict.newSample}
+        title={initial ? dict.edit : dict.newSample}
       >
         <Message msg={dict.optionsLoadError} type="error" />
       </Modal>
@@ -495,7 +495,7 @@ const SampleFormModal: React.FC<SampleFormModalProps> = ({
       <Modal
         open={open}
         onClose={onClose}
-        title={initial ? dict.editSample : dict.newSample}
+        title={initial ? dict.edit : dict.newSample}
       >
         <div className="flex justify-center py-8">
           <Loading />

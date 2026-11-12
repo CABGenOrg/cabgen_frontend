@@ -96,7 +96,7 @@ const AdminOriginModalBody: React.FC<{
     <Modal
       open={open}
       onClose={onClose}
-      title={isEdit ? dict.editOrigin : dict.newOrigin}
+      title={isEdit ? dict.edit : dict.newOrigin}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>

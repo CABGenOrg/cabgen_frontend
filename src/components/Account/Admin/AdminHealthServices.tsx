@@ -95,14 +95,14 @@ const AdminHealthServices = () => {
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton
-              label={dict.viewHealthService}
+              label={dict.view}
               icon={<Eye size={18} />}
               onClick={() =>
                 setModal({ type: "view", healthService: info.row.original })
               }
             />
             <IconButton
-              label={dict.editHealthService}
+              label={dict.edit}
               icon={<Pencil size={18} />}
               onClick={() =>
                 setModal({ type: "edit", healthService: info.row.original })

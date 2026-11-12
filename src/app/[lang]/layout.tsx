@@ -11,6 +11,7 @@ import Layout from "@/components/General/Layout";
 import WarningBanner from "@/components/Home/WarningBanner";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { getServerUser } from "@/utils/handleServerUser";
 
 const futura = localFont({
@@ -80,6 +81,7 @@ const RootLayout = async ({
     <html lang={lang} suppressHydrationWarning>
       <body className={`${futura.className} flex flex-col min-h-screen`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <TooltipProvider delayDuration={200}>
         <StoreProvider>
           <AuthProvider initialUser={initialUser}>
             <LanguageProvider lang={lang}>
@@ -93,6 +95,7 @@ const RootLayout = async ({
             </LanguageProvider>
           </AuthProvider>
         </StoreProvider>
+        </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

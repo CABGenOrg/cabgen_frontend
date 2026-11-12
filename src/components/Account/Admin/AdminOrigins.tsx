@@ -83,7 +83,7 @@ const AdminOrigins = () => {
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton
-              label={dict.editOrigin}
+              label={dict.edit}
               icon={<Pencil size={18} />}
               onClick={() => setModal({ type: "edit", origin: info.row.original })}
             />

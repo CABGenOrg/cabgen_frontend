@@ -107,7 +107,7 @@ const AdminHealthServiceModalBody: React.FC<{
     <Modal
       open={open}
       onClose={onClose}
-      title={isEdit ? dict.editHealthService : dict.newHealthService}
+      title={isEdit ? dict.edit : dict.newHealthService}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>

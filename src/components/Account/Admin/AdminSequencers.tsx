@@ -96,7 +96,7 @@ const AdminSequencers = () => {
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton
-              label={dict.editSequencer}
+              label={dict.edit}
               icon={<Pencil size={18} />}
               onClick={() => setModal({ type: "edit", sequencer: info.row.original })}
             />

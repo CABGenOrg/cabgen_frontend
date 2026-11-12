@@ -119,7 +119,7 @@ const AdminMicroorganismModalBody: React.FC<{
     <Modal
       open={open}
       onClose={onClose}
-      title={isEdit ? dict.editMicroorganism : dict.newMicroorganism}
+      title={isEdit ? dict.edit : dict.newMicroorganism}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>

@@ -89,7 +89,7 @@ const AdminLaboratoryModal: React.FC<{
     <Modal
       open={open}
       onClose={onClose}
-      title={isEdit ? dict.editLaboratory : dict.newLaboratory}
+      title={isEdit ? dict.edit : dict.newLaboratory}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>

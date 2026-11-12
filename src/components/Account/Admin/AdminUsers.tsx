@@ -136,7 +136,7 @@ const AdminUsers = () => {
               }}
             />
             <IconButton
-              label={dict.editUser}
+              label={dict.edit}
               icon={<Pencil size={18} />}
               onClick={() => setModal({ type: "edit", user: info.row.original })}
             />

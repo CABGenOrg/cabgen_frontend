@@ -268,7 +268,7 @@ const AdminAnalysisModalBody: React.FC<
     <Modal
       open={open}
       onClose={onClose}
-      title={isEdit ? adminDict.editAnalysis : adminDict.createAnalysis}
+      title={isEdit ? adminDict.edit : adminDict.createAnalysis}
     >
       {isEdit ? (
         <Form {...editForm}>
@@ -558,7 +558,7 @@ const AdminAnalysisModal: React.FC<AdminAnalysisModalProps> = ({
     ([value, label]) => ({ value, label }),
   );
 
-  const title = isEdit ? adminDict.editAnalysis : adminDict.createAnalysis;
+  const title = isEdit ? adminDict.edit : adminDict.createAnalysis;
 
   if (loadFailed) {
     return (

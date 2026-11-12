@@ -181,14 +181,14 @@ const AccountSequences = () => {
               }
             />
             <IconButton
-              label={dict.viewSample}
+              label={dict.view}
               icon={<Eye size={18} />}
               onClick={() =>
                 setModal({ type: "viewSample", sample: info.row.original })
               }
             />
             <IconButton
-              label={dict.editSample}
+              label={dict.edit}
               icon={<Pencil size={18} />}
               onClick={() =>
                 setModal({ type: "edit", sample: info.row.original })

@@ -101,7 +101,7 @@ const AdminMicroorganisms = () => {
         cell: (info) => (
           <div className="flex items-center gap-1.5">
             <IconButton
-              label={dict.editMicroorganism}
+              label={dict.edit}
               icon={<Pencil size={18} />}
               onClick={() =>
                 setModal({ type: "edit", microorganism: info.row.original })

@@ -16,6 +16,7 @@ import {
 import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
+import Breadcrumbs, { type BreadcrumbItem } from "@/components/General/Breadcrumbs";
 
 interface SidebarLink {
   linkName: string;
@@ -34,6 +35,45 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
   const { user } = useAuth();
   const isAdmin = user?.user_role === "Admin";
   const isAdminSection = pathname.includes("/account/admin/");
+
+  const breadcrumbs = React.useMemo<BreadcrumbItem[]>(() => {
+    const adminLabels: Record<string, string> = {
+      users: AccountDict.admin.users,
+      origins: AccountDict.admin.origins,
+      sequencers: AccountDict.admin.sequencers,
+      "sample-sources": AccountDict.admin.sampleSources,
+      microorganisms: AccountDict.admin.microorganisms,
+      laboratories: AccountDict.admin.laboratories,
+      "health-services": AccountDict.admin.healthServices,
+      samples: AccountDict.admin.allSamples,
+      analyses: AccountDict.admin.allAnalyses,
+      tickets: AccountDict.admin.tickets,
+      audit: AccountDict.admin.audit.title,
+    };
+
+    const crumbMap: Record<string, string> = {
+      account: AccountDict.sidebar.overview,
+      sequences: AccountDict.sidebar.sequences,
+      analysis: AccountDict.sidebar.analysis,
+      "my-account": AccountDict.sidebar.myAccount,
+      security: AccountDict.sidebar.security,
+      admin: AccountDict.sidebar.admin,
+      ...adminLabels,
+    };
+
+    const segments = pathname.split("/").filter(Boolean);
+    const items: BreadcrumbItem[] = [];
+    let currentPath = "";
+
+    for (const segment of segments) {
+      currentPath += `/${segment}`;
+      const label = crumbMap[segment];
+      if (!label) continue;
+      items.push({ label, href: currentPath });
+    }
+
+    return items;
+  }, [pathname, AccountDict]);
 
   const sidebarLinks: SidebarLink[] = [
     {
@@ -104,6 +144,7 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
         )}
       </Sidebar>
       <div className="w-full py-3 md:py-5 px-4 md:px-0 md:pr-4 min-w-0">
+        <Breadcrumbs items={breadcrumbs} />
         {isAdminSection && <AdminNav />}
         {accountComponent}
       </div>
