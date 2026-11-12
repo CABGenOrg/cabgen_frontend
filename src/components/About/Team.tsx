@@ -62,7 +62,7 @@ const Team = ({ lang }: { lang: Locale }) => {
         >
           {About.Team.sectionTitle}
         </h2>
-        <div className="grid md:grid-cols-2 grid-cols-1 sm:gap-2 gap-1">
+        <div className="grid md:grid-cols-2 grid-cols-1 sm:gap-3 gap-2 items-stretch">
           {members.map(({ name, role, photo, link }, idx) => (
             <TeamCard
               key={idx}
@@ -70,6 +70,7 @@ const Team = ({ lang }: { lang: Locale }) => {
               role={role}
               photo={photo}
               link={link}
+              className="h-full"
             />
           ))}
         </div>

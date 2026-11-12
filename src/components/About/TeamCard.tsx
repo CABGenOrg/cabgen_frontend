@@ -1,34 +1,49 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { ExternalLink } from "lucide-react";
+import OptimizedImage from "@/components/General/OptimizedImage";
 
 interface Member {
   name: string;
   role: string;
   photo: string;
   link: string;
+  className?: string;
 }
 
-const TeamCard = ({ name, role, photo, link }: Member) => {
+const TeamCard = ({ name, role, photo, link, className }: Member) => {
   return (
-    <div className="flex lg:flex-row md:flex-col sm:flex-row flex-col justify-start items-center gap-3 bg-muted py-3 px-4 rounded-lg hover:scale-[1.03] hover:bg-muted-foreground/10 transition-transform duration-200 ease-out">
-      <Avatar className="w-1/3 h-auto">
-        <AvatarImage src={photo} alt={`${name} photo`} />
-      </Avatar>
-      <div className="flex flex-col justify-center">
-        <Link
-          href={link}
-          passHref={true}
-          target="_blank"
-          className="lg:text-start text-center"
-        >
-          <div className="font-semibold 2xl:text-4xl sm:text-2xl text-xl mb-3 hover:text-foreground/70">
-            {name}
+    <Link
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`group block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cabgen-200 ${className ?? ""}`}
+      aria-label={`${name} - ${role}`}
+    >
+      <div className="flex flex-row items-center gap-4 h-full bg-card border border-border shadow-sm rounded-xl p-4 transition-all duration-200 ease-out group-hover:shadow-md group-hover:-translate-y-0.5">
+        <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 rounded-2xl overflow-hidden bg-muted">
+          <OptimizedImage
+            src={photo}
+            alt={name}
+            fill
+            sizes="(max-width: 640px) 96px, 112px"
+            objectFit="cover"
+            className="object-top transition-transform duration-200 group-hover:scale-105"
+          />
+        </div>
+        <div className="flex flex-col justify-center min-w-0 flex-1">
+          <div className="flex items-start gap-2 font-semibold text-lg sm:text-xl 2xl:text-2xl text-foreground group-hover:text-cabgen-200 transition-colors">
+            <span className="break-words">{name}</span>
+            <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-1 text-muted-foreground group-hover:text-cabgen-200 transition-colors" />
           </div>
-        </Link>
-        <div className="2xl:text-2xl text-lg text-foreground">{role}</div>
+          <div className="text-sm sm:text-base text-muted-foreground mt-1 break-words">
+            {role}
+          </div>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
