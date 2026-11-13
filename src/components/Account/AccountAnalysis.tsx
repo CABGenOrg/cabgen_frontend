@@ -105,10 +105,12 @@ const AccountAnalysis = () => {
     }, 300);
   };
 
-  const { data: paged, isLoading: loadingAnalyses } = useGetAnalysesQuery(
-    { ...filters, page },
-    { pollingInterval: 15000 },
-  );
+  const {
+    data: paged,
+    isLoading: loadingAnalyses,
+    error: analysesError,
+    refetch: refetchAnalyses,
+  } = useGetAnalysesQuery({ ...filters, page }, { pollingInterval: 15000 });
   const data = useMemo(() => paged?.data ?? [], [paged]);
   const totalPages = paged?.total_pages ?? 1;
 
@@ -384,6 +386,11 @@ const AccountAnalysis = () => {
         data={data}
         columns={columns}
         loading={loadingAnalyses}
+        error={analysesError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={refetchAnalyses}
         emptyMessage={dict.noResults}
         emptyTitle={dict.title}
         countLabel={dict.showing}

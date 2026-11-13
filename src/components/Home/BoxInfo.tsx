@@ -3,16 +3,22 @@
 import React from "react";
 import OptimizedImage from "../General/OptimizedImage";
 import { BoxInfoSkeleton } from "../General/Skeletons";
+import ErrorState from "../General/ErrorState";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { useLanguage } from "@/redux/LanguageContext";
 import { useGetMetricsQuery } from "@/redux/services/metrics/metricsService";
 
 const BoxInfo = () => {
-  const { data: metrics, isLoading } = useGetMetricsQuery();
+  const {
+    data: metrics,
+    isLoading,
+    error,
+    refetch,
+  } = useGetMetricsQuery();
 
   const lang = useLanguage();
   const {
-    dictionary: { Home },
+    dictionary: { Home, Errors },
   } = getTranslateClient(lang);
 
   const data = [
@@ -44,6 +50,17 @@ const BoxInfo = () => {
 
   if (isLoading) return <BoxInfoSkeleton />;
 
+  if (error) {
+    return (
+      <ErrorState
+        title={Errors.loadErrorTitle}
+        description={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={refetch}
+      />
+    );
+  }
+
   return (
     <div className="grid lg:grid-cols-2 sm:grid-cols-1 grid-cols-2 content-around lg:gap-4 gap-2">
       {data.map(({ image, count, sg, pl }, idx) => {
@@ -59,6 +76,7 @@ const BoxInfo = () => {
             width={200}
             height={200}
             sizes="(max-width: 768px) 120px, 200px"
+            loading="eager"
             className="2xl:h-3/5 sm:h-1/2 h-2/5 object-contain"
           />
 

@@ -36,13 +36,22 @@ const AdminSampleSources = () => {
   const closeModal = () => setModal({ type: null });
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data: fullData = [], isLoading: loadingSampleSources } =
-    useGetSampleSourcesQuery(lang);
-  const { data: searchData = [] } =
-    useGetSampleSourcesNyNameOrGroupQuery(debouncedSearch, {
-      skip: !debouncedSearch,
-    });
+  const {
+    data: fullData = [],
+    isLoading: loadingSampleSources,
+    error: fullError,
+    refetch: refetchSampleSources,
+  } = useGetSampleSourcesQuery(lang);
+  const {
+    data: searchData = [],
+    error: searchError,
+    refetch: refetchSearch,
+  } = useGetSampleSourcesNyNameOrGroupQuery(debouncedSearch, {
+    skip: !debouncedSearch,
+  });
   const data = debouncedSearch ? searchData : fullData;
+  const tableError = debouncedSearch ? searchError : fullError;
+  const tableRefetch = debouncedSearch ? refetchSearch : refetchSampleSources;
   const [deleteSampleSource, { isLoading: deleting, error: deleteError }] =
     useDeleteSampleSourceMutation();
 
@@ -125,6 +134,11 @@ const AdminSampleSources = () => {
         data={data}
         columns={columns}
         loading={loadingSampleSources}
+        error={tableError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={tableRefetch}
         emptyMessage={dict.noSampleSources}
         emptyTitle={dict.sampleSources}
         countLabel={dict.showingSampleSources}

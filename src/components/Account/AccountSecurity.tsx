@@ -18,6 +18,7 @@ import { input_class, label_class } from "@/styles/tailwind_classes";
 import PasswordInput from "@/components/General/PasswordInput";
 import Message from "@/components/General/Message";
 import LoadingButton from "@/components/General/LoadingButton";
+import { toast } from "@/hooks/use-toast";
 import {
   useGetProfileQuery,
   useDeleteProfileMutation,
@@ -50,8 +51,6 @@ const AccountSecurity = () => {
     { isLoading: requestingEmail, error: emailError },
   ] = useRequestEmailUpdateMutation();
 
-  const [emailRequested, setEmailRequested] = useState(false);
-  const [passwordUpdated, setPasswordUpdated] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const emailSchema = z
@@ -101,7 +100,8 @@ const AccountSecurity = () => {
         new_email: data.new_email,
         confirm_new_email: data.confirm_new_email,
       }).unwrap();
-      setEmailRequested(true);
+      emailForm.reset();
+      toast({ description: dict.requestEmailSuccess });
     } catch {}
   };
 
@@ -117,8 +117,7 @@ const AccountSecurity = () => {
         new_password: "",
         confirm_password: "",
       });
-      setPasswordUpdated(true);
-      setTimeout(() => setPasswordUpdated(false), 3000);
+      toast({ description: dict.changePasswordSuccess });
     } catch {}
   };
 
@@ -143,12 +142,9 @@ const AccountSecurity = () => {
         <p className="text-sm text-muted-foreground mb-4">
           {dict.changeEmailDescription}
         </p>
-        {emailRequested ? (
-          <Message msg={dict.requestEmailSuccess} type="success" />
-        ) : (
-          <Form {...emailForm}>
-            <form onSubmit={emailForm.handleSubmit(onRequestEmail)}>
-              <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
+        <Form {...emailForm}>
+          <form onSubmit={emailForm.handleSubmit(onRequestEmail)}>
+            <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
                 <FormField
                   control={emailForm.control}
                   name="new_email"
@@ -214,7 +210,6 @@ const AccountSecurity = () => {
               </div>
             </form>
           </Form>
-        )}
       </div>
 
       <div className="bg-card rounded-lg shadow-md border border-border p-6 mb-6">
@@ -283,12 +278,6 @@ const AccountSecurity = () => {
                   }
                   type="error"
                 />
-              </div>
-            )}
-
-            {passwordUpdated && (
-              <div className="mt-4">
-                <Message msg={dict.changePasswordSuccess} type="success" />
               </div>
             )}
 

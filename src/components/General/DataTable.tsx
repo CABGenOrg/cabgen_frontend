@@ -14,6 +14,7 @@ import { useState, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { TableSkeleton } from "./Skeletons";
 import EmptyState from "./EmptyState";
+import ErrorState from "./ErrorState";
 import Pagination from "./Pagination";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -27,6 +28,11 @@ interface DataTableProps<TData> {
   emptyDescription?: string;
   emptyAction?: React.ReactNode;
   emptyIcon?: React.ReactNode;
+  error?: unknown;
+  errorTitle?: string;
+  errorDescription?: string;
+  retryLabel?: string;
+  onRetry?: () => void;
   enableRowSelection?: boolean | ((row: any) => boolean);
   rowSelection?: RowSelectionState;
   onRowSelectionChange?: OnChangeFn<RowSelectionState>;
@@ -46,6 +52,11 @@ const DataTable = <TData,>({
   emptyDescription,
   emptyAction,
   emptyIcon,
+  error,
+  errorTitle,
+  errorDescription,
+  retryLabel,
+  onRetry,
   enableRowSelection = false,
   rowSelection,
   onRowSelectionChange,
@@ -155,6 +166,17 @@ const DataTable = <TData,>({
           >
             {loading ? (
               <TableSkeleton columns={columns.length} />
+            ) : error && rows.length === 0 ? (
+              <tr>
+                <td colSpan={99}>
+                  <ErrorState
+                    title={errorTitle}
+                    description={errorDescription}
+                    retryLabel={retryLabel}
+                    onRetry={onRetry}
+                  />
+                </td>
+              </tr>
             ) : rows.length === 0 ? (
               <tr>
                 <td colSpan={99}>

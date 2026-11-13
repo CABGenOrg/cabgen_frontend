@@ -39,6 +39,7 @@ const CabgenResults = ({ lang }: { lang: Locale }) => {
           width={1280}
           height={800}
           sizes="(max-width: 1024px) 100vw, 1024px"
+          loading="eager"
           className="w-full max-w-5xl mx-auto"
         />
       </div>

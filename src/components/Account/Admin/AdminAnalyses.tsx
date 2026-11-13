@@ -96,10 +96,12 @@ const AdminAnalyses = () => {
     useGetEnumSelectOptionsQuery(lang);
   const analysisTypeOptions = enumOptions?.analysis_types ?? [];
 
-  const { data: paged, isLoading: loadingAnalyses } = useGetAdminAnalysesQuery(
-    { ...filters, page },
-    { pollingInterval: 15000 },
-  );
+  const {
+    data: paged,
+    isLoading: loadingAnalyses,
+    error: analysesError,
+    refetch: refetchAnalyses,
+  } = useGetAdminAnalysesQuery({ ...filters, page }, { pollingInterval: 15000 });
   const data = useMemo(() => paged?.data ?? [], [paged]);
   const totalPages = paged?.total_pages ?? 1;
 
@@ -390,6 +392,11 @@ const AdminAnalyses = () => {
         data={data}
         columns={columns}
         loading={loadingAnalyses}
+        error={analysesError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={refetchAnalyses}
         emptyMessage={adminDict.noAnalyses}
         emptyTitle={adminDict.allAnalyses}
         countLabel={adminDict.showingAnalyses}

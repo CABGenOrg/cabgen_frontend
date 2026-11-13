@@ -37,13 +37,22 @@ const AdminMicroorganisms = () => {
   const closeModal = () => setModal({ type: null });
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data: fullData = [], isLoading: loadingMicroorganisms } =
-    useGetMicroorganismsQuery(lang);
-  const { data: searchData = [] } = useGetMicroorganismsBySpeciesQuery(
-    debouncedSearch,
-    { skip: !debouncedSearch },
-  );
+  const {
+    data: fullData = [],
+    isLoading: loadingMicroorganisms,
+    error: fullError,
+    refetch: refetchMicroorganisms,
+  } = useGetMicroorganismsQuery(lang);
+  const {
+    data: searchData = [],
+    error: searchError,
+    refetch: refetchSearch,
+  } = useGetMicroorganismsBySpeciesQuery(debouncedSearch, {
+    skip: !debouncedSearch,
+  });
   const data = debouncedSearch ? searchData : fullData;
+  const tableError = debouncedSearch ? searchError : fullError;
+  const tableRefetch = debouncedSearch ? refetchSearch : refetchMicroorganisms;
   const [deleteMicroorganism, { isLoading: deleting, error: deleteError }] =
     useDeleteMicroorganismMutation();
 
@@ -137,6 +146,11 @@ const AdminMicroorganisms = () => {
         data={data}
         columns={columns}
         loading={loadingMicroorganisms}
+        error={tableError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={tableRefetch}
         emptyMessage={dict.noMicroorganisms}
         emptyTitle={dict.microorganisms}
         countLabel={dict.showingMicroorganisms}

@@ -247,6 +247,7 @@ const en = {
     bothEmailFieldsValidation: "Emails do not match.",
     bothPasswordFieldsValidation: "Passwords do not match.",
     registerBtn: "Continue",
+    success: "Registration successful.",
     formFooter1: "Already have an account? ",
     formFooter2: "Log in.",
   },
@@ -285,6 +286,9 @@ const en = {
     internalServer: "Service unavailable, please try again later.",
     downloadError: "Failed to download file. Please try again.",
     viewError: "Failed to access file. Please try again.",
+    loadErrorTitle: "Error loading data",
+    loadErrorDescription: "Unable to load the information. Please try again.",
+    retry: "Try again",
   },
   Account: {
     sidebar: {

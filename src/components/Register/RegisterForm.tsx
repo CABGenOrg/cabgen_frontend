@@ -32,6 +32,7 @@ import { useGetCountriesQuery } from "@/redux/services/countries/countriesServic
 import { useRegisterMutation } from "@/redux/services/auth/authService";
 import Message from "../General/Message";
 import PasswordInput from "../General/PasswordInput";
+import { toast } from "@/hooks/use-toast";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 
 const RegisterForm = () => {
@@ -108,10 +109,14 @@ const RegisterForm = () => {
 
   const onSubmit: SubmitHandler<FormData> = async (registerData) => {
     const { is_part_of_network, ...rest } = registerData;
-    await register({
-      ...rest,
-      is_part_of_network: is_part_of_network === "yes",
-    });
+    try {
+      await register({
+        ...rest,
+        is_part_of_network: is_part_of_network === "yes",
+      }).unwrap();
+      form.reset();
+      toast({ description: Register.success });
+    } catch {}
   };
 
   return (
@@ -415,12 +420,6 @@ const RegisterForm = () => {
                       : String(error)
                   }
                   type="error"
-                />
-              )}
-              {isSuccess && data && (
-                <Message
-                  msg={data}
-                  type="success"
                 />
               )}
             </div>

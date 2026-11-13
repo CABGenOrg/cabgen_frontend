@@ -258,6 +258,7 @@ const es = {
     bothEmailFieldsValidation: "Los correos electrónicos no coinciden.",
     bothPasswordFieldsValidation: "Las contraseñas no coinciden.",
     registerBtn: "Continuar",
+    success: "Registro realizado con éxito.",
     formFooter1: "¿Ya tienes una cuenta? ",
     formFooter2: "Iniciar sesión.",
   },
@@ -297,6 +298,10 @@ const es = {
       "Servicio no disponible, por favor inténtelo de nuevo más tarde.",
     downloadError: "Error al descargar archivo. Intente de nuevo.",
     viewError: "Error al acceder al archivo. Intente de nuevo.",
+    loadErrorTitle: "Error al cargar datos",
+    loadErrorDescription:
+      "No se pudieron cargar los datos. Inténtalo de nuevo.",
+    retry: "Intentar de nuevo",
   },
   Account: {
     sidebar: {

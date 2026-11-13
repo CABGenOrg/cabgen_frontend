@@ -30,6 +30,7 @@ const TeamCard = ({ name, role, photo, link, className }: Member) => {
             fill
             sizes="(max-width: 640px) 96px, 112px"
             objectFit="cover"
+            loading="eager"
             className="object-top transition-transform duration-200 group-hover:scale-105"
           />
         </div>

@@ -50,6 +50,7 @@ const Financiers = ({ lang }: { lang: Locale }) => {
               width={300}
               height={150}
               sizes="(max-width: 768px) 200px, 300px"
+              loading="eager"
               className={size}
             />
           ))}

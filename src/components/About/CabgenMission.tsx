@@ -55,6 +55,7 @@ const CabgenMission = ({ lang }: { lang: Locale }) => {
             width={600}
             height={600}
             sizes="(max-width: 1024px) 80vw, 50vw"
+            loading="eager"
             className="rotate-90 lg:w-auto lg:h-auto w-4/5 h-4/5"
           />
         </div>

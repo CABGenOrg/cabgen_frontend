@@ -57,7 +57,12 @@ const AdminTickets = () => {
     isMyTickets || filterConfig?.value === "ALL" ? "" : statusFilter;
   const adminID = isMyTickets ? (user?.id ?? "") : "";
 
-  const { data = [], isLoading: loadingTickets } = useGetTicketsQuery({
+  const {
+    data = [],
+    isLoading: loadingTickets,
+    error: ticketsError,
+    refetch: refetchTickets,
+  } = useGetTicketsQuery({
     status,
     adminID,
   });
@@ -218,6 +223,11 @@ const AdminTickets = () => {
         data={data}
         columns={columns}
         loading={loadingTickets}
+        error={ticketsError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={refetchTickets}
         emptyMessage={dict.noTickets}
         emptyTitle={dict.tickets}
         countLabel={dict.showingTickets}

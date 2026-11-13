@@ -29,7 +29,7 @@ const formatDate = (value: string | null | undefined, lang: string) => {
 const AdminAudit = () => {
   const lang = useLanguage();
   const {
-    dictionary: { Account: AccountDict },
+    dictionary: { Account: AccountDict, Errors },
   } = getTranslateClient(lang);
   const adminDict = AccountDict.admin;
   const auditDict = adminDict.audit;
@@ -58,7 +58,12 @@ const AdminAudit = () => {
     setFilters({ source: "", status: "", date: "", user_id: "", event: "" });
   };
 
-  const { data = [], isLoading } = useGetAuditQuery(filters);
+  const {
+    data = [],
+    isLoading,
+    error: auditError,
+    refetch: refetchAudit,
+  } = useGetAuditQuery(filters);
   const { data: options } = useGetAuditSelectOptionsQuery(lang);
   const userOptions = options?.users ?? [];
   const eventOptions = options?.events ?? [];
@@ -199,6 +204,11 @@ const AdminAudit = () => {
         data={data}
         columns={columns}
         loading={isLoading}
+        error={auditError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={refetchAudit}
         emptyMessage={auditDict.noAudit}
         emptyTitle={auditDict.title}
         countLabel={auditDict.showingAudit}

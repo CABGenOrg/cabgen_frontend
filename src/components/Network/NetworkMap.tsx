@@ -22,6 +22,7 @@ const NetworkMap = ({ lang }: { lang: Locale }) => {
           width={1200}
           height={800}
           sizes="(max-width: 1024px) 100vw, 80vw"
+          loading="eager"
           className="xl:w-4/5 lg:w-3/5 md:w-4/5 w-full h-auto"
         />
       </div>

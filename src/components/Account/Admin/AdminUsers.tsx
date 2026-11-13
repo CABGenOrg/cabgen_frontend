@@ -37,7 +37,12 @@ const AdminUsers = () => {
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState(1);
-  const { data: paged, isLoading: loadingUsers } = useGetUsersQuery({
+  const {
+    data: paged,
+    isLoading: loadingUsers,
+    error: usersError,
+    refetch: refetchUsers,
+  } = useGetUsersQuery({
     input: debouncedSearch,
     page,
   });
@@ -122,7 +127,6 @@ const AdminUsers = () => {
           <div className="flex items-center gap-1.5">
             <IconButton
               label={info.row.original.is_active ? dict.deactivate : dict.activate}
-              title={info.row.original.is_active ? dict.deactivate : dict.activate}
               icon={<Power size={18} />}
               disabled={togglingActive}
               className={info.row.original.is_active
@@ -168,6 +172,11 @@ const AdminUsers = () => {
         data={data}
         columns={columns}
         loading={loadingUsers}
+        error={usersError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={refetchUsers}
         emptyMessage={dict.noResults}
         emptyTitle={dict.users}
         countLabel={dict.showing}

@@ -36,12 +36,22 @@ const AdminOrigins = () => {
   const closeModal = () => setModal({ type: null });
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data: fullData = [], isLoading: loadingOrigins } =
-    useGetOriginsQuery(lang);
-  const { data: searchData = [] } = useGetOriginsByNameQuery(debouncedSearch, {
+  const {
+    data: fullData = [],
+    isLoading: loadingOrigins,
+    error: fullError,
+    refetch: refetchOrigins,
+  } = useGetOriginsQuery(lang);
+  const {
+    data: searchData = [],
+    error: searchError,
+    refetch: refetchSearch,
+  } = useGetOriginsByNameQuery(debouncedSearch, {
     skip: !debouncedSearch,
   });
   const data = debouncedSearch ? searchData : fullData;
+  const tableError = debouncedSearch ? searchError : fullError;
+  const tableRefetch = debouncedSearch ? refetchSearch : refetchOrigins;
   const [deleteOrigin, { isLoading: deleting, error: deleteError }] =
     useDeleteOriginMutation();
 
@@ -115,6 +125,11 @@ const AdminOrigins = () => {
         data={data}
         columns={columns}
         loading={loadingOrigins}
+        error={tableError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={tableRefetch}
         emptyMessage={dict.noOrigins}
         emptyTitle={dict.origins}
         countLabel={dict.showingOrigins}

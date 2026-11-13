@@ -35,8 +35,8 @@ const OptimizedImage = ({
   quality,
 }: OptimizedImageProps) => {
   const baseClasses = fill
-    ? `transition-opacity blur duration-300 ${className ?? ""}`
-    : `max-w-full max-h-full transition-opacity blur duration-300 ${className ?? ""}`;
+    ? `transition-opacity duration-300 ${className ?? ""}`
+    : `max-w-full max-h-full transition-opacity duration-300 ${className ?? ""}`;
 
   const objectFitClass = objectFit ? `object-${objectFit}` : "";
   const finalClassName = `${baseClasses} ${objectFitClass}`.trim();
@@ -47,8 +47,6 @@ const OptimizedImage = ({
     sizes: sizes ?? "100vw",
     quality: quality ?? 75,
     className: finalClassName,
-    onLoad: (image: React.SyntheticEvent<HTMLImageElement>) =>
-      image.currentTarget.classList.remove("blur"),
     priority,
     loading,
     placeholder: (blurDataURL ? "blur" : placeholder) ?? "empty",

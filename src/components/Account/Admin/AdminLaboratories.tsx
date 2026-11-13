@@ -36,13 +36,22 @@ const AdminLaboratories = () => {
   const closeModal = () => setModal({ type: null });
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data: fullData = [], isLoading: loadingLaboratories } =
-    useGetLaboratoriesQuery();
-  const { data: searchData = [] } =
-    useGetLaboratoriesByNameOrAbbreviationQuery(debouncedSearch, {
-      skip: !debouncedSearch,
-    });
+  const {
+    data: fullData = [],
+    isLoading: loadingLaboratories,
+    error: fullError,
+    refetch: refetchLaboratories,
+  } = useGetLaboratoriesQuery();
+  const {
+    data: searchData = [],
+    error: searchError,
+    refetch: refetchSearch,
+  } = useGetLaboratoriesByNameOrAbbreviationQuery(debouncedSearch, {
+    skip: !debouncedSearch,
+  });
   const data = debouncedSearch ? searchData : fullData;
+  const tableError = debouncedSearch ? searchError : fullError;
+  const tableRefetch = debouncedSearch ? refetchSearch : refetchLaboratories;
   const [deleteLaboratory, { isLoading: deleting, error: deleteError }] =
     useDeleteLaboratoryMutation();
 
@@ -118,6 +127,11 @@ const AdminLaboratories = () => {
         data={data}
         columns={columns}
         loading={loadingLaboratories}
+        error={tableError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={tableRefetch}
         emptyMessage={dict.noLaboratories}
         emptyTitle={dict.laboratories}
         countLabel={dict.showingLaboratories}

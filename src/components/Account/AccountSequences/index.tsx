@@ -45,7 +45,12 @@ const AccountSequences = () => {
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState(1);
-  const { data: paged, isLoading: loadingSamples } = useGetSamplesQuery({
+  const {
+    data: paged,
+    isLoading: loadingSamples,
+    error: samplesError,
+    refetch: refetchSamples,
+  } = useGetSamplesQuery({
     input: debouncedSearch,
     lang,
     page,
@@ -68,9 +73,6 @@ const AccountSequences = () => {
     downloadTemplate,
     { isLoading: downloadingTemplate },
   ] = useDownloadTemplateMutation();
-  const [tableMsg, setTableMsg] = useState<{ text: string; n: number } | null>(
-    null,
-  );
 
   const handleDownloadTemplate = async () => {
     try {
@@ -83,7 +85,7 @@ const AccountSequences = () => {
 
   const handleTableSubmit = async (fd: FormData) => {
     const msg = await createSamplesFromTable(fd).unwrap();
-    setTableMsg((prev) => ({ text: msg, n: (prev?.n ?? 0) + 1 }));
+    toast({ description: msg });
     return msg;
   };
 
@@ -240,16 +242,17 @@ const AccountSequences = () => {
         </Button>
       </div>
 
-      {tableMsg && (
-        <Message key={tableMsg.n} msg={tableMsg.text} type="success" />
-      )}
-
       <SearchInput onSearch={handleSearch} placeholder={dict.search} />
 
       <DataTable
         data={data}
         columns={columns}
         loading={loadingSamples}
+        error={samplesError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={refetchSamples}
         emptyMessage={dict.noResults}
         emptyTitle={dict.title}
         countLabel={dict.showing}

@@ -26,6 +26,7 @@ const NetworkDescription = ({ lang }: { lang: Locale }) => {
             width={700}
             height={350}
             sizes="(max-width: 768px) 100vw, 83vw"
+            loading="eager"
             className="object-cover sm:w-5/6 w-auto"
           />
         </div>
@@ -41,6 +42,7 @@ const NetworkDescription = ({ lang }: { lang: Locale }) => {
             width={800}
             height={600}
             sizes="(max-width: 768px) 83vw, 50vw"
+            loading="eager"
             className={`${section_image} rounded-lg`}
           />
         </div>
@@ -79,6 +81,7 @@ const NetworkDescription = ({ lang }: { lang: Locale }) => {
             width={800}
             height={600}
             sizes="(max-width: 768px) 83vw, 50vw"
+            loading="eager"
             className={`${section_image} rounded-lg`}
           />
         </div>

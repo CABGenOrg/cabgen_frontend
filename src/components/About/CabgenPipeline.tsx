@@ -28,6 +28,7 @@ const CabgenPipeline = ({ lang }: { lang: Locale }) => {
           width={1400}
           height={700}
           sizes="(max-width: 1024px) 100vw, 1024px"
+          loading="eager"
           className="w-full max-w-5xl mx-auto"
         />
       </div>

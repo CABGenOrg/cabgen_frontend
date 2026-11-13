@@ -18,8 +18,10 @@ import {
 import { SmartSelect } from "@/components/General/SmartSelect";
 import { section_btn, input_class, label_class } from "@/styles/tailwind_classes";
 import Message from "@/components/General/Message";
+import ErrorState from "@/components/General/ErrorState";
 import Loading from "@/components/General/Loading";
 import LoadingButton from "@/components/General/LoadingButton";
+import { toast } from "@/hooks/use-toast";
 import { useGetCountriesQuery } from "@/redux/services/countries/countriesService";
 import {
   useGetEnumSelectOptionsQuery,
@@ -39,10 +41,14 @@ const AccountMyAccount = () => {
   } = getTranslateClient(lang);
   const dict = AccountDict.myAccount;
 
-  const { data: profile, isLoading: loadingProfile, error: profileError } = useGetProfileQuery();
+  const {
+    data: profile,
+    isLoading: loadingProfile,
+    error: profileError,
+    refetch: refetchProfile,
+  } = useGetProfileQuery();
   const { data: countries } = useGetCountriesQuery(lang);
   const { data: enumOptions } = useGetEnumSelectOptionsQuery(lang);
-  const [saved, setSaved] = useState(false);
 
   const [updateProfile, { isLoading: updating, error: updateError }] = useUpdateProfileMutation();
 
@@ -96,8 +102,7 @@ const AccountMyAccount = () => {
         router.refresh();
         return;
       }
-      setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
+      toast({ description: dict.saveSuccess });
     } catch {}
   };
 
@@ -110,7 +115,14 @@ const AccountMyAccount = () => {
   }
 
   if (profileError) {
-    return <Message msg={Errors.internalServer} type="error" />;
+    return (
+      <ErrorState
+        title={Errors.loadErrorTitle}
+        description={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={refetchProfile}
+      />
+    );
   }
 
   const roleBadge =
@@ -285,12 +297,6 @@ const AccountMyAccount = () => {
                   msg={typeof updateError === "string" && updateError === "internalServer" ? Errors[updateError] : String(updateError)}
                   type="error"
                 />
-              </div>
-            )}
-
-            {saved && (
-              <div className="mt-4">
-                <Message msg={dict.saveSuccess} type="success" />
               </div>
             )}
 

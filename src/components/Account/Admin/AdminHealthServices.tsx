@@ -37,13 +37,22 @@ const AdminHealthServices = () => {
   const closeModal = () => setModal({ type: null });
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data: fullData = [], isLoading: loadingHealthServices } =
-    useGetHealthServicesQuery();
-  const { data: searchData = [] } = useGetHealthServicesByNameQuery(
-    debouncedSearch,
-    { skip: !debouncedSearch },
-  );
+  const {
+    data: fullData = [],
+    isLoading: loadingHealthServices,
+    error: fullError,
+    refetch: refetchHealthServices,
+  } = useGetHealthServicesQuery();
+  const {
+    data: searchData = [],
+    error: searchError,
+    refetch: refetchSearch,
+  } = useGetHealthServicesByNameQuery(debouncedSearch, {
+    skip: !debouncedSearch,
+  });
   const data = debouncedSearch ? searchData : fullData;
+  const tableError = debouncedSearch ? searchError : fullError;
+  const tableRefetch = debouncedSearch ? refetchSearch : refetchHealthServices;
   const [deleteHealthService, { isLoading: deleting, error: deleteError }] =
     useDeleteHealthServiceMutation();
 
@@ -138,6 +147,11 @@ const AdminHealthServices = () => {
         data={data}
         columns={columns}
         loading={loadingHealthServices}
+        error={tableError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={tableRefetch}
         emptyMessage={dict.noHealthServices}
         emptyTitle={dict.healthServices}
         countLabel={dict.showingHealthServices}

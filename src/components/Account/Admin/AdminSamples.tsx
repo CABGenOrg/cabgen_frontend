@@ -46,10 +46,19 @@ const AdminSamples = () => {
   const closeModal = () => setModal({ type: null });
 
   const [page, setPage] = useState(1);
-  const { data: fullPaged, isLoading: loadingSamples } =
-    useGetAdminSamplesQuery({ lang, page });
+  const {
+    data: fullPaged,
+    isLoading: loadingSamples,
+    error: fullError,
+    refetch: refetchFull,
+  } = useGetAdminSamplesQuery({ lang, page });
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data: searchPaged, isLoading: searchLoading } = useGetSamplesQuery(
+  const {
+    data: searchPaged,
+    isLoading: searchLoading,
+    error: searchError,
+    refetch: refetchSearch,
+  } = useGetSamplesQuery(
     { input: debouncedSearch, lang, page },
     {
       skip: !debouncedSearch,
@@ -61,6 +70,8 @@ const AdminSamples = () => {
   const totalPages =
     (debouncedSearch ? searchPaged : fullPaged)?.total_pages ?? 1;
   const tableLoading = debouncedSearch ? searchLoading : loadingSamples;
+  const tableError = debouncedSearch ? searchError : fullError;
+  const tableRefetch = debouncedSearch ? refetchSearch : refetchFull;
 
   const handleSearch = (value: string) => {
     setPage(1);
@@ -89,9 +100,6 @@ const AdminSamples = () => {
     downloadTemplate,
     { isLoading: downloadingTemplate },
   ] = useDownloadAdminTemplateMutation();
-  const [tableMsg, setTableMsg] = useState<{ text: string; n: number } | null>(
-    null,
-  );
 
   const handleDownloadTemplate = async () => {
     try {
@@ -104,7 +112,7 @@ const AdminSamples = () => {
 
   const handleTableSubmit = async (fd: FormData) => {
     const msg = await createAdminSamplesFromTable(fd).unwrap();
-    setTableMsg((prev) => ({ text: msg, n: (prev?.n ?? 0) + 1 }));
+    toast({ description: msg });
     return msg;
   };
 
@@ -258,16 +266,17 @@ const AdminSamples = () => {
         </Button>
       </div>
 
-      {tableMsg && (
-        <Message key={tableMsg.n} msg={tableMsg.text} type="success" />
-      )}
-
       <SearchInput onSearch={handleSearch} placeholder={adminDict.search} />
 
       <DataTable
         data={data}
         columns={columns}
         loading={tableLoading}
+        error={tableError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={tableRefetch}
         emptyMessage={adminDict.noSamples}
         emptyTitle={adminDict.allSamples}
         countLabel={adminDict.showingSamples}

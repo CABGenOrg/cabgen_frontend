@@ -7,6 +7,7 @@ import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
 import { OverviewSkeleton, ChartCardSkeleton } from "../General/Skeletons";
+import ErrorState from "../General/ErrorState";
 import { User2, LayoutDashboard, Dna, Search, CheckCircle } from "lucide-react";
 import { useGetAnalysesQuery } from "@/redux/services/analyses/analysesService";
 import { useGetSamplesQuery } from "@/redux/services/samples/samplesService";
@@ -59,7 +60,7 @@ const Overview = () => {
   const lang = useLanguage();
   const router = useRouter();
   const {
-    dictionary: { Account: AccountDict },
+    dictionary: { Account: AccountDict, Errors },
   } = getTranslateClient(lang);
   const overviewDict = AccountDict.overview;
   const fmtDur = (v: number) =>
@@ -69,15 +70,27 @@ const Overview = () => {
   const statusValues = AccountDict.analyses.statusValues;
   const analysisTypeDict = AccountDict.option.analysis_type;
 
-  const { data: analysesPaged, isLoading: analysesLoading } =
-    useGetAnalysesQuery({});
+  const {
+    data: analysesPaged,
+    isLoading: analysesLoading,
+    error: analysesError,
+    refetch: refetchAnalyses,
+  } = useGetAnalysesQuery({});
   const analyses = analysesPaged?.data ?? [];
-  const { data: samplesPaged, isLoading: samplesLoading } =
-    useGetSamplesQuery({ input: "", lang });
+  const {
+    data: samplesPaged,
+    isLoading: samplesLoading,
+    error: samplesError,
+    refetch: refetchSamples,
+  } = useGetSamplesQuery({ input: "", lang });
   const samples = samplesPaged?.data ?? [];
 
-  const { data: metrics, isLoading: metricsLoading } =
-    useGetUserMetricsQuery();
+  const {
+    data: metrics,
+    isLoading: metricsLoading,
+    error: metricsError,
+    refetch: refetchMetrics,
+  } = useGetUserMetricsQuery();
 
   const statusData = useMemo(() => {
     const statusColors: Record<string, string> = {
@@ -175,6 +188,21 @@ const Overview = () => {
 
   if (authLoading || analysesLoading || samplesLoading || metricsLoading)
     return <OverviewSkeleton />;
+
+  if (analysesError || samplesError || metricsError) {
+    return (
+      <ErrorState
+        title={Errors.loadErrorTitle}
+        description={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={() => {
+          refetchAnalyses();
+          refetchSamples();
+          refetchMetrics();
+        }}
+      />
+    );
+  }
 
   return (
     <div>

@@ -19,6 +19,7 @@ import {
   ChartNoAxesCombined,
 } from "lucide-react";
 import PageHeader from "@/components/General/PageHeader";
+import ErrorState from "@/components/General/ErrorState";
 import {
   AdminOverviewSkeleton,
   ChartCardSkeleton,
@@ -76,7 +77,7 @@ const AdminOverview = () => {
   const lang = useLanguage();
   const router = useRouter();
   const {
-    dictionary: { Account: AccountDict },
+    dictionary: { Account: AccountDict, Errors },
   } = getTranslateClient(lang);
   const dict = AccountDict.admin;
   const overviewDict = dict.overview;
@@ -100,9 +101,25 @@ const AdminOverview = () => {
     { icon: <ScrollText size={24} />, title: dict.audit.title, href: "/account/admin/audit" },
   ];
 
-  const { data: metrics, isLoading } = useGetAdminMetricsQuery();
+  const {
+    data: metrics,
+    isLoading,
+    error: metricsError,
+    refetch: refetchMetrics,
+  } = useGetAdminMetricsQuery();
 
   if (isLoading) return <AdminOverviewSkeleton />;
+
+  if (metricsError) {
+    return (
+      <ErrorState
+        title={Errors.loadErrorTitle}
+        description={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={refetchMetrics}
+      />
+    );
+  }
 
   const statusData = metrics
     ? Object.entries(metrics.analyses_by_status ?? {})

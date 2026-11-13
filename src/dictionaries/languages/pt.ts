@@ -251,6 +251,7 @@ const pt = {
     bothEmailFieldsValidation: "Os e-mails não são iguais.",
     bothPasswordFieldsValidation: "As senhas não são iguais.",
     registerBtn: "Continuar",
+    success: "Cadastro realizado com sucesso.",
     formFooter1: "Já possui conta? ",
     formFooter2: "Faça login.",
   },
@@ -288,6 +289,10 @@ const pt = {
     internalServer: "Serviço indisponível, tente novamente mais tarde.",
     downloadError: "Erro ao baixar arquivo. Tente novamente.",
     viewError: "Erro ao acessar o arquivo. Tente novamente.",
+    loadErrorTitle: "Erro ao carregar dados",
+    loadErrorDescription:
+      "Não foi possível carregar as informações. Tente novamente.",
+    retry: "Tentar novamente",
   },
   Account: {
     sidebar: {

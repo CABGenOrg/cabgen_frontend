@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +23,7 @@ import { getTranslateClient } from "@/lib/getTranslateClient";
 import { useContactMutation } from "@/redux/services/contact/contactService";
 import LoadingButton from "../General/LoadingButton";
 import Message from "../General/Message";
+import { toast } from "@/hooks/use-toast";
 
 const ContactForm = () => {
   const lang = useLanguage();
@@ -54,17 +55,15 @@ const ContactForm = () => {
     },
   });
 
-  const [contact, { data, isLoading, error, isSuccess }] = useContactMutation();
+  const [contact, { isLoading, error }] = useContactMutation();
 
   const onSubmit: SubmitHandler<FormData> = async (contactData: FormData) => {
-    await contact(contactData);
-  };
-
-  useEffect(() => {
-    if (isSuccess && !error) {
+    try {
+      await contact(contactData).unwrap();
       form.reset();
-    }
-  }, [isSuccess, error, form]);
+      toast({ description: Contact.successMessage });
+    } catch {}
+  };
 
   return (
     <div className="mx-5 py-6 px-3 2xl:w-[45%] lg:w-[55%] md:w-[70%] bg-muted rounded-lg">
@@ -204,9 +203,6 @@ const ContactForm = () => {
                 }
                 type="error"
               />
-            )}
-            {isSuccess && data && (
-              <Message msg={data.message} type="success" />
             )}
           </form>
         </Form>

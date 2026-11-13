@@ -36,13 +36,22 @@ const AdminSequencers = () => {
   const closeModal = () => setModal({ type: null });
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data: fullData = [], isLoading: loadingSequencers } =
-    useGetSequencersQuery();
-  const { data: searchData = [] } =
-    useGetSequencersByBrandOrModelQuery(debouncedSearch, {
-      skip: !debouncedSearch,
-    });
+  const {
+    data: fullData = [],
+    isLoading: loadingSequencers,
+    error: fullError,
+    refetch: refetchSequencers,
+  } = useGetSequencersQuery();
+  const {
+    data: searchData = [],
+    error: searchError,
+    refetch: refetchSearch,
+  } = useGetSequencersByBrandOrModelQuery(debouncedSearch, {
+    skip: !debouncedSearch,
+  });
   const data = debouncedSearch ? searchData : fullData;
+  const tableError = debouncedSearch ? searchError : fullError;
+  const tableRefetch = debouncedSearch ? refetchSearch : refetchSequencers;
   const [deleteSequencer, { isLoading: deleting, error: deleteError }] =
     useDeleteSequencerMutation();
 
@@ -128,6 +137,11 @@ const AdminSequencers = () => {
         data={data}
         columns={columns}
         loading={loadingSequencers}
+        error={tableError}
+        errorTitle={Errors.loadErrorTitle}
+        errorDescription={Errors.loadErrorDescription}
+        retryLabel={Errors.retry}
+        onRetry={tableRefetch}
         emptyMessage={dict.noSequencers}
         emptyTitle={dict.sequencers}
         countLabel={dict.showingSequencers}

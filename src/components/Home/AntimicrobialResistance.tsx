@@ -75,6 +75,7 @@ const AntimicrobialResistance = ({ lang }: { lang: Locale }) => {
             width={800}
             height={600}
             sizes="(max-width: 768px) 83vw, 50vw"
+            loading="eager"
             className={section_image}
           />
         </div>
