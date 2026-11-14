@@ -267,6 +267,9 @@ const en = {
     noResults: "No results",
     toggleToDark: "Enable dark mode",
     toggleToLight: "Enable light mode",
+    selectAll: "Select all",
+    clear: "Clear",
+    selected: "{count} selected",
     pagination: {
       previous: "Previous page",
       next: "Next page",

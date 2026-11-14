@@ -22,6 +22,12 @@ export type AdminAnalysisInput = {
   user_id: string;
 };
 
+export type AdminAnalysisBatchInput = {
+  type: string;
+  sample_ids: string[];
+  user_id: string;
+};
+
 export type AdminAnalysisUpdateData = {
   status?: string | null;
   metrics?: AnalysisResult | null;
@@ -117,6 +123,16 @@ const analysesService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       invalidatesTags: ["Analyses"],
     }),
+    createAdminAnalysesBatch: builder.mutation<
+      string,
+      AdminAnalysisBatchInput
+    >({
+      query: (data) =>
+        requestConfig(ADMIN_ENDPOINTS.ANALYSES_BATCH, "POST", data),
+      transformResponse: (res: ApiMessage) => res.message,
+      transformErrorResponse: (res) => handleError(res),
+      invalidatesTags: ["Analyses"],
+    }),
     updateAdminAnalysis: builder.mutation<string, AdminAnalysisUpdateInput>({
       query: ({ id, data }) =>
         requestConfig(`${ADMIN_ENDPOINTS.ANALYSES}/${id}`, "PUT", data),
@@ -143,6 +159,7 @@ export const {
   useDownloadAdminBatchAnalysisTSVsMutation,
   useDownloadAdminDashboardTSVsMutation,
   useCreateAdminAnalysisMutation,
+  useCreateAdminAnalysesBatchMutation,
   useUpdateAdminAnalysisMutation,
   useDeleteAdminAnalysisMutation,
 } = analysesService;

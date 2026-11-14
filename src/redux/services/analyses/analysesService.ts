@@ -49,6 +49,11 @@ export type AnalysisInput = {
   sample_id: string;
 };
 
+export type AnalysisBatchInput = {
+  type: string;
+  sample_ids: string[];
+};
+
 export type AnalysisTSVDownloadInput = {
   ids: string[];
 };
@@ -117,6 +122,13 @@ const analysesService = apiSlice.injectEndpoints({
       transformErrorResponse: (res) => handleError(res),
       invalidatesTags: ["Analyses"],
     }),
+    createAnalysesBatch: builder.mutation<string, AnalysisBatchInput>({
+      query: (data) =>
+        requestConfig(ANALYSES_ENDPOINTS.BATCH, "POST", data),
+      transformResponse: (res: ApiMessage) => res.message,
+      transformErrorResponse: (res) => handleError(res),
+      invalidatesTags: ["Analyses"],
+    }),
     deleteAnalysis: builder.mutation<string, string>({
       query: (id) =>
         requestConfig(`${ANALYSES_ENDPOINTS.DEFAULT}/${id}`, "DELETE"),
@@ -134,5 +146,6 @@ export const {
   useLazyGetAnalysisFastQCQuery,
   useDownloadBatchAnalysisTSVsMutation,
   useCreateAnalysisMutation,
+  useCreateAnalysesBatchMutation,
   useDeleteAnalysisMutation,
 } = analysesService;

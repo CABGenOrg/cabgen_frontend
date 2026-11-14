@@ -20,9 +20,9 @@ import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
 import LoadingButton from "@/components/General/LoadingButton";
 import { SmartSelect } from "@/components/General/SmartSelect";
+import { MultiSelect } from "@/components/General/MultiSelect";
 import { saveBlob } from "@/utils/downloadFile";
 import { toast } from "@/hooks/use-toast";
-import { ANALYSES_ENDPOINTS } from "@/redux/services/analyses/analysesEndpoints";
 import {
   Form,
   FormItem,
@@ -35,7 +35,7 @@ import {
   useGetAnalysesQuery,
   useDownloadBatchAnalysisTSVsMutation,
   useDeleteAnalysisMutation,
-  useCreateAnalysisMutation,
+  useCreateAnalysesBatchMutation,
 } from "@/redux/services/analyses/analysesService";
 import type { AnalysisResponse } from "@/redux/services/analyses/analysesService";
 import { useGetEnumSelectOptionsQuery } from "@/redux/services/select_options/selectOptionsService";
@@ -71,7 +71,7 @@ const formatDuration = (
 
 type CreateFormData = {
   type: string;
-  sample_id: string;
+  sample_ids: string[];
 };
 
 const AccountAnalysis = () => {
@@ -121,8 +121,8 @@ const AccountAnalysis = () => {
 
   const [deleteAnalysis, { isLoading: deleting, error: deleteError }] =
     useDeleteAnalysisMutation();
-  const [createAnalysis, { isLoading: creating, error: createError }] =
-    useCreateAnalysisMutation();
+  const [createAnalysesBatch, { isLoading: creating, error: createError }] =
+    useCreateAnalysesBatchMutation();
 
   const { data: enumOptions, isLoading: loadingEnums } =
     useGetEnumSelectOptionsQuery(lang);
@@ -137,14 +137,16 @@ const AccountAnalysis = () => {
     () =>
       z.object({
         type: z.string().min(1, dict.validation.required),
-        sample_id: z.string().min(1, dict.validation.required),
+        sample_ids: z
+          .array(z.string().min(1))
+          .min(1, dict.validation.required),
       }),
     [dict.validation.required],
   );
 
   const form = useForm<CreateFormData>({
     resolver: zodResolver(createSchema),
-    defaultValues: { type: "", sample_id: "" },
+    defaultValues: { type: "", sample_ids: [] },
   });
 
   const analysisTypeOptions = enumOptions?.analysis_types ?? [];
@@ -163,7 +165,7 @@ const AccountAnalysis = () => {
 
   const onSubmit: SubmitHandler<CreateFormData> = async (data) => {
     try {
-      await createAnalysis(data).unwrap();
+      await createAnalysesBatch(data).unwrap();
       form.reset();
       closeModal();
     } catch {}
@@ -441,18 +443,19 @@ const AccountAnalysis = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="sample_id"
+                    name="sample_ids"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className={label_class}>
                           {dict.sample} <span className="text-red-500">*</span>
                         </FormLabel>
                         <FormControl>
-                          <SmartSelect
-                            value={field.value}
+                          <MultiSelect
+                            values={field.value}
                             onChange={field.onChange}
                             options={sampleOptions}
                             placeholder={dict.selectSample}
+                            searchable
                           />
                         </FormControl>
                         <FormMessage className="text-red-600" />

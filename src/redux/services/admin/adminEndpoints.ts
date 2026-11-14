@@ -15,6 +15,7 @@ export const ADMIN_ENDPOINTS = {
   SAMPLES: "/admin/samples",
   SAMPLES_SEARCH: "/admin/samples/search",
   ANALYSES: "/admin/analyses",
+  ANALYSES_BATCH: "/admin/analyses/batch",
   USERNAMES: "/admin/users/usernames",
   ANALYSES_SEARCH: "/admin/analyses/search",
   ANALYSES_DOWNLOAD_BATCH_TSVS: "/analyses/download/tsv",

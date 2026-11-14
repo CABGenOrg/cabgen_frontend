@@ -271,6 +271,9 @@ const pt = {
     noResults: "Nenhum resultado",
     toggleToDark: "Ativar modo escuro",
     toggleToLight: "Ativar modo claro",
+    selectAll: "Selecionar todas",
+    clear: "Limpar",
+    selected: "{count} selecionadas",
     pagination: {
       previous: "Página anterior",
       next: "Próxima página",

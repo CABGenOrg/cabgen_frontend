@@ -20,17 +20,18 @@ import Message from "@/components/General/Message";
 import Loading from "@/components/General/Loading";
 import LoadingButton from "@/components/General/LoadingButton";
 import { SmartSelect } from "@/components/General/SmartSelect";
+import { MultiSelect } from "@/components/General/MultiSelect";
 import { label_class } from "@/styles/tailwind_classes";
 import { useGetEnumSelectOptionsQuery } from "@/redux/services/select_options/selectOptionsService";
 import { useGetAdminSamplesQuery } from "@/redux/services/admin/adminSamplesService";
 import { useGetUsersQuery } from "@/redux/services/admin/adminUsersService";
 import {
-  useCreateAdminAnalysisMutation,
+  useCreateAdminAnalysesBatchMutation,
   useUpdateAdminAnalysisMutation,
 } from "@/redux/services/admin/adminAnalysesService";
 import type {
   AdminAnalysisResponse,
-  AdminAnalysisInput,
+  AdminAnalysisBatchInput,
   AdminAnalysisUpdateData,
 } from "@/redux/services/admin/adminAnalysesService";
 import { useLanguage } from "@/redux/LanguageContext";
@@ -47,7 +48,7 @@ type AdminAnalysisModalProps = {
 
 type CreateFormData = {
   type: string;
-  sample_id: string;
+  sample_ids: string[];
   user_id: string;
 };
 
@@ -135,7 +136,9 @@ const AdminAnalysisModalBody: React.FC<
 
   const createSchema = z.object({
     type: z.string().min(1, analysisDict.validation.required),
-    sample_id: z.string().min(1, analysisDict.validation.required),
+    sample_ids: z
+      .array(z.string().min(1))
+      .min(1, analysisDict.validation.required),
     user_id: z.string().min(1, analysisDict.validation.required),
   });
 
@@ -166,7 +169,7 @@ const AdminAnalysisModalBody: React.FC<
 
   const createForm = useForm<CreateFormData>({
     resolver: zodResolver(createSchema),
-    defaultValues: { type: "", sample_id: "", user_id: "" },
+    defaultValues: { type: "", sample_ids: [], user_id: "" },
   });
 
   const editInitialValues = useMemo(() => {
@@ -211,8 +214,10 @@ const AdminAnalysisModalBody: React.FC<
     return statusOptions.filter((o) => o.value === "failed");
   }, [initial, statusOptions]);
 
-  const [createAnalysis, { isLoading: creating, error: createError }] =
-    useCreateAdminAnalysisMutation();
+  const [
+    createAdminAnalysesBatch,
+    { isLoading: creating, error: createError },
+  ] = useCreateAdminAnalysesBatchMutation();
   const [updateAnalysis, { isLoading: updating, error: updateError }] =
     useUpdateAdminAnalysisMutation();
 
@@ -221,7 +226,9 @@ const AdminAnalysisModalBody: React.FC<
 
   const onCreate: SubmitHandler<CreateFormData> = async (data) => {
     try {
-      await createAnalysis(data as AdminAnalysisInput).unwrap();
+      await createAdminAnalysesBatch(
+        data as unknown as AdminAnalysisBatchInput,
+      ).unwrap();
       createForm.reset();
       onClose();
     } catch {}
@@ -438,7 +445,7 @@ const AdminAnalysisModalBody: React.FC<
               />
               <FormField
                 control={createForm.control}
-                name="sample_id"
+                name="sample_ids"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className={label_class}>
@@ -446,11 +453,12 @@ const AdminAnalysisModalBody: React.FC<
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
-                      <SmartSelect
-                        value={field.value}
+                      <MultiSelect
+                        values={field.value}
                         onChange={field.onChange}
                         options={sampleOptions}
                         placeholder={analysisDict.selectSample}
+                        searchable
                       />
                     </FormControl>
                     <FormMessage className="text-red-600" />
