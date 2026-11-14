@@ -5,6 +5,7 @@ import React from "react";
 import Section from "@/components/General/Section";
 import RegisterForm from "@/components/Register/RegisterForm";
 import { form_spacing } from "@/styles/tailwind_classes";
+import RedirectIfAuthenticated from "@/components/Account/RedirectIfAuthenticated";
 
 export async function generateMetadata({
   params,
@@ -18,11 +19,14 @@ export async function generateMetadata({
 
 const Register = () => {
   return (
-    <Section id="register" className="flex-1">
-      <div className={`${form_spacing} flex-1`}>
-        <RegisterForm />
-      </div>
-    </Section>
+    <>
+      <RedirectIfAuthenticated />
+      <Section id="register" className="flex-1">
+        <div className={`${form_spacing} flex-1`}>
+          <RegisterForm />
+        </div>
+      </Section>
+    </>
   );
 };
 

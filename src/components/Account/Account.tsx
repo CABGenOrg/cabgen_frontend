@@ -16,7 +16,9 @@ import {
 import { useAuth } from "@/redux/AuthContext";
 import { useLanguage } from "@/redux/LanguageContext";
 import { getTranslateClient } from "@/lib/getTranslateClient";
-import Breadcrumbs, { type BreadcrumbItem } from "@/components/General/Breadcrumbs";
+import Breadcrumbs, {
+  type BreadcrumbItem,
+} from "@/components/General/Breadcrumbs";
 
 interface SidebarLink {
   linkName: string;
@@ -25,14 +27,18 @@ interface SidebarLink {
   disabled: boolean;
 }
 
-const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) => {
+const Account = ({
+  accountComponent,
+}: {
+  accountComponent: React.ReactNode;
+}) => {
   const lang = useLanguage();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const {
     dictionary: { Account: AccountDict },
   } = getTranslateClient(lang);
-  const { user } = useAuth();
+  const { user, isLoading, isServiceUnavailable, refetchMe } = useAuth();
   const isAdmin = user?.user_role === "Admin";
   const isAdminSection = pathname.includes("/account/admin/");
 
@@ -107,6 +113,33 @@ const Account = ({ accountComponent }: { accountComponent: React.ReactNode }) =>
       disabled: false,
     },
   ];
+
+  if (isLoading) return null;
+
+  if (isServiceUnavailable) {
+    return (
+      <div
+        role="alert"
+        className="flex flex-1 flex-col items-center justify-center gap-4 p-6 text-center"
+      >
+        <h1 className="text-xl font-semibold">
+          Serviço temporariamente indisponível
+        </h1>
+        <p>
+          Não foi possível conectar ao servidor. Tente novamente mais tarde.
+        </p>
+        <button
+          type="button"
+          onClick={refetchMe}
+          className="rounded-lg bg-cabgen-400 px-4 py-2 text-white hover:bg-cabgen-300 transition-colors"
+        >
+          Tentar novamente
+        </button>
+      </div>
+    );
+  }
+
+  if (!user) return null;
 
   return (
     <div className="flex flex-col md:flex-row gap-3 md:gap-5 flex-1">
