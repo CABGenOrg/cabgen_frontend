@@ -121,15 +121,28 @@ const DataTable = <TData,>({
             {table.getHeaderGroups().map((hg) => (
               <tr key={hg.id} className="bg-muted">
                 {enableRowSelection && (
-                  <th className="px-2 py-2.5 sm:px-3 w-10">
-                    <Checkbox
-                      aria-label="Select all"
-                      checked={table.getIsAllPageRowsSelected()}
-                      disabled={selectionFull && !table.getIsAllPageRowsSelected()}
-                      onCheckedChange={(value) =>
-                        table.toggleAllPageRowsSelected(!!value)
-                      }
-                    />
+                  <th
+                    className="px-2 py-2.5 sm:px-3"
+                    style={{ width: 40 }}
+                  >
+                    <div className="flex h-6 items-center">
+                      <Checkbox
+                        aria-label="Select all"
+                        checked={
+                          table.getIsAllPageRowsSelected()
+                            ? true
+                            : table.getIsSomePageRowsSelected()
+                              ? "indeterminate"
+                              : false
+                        }
+                        disabled={
+                          selectionFull && !table.getIsAllPageRowsSelected()
+                        }
+                        onCheckedChange={(value) =>
+                          table.toggleAllPageRowsSelected(!!value)
+                        }
+                      />
+                    </div>
                   </th>
                 )}
                 {hg.headers.map((h) => {
@@ -210,16 +223,21 @@ const DataTable = <TData,>({
                     }`}
                   >
                     {enableRowSelection && (
-                      <td className="px-2 py-2.5 sm:px-3 w-10">
-                        <Checkbox
-                          aria-label="Select row"
-                          checked={row.getIsSelected()}
-                          disabled={
-                            !row.getCanSelect() ||
-                            (selectionFull && !row.getIsSelected())
-                          }
-                          onCheckedChange={(value) => row.toggleSelected(!!value)}
-                        />
+                      <td
+                        className="px-2 py-2.5 sm:px-3"
+                        style={{ width: 40 }}
+                      >
+                        <div className="flex h-6 items-center">
+                          <Checkbox
+                            aria-label="Select row"
+                            checked={row.getIsSelected()}
+                            disabled={
+                              !row.getCanSelect() ||
+                              (selectionFull && !row.getIsSelected())
+                            }
+                            onCheckedChange={(value) => row.toggleSelected(!!value)}
+                          />
+                        </div>
                       </td>
                     )}
                     {row.getVisibleCells().map((cell) => (
