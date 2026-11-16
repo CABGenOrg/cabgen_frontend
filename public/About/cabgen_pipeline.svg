@@ -5,7 +5,7 @@
    aria-labelledby="t d"
    version="1.1"
    id="svg61"
-   sodipodi:docname="fluxograma_pipeline_edit2.svg"
+   sodipodi:docname="fluxograma_pipeline_edit3.svg"
    inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    width="1410"
    height="640"
@@ -24,14 +24,30 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="0.65"
-     inkscape:cx="694.61538"
-     inkscape:cy="391.53846"
+     inkscape:cx="596.15385"
+     inkscape:cy="273.84615"
      inkscape:window-width="1432"
      inkscape:window-height="783"
      inkscape:window-x="0"
      inkscape:window-y="33"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g22" />
+     inkscape:current-layer="svg61"
+     showgrid="true">
+    <inkscape:grid
+       id="grid5"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14902"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
   <title
      id="t">Genome analysis pipeline</title>
   <desc
@@ -555,16 +571,14 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
      y="166"
      text-anchor="middle"
      id="text22"
-     style="fill:#030000;fill-opacity:1"><tspan
-       style="fill:#030000;fill-opacity:1"
-       id="tspan1">FASTQ.gz</tspan></text>
+     style="font-size:18.6667px;fill:#030000;fill-opacity:1">FASTQ.gz</text>
   <text
      class="s"
      x="100"
-     y="185"
+     y="187"
      text-anchor="middle"
      id="text23"
-     style="fill:#000000;fill-opacity:1">paired-end reads</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">paired-end reads</text>
   <rect
      class="in"
      x="20"
@@ -580,14 +594,14 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
      y="466"
      text-anchor="middle"
      id="text24"
-     style="fill:#000000;fill-opacity:1">FASTA</text>
+     style="font-size:18.6667px;fill:#000000;fill-opacity:1">FASTA</text>
   <text
      class="s"
      x="100"
-     y="485"
+     y="487"
      text-anchor="middle"
      id="text25"
-     style="fill:#000000;fill-opacity:1">assembled contigs</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">assembled contigs</text>
   <!-- reads branch -->
   <rect
      class="an"
@@ -604,7 +618,7 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
      y="72.70285"
      text-anchor="middle"
      id="text26"
-     style="fill:#000000;fill-opacity:1">Coverage depth</text>
+     style="font-size:18.6667px;fill:#000000;fill-opacity:1">Coverage depth</text>
   <rect
      class="an"
      x="220"
@@ -620,14 +634,14 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
      y="166"
      text-anchor="middle"
      id="text27"
-     style="fill:#000000;fill-opacity:1">Assembly</text>
+     style="font-size:18.6667px;fill:#000000;fill-opacity:1">Assembly</text>
   <text
      class="s"
      x="305"
-     y="185"
+     y="187"
      text-anchor="middle"
      id="text28"
-     style="fill:#000000;fill-opacity:1">Unicycler</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">Unicycler</text>
   <!-- contigs -->
   <rect
      class="in"
@@ -644,14 +658,14 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
      y="316"
      text-anchor="middle"
      id="text29"
-     style="fill:#000000;fill-opacity:1">Contigs</text>
+     style="font-size:18.6667px;fill:#000000;fill-opacity:1">Contigs</text>
   <text
      class="s"
      x="495"
-     y="335"
+     y="339"
      text-anchor="middle"
      id="text30"
-     style="fill:#000000;fill-opacity:1">FASTA</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">FASTA</text>
   <!-- modules -->
   <rect
      class="an"
@@ -668,14 +682,14 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
      y="76"
      text-anchor="middle"
      id="text31"
-     style="fill:#000000;fill-opacity:1">Species identification</text>
+     style="font-size:14.6667px;fill:#000000;fill-opacity:1">Species identification</text>
   <text
      class="s"
      x="715"
      y="95"
      text-anchor="middle"
      id="text32"
-     style="fill:#000000;fill-opacity:1">Kraken2</text>
+     style="font-size:13.3333px;fill:#000000;fill-opacity:1">Kraken2</text>
   <rect
      class="an op"
      x="850"
@@ -691,21 +705,21 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
      y="76"
      text-anchor="middle"
      id="text33"
-     style="fill:#000000;fill-opacity:1">Subspecies</text>
+     style="font-size:18.6667px;fill:#000000;fill-opacity:1">Subspecies</text>
   <text
      class="s"
      x="930"
      y="95"
      text-anchor="middle"
      id="text34"
-     style="fill:#000000;fill-opacity:1">fastANI</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">fastANI</text>
   <text
      class="n"
      x="930"
      y="126"
      text-anchor="middle"
      id="text35"
-     style="fill:#000000;fill-opacity:1">species complex only</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">species complex only</text>
   <rect
      class="an op"
      x="850"
@@ -721,21 +735,21 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
      y="186"
      text-anchor="middle"
      id="text36"
-     style="fill:#000000;fill-opacity:1">Find mutations</text>
+     style="font-size:18.6667px;fill:#000000;fill-opacity:1">Find mutations</text>
   <text
      class="s"
      x="930"
      y="205"
      text-anchor="middle"
      id="text37"
-     style="fill:#000000;fill-opacity:1">BLASTx + in-house script</text>
+     style="font-size:12px;fill:#000000;fill-opacity:1">BLASTx + in-house script</text>
   <text
      class="n"
      x="930"
      y="236"
      text-anchor="middle"
      id="text38"
-     style="fill:#000000;fill-opacity:1">target species only</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">target species only</text>
   <rect
      class="an"
      x="620"
@@ -748,19 +762,19 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
   <text
      class="t"
      x="715"
-     y="296"
+     y="286"
      text-anchor="middle"
      id="text39"
-     style="font-size:12px;fill:#000000;fill-opacity:1">Resistance, virulence and</text>
+     style="font-size:13.3333px;fill:#000000;fill-opacity:1">Resistance, virulence</text>
   <text
      class="s"
      x="715"
-     y="315"
+     y="305"
      text-anchor="middle"
      id="text40"
-     style="fill:#000000;fill-opacity:1"><tspan
-   style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;font-family:system-ui, '-apple-system', 'Segoe UI', Roboto, sans-serif;-inkscape-font-specification:'system-ui, -apple-system, Segoe UI, Roboto, sans-serif Semi-Bold';fill:#000000;fill-opacity:1"
-   id="tspan69">plasmid genes</tspan> · ABRicate</text>
+     style="font-size:13.3333px;fill:#000000;fill-opacity:1"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:13.3333px;font-family:system-ui, '-apple-system', 'Segoe UI', Roboto, sans-serif;-inkscape-font-specification:'system-ui, -apple-system, Segoe UI, Roboto, sans-serif Semi-Bold';fill:#000000;fill-opacity:1"
+       id="tspan69">and plasmid genes</tspan></text>
   <rect
      class="an"
      x="620"
@@ -776,28 +790,28 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
      y="406"
      text-anchor="middle"
      id="text41"
-     style="fill:#000000;fill-opacity:1">Assembly quality</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">Assembly quality</text>
   <text
      class="s"
      x="715"
      y="425"
      text-anchor="middle"
      id="text42"
-     style="fill:#000000;fill-opacity:1">CheckM2</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">CheckM2</text>
   <text
      class="n"
      x="718.0769"
      y="451.38461"
      text-anchor="middle"
      id="text43"
-     style="fill:#000000;fill-opacity:1">contamination ≤ 5: one species</text>
+     style="font-size:13.3333px;fill:#000000;fill-opacity:1">contamination ≤ 5: one species</text>
   <text
      class="n"
      x="715"
      y="464.84616"
      text-anchor="middle"
      id="text44"
-     style="fill:#000000;fill-opacity:1">otherwise: two species</text>
+     style="font-size:13.3333px;fill:#000000;fill-opacity:1">otherwise: two species</text>
   <rect
      class="an"
      x="620"
@@ -813,14 +827,14 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
      y="496"
      text-anchor="middle"
      id="text45"
-     style="fill:#000000;fill-opacity:1">MLST</text>
+     style="font-size:18.6667px;fill:#000000;fill-opacity:1">MLST</text>
   <text
      class="s"
      x="715"
      y="515"
      text-anchor="middle"
      id="text46"
-     style="fill:#000000;fill-opacity:1">PubMLST</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">PubMLST</text>
   <rect
      class="an"
      x="620"
@@ -836,14 +850,14 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
      y="576"
      text-anchor="middle"
      id="text47"
-     style="fill:#000000;fill-opacity:1">Genome annotation</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">Genome annotation</text>
   <text
      class="s"
      x="715"
      y="595"
      text-anchor="middle"
      id="text48"
-     style="fill:#000000;fill-opacity:1">Bakta</text>
+     style="font-size:16px;fill:#000000;fill-opacity:1">Bakta</text>
   <!-- side outputs -->
   <!-- table report -->
   <rect
@@ -858,67 +872,94 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
   <text
      class="tw"
      x="1310"
-     y="226"
+     y="176"
      text-anchor="middle"
      id="text51"
-     style="fill:#010401;fill-opacity:1">Table report</text>
+     style="font-size:18.6667px;fill:#010401;fill-opacity:1">Table report</text>
   <text
      class="tl"
-     x="1310"
-     y="256"
+     x="1310.8159"
+     y="205.66536"
      text-anchor="middle"
      id="text52"
-     style="fill:#010401;fill-opacity:1">-Coverage depth;</text>
+     style="font-size:16px;fill:#010401;fill-opacity:1">-Coverage depth;</text>
   <text
      class="tl"
-     x="1310"
-     y="276"
+     x="1309.1841"
+     y="237.63177"
      text-anchor="middle"
      id="text53"
-     style="fill:#010401;fill-opacity:1">-Assembly quality metrics;</text>
+     style="font-size:16px;fill:#010401;fill-opacity:1"><tspan
+       sodipodi:role="line"
+       id="tspan8"
+       x="1309.1841"
+       y="237.63177">-Assembly quality</tspan><tspan
+       sodipodi:role="line"
+       id="tspan9"
+       x="1309.1841"
+       y="257.63177">metrics;</tspan></text>
   <text
      class="tl"
-     x="1310"
-     y="296"
+     x="1309.4561"
+     y="288.70285"
      text-anchor="middle"
      id="text54"
-     style="fill:#010401;fill-opacity:1">-Specie;</text>
+     style="font-size:16px;fill:#010401;fill-opacity:1">-Specie;</text>
   <text
      class="tl"
-     x="1310"
-     y="316"
+     x="1311.9371"
+     y="318.35144"
      text-anchor="middle"
      id="text55"
-     style="fill:#010401;fill-opacity:1">-Resistance, virulence,</text>
+     style="font-size:16px;fill:#010401;fill-opacity:1"><tspan
+       sodipodi:role="line"
+       id="tspan5"
+       x="1311.9371"
+       y="318.35144"
+       style="text-align:center;text-anchor:middle">-Resistance,</tspan><tspan
+       sodipodi:role="line"
+       id="tspan6"
+       x="1311.9371"
+       y="338.35144"
+       style="text-align:center;text-anchor:middle">virulence and</tspan></text>
   <text
      class="tl"
-     x="1310"
-     y="332"
+     x="1313.2228"
+     y="355.76944"
      text-anchor="middle"
      id="text56"
-     style="fill:#010401;fill-opacity:1">plasmid genes;</text>
+     style="font-size:16px;fill:#010401;fill-opacity:1"><tspan
+       style="text-align:center;text-anchor:middle"
+       id="tspan7">plasmid genes;</tspan></text>
   <text
      class="tl"
-     x="1310"
-     y="352"
+     x="1312.5634"
+     y="386.44321"
      text-anchor="middle"
      id="text57"
-     style="fill:#010401;fill-opacity:1"><tspan
+     style="font-size:16px;fill:#010401;fill-opacity:1"><tspan
        sodipodi:role="line"
-       x="1310"
-       y="352"
-       id="tspan68">-Resistamce mutations;</tspan></text>
+       x="1312.5634"
+       y="386.44321"
+       id="tspan68"
+       style="font-size:16px;text-align:center;text-anchor:middle">-Resistance</tspan><tspan
+       sodipodi:role="line"
+       x="1312.5634"
+       y="406.44321"
+       style="font-size:16px;text-align:center;text-anchor:middle"
+       id="tspan4">mutations;</tspan></text>
   <text
      class="tl"
-     x="1310.0383"
-     y="371.24475"
+     x="1305.1429"
+     y="436.14792"
      text-anchor="middle"
      id="text57-9"
-     style="font-size:12px;font-family:system-ui, '-apple-system', 'Segoe UI', Roboto, sans-serif;opacity:0.92;fill:#010401;fill-opacity:1"><tspan
+     style="font-size:16px;font-family:system-ui, '-apple-system', 'Segoe UI', Roboto, sans-serif;opacity:0.92;fill:#010401;fill-opacity:1"><tspan
        sodipodi:role="line"
-       x="1310.0383"
-       y="371.24475"
-       id="tspan68-1">-MLST</tspan></text>
+       x="1305.1429"
+       y="436.14792"
+       id="tspan68-1"
+       style="font-size:16px">-MLST.</tspan></text>
   <!-- legend -->
   <g
      font-size="11px"
@@ -937,7 +978,7 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
        x="40"
        y="602"
        id="text58"
-       style="fill:#000000;fill-opacity:1">Input</text>
+       style="font-size:16px;fill:#000000;fill-opacity:1">Input</text>
     <rect
        class="an"
        x="90"
@@ -952,10 +993,10 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
        x="110"
        y="602"
        id="text59"
-       style="fill:#000000;fill-opacity:1">Analysis</text>
+       style="font-size:16px;fill:#000000;fill-opacity:1">Analysis</text>
     <rect
        class="an op"
-       x="180"
+       x="192"
        y="590"
        width="14"
        height="14"
@@ -964,28 +1005,57 @@ text{font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
        style="fill:#91e5f6;fill-opacity:1;stroke:#000000;stroke-dasharray:6, 1.5;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        class="s"
-       x="200"
+       x="212"
        y="602"
        id="text60"
-       style="fill:#000000;fill-opacity:1">Conditional</text>
+       style="font-size:16px;fill:#000000;fill-opacity:1">Conditional</text>
     <rect
        class="ou"
-       x="290"
+       x="310"
        y="590"
        width="14"
        height="14"
        rx="3"
        id="rect60"
-       style="fill:#1cea96;fill-opacity:1" />
+       style="fill:#1cea96;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
     <text
        class="s"
-       x="310"
+       x="328"
        y="602"
        id="text61"
-       style="fill:#000000;fill-opacity:1">Output file</text>
+       style="font-size:16px;fill:#000000;fill-opacity:1">Output file</text>
   </g>
   <metadata
      id="metadata61">
     <c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYToxZGIyMjBlYi0zMWZjLTQ0YzQtOTNmNS1jOTAwYmM2NWM0YjAAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaCezTu+mJ0kS+zb33sDqdRQAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDpkYjk1ODkyOS1mYjA0LTQxZGQtOTJhZS1mODE0NzdkZDkxNzZscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoHoOFVrNsBgv499Pet2cM4QAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggfsulxilg+UhmR8UHpQB4NHsVx+vcUXP1Ghv18M16In2kZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaFfWpq7Mlw2pE2PyN35Jeo0AAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYIHYW9BbusRycIZfXM7liO1ufGJ2ri61onqBV+9/RzcCvZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GRnGZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjFkYjIyMGViLTMxZmMtNDRjNC05M2Y1LWM5MDBiYzY1YzRiMC9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOmJhYmI5Yzc3LWE3Y2MtNDY1NS1hMTk5LTAwYjlmMzc0ZTg2ZXJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCB+y6XGKWD5SGZHxQelAHg0exXH69xRc/UaG/XwzXoifaJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggWKqmN8KseFIUgHGRDy2+PlS9kNKDxPHFFCC21KpoABuiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggWWhejy4IRAtnDd6SnwmB+GYUA934Tb1a336fnYV77950Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQEeEQVaGvCjOP+k864TjoaELMDtcCFmRHMGESwuSglC0MROCTds4KkEQ9Ebc6YRDeLauhYr2dr+IcRR/CrZvTSU=</c2pa:manifest>
   </metadata>
+  <text
+     xml:space="preserve"
+     style="font-weight:600;font-size:31.0002px;line-height:0;font-family:system-ui, '-apple-system', 'Segoe UI', Roboto, sans-serif;-inkscape-font-specification:'system-ui, -apple-system, Segoe UI, Roboto, sans-serif Semi-Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000400;stroke:#000000;stroke-width:0;stroke-opacity:1"
+     x="1184.3226"
+     y="220.09184"
+     id="text2"
+     transform="scale(0.58563367,1.7075521)"><tspan
+       sodipodi:role="line"
+       id="tspan2"
+       x="1184.3226"
+       y="220.09184"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:system-ui, '-apple-system', 'Segoe UI', Roboto, sans-serif;-inkscape-font-specification:'system-ui, -apple-system, Segoe UI, Roboto, sans-serif';stroke-width:0" /></text>
+  <text
+     class="s"
+     x="713.21167"
+     y="322.12231"
+     text-anchor="middle"
+     id="text42-5"
+     style="font-size:13.3333px;font-family:system-ui, '-apple-system', 'Segoe UI', Roboto, sans-serif;fill:#000000;fill-opacity:1">ABRIcate</text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:0;font-family:system-ui, '-apple-system', 'Segoe UI', Roboto, sans-serif;-inkscape-font-specification:'system-ui, -apple-system, Segoe UI, Roboto, sans-serif';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000400;stroke:#000000;stroke-width:0;stroke-opacity:1"
+     x="1515.3842"
+     y="296.98486"
+     id="text3"><tspan
+       sodipodi:role="line"
+       id="tspan3"
+       x="1515.3842"
+       y="296.98486" /></text>
 </svg>
