@@ -272,6 +272,178 @@ const es = {
     termLink: "Terminos de Uso",
     imageCredits: "Crédito de Imagen",
   },
+  FAQ: {
+    title: "FAQ",
+    subtitle: "Preguntas Frecuentes",
+    sections: [
+      {
+        heading: "Sobre la plataforma",
+        items: [
+          {
+            question: "¿Qué es el CABGen?",
+            answer:
+              "El CABGen (Clinical Applied Bacterial Genomics Analysis System) es una aplicación web para almacenar, organizar, analizar e interpretar datos de secuenciación de genomas bacterianos. Fue desarrollado en Fiocruz con herramientas de código abierto de forma sencilla, incluso para quienes tienen poca experiencia en bioinformática.",
+          },
+          {
+            question: "¿Qué tipo de datos puedo analizar?",
+            answer:
+              "Aislados bacterianos de diferentes especies y orígenes. Puede enviar:\n- Lecturas pareadas (R1 y R2) en formato .fastq.gz, generadas en plataformas Illumina; o\n- Contigs ya ensamblados en formato .fasta.",
+          },
+          {
+            question: "¿Qué análisis realiza el CABGen?",
+            answer:
+              "Calidad de las lecturas, estimación de la profundidad de cobertura del genoma, identificación de especie, ensamblaje de novo del genoma, evaluación de la calidad del ensamblaje, anotación del genoma, tipificación MLST, búsqueda de genes de resistencia a antimicrobianos, de virulencia y de plásmidos, y detección de mutaciones puntuales en genes específicos de resistencia.",
+          },
+          {
+            question: "¿En qué especies se realiza el MLST?",
+            answer:
+              "El MLST se realiza para todas las especies que tienen un esquema de tipificación registrado en la base de datos PubMLST. Cuando el perfil de alelos aún no está registrado en la base, el resultado aparece como “Nuevo ST”.",
+          },
+          {
+            question:
+              "¿Cómo se organiza la información sobre genes de resistencia adquirida?",
+            answer:
+              "La clase de antimicrobianos a la que el gene confiere resistencia se determina utilizando la base de datos curada “Catálogo de Genes de Referencia del NCBI”. El porcentaje presentado corresponde a la identidad nucleotídica entre la secuencia identificada en la muestra y la secuencia de referencia del alelo. Por ejemplo, una identidad del 100% con blaKPC-2 indica que la secuencia identificada corresponde al alelo blaKPC-2.",
+          },
+          {
+            question:
+              "¿Para qué especies el CABGen detecta mutaciones puntuales?",
+            answer:
+              "Para K. pneumoniae, P. aeruginosa, A. baumannii y E. cloacae subsp. cloacae. Los resultados se dividen entre genes relacionados con la resistencia a polimixina y otras clases de antimicrobianos.",
+          },
+          {
+            question:
+              "¿Por qué es importante la información sobre la versión de las herramientas utilizadas en cada análisis?",
+            answer:
+              "Las herramientas de bioinformática pasan por actualizaciones y mejoras que pueden modificar sus algoritmos, parámetros y métodos de análisis. Además, las bases de datos utilizadas también se actualizan periódicamente. De esta forma, un mismo conjunto de lecturas puede producir resultados diferentes según las versiones de las herramientas y de las bases de datos utilizadas. El registro de esta información es fundamental para garantizar la trazabilidad, la reproducibilidad y la comparabilidad de los resultados.",
+          },
+        ],
+      },
+      {
+        heading: "Registro y acceso",
+        items: [
+          {
+            question: "¿Cómo obtengo acceso al CABGen?",
+            answer:
+              "Solicite el registro por el sitio. La solicitud se envía al equipo administrador, que activa su cuenta y responde por correo electrónico.",
+          },
+          {
+            question: "¿Los datos de los pacientes quedan expuestos?",
+            answer:
+              "No. El CABGen valora la integridad, la privacidad y la confidencialidad de los datos y garantiza la confidencialidad de la información proporcionada por cada usuario. La plataforma no solicita datos de identificación directa del paciente, como el nombre. Las muestras se identifican mediante códigos únicos (número de secuencia, “ID”), utilizados en los análisis y en la presentación de los resultados. Los únicos datos del paciente que se pueden informar son el sexo y la fecha de nacimiento, ambos opcionales. Cuando se completan, se guardan en la base de datos y solo pueden ser vistos y editados por el usuario que registró la muestra y por los administradores de la plataforma.",
+          },
+          {
+            question: "Olvidé mi contraseña. ¿Cómo recupero el acceso?",
+            answer:
+              "En la pantalla de inicio de sesión, haga clic en “¿Olvidó su contraseña?”, debajo del botón Continuar.\n1. Escriba el correo electrónico asociado a su cuenta.\n2. Haga clic en Enviar enlace de restablecimiento.\n3. Abra el correo recibido y use el enlace para crear una nueva contraseña.\nSi el correo no llega, verifique la carpeta de spam y confirme que la dirección escrita es la misma del registro. Si el problema continúa, comuníquese con el equipo usando el ícono de correo electrónico en la parte superior del sitio.",
+          },
+        ],
+      },
+      {
+        heading: "Registro de muestras",
+        items: [
+          {
+            question: "¿Cómo registro una muestra individualmente?",
+            answer:
+              "En el menú lateral, haga clic en Muestras.\n1. Haga clic en + Nueva Muestra.\n2. Complete los metadatos en la ventana que se abre. Los campos con asterisco (*) son obligatorios.\n3. Haga clic en Guardar.\nLa muestra aparecerá en la lista de Muestras.",
+          },
+          {
+            question: "¿Qué metadatos necesito informar?",
+            answer:
+              "Los campos del formulario son:\n- Obligatorios: Origin Code, Collection Date, Run Date, Origin, Sample Source, Microorganism, Sequencer, Laboratory, Health Service, City, Country, Run Number y la pregunta sobre la red genómica.\n- Opcionales: Gender (Patient) y Date of Birth (Patient).",
+          },
+          {
+            question:
+              "¿Qué significa la pregunta “¿Desea incluir esta muestra en la red genómica?”",
+            answer:
+              "Marque Sí si:\n- la muestra forma parte de la Red Nacional de Vigilancia Genómica de Bacterias Multirresistentes en Brasil; y/o\n- desea que la muestra aparezca en el dashboard del sitio.\nLas muestras incluidas en la red se presentan en el dashboard de vigilancia mensal y contribuyen al monitoreo de la resistencia antimicrobiana en Brasil. Marque No si no desea que la muestra sea incluida.",
+          },
+          {
+            question: "¿Puedo registrar varias muestras a la vez?",
+            answer:
+              "Sí, usando la hoja de cálculo modelo:\n1. En Muestras, haga clic en Descargar plantilla.\n2. Complete la hoja de cálculo con los metadatos de cada muestra, una por línea. Las columnas con asterisco rojo (*) son obligatorias.\n3. Guarde el archivo.\n4. Vuelva a Muestras, haga clic en Subir tabla y seleccione la hoja de cálculo.\nTodas las muestras de la hoja aparecerán en la sección Samples. Después, solo debe subir las lecturas o el fasta de las muestras.",
+          },
+          {
+            question:
+              "Algunas celdas de la hoja de cálculo tienen una lista desplegable. ¿Es normal?",
+            answer:
+              "Sí. Algunas columnas tienen valores predefinidos. Seleccione una opción de la lista o comience a escribir para filtrar. Si no encuentra la opción adecuada, elija “otros”.",
+          },
+          {
+            question: "¿Puedo editar o eliminar una muestra registrada?",
+            answer:
+              "Sí. En la columna Acciones, use el ícono de lápiz para editar y el de basura para eliminar.",
+          },
+        ],
+      },
+      {
+        heading: "Envío de secuencias",
+        items: [
+          {
+            question: "¿Cómo envío los archivos de secuenciación?",
+            answer:
+              "En Samples, localice la muestra.\n1. En la columna Actions, haga clic en el ícono de subida.\n2. En la ventana Subir Secuencias, seleccione:\n- FastQ1 y FastQ2 (R1 y R2), en fastq.gz; o\n- Fasta, en .fasta.\n3. Haga clic en Subir Secuencias.",
+          },
+          {
+            question: "¿Necesito enviar R1 y R2 y también el FASTA?",
+            answer:
+              "No. Envíe ya sea las lecturas pareadas (R1 y R2) o el FASTA con los contigs.",
+          },
+        ],
+      },
+      {
+        heading: "Análisis",
+        items: [
+          {
+            question: "¿Cómo realizo un análisis?",
+            answer:
+              "En el menú lateral, haga clic en Análisis.\n1. Haga clic en + Nuevo Análisis.\n2. En la ventana Crear Análisis, elija el Tipo de Análisis.\n3. En Muestra, seleccione la muestra registrada y con las secuencias ya enviadas.\n4. Haga clic en Crear Análisis.",
+          },
+          {
+            question:
+              "¿Cuál es la diferencia entre los tipos de análisis (Calidad, Genómica y Completa)?",
+            answer:
+              "- Calidad: control de calidad de las lecturas con FastQC, para evaluar si los datos tienen problemas antes de seguir adelante. Solo genera archivos FastQC.html como resultado.\n- Genómica: análisis bioinformático del genoma (ensamblaje, identificación de especie, anotación, resistencia, virulencia, plásmidos, MLST y mutaciones). Elija esta opción si ha cargado archivos en formato FASTA.\n- Completa: ejecuta el análisis de calidad y el genómico juntos. Elija esta opción si ha cargado archivos en formato FASTQ.",
+          },
+          {
+            question: "¿Puedo analizar varias muestras al mismo tiempo?",
+            answer:
+              "Sí. Puede crear varios análisis, uno para cada muestra, y estos irán a la fila de procesamiento.",
+          },
+          {
+            question: "¿Cómo acompaño el progreso?",
+            answer:
+              "En la sección Análisis, la columna Estado muestra el progreso. Cuando el análisis termine, aparecerá Completado. Después de concluir los análisis, enviaremos un correo avisando que el análisis fue completado. Los valores de estado son: Pendiente, En Ejecución, Fallido y Completado.",
+          },
+          {
+            question: "¿Cómo funciona la identificación de especie?",
+            answer:
+              "El sistema usa el archivo de contigs ensamblados como entrada para el programa Kraken2 y, para los complejos A. baumannii-calcoaceticus, E. cloacae y K. pneumoniae, confirma la especie y subespecie con FastANI.",
+          },
+          {
+            question: "¿Por qué aparecieron dos especies en el resultado?",
+            answer:
+              "Cuando la contaminación estimada es mayor que 5%, el CABGen muestra las dos especies más representativas, con el número de lecturas atribuido a cada una. Esto indica una posible muestra mixta o contaminada y debe evaluarse con cuidado.",
+          },
+        ],
+      },
+      {
+        heading: "Resultados y descargas",
+        items: [
+          {
+            question: "¿Cómo visualizo los resultados?",
+            answer:
+              "En Análisis, cuando el estado esté en Completado, haga clic en el ícono de ojo en la columna Acciones. Se abrirá la página con todos los resultados de la muestra.",
+          },
+          {
+            question: "¿Qué aparece en la página de resultados?",
+            answer:
+              "- FastQC: enlaces a los informes de calidad de las lecturas (FastQC 1 y FastQC 2).\n- Genómica: completitud, N50, tamaño del genoma, cobertura y contaminación.\n- Especies: especie identificada, especie secundaria y MLST.\n- Virulencia y resistencia: genes de resistencia adquirida, mutaciones asociadas a polimixina, otras mutaciones, plásmidos y factores de virulencia.",
+          },
+        ],
+      },
+    ],
+  },
   General: {
     showPassword: "Mostrar contraseña",
     hidePassword: "Ocultar contraseña",

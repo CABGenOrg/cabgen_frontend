@@ -261,6 +261,178 @@ const en = {
     termLink: "Terms of Use",
     imageCredits: "Image Credit",
   },
+  FAQ: {
+    title: "FAQ",
+    subtitle: "Frequently Asked Questions",
+    sections: [
+      {
+        heading: "About the platform",
+        items: [
+          {
+            question: "What is CABGen?",
+            answer:
+              "CABGen (Clinical Applied Bacterial Genomics Analysis System) is a web application for storing, organizing, analyzing and interpreting bacterial genome sequencing data. It was developed at Fiocruz using open-source tools in a simple way, even for those with little experience in bioinformatics.",
+          },
+          {
+            question: "What kind of data can I analyze?",
+            answer:
+              "Bacterial isolates from different species and origins. You can send:\n- Paired reads (R1 and R2) in .fastq.gz format, generated on Illumina platforms; or\n- Already assembled contigs in .fasta format.",
+          },
+          {
+            question: "What analyses does CABGen perform?",
+            answer:
+              "Read quality, genome coverage depth estimation, species identification, de novo genome assembly, assembly quality assessment, genome annotation, MLST typing, search for antimicrobial resistance genes, virulence and plasmid genes, and detection of point mutations in specific resistance genes.",
+          },
+          {
+            question: "In which species is MLST performed?",
+            answer:
+              "MLST is performed for all species that have a typing scheme registered in the PubMLST database. When the allele profile is not yet registered in the database, the result appears as “New ST”.",
+          },
+          {
+            question:
+              "How is information about acquired resistance genes organized?",
+            answer:
+              "The class of antimicrobials to which the gene confers resistance is determined using the curated database “NCBI Reference Gene Catalog”. The percentage shown corresponds to the nucleotide identity between the sequence identified in the sample and the reference allele sequence. For example, 100% identity with blaKPC-2 indicates that the identified sequence corresponds to the blaKPC-2 allele.",
+          },
+          {
+            question:
+              "For which species does CABGen detect point mutations?",
+            answer:
+              "For K. pneumoniae, P. aeruginosa, A. baumannii and E. cloacae subsp. cloacae. Results are divided between genes related to polymyxin resistance and other classes of antimicrobials.",
+          },
+          {
+            question:
+              "Why is information about the tool versions used in each analysis important?",
+            answer:
+              "Bioinformatics tools undergo updates and improvements that can modify their algorithms, parameters and analysis methods. In addition, the databases used are also periodically updated. Therefore, the same set of reads can produce different results depending on the versions of the tools and databases used. Recording this information is essential to ensure traceability, reproducibility and comparability of results.",
+          },
+        ],
+      },
+      {
+        heading: "Registration and access",
+        items: [
+          {
+            question: "How do I get access to CABGen?",
+            answer:
+              "Request registration through the website. The request is sent to the administrative team, who activates your account and responds by email.",
+          },
+          {
+            question: "Are patient data exposed?",
+            answer:
+              "No. CABGen values data integrity, privacy and confidentiality and guarantees the confidentiality of the information provided by each user. The platform does not request direct patient identification data, such as name. Samples are identified by unique codes (sequence number, “ID”), used in analyses and in presenting results. The only patient data that can be provided are sex and date of birth, both optional. When filled in, they are saved in the database and can only be viewed and edited by the user who registered the sample and by platform administrators.",
+          },
+          {
+            question: "I forgot my password. How do I recover access?",
+            answer:
+              "On the login screen, click “Forgot your password?”, below the Continue button.\n1. Enter the email associated with your account.\n2. Click Send Reset Link.\n3. Open the received email and use the link to create a new password.\nIf the email does not arrive, check your spam folder and confirm that the address entered is the same one registered. If the problem persists, contact the team using the email icon at the top of the site.",
+          },
+        ],
+      },
+      {
+        heading: "Registering samples",
+        items: [
+          {
+            question: "How do I register a sample individually?",
+            answer:
+              "In the sidebar, click Samples.\n1. Click + New Sample.\n2. Fill in the metadata in the window that opens. Fields with an asterisk (*) are required.\n3. Click Save.\nThe sample will appear in the Samples list.",
+          },
+          {
+            question: "Which metadata do I need to provide?",
+            answer:
+              "The form fields are:\n- Required: Origin Code, Collection Date, Run Date, Origin, Sample Source, Microorganism, Sequencer, Laboratory, Health Service, City, Country, Run Number and the question about the genomic network.\n- Optional: Gender (Patient) and Date of Birth (Patient).",
+          },
+          {
+            question:
+              "What does the question “Do you want to include this sample in the genomic network?” mean?",
+            answer:
+              "Select Yes if:\n- the sample is part of the National Network for Genomic Surveillance of Multidrug-Resistant Bacteria in Brazil; and/or\n- you want the sample to appear on the site dashboard.\nSamples included in the network are shown in the monthly surveillance dashboard and contribute to monitoring antimicrobial resistance in Brazil. Select No if you do not want the sample to be included.",
+          },
+          {
+            question: "Can I register several samples at once?",
+            answer:
+              "Yes, using the template spreadsheet:\n1. In Samples, click Download template.\n2. Fill in the spreadsheet with the metadata of each sample, one per row. Columns with a red asterisk (*) are required.\n3. Save the file.\n4. Return to Samples, click Upload table and select the spreadsheet.\nAll samples in the spreadsheet will appear in the Samples section. Then just upload the reads or fasta of the samples.",
+          },
+          {
+            question:
+              "Some cells in the spreadsheet have a dropdown list. Is this normal?",
+            answer:
+              "Yes. Some columns have predefined values. Select an option from the list or start typing to filter. If you cannot find the appropriate option, choose “other”.",
+          },
+          {
+            question: "Can I edit or delete a registered sample?",
+            answer:
+              "Yes. In the Actions column, use the pencil icon to edit and the trash icon to delete.",
+          },
+        ],
+      },
+      {
+        heading: "Uploading sequences",
+        items: [
+          {
+            question: "How do I upload sequencing files?",
+            answer:
+              "In Samples, locate the sample.\n1. In the Actions column, click the upload icon.\n2. In the Upload Sequences window, select:\n- FastQ1 and FastQ2 (R1 and R2), in fastq.gz; or\n- Fasta, in .fasta.\n3. Click Upload Sequences.",
+          },
+          {
+            question: "Do I need to send R1 and R2 as well as the FASTA?",
+            answer:
+              "No. Send either the paired reads (R1 and R2) or the FASTA with the contigs.",
+          },
+        ],
+      },
+      {
+        heading: "Analyses",
+        items: [
+          {
+            question: "How do I perform an analysis?",
+            answer:
+              "In the sidebar, click Analyses.\n1. Click + New Analysis.\n2. In the Create Analysis window, choose the Analysis Type.\n3. In Sample, select the registered sample with the sequences already uploaded.\n4. Click Create Analysis.",
+          },
+          {
+            question:
+              "What is the difference between the analysis types (Quality, Genomic and Complete)?",
+            answer:
+              "- Quality: read quality control with FastQC, to evaluate whether the data have problems before moving forward. It only generates FastQC.html files as a result.\n- Genomic: bioinformatics analysis of the genome (assembly, species identification, annotation, resistance, virulence, plasmids, MLST and mutations). Choose this option if you have uploaded files in FASTA format.\n- Complete: performs the quality and genomic analysis together. Choose this option if you have uploaded files in FASTQ format.",
+          },
+          {
+            question: "Can I analyze several samples at the same time?",
+            answer:
+              "Yes. You can create several analyses, one for each sample, and they will go to the processing queue.",
+          },
+          {
+            question: "How do I track progress?",
+            answer:
+              "In the Analyses section, the Status column shows the progress. When the analysis is finished, it will show Done. After the analyses are completed, we will send an email informing that the analysis was completed. The status values are: Pending, Running, Failed and Done.",
+          },
+          {
+            question: "How does species identification work?",
+            answer:
+              "The system uses the assembled contigs file as input for Kraken2 and, for the A. baumannii-calcoaceticus, E. cloacae and K. pneumoniae complexes, confirms the species and subspecies with FastANI.",
+          },
+          {
+            question: "Why did two species appear in the result?",
+            answer:
+              "When the estimated contamination is greater than 5%, CABGen shows the two most representative species, with the number of reads assigned to each one. This indicates a possible mixed or contaminated sample and should be evaluated carefully.",
+          },
+        ],
+      },
+      {
+        heading: "Results and downloads",
+        items: [
+          {
+            question: "How do I view the results?",
+            answer:
+              "In Analyses, when the status is Done, click the eye icon in the Actions column. The page with all the sample results will open.",
+          },
+          {
+            question: "What appears on the results page?",
+            answer:
+              "- FastQC: links to the read quality reports (FastQC 1 and FastQC 2).\n- Genomic: completeness, N50, genome size, coverage and contamination.\n- Species: identified species, secondary species and MLST.\n- Virulence and resistance: acquired resistance genes, mutations associated with polymyxin, other mutations, plasmids and virulence factors.",
+          },
+        ],
+      },
+    ],
+  },
   General: {
     showPassword: "Show password",
     hidePassword: "Hide password",

@@ -10,9 +10,9 @@ const Footer = ({ lang }: { lang: Locale }) => {
   } = getTranslateServer(lang);
 
   const links = [
-    { name: Footer.faqLink, url: "/faq" },
-    { name: Footer.termLink, url: "/terms-of-use" },
-    { name: Footer.imageCredits, url: "/image-credits" },
+    { name: Footer.faqLink, url: "/faq", disabled: false },
+    { name: Footer.termLink, url: "/terms-of-use", disabled: true },
+    { name: Footer.imageCredits, url: "/image-credits", disabled: true },
   ];
 
   const address = [
@@ -26,12 +26,12 @@ const Footer = ({ lang }: { lang: Locale }) => {
     <footer className="bg-cabgen-400 text-white">
       <div className={`grid sm:grid-cols-2 grid-cols-1 ${section_spacing}`}>
         <div className="flex flex-col items-center sm:items-start font-light 2xl:text-2xl sm:text-xl text-base">
-          {links.map(({ name, url }, idx) => (
+          {links.map(({ name, url, disabled }, idx) => (
             <CustomLink
               className="hover:text-foreground"
               href={url}
               key={idx}
-              disabled
+              disabled={disabled}
             >
               {name}
             </CustomLink>

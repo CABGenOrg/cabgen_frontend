@@ -265,6 +265,178 @@ const pt = {
     termLink: "Termos de Uso",
     imageCredits: "Créditos das Imagens",
   },
+  FAQ: {
+    title: "FAQ",
+    subtitle: "Perguntas Frequentes",
+    sections: [
+      {
+        heading: "Sobre a plataforma",
+        items: [
+          {
+            question: "O que é o CABGen?",
+            answer:
+              "O CABGen (Clinical Applied Bacterial Genomics Analysis System) é uma aplicação web para armazenar, organizar, analisar e interpretar dados de sequenciamento de genomas bacterianos. Foi desenvolvido na Fiocruz com ferramentas de código aberto de forma simples mesmo para quem tem pouca experiência em bioinformática.",
+          },
+          {
+            question: "Que tipo de dado posso analisar?",
+            answer:
+              "Isolados bacterianos de diferentes espécies e origens. Você pode enviar:\n- Reads pareadas (R1 e R2) em formato .fastq.gz, geradas em plataformas Illumina;\n- Contigs já montados em formato .fasta.",
+          },
+          {
+            question: "Quais análises o CABGen realiza?",
+            answer:
+              "Qualidade das reads, estimativa de profundidade de cobertura do genoma, identificação de espécie, montagem de novo do genoma, avaliação da qualidade da montagem, anotação do genoma, tipagem MLST, busca de genes de resistência a antimicrobianos, de virulência e de plasmídeos, e detecção de mutações pontuais em genes específicos de resistência.",
+          },
+          {
+            question: "Em quais espécies o MLST é realizado?",
+            answer:
+              "O MLST é realizado para todas as espécies que possuem esquema de tipagem cadastrado na base de dados do PubMLST. Quando o perfil de alelos ainda não estiver registrado na base, o resultado aparece como “Novo ST”.",
+          },
+          {
+            question:
+              "Como é organizada a informação sobre genes de resistência adquirida?",
+            answer:
+              "A classe de antimicrobianos à qual o gene confere resistência é determinada utilizando o banco de dados curado “Catálogo de Genes de Referência do NCBI”. A porcentagem apresentada corresponde à identidade nucleotídica entre a sequência identificada na amostra e a sequência de referência do alelo. Por exemplo, uma identidade de 100% com blaKPC-2, indica que a sequência identificada corresponde ao alelo blaKPC-2.",
+          },
+          {
+            question:
+              "Para quais espécies o CABGen detecta mutações pontuais?",
+            answer:
+              "Para K. pneumoniae, P. aeruginosa, A. baumannii e E. cloacae subsp. cloacae. Os resultados são divididos entre genes relacionados à resistência à polimixina e a outras classes de antimicrobianos.",
+          },
+          {
+            question:
+              "Por que é importante a informação sobre a versão das ferramentas utilizadas em cada análise?",
+            answer:
+              "As ferramentas de bioinformática passam por atualizações e melhorias que podem modificar seus algoritmos, parâmetros e métodos de análise. Além disso, os bancos de dados utilizados também são periodicamente atualizados. Dessa forma, um mesmo conjunto de reads pode produzir resultados diferentes dependendo das versões das ferramentas e dos bancos de dados utilizados. O registro dessas informações é fundamental para garantir a rastreabilidade, a reprodutibilidade e a comparabilidade dos resultados.",
+          },
+        ],
+      },
+      {
+        heading: "Cadastro e acesso",
+        items: [
+          {
+            question: "Como obtenho acesso ao CABGen?",
+            answer:
+              "Solicite o cadastro pelo site. A solicitação é enviada à equipe administradora, que ativa seu cadastro e responde por e-mail.",
+          },
+          {
+            question: "Os dados dos pacientes ficam expostos?",
+            answer:
+              "Não. O CABGen preza pela integridade, privacidade e confidencialidade dos dados e garante a confidencialidade das informações fornecidas por cada usuário. A plataforma não solicita dados de identificação direta do paciente, como nome. As amostras são identificadas por códigos únicos (número de sequência, “ID”), usados nas análises e na apresentação dos resultados. Os únicos dados do paciente que podem ser informados são sexo e data de nascimento, ambos opcionais. Quando preenchidos, ficam salvos no banco de dados e só podem ser vistos e editados pelo usuário que cadastrou a amostra e pelos administradores da plataforma.",
+          },
+          {
+            question: "Esqueci minha senha. Como recupero o acesso?",
+            answer:
+              "Na tela de login, clique em “Esqueceu sua senha?”, abaixo do botão Continuar.\n1. Digite o e-mail associado à sua conta.\n2. Clique em Enviar Link de Redefinição.\n3. Abra o e-mail recebido e use o link para criar uma nova senha.\nSe o e-mail não chegar, verifique a caixa de spam e confirme que o endereço digitado é o mesmo do cadastro. Se o problema continuar, entre em contato com a equipe pelo ícone de e-mail no topo do site.",
+          },
+        ],
+      },
+      {
+        heading: "Cadastro de amostras",
+        items: [
+          {
+            question: "Como cadastrar uma amostra individualmente?",
+            answer:
+              "No menu lateral, clique em Amostras.\n1. Clique em + Nova Amostra.\n2. Preencha os metadados na janela que abrir. Os campos com asterisco (*) são obrigatórios.\n3. Clique em Salvar.\nA amostra aparecerá na lista de Amostras.",
+          },
+          {
+            question: "Quais metadados preciso informar?",
+            answer:
+              "Os campos do formulário são:\n- Obrigatórios: Origin Code, Collection Date, Run Date, Origin, Sample Source, Microorganism, Sequencer, Laboratory, Health Service, City, Country, Run Number e a pergunta sobre a rede genômica.\n- Opcionais: Gender (Patient) e Date of Birth (Patient).",
+          },
+          {
+            question:
+              "O que significa a pergunta “Deseja incluir essa amostra na rede genômica?”",
+            answer:
+              "Marque Sim se:\n- a amostra faz parte da Rede Nacional de Vigilância Genômica de Bactérias Multirresistentes no Brasil; e/ou\n- você deseja que a amostra apareça no dashboard do site.\nAs amostras incluídas na rede são apresentadas no dashboard de vigilância mensal e contribuem para o monitoramento da resistência antimicrobiana no Brasil. Marque Não se não quiser que a amostra seja incluída.",
+          },
+          {
+            question: "Posso cadastrar várias amostras de uma vez?",
+            answer:
+              "Sim, usando a planilha modelo:\n1. Em Amostras, clique em Baixar template.\n2. Preencha a planilha com os metadados de cada amostra, uma por linha. As colunas com asterisco vermelho (*) são obrigatórias.\n3. Salve o arquivo.\n4. Volte a Amostras, clique em Enviar tabela e selecione a planilha.\nTodas as amostras da planilha aparecerão na seção Samples. Depois, basta enviar as reads ou fasta das amostras.",
+          },
+          {
+            question:
+              "Algumas células da planilha têm uma lista suspensa. É normal?",
+            answer:
+              "Sim. Algumas colunas têm valores pré-definidos. Selecione uma opção da lista ou comece a digitar para filtrar. Caso não encontre a opção adequada, escolha “outros”.",
+          },
+          {
+            question: "Posso editar ou excluir uma amostra cadastrada?",
+            answer:
+              "Sim. Na coluna Ações, use o ícone de lápis para editar e o de lixeira para excluir.",
+          },
+        ],
+      },
+      {
+        heading: "Envio de sequências",
+        items: [
+          {
+            question: "Como envio os arquivos de sequenciamento?",
+            answer:
+              "Em Samples, localize a amostra.\n1. Na coluna Actions, clique no ícone de upload.\n2. Na janela Upload Sequences, selecione:\n- FastQ1 e FastQ2 (R1 e R2), em fastq.gz; ou\n- Fasta, em .fasta.\n3. Clique em Enviar Sequências.",
+          },
+          {
+            question: "Preciso enviar R1 e R2 e também o FASTA?",
+            answer:
+              "Não. Envie ou as reads pareadas (R1 e R2) ou o FASTA com os contigs.",
+          },
+        ],
+      },
+      {
+        heading: "Análises",
+        items: [
+          {
+            question: "Como realizo uma análise?",
+            answer:
+              "No menu lateral, clique em Análises.\n1. Clique em + Nova Análise.\n2. Na janela Criar Análise, escolha o Tipo de Análise.\n3. Em Amostra, selecione a amostra cadastrada e com as sequências já enviadas.\n4. Clique em Criar Análise.",
+          },
+          {
+            question:
+              "Qual a diferença entre os tipos de análise (Qualidade, Genômica e Completa)?",
+            answer:
+              "- Qualidade: controle de qualidade das reads com o FastQC, para avaliar se os dados têm problemas antes de seguir adiante. Só vai gerar arquivos FastQC.html como resultado.\n- Genômica: análise bioinformática do genoma (montagem, identificação de espécie, anotação, resistência, virulência, plasmídeos, MLST e mutações). Escolha essa opção caso tenha carregado arquivos no formato FASTA.\n- Completa: executa a análise de qualidade e a genômica juntas. Escolha essa opção caso tenha carregado arquivos no formato FASTQ.",
+          },
+          {
+            question: "Posso analisar várias amostras ao mesmo tempo?",
+            answer:
+              "Sim. Você pode criar várias análises, uma para cada amostra, e elas irão para a fila de processamento.",
+          },
+          {
+            question: "Como acompanho o andamento?",
+            answer:
+              "Na seção Análises, a coluna Estado mostra o andamento. Quando a análise terminar, aparecerá Concluído. Após a conclusão das análises, enviaremos um e-mail avisando que a análise foi concluída. Os valores de status são: Pendente, Em Execução, Falhou e Concluído.",
+          },
+          {
+            question: "Como funciona a identificação de espécie?",
+            answer:
+              "O sistema usa o arquivo de contigs montados como entrada para o programa Kraken2 e, para os complexos A. baumannii-calcoaceticus, E. cloacae e K. pneumoniae, confirma a espécie e subespécie com o FastANI.",
+          },
+          {
+            question: "Por que apareceram duas espécies no resultado?",
+            answer:
+              "Quando a contaminação estimada é maior que 5%, o CABGen mostra as duas espécies mais representativas, com o número de reads atribuído a cada uma. Isso indica uma possível amostra mista ou contaminada e deve ser avaliado com cuidado.",
+          },
+        ],
+      },
+      {
+        heading: "Resultados e downloads",
+        items: [
+          {
+            question: "Como visualizo os resultados?",
+            answer:
+              "Em Análises, quando o status estiver Concluído, clique no ícone de olho na coluna Ações. Abrirá a página com todos os resultados da amostra.",
+          },
+          {
+            question: "O que aparece na página de resultados?",
+            answer:
+              "- FastQC: links para os relatórios de qualidade das reads (FastQC 1 e FastQC 2).\n- Genômica: completude, N50, tamanho do genoma, cobertura e contaminação.\n- Espécies: espécie identificada, espécie secundária e MLST.\n- Virulência e resistência: genes de resistência adquirida, mutações associadas à polimixina, outras mutações, plasmídeos e fatores de virulência.",
+          },
+        ],
+      },
+    ],
+  },
   General: {
     showPassword: "Mostrar senha",
     hidePassword: "Ocultar senha",
