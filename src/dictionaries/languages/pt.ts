@@ -437,6 +437,60 @@ const pt = {
       },
     ],
   },
+  TermsOfUse: {
+    title: "Termos de Uso",
+    subtitle: "CABGen – Fiocruz",
+    sections: [
+      {
+        heading: "1. Apresentação e Aceitação",
+        paragraphs: [
+          "O CABGen é uma plataforma digital desenvolvida no âmbito da Fundação Oswaldo Cruz (Fiocruz) para apoio à pesquisa científica e à vigilância em saúde. Ao acessar, cadastrar-se ou utilizar o CABGen, o usuário declara concordar expressamente com os presentes Termos de Uso e com a Política de Privacidade da plataforma. Caso não concorde com qualquer condição, o uso do sistema deve ser interrompido imediatamente.",
+        ],
+      },
+      {
+        heading: "2. Natureza da Ferramenta e Uso Científico",
+        paragraphs: [
+          "O CABGen é disponibilizado como uma ferramenta computacional de suporte analítico e técnico para pesquisadores, profissionais de saúde e instituições autorizadas.",
+          "Os resultados gerados pelas análises automatizadas têm caráter de suporte à pesquisa e à vigilância, cabendo aos usuários a validação técnico-científica final das informações obtidas.",
+        ],
+      },
+      {
+        heading: "3. Propriedade Intelectual e Créditos",
+        paragraphs: [
+          "Todo o código-fonte, design, logotipos, marcas institucionais e estruturas de dados desenvolvidos para o CABGen pertencem à Fiocruz, sendo protegidos pelas leis de propriedade intelectual aplicáveis.",
+          "Créditos de mídia: Fotografias, ilustrações e demais recursos visuais utilizados na plataforma contam com autorização de uso concedida por seus respectivos titulares. A imagem da personagem Teri, da obra Confissões de uma bactéria, é utilizada mediante autorização concedida pela Dra. Ana Paula D’Alincourt Carvalho Assef. Os direitos autorais das imagens permanecem pertencentes aos seus respectivos titulares, sendo vedada a reutilização ou reprodução desses elementos gráficos fora do contexto da plataforma CABGen sem prévia autorização dos titulares dos direitos.",
+        ],
+      },
+      {
+        heading: "4. Conduta do Usuário e Segurança da Informação",
+        paragraphs: ["O usuário se compromete a:"],
+        items: [
+          "Utilizar a plataforma exclusivamente para fins lícitos, acadêmicos, científicos ou institucionais.",
+          "Manter a confidencialidade de suas credenciais de acesso (login e senha), não as compartilhando com terceiros.",
+          "Abster-se de tentar burlar mecanismos de segurança, sobrecarregar a infraestrutura da plataforma ou utilizar scripts automatizados não autorizados (como web scraping malicioso).",
+        ],
+      },
+      {
+        heading: "5. Limitação de Responsabilidade",
+        paragraphs: [
+          "A Fiocruz empenha-se para manter o CABGen funcional e seguro, mas não garante que o sistema operará sem interrupções, falhas ou erros pontuais.",
+          "A instituição não se responsabiliza por danos diretos ou indiretos decorrentes do uso inadequado da ferramenta, de falhas de conectividade do usuário ou de interpretações incorretas dos resultados analíticos gerados.",
+        ],
+      },
+      {
+        heading: "6. Alterações nos Termos",
+        paragraphs: [
+          "Estes Termos de Uso poderão ser atualizados periodicamente para refletir melhorias no sistema ou exigências legais. A continuidade do uso após as alterações implica aceitação da nova versão.",
+        ],
+      },
+      {
+        heading: "7. Legislação Aplicável e Foro",
+        paragraphs: [
+          "Estes termos são regidos pelas leis da República Federativa do Brasil. Quaisquer litígios decorrentes de sua aplicação serão submetidos ao Foro da Justiça Federal – Seção Judiciária do Rio de Janeiro.",
+        ],
+      },
+    ],
+  },
   General: {
     showPassword: "Mostrar senha",
     hidePassword: "Ocultar senha",

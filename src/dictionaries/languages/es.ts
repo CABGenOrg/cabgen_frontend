@@ -444,6 +444,60 @@ const es = {
       },
     ],
   },
+  TermsOfUse: {
+    title: "Términos de Uso",
+    subtitle: "CABGen – Fiocruz",
+    sections: [
+      {
+        heading: "1. Presentación y Aceptación",
+        paragraphs: [
+          "El CABGen es una plataforma digital desarrollada en el ámbito de la Fundação Oswaldo Cruz (Fiocruz) para apoyo a la investigación científica y a la vigilancia en salud. Al acceder, registrarse o utilizar el CABGen, el usuario declara estar de acuerdo expresamente con estos Términos de Uso y con la Política de Privacidad de la plataforma. Si no está de acuerdo con alguna condición, el uso del sistema debe interrumpirse inmediatamente.",
+        ],
+      },
+      {
+        heading: "2. Naturaleza de la Herramienta y Uso Científico",
+        paragraphs: [
+          "El CABGen se pone a disposición como una herramienta computacional de soporte analítico y técnico para investigadores, profesionales de salud e instituciones autorizadas.",
+          "Los resultados generados por los análisis automatizados tienen carácter de soporte a la investigación y a la vigilancia, y corresponde a los usuarios la validación técnico-científica final de la información obtenida.",
+        ],
+      },
+      {
+        heading: "3. Propiedad Intelectual y Créditos",
+        paragraphs: [
+          "Todo el código fuente, diseño, logotipos, marcas institucionales y estructuras de datos desarrollados para el CABGen pertenecen a la Fiocruz y están protegidos por las leyes de propiedad intelectual aplicables.",
+          "Créditos de medios: Las fotografías, ilustraciones y demás recursos visuales utilizados en la plataforma cuentan con autorización de uso concedida por sus respectivos titulares. La imagen de la personagem Teri, de la obra Confissões de uma bactéria, se utiliza mediante autorización concedida por la Dra. Ana Paula D’Alincourt Carvalho Assef. Los derechos de autor de las imágenes permanecen perteneciendo a sus respectivos titulares, y se prohíbe la reutilización o reproducción de estos elementos gráficos fuera del contexto de la plataforma CABGen sin autorización previa de los titulares de los derechos.",
+        ],
+      },
+      {
+        heading: "4. Conducta del Usuario y Seguridad de la Información",
+        paragraphs: ["El usuario se compromete a:"],
+        items: [
+          "Utilizar la plataforma exclusivamente para fines lícitos, académicos, científicos o institucionales.",
+          "Mantener la confidencialidad de sus credenciales de acceso (usuario y contraseña), no compartiéndolas con terceros.",
+          "Abstenerse de intentar burlar mecanismos de seguridad, sobrecargar la infraestructura de la plataforma o utilizar scripts automatizados no autorizados (como web scraping malicioso).",
+        ],
+      },
+      {
+        heading: "5. Limitación de Responsabilidad",
+        paragraphs: [
+          "La Fiocruz se esfuerza por mantener el CABGen funcional y seguro, pero no garantiza que el sistema operará sin interrupciones, fallas o errores puntuales.",
+          "La institución no se responsabiliza por daños directos o indirectos derivados del uso inadecuado de la herramienta, de fallas de conectividad del usuario o de interpretaciones incorrectas de los resultados analíticos generados.",
+        ],
+      },
+      {
+        heading: "6. Cambios en los Términos",
+        paragraphs: [
+          "Estos Términos de Uso podrán actualizarse periódicamente para reflejar mejoras en el sistema o exigencias legales. La continuidad del uso después de los cambios implica la aceptación de la nueva versión.",
+        ],
+      },
+      {
+        heading: "7. Legislación Aplicable y Foro",
+        paragraphs: [
+          "Estos términos están regidos por las leyes de la República Federativa del Brasil. Cualquier litigio derivado de su aplicación se someterá al Foro de la Justicia Federal – Sección Judicial del Río de Janeiro.",
+        ],
+      },
+    ],
+  },
   General: {
     showPassword: "Mostrar contraseña",
     hidePassword: "Ocultar contraseña",

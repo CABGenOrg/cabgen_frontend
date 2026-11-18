@@ -11,7 +11,7 @@ const Footer = ({ lang }: { lang: Locale }) => {
 
   const links = [
     { name: Footer.faqLink, url: "/faq", disabled: false },
-    { name: Footer.termLink, url: "/terms-of-use", disabled: true },
+    { name: Footer.termLink, url: "/terms-of-use", disabled: false },
     { name: Footer.imageCredits, url: "/image-credits", disabled: true },
   ];
 
