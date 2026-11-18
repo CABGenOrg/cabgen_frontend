@@ -40,9 +40,7 @@ let isLoggingOut = false;
 
 const isPublicRoute = () => {
   if (typeof window === "undefined") return false;
-  return ["/login", "/register"].some((p) =>
-    window.location.pathname.includes(p),
-  );
+  return !window.location.pathname.includes("/account");
 };
 
 const forceLogoutAndRedirect = async (
