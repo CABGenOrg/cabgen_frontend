@@ -259,7 +259,7 @@ const en = {
   Footer: {
     faqLink: "FAQ",
     termLink: "Terms of Use",
-    imageCredits: "Image Credit",
+    privacyPolicy: "Privacy Policy",
   },
   FAQ: {
     title: "FAQ",
@@ -486,6 +486,75 @@ const en = {
         ],
       },
     ],
+  },
+  PrivacyPolicy: {
+    title: "Privacy Policy",
+    subtitle: "CABGen – Fiocruz",
+    sections: [
+      {
+        heading: "1. Commitment to Privacy",
+        paragraphs: [
+          "Fiocruz values the privacy and protection of its users' personal data, in accordance with the Brazilian General Data Protection Law (LGPD – Law No. 13,709/2018). This Privacy Policy describes what information is collected in CABGen, how it is processed, and what rights users have.",
+        ],
+      },
+      {
+        heading: "2. Data Collected",
+        paragraphs: [
+          "For the operation and access control of CABGen, we may collect:",
+        ],
+        items: [
+          "Registration data: Name, institutional email, affiliation institution and access credentials provided at registration or authentication.",
+          "Browsing and log data: IP address, access records (date and time), browser type and visited pages, used strictly for information security and technical audit purposes.",
+          "Research data: Genomic sequences, metadata or files submitted by the user for analytical processing (when applicable to the scope of the tool).",
+        ],
+      },
+      {
+        heading: "3. Purpose of Data Processing",
+        paragraphs: ["The collected data are used exclusively to:"],
+        items: [
+          "Authenticate user access and manage permissions on the platform.",
+          "Provide technical support and enable institutional communication with researchers.",
+          "Ensure the security of the information technology infrastructure.",
+          "Perform aggregated and anonymized statistical analyses on platform usage for continuous service improvement.",
+        ],
+      },
+      {
+        heading: "4. Sharing of Information",
+        paragraphs: [
+          "Users' personal data are not sold, assigned or shared with third parties for commercial or advertising purposes. Sharing may occur only:",
+        ],
+        items: [
+          "Between the authorized Fiocruz technical team responsible for project maintenance.",
+          "By legal determination, court order or request from competent authorities.",
+        ],
+      },
+      {
+        heading: "5. Information Security",
+        paragraphs: [
+          "Fiocruz adopts technical, administrative and information security safeguards compatible with the standards of the federal public administration to protect data against unauthorized access, loss, alteration or leakage.",
+        ],
+      },
+      {
+        heading: "6. Data Subject Rights (LGPD)",
+        paragraphs: [
+          "In accordance with the LGPD, users have the right to request at any time:",
+        ],
+        items: [
+          "Confirmation of the existence of processing of their data.",
+          "Access to the registered data.",
+          "Correction of incomplete, inaccurate or outdated data.",
+          "Deletion of personal data (subject to the institution's legal record-keeping obligations).",
+        ],
+      },
+      {
+        heading: "7. Contact",
+        paragraphs: [
+          "For questions, requests or exercising rights related to this Privacy Policy, please contact the CABGen management team through the platform's contact form.",
+        ],
+      },
+    ],
+    contactHint: "Have questions or want to exercise your rights?",
+    contactLink: "Contact",
   },
   General: {
     showPassword: "Show password",

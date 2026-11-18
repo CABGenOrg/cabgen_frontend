@@ -269,8 +269,8 @@ const es = {
   },
   Footer: {
     faqLink: "FAQ",
-    termLink: "Terminos de Uso",
-    imageCredits: "Crédito de Imagen",
+    termLink: "Términos de Uso",
+    privacyPolicy: "Política de Privacidad",
   },
   FAQ: {
     title: "FAQ",
@@ -497,6 +497,77 @@ const es = {
         ],
       },
     ],
+  },
+  PrivacyPolicy: {
+    title: "Política de Privacidad",
+    subtitle: "CABGen – Fiocruz",
+    sections: [
+      {
+        heading: "1. Compromiso con la Privacidad",
+        paragraphs: [
+          "La Fiocruz valora la privacidad y la protección de los datos personales de sus usuarios, en conformidad con la Ley General de Protección de Datos (LGPD – Ley nº 13.709/2018). Esta Política de Privacidad describe qué información se recoge en el CABGen, cómo se trata y cuáles son los derechos de los usuarios.",
+        ],
+      },
+      {
+        heading: "2. Datos Recogidos",
+        paragraphs: [
+          "Para el funcionamiento y control de acceso del CABGen, podemos recoger:",
+        ],
+        items: [
+          "Datos de registro: Nombre, correo institucional, institución de vinculación y credenciales de acceso proporcionados en el momento del registro o de la autenticación.",
+          "Datos de navegación y registros: Dirección IP, registros de acceso (fecha y hora), tipo de navegador y páginas visitadas, utilizados estrictamente para fines de seguridad de la información y auditoría técnica.",
+          "Datos de investigación: Secuencias genómicas, metadatos o archivos enviados por el usuario para procesamiento analítico (cuando sea aplicable al alcance de la herramienta).",
+        ],
+      },
+      {
+        heading: "3. Finalidad del Tratamiento de los Datos",
+        paragraphs: [
+          "Los datos recogidos se utilizan exclusivamente para:",
+        ],
+        items: [
+          "Autenticar el acceso del usuario y gestionar permisos en la plataforma.",
+          "Prestar soporte técnico y viabilizar la comunicación institucional con los investigadores.",
+          "Garantizar la seguridad de la infraestructura de tecnología de la información.",
+          "Realizar análisis estadísticos agregados y anonimizados sobre el uso de la plataforma para la mejora continua de los servicios.",
+        ],
+      },
+      {
+        heading: "4. Compartición de Información",
+        paragraphs: [
+          "Los datos personales de los usuarios no se comercializan, ceden ni comparten con terceros para fines comerciales o publicitarios. La compartición podrá ocurrir solo:",
+        ],
+        items: [
+          "Entre el equipo técnico autorizado de la Fiocruz responsable del mantenimiento del proyecto.",
+          "Por determinación legal, orden judicial o solicitud de autoridades competentes.",
+        ],
+      },
+      {
+        heading: "5. Seguridad de la Información",
+        paragraphs: [
+          "La Fiocruz adopta salvaguardas técnicas, administrativas y de seguridad de la información compatibles con los estándares de la administración pública federal para proteger los datos contra accesos no autorizados, pérdida, alteración o fuga.",
+        ],
+      },
+      {
+        heading: "6. Derechos de los Titulares (LGPD)",
+        paragraphs: [
+          "De acuerdo con la LGPD, el usuario tiene derecho a solicitar en cualquier momento:",
+        ],
+        items: [
+          "La confirmación de la existencia de tratamiento de sus datos.",
+          "El acceso a los datos registrados.",
+          "La corrección de datos incompletos, inexactos o desactualizados.",
+          "La eliminación de datos personales (observadas las obligaciones legales de guarda documental de la institución).",
+        ],
+      },
+      {
+        heading: "7. Contacto",
+        paragraphs: [
+          "Para dudas, solicitudes o ejercicio de derechos relacionados con esta Política de Privacidad, comuníquese con el equipo gestor del CABGen a través del formulario de contacto de la plataforma.",
+        ],
+      },
+    ],
+    contactHint: "¿Tiene preguntas o desea ejercer alguno de sus derechos?",
+    contactLink: "Contacto",
   },
   General: {
     showPassword: "Mostrar contraseña",

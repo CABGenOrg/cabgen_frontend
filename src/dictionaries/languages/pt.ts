@@ -263,7 +263,7 @@ const pt = {
   Footer: {
     faqLink: "FAQ",
     termLink: "Termos de Uso",
-    imageCredits: "Créditos das Imagens",
+    privacyPolicy: "Política de Privacidade",
   },
   FAQ: {
     title: "FAQ",
@@ -490,6 +490,71 @@ const pt = {
         ],
       },
     ],
+  },
+  PrivacyPolicy: {
+    title: "Política de Privacidade",
+    subtitle: "CABGen – Fiocruz",
+    sections: [
+      {
+        heading: "1. Compromisso com a Privacidade",
+        paragraphs: [
+          "A Fiocruz valoriza a privacidade e a proteção dos dados pessoais de seus usuários, em conformidade com a Lei Geral de Proteção de Dados (LGPD – Lei nº 13.709/2018). Esta Política de Privacidade descreve quais informações são coletadas no CABGen, como são tratadas e quais são os direitos dos usuários.",
+        ],
+      },
+      {
+        heading: "2. Dados Coletados",
+        paragraphs: ["Para o funcionamento e controle de acesso do CABGen, podemos coletar:"],
+        items: [
+          "Dados Cadastrais: Nome, e-mail institucional, instituição de vínculo e credenciais de acesso fornecidas no momento do cadastro ou autenticação.",
+          "Dados de Navegação e Logs: Endereço IP, registros de acesso (data e hora), tipo de navegador e páginas visitadas, utilizados estritamente para fins de segurança da informação e auditoria técnica.",
+          "Dados de Pesquisa: Sequências genômicas, metadados ou arquivos submetidos pelo usuário para processamento analítico (quando aplicável ao escopo da ferramenta).",
+        ],
+      },
+      {
+        heading: "3. Finalidade do Tratamento dos Dados",
+        paragraphs: ["Os dados coletados são utilizados exclusivamente para:"],
+        items: [
+          "Autenticar o acesso do usuário e gerenciar permissões na plataforma.",
+          "Prestar suporte técnico e viabilizar a comunicação institucional com os pesquisadores.",
+          "Garantir a segurança da infraestrutura de tecnologia da informação.",
+          "Realizar análises estatísticas agregadas e anonimizadas sobre o uso da plataforma para melhoria contínua dos serviços.",
+        ],
+      },
+      {
+        heading: "4. Compartilhamento de Informações",
+        paragraphs: [
+          "Os dados pessoais dos usuários não são comercializados, cedidos ou compartilhados com terceiros para fins comerciais ou publicitários. O compartilhamento poderá ocorrer apenas:",
+        ],
+        items: [
+          "Entre a equipe técnica autorizada da Fiocruz responsável pela manutenção do projeto.",
+          "Por determinação legal, ordem judicial ou requisição de autoridades competentes.",
+        ],
+      },
+      {
+        heading: "5. Segurança da Informação",
+        paragraphs: [
+          "A Fiocruz adota salvaguardas técnicas, administrativas e de segurança da informação compatíveis com os padrões da administração pública federal para proteger os dados contra acessos não autorizados, perda, alteração ou vazamento.",
+        ],
+      },
+      {
+        heading: "6. Direitos dos Titulares (LGPD)",
+        paragraphs: ["Conforme a LGPD, o usuário tem direito a solicitar a qualquer momento:"],
+        items: [
+          "A confirmação da existência de tratamento de seus dados.",
+          "O acesso aos dados cadastrados.",
+          "A correção de dados incompletos, inexatos ou desatualizados.",
+          "A exclusão de dados pessoais (observadas as obrigações legais de guarda documental da instituição).",
+        ],
+      },
+      {
+        heading: "7. Contato",
+        paragraphs: [
+          "Para dúvidas, solicitações ou exercício de direitos relacionados a esta Política de Privacidade, entre em contato com a equipe gestora do CABGen através do formulário de contato da plataforma.",
+        ],
+      },
+    ],
+    contactHint: "Tem dúvidas ou quer exercer algum direito?",
+    contactLink: "Contato",
   },
   General: {
     showPassword: "Mostrar senha",
