@@ -31,6 +31,8 @@ const TermsOfUsePage = async ({
         title={TermsOfUse.title}
         subtitle={TermsOfUse.subtitle}
         sections={TermsOfUse.sections}
+        privacyHint={TermsOfUse.privacyHint}
+        privacyLink={TermsOfUse.privacyLink}
       />
     </Section>
   );

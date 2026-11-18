@@ -452,12 +452,13 @@ const pt = {
         paragraphs: [
           "O CABGen é disponibilizado como uma ferramenta computacional de suporte analítico e técnico para pesquisadores, profissionais de saúde e instituições autorizadas.",
           "Os resultados gerados pelas análises automatizadas têm caráter de suporte à pesquisa e à vigilância, cabendo aos usuários a validação técnico-científica final das informações obtidas.",
+          "O usuário mantém a titularidade dos dados enviados e concede ao CABGen autorização para processamento analítico.",
         ],
       },
       {
         heading: "3. Propriedade Intelectual e Créditos",
         paragraphs: [
-          "Todo o código-fonte, design, logotipos, marcas institucionais e estruturas de dados desenvolvidos para o CABGen pertencem à Fiocruz, sendo protegidos pelas leis de propriedade intelectual aplicáveis.",
+          "Todo o código-fonte próprio, design, logotipos, marcas institucionais e estruturas de dados desenvolvidos para o CABGen pertencem à Fiocruz, sendo protegidos pelas leis de propriedade intelectual aplicáveis.",
           "Créditos de mídia: Fotografias, ilustrações e demais recursos visuais utilizados na plataforma contam com autorização de uso concedida por seus respectivos titulares. A imagem da personagem Teri, da obra Confissões de uma bactéria, é utilizada mediante autorização concedida pela Dra. Ana Paula D’Alincourt Carvalho Assef. Os direitos autorais das imagens permanecem pertencentes aos seus respectivos titulares, sendo vedada a reutilização ou reprodução desses elementos gráficos fora do contexto da plataforma CABGen sem prévia autorização dos titulares dos direitos.",
         ],
       },
@@ -490,6 +491,8 @@ const pt = {
         ],
       },
     ],
+    privacyHint: "Conheça também a Política de Privacidade:",
+    privacyLink: "Política de Privacidade",
   },
   PrivacyPolicy: {
     title: "Política de Privacidade",
@@ -508,6 +511,7 @@ const pt = {
           "Dados Cadastrais: Nome, e-mail institucional, instituição de vínculo e credenciais de acesso fornecidas no momento do cadastro ou autenticação.",
           "Dados de Navegação e Logs: Endereço IP, registros de acesso (data e hora), tipo de navegador e páginas visitadas, utilizados estritamente para fins de segurança da informação e auditoria técnica.",
           "Dados de Pesquisa: Sequências genômicas, metadados ou arquivos submetidos pelo usuário para processamento analítico (quando aplicável ao escopo da ferramenta).",
+          "Cookies técnicos: AccessCookie e RefreshCookie (autenticação) e NEXT_LOCALE (preferência de idioma).",
         ],
       },
       {
@@ -517,7 +521,7 @@ const pt = {
           "Autenticar o acesso do usuário e gerenciar permissões na plataforma.",
           "Prestar suporte técnico e viabilizar a comunicação institucional com os pesquisadores.",
           "Garantir a segurança da infraestrutura de tecnologia da informação.",
-          "Realizar análises estatísticas agregadas e anonimizadas sobre o uso da plataforma para melhoria contínua dos serviços.",
+          "Realizar análises agregadas de uso, quando aplicável, para melhoria contínua dos serviços.",
         ],
       },
       {

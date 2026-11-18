@@ -459,12 +459,13 @@ const es = {
         paragraphs: [
           "El CABGen se pone a disposición como una herramienta computacional de soporte analítico y técnico para investigadores, profesionales de salud e instituciones autorizadas.",
           "Los resultados generados por los análisis automatizados tienen carácter de soporte a la investigación y a la vigilancia, y corresponde a los usuarios la validación técnico-científica final de la información obtenida.",
+          "El usuario mantiene la titularidad de los datos enviados y otorga al CABGen autorización para procesamiento analítico.",
         ],
       },
       {
         heading: "3. Propiedad Intelectual y Créditos",
         paragraphs: [
-          "Todo el código fuente, diseño, logotipos, marcas institucionales y estructuras de datos desarrollados para el CABGen pertenecen a la Fiocruz y están protegidos por las leyes de propiedad intelectual aplicables.",
+          "Todo el código fuente desarrollado para el CABGen, así como su diseño, logotipos, marcas institucionales y estructuras de datos, pertenecen a la Fiocruz y están protegidos por las leyes de propiedad intelectual aplicables.",
           "Créditos de medios: Las fotografías, ilustraciones y demás recursos visuales utilizados en la plataforma cuentan con autorización de uso concedida por sus respectivos titulares. La imagen de la personagem Teri, de la obra Confissões de uma bactéria, se utiliza mediante autorización concedida por la Dra. Ana Paula D’Alincourt Carvalho Assef. Los derechos de autor de las imágenes permanecen perteneciendo a sus respectivos titulares, y se prohíbe la reutilización o reproducción de estos elementos gráficos fuera del contexto de la plataforma CABGen sin autorización previa de los titulares de los derechos.",
         ],
       },
@@ -497,6 +498,8 @@ const es = {
         ],
       },
     ],
+    privacyHint: "Conozca también la Política de Privacidad:",
+    privacyLink: "Política de Privacidad",
   },
   PrivacyPolicy: {
     title: "Política de Privacidad",
@@ -517,6 +520,7 @@ const es = {
           "Datos de registro: Nombre, correo institucional, institución de vinculación y credenciales de acceso proporcionados en el momento del registro o de la autenticación.",
           "Datos de navegación y registros: Dirección IP, registros de acceso (fecha y hora), tipo de navegador y páginas visitadas, utilizados estrictamente para fines de seguridad de la información y auditoría técnica.",
           "Datos de investigación: Secuencias genómicas, metadatos o archivos enviados por el usuario para procesamiento analítico (cuando sea aplicable al alcance de la herramienta).",
+          "Cookies técnicas: AccessCookie y RefreshCookie (autenticación) y NEXT_LOCALE (preferencia de idioma).",
         ],
       },
       {
@@ -528,7 +532,7 @@ const es = {
           "Autenticar el acceso del usuario y gestionar permisos en la plataforma.",
           "Prestar soporte técnico y viabilizar la comunicación institucional con los investigadores.",
           "Garantizar la seguridad de la infraestructura de tecnología de la información.",
-          "Realizar análisis estadísticos agregados y anonimizados sobre el uso de la plataforma para la mejora continua de los servicios.",
+          "Realizar análisis agregados de uso, cuando corresponda, para la mejora continua de los servicios.",
         ],
       },
       {

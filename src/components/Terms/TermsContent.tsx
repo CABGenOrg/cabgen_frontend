@@ -1,5 +1,7 @@
 import React from "react";
+import CustomLink from "@/components/General/CustomLink";
 import {
+  section_btn,
   section_subtitle,
   section_title,
   section_text,
@@ -15,12 +17,16 @@ interface TermsContentProps {
   title: string;
   subtitle?: string;
   sections: TermsSection[];
+  privacyHint: string;
+  privacyLink: string;
 }
 
 const TermsContent = ({
   title,
   subtitle,
   sections,
+  privacyHint,
+  privacyLink,
 }: TermsContentProps) => {
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -47,6 +53,13 @@ const TermsContent = ({
             )}
           </section>
         ))}
+
+        <p className={section_text}>{privacyHint}</p>
+        <div className="flex justify-center mt-4">
+          <CustomLink href="/privacy-policy" className={section_btn}>
+            {privacyLink}
+          </CustomLink>
+        </div>
       </div>
     </div>
   );
