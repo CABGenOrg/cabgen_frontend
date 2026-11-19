@@ -2,6 +2,7 @@ import React from "react";
 import CustomLink from "@/components/General/CustomLink";
 import {
   section_btn,
+  section_spacing,
   section_subtitle,
   section_title,
   section_text,
@@ -29,7 +30,7 @@ const PrivacyContent = ({
   contactLink,
 }: PrivacyContentProps) => {
   return (
-    <div className="w-full max-w-3xl mx-auto">
+    <div className={`${section_spacing} xl:max-w-3xl`}>
       <h1 className={`${section_title} text-center mb-2`}>{title}</h1>
       {subtitle && (
         <p className="text-center text-muted-foreground mb-10">{subtitle}</p>
